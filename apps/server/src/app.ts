@@ -49,6 +49,9 @@ export function buildApp({ logger = false, auth = configFromEnv(), store }: { lo
       ANTHROPIC_API_KEY: Boolean(process.env.ANTHROPIC_API_KEY),
       RAILWAY_SERVICE: process.env.RAILWAY_SERVICE_NAME ?? null,
       RAILWAY_ENV: process.env.RAILWAY_ENVIRONMENT_NAME ?? null,
+      commit: (process.env.RAILWAY_GIT_COMMIT_SHA ?? "").slice(0, 7) || null,
+      // anahtar benzeri değişken ADLARI (değer asla gösterilmez) — ad yazımı teşhisi için
+      anahtarAdlari: Object.keys(process.env).filter((k) => /vibe|anthropic|claude/i.test(k)).sort(),
     },
   }));
   app.get("/api/roadmap", async () => json("roadmap.json"));
