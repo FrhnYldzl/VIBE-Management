@@ -5,7 +5,11 @@ Repo: `FrhnYldzl/VIBE-Management` · dal: `main` · servis: `apps/server` (Fasti
 
 ## 1. Proje ve servis
 1. railway.com → **New Project → Deploy from GitHub repo** → `FrhnYldzl/VIBE-Management`, dal `main`.
-2. İlk deploy başlar; Variables girilmeden **kimlik yapılandırma hatası** verir (beklenen). Önce §2'yi tamamlayın.
+2. Railway monorepo'yu görüp **üç servis** üretebilir (`@vibe/server`, `@vibe/api`, `@vibe/web`). Yalnız **`@vibe/server`** kalır;
+   `@vibe/api` ve `@vibe/web` (Mr. F konsolu, v1 kapsamı dışı) servislerini silin. Root Directory boş (repo kökü), start `npm start`.
+3. İlk deploy Variables girilmeden **kimlik yapılandırma hatası** verir (beklenen). Önce §2–3'ü tamamlayın.
+4. Build: Nixpacks bağımlılıkları kendisi kurar; `railway.json`'da **buildCommand yok** (ikinci `npm ci` cache mount ile çakışıp
+   `EBUSY … node_modules/.cache` / exit 240 veriyordu — 2026-10-18'de kaldırıldı). Sunucu `tsx` ile kaynaktan çalışır, derleme gerekmez.
 
 ## 2. Volume (paylaşımlı durum için)
 Servis → **Volumes → Add Volume** → mount path: `/data`. (Yoksa durum çipleri ve Vibe oturumları her deploy'da sıfırlanır.)
