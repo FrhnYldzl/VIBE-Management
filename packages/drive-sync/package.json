@@ -1,0 +1,9 @@
+{
+  "name": "@vibe/drive-sync",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "description": "Google Drive Data Room tarayıcı — service account, klasör listesi, müvekkil .data.js okuyucu, durum önerileri",
+  "main": "index.mjs",
+  "exports": { ".": "./index.mjs" }
+}
