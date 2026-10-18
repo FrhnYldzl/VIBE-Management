@@ -462,6 +462,9 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
   <div class="navsec"><div class="h top">Kurumsal Yönetim Panelleri · Juris</div>
     <button class="ni" data-view="p-onscala"><span class="k">ON</span><span class="t">Onscala</span><span class="pct">Danışmanlık</span></button>
     <button class="ni" data-view="p-codemag"><span class="k">CM</span><span class="t">Codemag</span><span class="pct">Danışmanlık</span></button>
+    <button class="ni" data-view="p-zyrone"><span class="k">ZY</span><span class="t">Zyrone</span><span class="pct">Danışmanlık</span></button>
+    <button class="ni" data-view="p-qervan"><span class="k">QW</span><span class="t">Qervan – WeTrade</span><span class="pct">Danışmanlık</span></button>
+    <button class="ni" data-view="p-meown"><span class="k">MW</span><span class="t">Meown AI</span><span class="pct">Danışmanlık</span></button>
   </div>
   <div class="navfoot">Kaynak sistemler: Notion <b>MTFG Ana Merkezi / Command Center</b> (süreç) · Google Drive (belge) · Mail (iletişim). Belgesiz değer <b>beyan</b> olarak işaretlenir.</div>
 </nav>
@@ -753,7 +756,7 @@ const CRIT = [
 ];
 const FUNNEL = [
   {s:"Müvekkil", def:"Hukuk hizmeti alan ilişki. Giriş kapısı Juris.", items:[["Ones","Hukuk"],["ERC","Hukuk"],["Ave","Hukuk"],["Rebelstar?","Hukuk"],["Tetakı?","Hukuk"]]},
-  {s:"Kurumsal Yönetim", def:"Hizmet planı + Data Room ile sürekli danışmanlık; Juris Kurumsal Yönetim Paneli devrede.", items:[["Onscala","Panel aktif","p-onscala"],["Codemag","Panel aktif","p-codemag"],["Qervan–WeTrade","Panel (ayrı)"],["Meanm?","Danışmanlık"],["Kanonel?","Danışmanlık"]]},
+  {s:"Kurumsal Yönetim", def:"Hizmet planı + Data Room ile sürekli danışmanlık; Juris Kurumsal Yönetim Paneli devrede.", items:[["Onscala","Panel aktif","p-onscala"],["Codemag","Panel aktif","p-codemag"],["Zyrone","Panel aktif","p-zyrone"],["Qervan–WeTrade","Panel aktif","p-qervan"],["Meown AI","Panel aktif","p-meown"],["Meanm?","Danışmanlık"],["Kanonel?","Danışmanlık"]]},
   {s:"Ortaklık / Opsiyon", def:"Kurucu ortaklık, stock option veya hizmet karşılığı pay ile değer biriktirme.", items:[["Onscala","Danışman / opsiyon"],["Ariwon","%50 (doğrulanacak)"],["Katalist PMO","Pay tanımsız"]]},
   {s:"Venture / Portföy", def:"MTFG'nin kurucu veya çoğunluk ortak olduğu, Command Center'da varlık olarak izlenen işler.", items:[["Juris","%100"],["Fevup","%44,1"],["Marqby","%44,1"],["D2-X","%100"],["Meridyen","%100"]]},
 ];
@@ -791,6 +794,12 @@ const PANELS = {
     fallback:"Onscala: kick-off 22.10.2025, 11 tutanak. 13.10.2026 toplantısı: 14 aksiyon (6 kritik: borç bütçesi, borç nakit akışı, borç protokolü, Onscala–Çağrı–Nadda cari hesapları, vergi borcu ~2 mn TL, muhasebe mutabakatı), 8 karar bekliyor (2027 ciro senaryosu 40/55/80 mn TL dahil). Toplam borç 36,54 mn TL, aylık ~385k TL borç servisi. Kritik riskler: pay sahipliği sözleşmesi (R1), ortak cari hesap (R2), vergi borcu (R4), nakit akışı (R11). DD klasörü boş."},
   codemag:{name:"Codemag", file:"codemag.html", entity:"Codemag Yazılım Hizmetleri Ltd. Şti.", since:"04.09.2026", facts:["22 aksiyon","80k TL/ay","128+ hat","Data Room boş"], line:"Serileştirme ve track & trace. Öncelik: 2027 proje bazlı bütçe ve standart proje paketi.",
     fallback:"Codemag: kick-off 04.09.2026, 22 aksiyon, 16 karar; danışmanlık 80.000 TL/ay. Data Room A–F 16.10.2026'da açıldı, müvekkil belgesi yok. Codemag'dan beklenen: 2027 proje bazlı bütçe, standart proje paketi, örnek proje dokümantasyonu, ödeme planı, task sistemi. Juris'ten beklenen: bütçe/nakit akışı formatları, İş Modeli Bilgi Notu + Soru Seti, İK soru seti. Riskler: standart belge zinciri yok (R1), leasing temerrüt yapısı (R3), proje P&L yok (R8)."},
+  zyrone:{name:"Zyrone", file:"zyrone.html", entity:"Zyrone Dynamics Havacılık Danışmanlık ve Arge San. Tic. A.Ş. · Zyrone Tactics", since:"01.04.2026", facts:["2 tüzel kişilik","65k TL/ay","DD 6+ ay","4 açık uyuşmazlık"], line:"Savunma / havacılık İHA Ar-Ge · teknoloji transferi. Öncelik: DD tamamlama ve Dynamics–Tactics reorganizasyonu.",
+    fallback:"Zyrone: sözleşme yürürlüğü 01.04.2026, DD başlangıcı 08.04.2026; danışmanlık 65.000 TL/ay (01.04 – 31.12.2026). Kapsam: yatırım hazırlığı DD (Dynamics + Tactics), kurumsal yapılandırma, genel sözleşme danışmanlığı, uyuşmazlık takibi. 2026'da 2 toplantı (Nisan, Eylül), 13.10 Kalite Toplantısı iptal; teklifteki aylık YK ritmi kurulmadı. Açık: Dynamics–Tactics reorganizasyon dokümanı, DCM Shriram pay edinim belgeleri, güncel imza sirküleri, BDR 2024–2025, teminat mektupları (Teknopark · Roketsan). 4 açık uyuşmazlık: Havelsan · EGM · iş · marka. Data Room A–F boş."},
+  qervan:{name:"Qervan – WeTrade", file:"qervan.html", entity:"Qervan Yazılım Teknoloji A.Ş. · WeTrade Dış Ticaret Ltd. Şti.", since:"15.09.2026", facts:["2 tüzel kişilik","2 haftada 1 toplantı","EK-1 Mali Yapı","Mini KVKK · 51. hafta"], line:"Yazılım + dış ticaret grubu. Öncelik: strateji analizi, hukuki denetim ve KVKK/VERBİS belirsizliği.",
+    fallback:"Qervan – WeTrade Grup: kick-off 15.09.2026 (teklif ve sözleşme 15.06.2026, EK-1 Mali Yapı, Finansman ve Teşvik). Ritim: 2 haftada 1 toplantı, haftada 1 doküman, haftada 1 arama. Kapsam: şirket stratejisi analizi, hukuki denetim ve risk analizi, şirket içi hukuki süreçler, kurumsal yönetim ve organizasyon, uyuşmazlık danışmanlığı. Kişiler: Müvekkil Yönetimi Caner Aslan · Mali Müşavir SMMM Özgür Demir · Yazılım Ekibi EDE TEK · Juris Gülşah Algın, İlayda, Melisa. Riskler arasında KVKK/GDPR ve VERBİS belirsizliği (R7) – Mini KVKK projesi 51. hafta hedefi."},
+  meown:{name:"Meown AI", file:"meown.html", entity:"MEOWNAI Teknoloji Anonim Şirketi", since:"01.10.2026", facts:["Sermaye 335k TL","45k TL/ay","DD 1/14 belge","3 açık dosya"], line:"AI girişimi · kuruluş 03.07.2026. Öncelik: pay yapısı, FM devri ve DD belge seti.",
+    fallback:"Meown AI: MEOWNAI Teknoloji A.Ş., kuruluş 03.07.2026, sermaye 335.000 TL (A %98 · B %2, ödeme teyidi yok). Onboarding 05.08.2026, DD mülakatı 28.09.2026, sözleşme yürürlüğü 01.10.2026 (45.000 TL/ay + KDV + stopaj, 1 yıl; EK-1 başarı bazlı %3). DD 3 hafta: 14 talep edilen belgeden 1'i geldi; ilk hesap dönemi, mizan talep edildi. Açık dosyalar: bilgisayar iadesi · pay yapısı · FM devri. Ağu–Eki 2026'da 9 takvim toplantısı, yalnızca 28.09 mülakatının yazılı çıktısı var; aylık yönetim toplantısı + tutanak ritmi kurulmalı."},
 };
 
 /* ======= MTFG RENDER ======= */
@@ -806,7 +815,7 @@ const bar=(v,col)=>`<div class="meter"><div class="bar"><i style="width:${v||0}%
 const nCo=ASSETS.filter(a=>a.cls==="Şirket").length, nVcp=ASSETS.length-nCo;
 
 function renderHome(){
-  $("#progEnts").innerHTML=`<span class="ent">PE / Family Office</span><span class="ent">${nCo} şirket</span><span class="ent">${nVcp} VCP</span><span class="ent">2 panel</span>`;
+  $("#progEnts").innerHTML=`<span class="ent">PE / Family Office</span><span class="ent">${nCo} şirket</span><span class="ent">${nVcp} VCP</span><span class="ent">${Object.keys(PANELS).length} panel</span>`;
   $("#t-fit").textContent=avg(ASSETS.map(fitScore)).toFixed(1).replace(".",",");
   $("#t-risk").textContent=RISKS.filter(r=>r[3]*r[4]>=16).length;
   const docd=DOCS.filter(d=>d[4]==="belge").length; $("#t-doc").innerHTML=`${Math.round(docd/DOCS.length*100)}<small>%</small>`;
@@ -863,7 +872,7 @@ function renderDocs(){
     DOCS.map(d=>`<tr class="row"><td><span class="code">${d[0]}</span> <span class="sm">${d[1]}</span></td><td class="nm">${d[2]}</td><td class="sm">${d[3]}</td><td>${docPill(d[4])}</td><td class="sm">${d[5]}</td></tr>`).join("");
 }
 
-/* ======= PANEL ÇERÇEVELERİ (Onscala / Codemag) ======= */
+/* ======= PANEL ÇERÇEVELERİ (Onscala / Codemag / Zyrone / Qervan–WeTrade / Meown AI) ======= */
 const frames={};
 function syncTheme(f){try{const t=document.documentElement.getAttribute("data-theme");const r=f.contentDocument.documentElement;t?r.setAttribute("data-theme",t):r.removeAttribute("data-theme");}catch(e){}}
 function ensureFrame(id){
@@ -893,8 +902,8 @@ async function panelData(id){
 }
 
 /* ======= VIBE MANAGEMENT ======= */
-const SCOPES=[["all","Tüm portföy","#E5574F"],["mtfg","MTFG","#F3F1EA"],["onscala","Onscala","#E0A25A"],["codemag","Codemag","#6FA0E0"],["juris","Juris","#5CBF8C"],["fevup","Fevup","#E5574F"],["marqby","Marqby","#6FA0E0"],["d2x","D2-X","#E0A25A"]];
-const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["docs","MTFG Data Room"],["onscala","Onscala paneli"],["codemag","Codemag paneli"]];
+const SCOPES=[["all","Tüm portföy","#E5574F"],["mtfg","MTFG","#F3F1EA"],["onscala","Onscala","#E0A25A"],["codemag","Codemag","#6FA0E0"],["zyrone","Zyrone","#5CBF8C"],["qervan","Qervan–WeTrade","#E0A25A"],["meown","Meown AI","#6FA0E0"],["juris","Juris","#5CBF8C"],["fevup","Fevup","#E5574F"],["marqby","Marqby","#6FA0E0"],["d2x","D2-X","#E0A25A"]];
+const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["docs","MTFG Data Room"],["onscala","Onscala paneli"],["codemag","Codemag paneli"],["zyrone","Zyrone paneli"],["qervan","Qervan–WeTrade paneli"],["meown","Meown AI paneli"]];
 const ALANLAR=[
  ["genel","Genel","Konuya en uygun bakış açısını seç."],
  ["strateji","Strateji","Yatırım tezi (T1–T6), portföy konumlandırması ve odak kararları merceğinden bak; her öneriyi tez kriterine bağla."],
@@ -906,8 +915,15 @@ const ALANLAR=[
  ["finans","Finans","Bütçe, nakit akışı, borç yapısı, bilanço ve mizan merceğinden; rakamları yalnızca veriden al, kaynak belgeyi belirt."],
  ["iletisim","İletişim","Müvekkil ve paydaş iletişimi: e-posta, gündem, tutanak ve hatırlatma formatlarında, kısa ve kurumsal."],
 ];
-let scope="all", alan="genel"; const src={portfolio:true,risks:true,docs:false,onscala:true,codemag:true};
-const SCOPE_SRC={all:{portfolio:1,risks:1,docs:0,onscala:1,codemag:1},mtfg:{portfolio:1,risks:1,docs:1,onscala:0,codemag:0},onscala:{portfolio:0,risks:0,docs:0,onscala:1,codemag:0},codemag:{portfolio:0,risks:0,docs:0,onscala:0,codemag:1},juris:{portfolio:1,risks:1,docs:0,onscala:1,codemag:1},fevup:{portfolio:1,risks:1,docs:0,onscala:0,codemag:0},marqby:{portfolio:1,risks:1,docs:0,onscala:0,codemag:0},d2x:{portfolio:1,risks:1,docs:0,onscala:0,codemag:0}};
+let scope="all", alan="genel"; const src={portfolio:true,risks:true,docs:false,onscala:true,codemag:true,zyrone:true,qervan:true,meown:true};
+/* Panel kaynakları: tek müvekkil kapsamında yalnız o panel; MTFG/portföy kapsamlarında tüm paneller (P) ya da hiçbiri (N) */
+const PANEL_IDS=Object.keys(PANELS);
+const panelSrc=on=>Object.fromEntries(PANEL_IDS.map(id=>[id,on?1:0]));
+const onlyPanel=id=>Object.fromEntries(PANEL_IDS.map(p=>[p,p===id?1:0]));
+const SCOPE_SRC={all:{portfolio:1,risks:1,docs:0,...panelSrc(1)},mtfg:{portfolio:1,risks:1,docs:1,...panelSrc(0)},
+  onscala:{portfolio:0,risks:0,docs:0,...onlyPanel("onscala")},codemag:{portfolio:0,risks:0,docs:0,...onlyPanel("codemag")},
+  zyrone:{portfolio:0,risks:0,docs:0,...onlyPanel("zyrone")},qervan:{portfolio:0,risks:0,docs:0,...onlyPanel("qervan")},meown:{portfolio:0,risks:0,docs:0,...onlyPanel("meown")},
+  juris:{portfolio:1,risks:1,docs:0,...panelSrc(1)},fevup:{portfolio:1,risks:1,docs:0,...panelSrc(0)},marqby:{portfolio:1,risks:1,docs:0,...panelSrc(0)},d2x:{portfolio:1,risks:1,docs:0,...panelSrc(0)}};
 
 const TEMPLATES=[
  {id:"jurisify",cat:"Doküman",art:"a2",gl:"J",lb:"Jurisleştir",title:"Jurisleştir",desc:"Eklediğiniz dokümanı Juris'in kurumsal diline ve yapısına çevirir: başlık düzeni, hukuki netlik, sorumlu ve dayanak satırları.",scope:"juris",alan:"iletisim",out:"Doküman",file:true,
@@ -943,7 +959,9 @@ const COS=[
  ["Juris","m","Yönetim · %100","Notion · Drive · Mail","part","Danışmanlık hattının operatörü"],
  ["Onscala","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-onscala"],
  ["Codemag","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-codemag"],
- ["Qervan–WeTrade","d","Danışmanlık","Panel ayrı artifact'ta","part",""],
+ ["Zyrone","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-zyrone"],
+ ["Qervan–WeTrade","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-qervan"],
+ ["Meown AI","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-meown"],
  ["Fevup","y","Yatırım · %44,1","Portföy kaydı · hissedarlık","part",""],
  ["Marqby","y","Yatırım · %44,1","Portföy kaydı · hissedarlık","part",""],
  ["D2-X","o","Operatörlük · %100","Portföy kaydı · beyan","part",""],
@@ -956,7 +974,7 @@ const RECIPES=[
  {t:"Drive yüklemesi → panel durumu",live:false,a:["Data Room'a belge","Drive klasörü A–F"],c:["Claude","Belge sınıflandırma"],o:["Panel","Durum: girdi → onay"]},
 ];
 
-const INSTR=`Sen MTFG Ana Merkez'in Vibe Management stüdyosundaki Claude asistanısın. MTFG, Ferhan Yıldızlı'nın PE / family office mantığıyla yönettiği yapıdır: Juris Avukatlık Ortaklığı üzerinden müvekkillere kurumsal yönetim danışmanlığı verir (Onscala, Codemag), Fevup ve Marqby'de yatırımcıdır, D2-X'te operatördür, VCP projelerini gate'lerle yürütür.
+const INSTR=`Sen MTFG Ana Merkez'in Vibe Management stüdyosundaki Claude asistanısın. MTFG, Ferhan Yıldızlı'nın PE / family office mantığıyla yönettiği yapıdır: Juris Avukatlık Ortaklığı üzerinden müvekkillere kurumsal yönetim danışmanlığı verir (Onscala, Codemag, Zyrone, Qervan–WeTrade, Meown AI), Fevup ve Marqby'de yatırımcıdır, D2-X'te operatördür, VCP projelerini gate'lerle yürütür.
 Kurallar:
 - Türkçe yaz; kurumsal, net ve eyleme dönük ol.
 - Yalnızca aşağıdaki VERİ bölümüne dayan. Veride olmayan rakam, tarih veya kişi uydurma; gerekirse "veride yok" de.
@@ -1066,7 +1084,7 @@ async function buildContext(){
   if(src.portfolio){ used.push("Portföy kaydı"); parts.push("## MTFG Portföy kaydı\n"+JSON.stringify(ASSETS.map(a=>({kod:a.code,ad:a.name,sinif:a.cls,kategori:a.cat,mtfgPayi:a.stake,digerPaydaslar:a.others,nakit:cfLabel[a.cf][1],deger:eqLabel[a.eq][1],tezSkoru:fitScore(a),tezPuanlari:a.fit,dayanak:a.doc+" – "+a.docName,gate:a.gate,not:a.note})))+"\nTez kriterleri: "+CRIT.map(c=>c[0]+" "+c[1]).join("; ")+"\nFunnel: "+JSON.stringify(FUNNEL.map(f=>({asama:f.s,iliskiler:f.items.map(x=>x[0]+" ("+x[1]+")")})))); }
   if(src.risks){ used.push("Risk kaydı"); parts.push("## MTFG Risk kaydı\n"+JSON.stringify(RISKS.map(r=>({id:r[0],risk:r[1],alan:r[2],olasilik:r[3],etki:r[4],skor:r[3]*r[4],sahip:r[5],dayanakBelge:r[6],dayanak:r[7]})))); }
   if(src.docs){ used.push("MTFG Data Room"); parts.push("## MTFG Data Room\n"+JSON.stringify(DOCS.map(d=>({klasor:d[0]+" "+d[1],belge:d[2],icerik:d[3],durum:d[4],panel:d[5]})))); }
-  for(const id of ["onscala","codemag"]) if(src[id]){ const d=await panelData(id); used.push(PANELS[id].name+" ("+d.src+")"); parts.push(`## ${PANELS[id].name} Kurumsal Yönetim Paneli (${d.src})\n`+d.txt); }
+  for(const id of PANEL_IDS) if(src[id]){ const d=await panelData(id); used.push(PANELS[id].name+" ("+d.src+")"); parts.push(`## ${PANELS[id].name} Kurumsal Yönetim Paneli (${d.src})\n`+d.txt); }
   return {text:parts.join("\n\n"),used};
 }
 function md(s){
@@ -1122,7 +1140,7 @@ function copyText(txt,btn){ const done=()=>{const o=btn.textContent;btn.textCont
 function fallbackCopy(txt,done){ const ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");done();}catch(e){} ta.remove(); }
 
 /* ======= NAV ======= */
-const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi","p-onscala":"Onscala","p-codemag":"Codemag"};
+const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI"};
 let current="vibe";
 function go(v){
   if(!titles[v]) v="vibe"; current=v; const isPanel=v.startsWith("p-");
@@ -1175,7 +1193,7 @@ $("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",mon
 
 renderHome();renderThesis();renderPortfolio();renderFunnel();renderVB();renderCapital();renderValue();renderRisk();renderDocs();renderVibeStatic();
 let v0="vibe"; try{v0=localStorage.getItem("mtfg-view")||"vibe"}catch(e){} go(titles[v0]?v0:"vibe");
-getSample().then(s=>{ $("#vdot").classList.toggle("off",!s); $("#vstatus").textContent=s?"Vibe Management · Claude bağlı · 2 panel canlı":"Vibe Management · Claude bu görünümde yok"; $("#vnote").textContent=s?"Panel verisi sadece istek anında okunur ve Claude'a bağlam olarak gönderilir; ilk çalıştırmada izin istenir.":"Şablonlar istemi hazırlar; Claude bağlantısı claude.ai görünümünde açılır."; });
+getSample().then(s=>{ $("#vdot").classList.toggle("off",!s); $("#vstatus").textContent=s?`Vibe Management · Claude bağlı · ${PANEL_IDS.length} panel canlı`:"Vibe Management · Claude bu görünümde yok"; $("#vnote").textContent=s?"Panel verisi sadece istek anında okunur ve Claude'a bağlam olarak gönderilir; ilk çalıştırmada izin istenir.":"Şablonlar istemi hazırlar; Claude bağlantısı claude.ai görünümünde açılır."; });
 </script>
 
 </body></html>

@@ -5,7 +5,8 @@
 | Sürüm | Tema | Kapsam | Durum |
 |---|---|---|---|
 | **v0.2.0** | Birebir alım | `apps/ana-merkez` + `packages/juris-panel-kit` repoda, `npm run ana-merkez` ile çalışır | ✅ |
-| v0.2.x | Paneller | Zyrone, Qervan-Wetrade, Meown AI panellerinin `public/` + `PANELS`'e eklenmesi | 🧭 |
+| **v0.2.1** | Paneller | Zyrone, Qervan-Wetrade, Meown AI panelleri `public/` + `PANELS` + menü + Vibe kapsamları | ✅ |
+| v0.2.2 | Qervan yeniden üretim | Qervan–WeTrade panelini kit master'ından derleyip canlı veriye geçirme | 🧭 |
 | v0.3 | Drive senkronu | Data room klasörlerinden durum (done/pending/input) otomatik okuma; dayanak linkleri | 💭 |
 | v0.4 | Çok-müvekkil üretim | `assemble.py` akışını konsoldan çalıştırma; yeni müvekkil = veri bloğu | 💭 |
 

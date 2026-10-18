@@ -3,6 +3,16 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.2.1] — 2026-10-18 · Ana Merkez'e üç panel
+
+### Eklendi
+- `public/zyrone.html`, `public/qervan.html`, `public/meown.html` (kaynak HTML'ler birebir) + `PANELS`, sol menü (ZY · QW · MW),
+  `titles`, `SCOPES`/`SOURCES`/`SCOPE_SRC`, `COS`, funnel "Panel aktif", Vibe `INSTR`. Panel sayısı artık `PANELS`'ten türetilir.
+
+### Not
+- Qervan paneli eski sürüm (ACTIONS/DECISIONS/MEETINGS yok): Vibe bağlamında canlı okuma yerine `fallback` özetine düşer;
+  kit master'ından yeniden üretilince canlıya geçer.
+
 ## [0.2.0] — 2026-10-18 · MTFG Ana Merkez
 
 ### Eklendi

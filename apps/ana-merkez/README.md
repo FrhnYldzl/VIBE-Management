@@ -11,6 +11,9 @@ public/
   index.html          Ana sayfa: MTFG paneli + Vibe Management + panel çerçeveleri (tek dosya: CSS + HTML + JS)
   onscala.html        Juris Kurumsal Yönetim Paneli – Onscala (iframe ile gömülür, tek başına da açılır)
   codemag.html        Juris Kurumsal Yönetim Paneli – Codemag
+  zyrone.html         Juris Kurumsal Yönetim Paneli – Zyrone (kit master ile aynı)
+  qervan.html         Juris Kurumsal Yönetim Paneli – Qervan–WeTrade (eski sürüm: ACTIONS/DECISIONS/MEETINGS yok → Vibe özet metnine düşer)
+  meown.html          Juris Kurumsal Yönetim Paneli – Meown AI (kitten üretildi)
   claude-adapter.js   claude.ai dışında window.claude.use("sample") şimi → /api/sample
 server/
   index.mjs           Statik sunucu + Anthropic Messages API köprüsü (SSE akış)
