@@ -58,7 +58,7 @@ a{color:inherit}
 
 /* ---------- shell ---------- */
 .app{display:flex;height:100%}
-.nav{width:268px;flex:0 0 268px;background:var(--bg-nav);color:var(--nav-ink);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transition:width .18s,flex-basis .18s}
+.nav{width:304px;flex:0 0 304px;background:var(--bg-nav);color:var(--nav-ink);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transition:width .18s,flex-basis .18s}
 .brand{display:flex;align-items:center;gap:12px;padding:18px 18px 12px;min-height:66px}
 .brand .mark{width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:var(--red);display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:15px;color:#fff}
 .brand .name{font-family:var(--font-display);font-size:21px;line-height:1;white-space:nowrap}
@@ -108,6 +108,21 @@ a{color:inherit}
 .btn{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:12.5px;font-weight:600;background:var(--bg-elev);color:var(--ink);text-decoration:none;white-space:nowrap}
 .btn:hover{background:var(--tint-04);border-color:var(--border-strong)}
 .btn.primary{background:var(--btn-primary-bg);border-color:var(--btn-primary-bg);color:var(--btn-primary-ink)}
+/* Intake-lite: sol panel "+ Panel ekle" → Drive linki formu */
+.ni.add{color:var(--nav-accent);margin-top:2px}
+.ni.add .k{color:var(--nav-accent);font-size:15px}
+.imodal{position:fixed;inset:0;z-index:40;background:rgba(10,34,64,.5);display:grid;place-items:center;padding:16px}
+.imodal[hidden]{display:none}
+.imodal .box{background:var(--bg-elev);color:var(--ink);border:1px solid var(--border);border-radius:14px;width:min(600px,100%);padding:22px 24px;box-shadow:0 24px 70px rgba(0,0,0,.35)}
+.imodal h2{font-family:var(--font-display);font-size:22px;margin:0 0 4px}
+.imodal .sub{font-size:12.5px;color:var(--ink-2);margin:0 0 14px}
+.imodal label{display:block;font-size:12px;color:var(--ink-3);margin-top:10px}
+.imodal input{display:block;width:100%;margin-top:4px;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font:inherit;font-size:13.5px;background:var(--bg);color:var(--ink)}
+.imodal .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.imodal .acts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.imodal .out{font-size:12.5px;color:var(--ink-2);margin-top:12px;min-height:18px}
+.imodal .out.err{color:var(--red-ink,#BC2F2C)}
+@media (max-width:520px){.imodal .row{grid-template-columns:1fr}}
 .btn[disabled]{opacity:.5;cursor:default}
 
 /* panel host (iframe) */
@@ -467,10 +482,24 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
     <button class="ni" data-view="p-zyrone"><span class="k">ZY</span><span class="t">Zyrone</span><span class="pct">Danışmanlık</span></button>
     <button class="ni" data-view="p-qervan"><span class="k">QW</span><span class="t">Qervan – WeTrade</span><span class="pct">Danışmanlık</span></button>
     <button class="ni" data-view="p-meown"><span class="k">MW</span><span class="t">Meown AI</span><span class="pct">Danışmanlık</span></button>
+    <button class="ni add" id="navAddPanel" title="Drive Data Room linkinden panel üret"><span class="k">＋</span><span class="t">Panel ekle · Drive linki</span><span class="pct">Intake</span></button>
   </div>
   <div class="navfoot">Kaynak sistemler: <b>Vibe</b> (süreç: görev · karar · toplantı) · Google Drive (belge) · Mail (iletişim). Belgesiz değer <b>beyan</b> olarak işaretlenir.</div>
 </nav>
 <div class="scrim" id="scrim"></div>
+<div class="imodal" id="intakeModal" hidden>
+  <form class="box" id="intakeBox">
+    <h2>Panel ekle · Intake-lite</h2>
+    <p class="sub">Drive Data Room <b>kök</b> klasörünün linki (A–F bölümlerini içeren) + müvekkil adı. Sunucu klasörü tarar, Juris standardında paneli üretir ve buraya ekler. Klasör <span id="imSa">service account</span> ile <b>Görüntüleyen</b> olarak paylaşılmış olmalı.</p>
+    <label>Drive klasör linki<input name="driveRoot" type="url" required placeholder="https://drive.google.com/drive/folders/…" autocomplete="off"></label>
+    <div class="row">
+      <label>Müvekkil / şirket adı<input name="name" required placeholder="Örn. Fevup Brands" autocomplete="off"></label>
+      <label>Kısa ad (menü ve Vibe çipi)<input name="short" placeholder="Örn. Fevup" autocomplete="off"></label>
+    </div>
+    <div class="out" id="imOut"></div>
+    <div class="acts"><button type="button" class="btn" id="imCancel">Vazgeç</button><button type="submit" class="btn primary" id="imGo">Tara ve paneli üret</button></div>
+  </form>
+</div>
 
 <main class="main" id="main">
   <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button><div class="crumb" id="crumb"></div><div class="spacer"></div><div class="date" id="today"></div></div>
@@ -942,7 +971,7 @@ async function loadDynamicPanels(){
     titles["p-"+p.slug]=p.name; SCOPES.push([p.slug,p.name,"#6FA0E0"]); SOURCES.push([p.slug,p.name+" paneli"]); src[p.slug]=true;
     const b=document.createElement("button"); b.className="ni"; b.dataset.view="p-"+p.slug; b.title=p.name;
     b.innerHTML=`<span class="k">${esc((p.short[0]||p.name).replace(/[^A-Za-zÇĞİÖŞÜçğıöşü]/g,"").slice(0,2).toUpperCase())}</span><span class="t">${esc(p.name)}</span><span class="pct">Intake</span>`;
-    nav.appendChild(b);
+    nav.insertBefore(b,$("#navAddPanel"));
   }
   PANEL_IDS=Object.keys(PANELS);
   for(const k of Object.keys(SCOPE_SRC)){ const on=["all","juris"].includes(k); if(PANELS[k]) Object.assign(SCOPE_SRC[k],onlyPanel(k)); else Object.assign(SCOPE_SRC[k],panelSrc(on?1:0)); }
@@ -1152,16 +1181,30 @@ async function intakeFromPrompt(q){
   const ok=confirm("Drive klasör linki algılandı.\n\nTamam → Intake-lite: sunucu Data Room'u tarar, Juris standardında panel üretir ve Kurumsal Yönetim Panelleri'ne ekler.\nİptal → metni Claude'a normal soru olarak gönder (Claude Drive'ı okuyamaz).");
   if(!ok) return false;
   const guess=q.replace(DRIVE_FOLDER_RX,"").replace(/\b(şirketinin|için|kurumsal|yönetim|panel\w*|html|dosya\w*|üret\w*|oluştur\w*)\b/gi,"").replace(/\s+/g," ").trim().slice(0,60);
-  const name=prompt("Müvekkil / şirket adı (panelde görünecek):",guess); if(!name) return true;
-  $("#vnote").textContent="Drive taranıyor ve panel üretiliyor… (10–60 sn)";
-  try{
-    const r=await fetch("/api/intake",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({name:name.trim(),driveRoot:link})});
-    const j=await r.json();
-    if(!r.ok){ $("#vnote").textContent="Panel üretilemedi: "+(j.hata||r.status); return true; }
-    $("#vq").value=""; await loadDynamicPanels(); $("#vnote").textContent=`${j.name} paneli üretildi · ${j.files} dosya / ${j.folders} alt klasör.`; go("p-"+j.slug);
-  }catch(e){ $("#vnote").textContent="Bağlantı hatası: "+e.message; }
+  $("#vq").value=""; openIntake({driveRoot:link,name:guess});
   return true;
 }
+/* "+ Panel ekle" formu (sol panel) — Vibe kısayolu da aynı formu açar */
+function openIntake(pre={}){
+  const f=$("#intakeBox"); f.reset(); if(pre.driveRoot)f.driveRoot.value=pre.driveRoot; if(pre.name)f.name.value=pre.name;
+  $("#imOut").textContent=""; $("#imOut").classList.remove("err"); $("#imGo").disabled=false; $("#intakeModal").hidden=false; closeNav();
+  fetch("/api/intake/status",{credentials:"same-origin"}).then(r=>r.ok?r.json():null).then(s=>{ if(!s)return; if(s.serviceAccount)$("#imSa").textContent=s.serviceAccount; if(!s.hazir){$("#imOut").textContent="Drive bağlantısı kurulmadı: "+(s.adimlar||[]).join(" · ");$("#imOut").classList.add("err");$("#imGo").disabled=true;} }).catch(()=>{});
+  (pre.driveRoot?f.name:f.driveRoot).focus();
+}
+async function submitIntake(){
+  const f=$("#intakeBox"), out=$("#imOut"); const body={name:f.name.value.trim(),driveRoot:f.driveRoot.value.trim()}; if(f.short.value.trim())body.short=f.short.value.trim();
+  $("#imGo").disabled=true; out.classList.remove("err"); out.textContent="Drive taranıyor ve panel üretiliyor… (10–60 sn)";
+  try{
+    const r=await fetch("/api/intake",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(body)});
+    const j=await r.json();
+    if(!r.ok){ out.textContent="Olmadı: "+(j.hata||r.status)+(j.ayrinti?" · "+j.ayrinti.map(a=>a.message).join(", "):""); out.classList.add("err"); $("#imGo").disabled=false; return; }
+    await loadDynamicPanels(); $("#intakeModal").hidden=true; $("#vnote").textContent=`${j.name} paneli üretildi · ${j.files} dosya / ${j.folders} alt klasör${j.files?"":" · Data Room henüz boş"}.`; go("p-"+j.slug);
+  }catch(e){ out.textContent="Bağlantı hatası: "+e.message; out.classList.add("err"); $("#imGo").disabled=false; }
+}
+$("#intakeBox").addEventListener("submit",e=>{e.preventDefault();submitIntake();});
+$("#imCancel").addEventListener("click",()=>{$("#intakeModal").hidden=true;});
+$("#intakeModal").addEventListener("click",e=>{if(e.target.id==="intakeModal")$("#intakeModal").hidden=true;});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#intakeModal").hidden)$("#intakeModal").hidden=true;});
 async function run(){
   if(running){ running.abort(); return; }
   const q=$("#vq").value.trim(); if(!q){ $("#vq").focus(); return; }
@@ -1219,6 +1262,7 @@ $("#menuBtn").addEventListener("click",()=>{navEl.classList.toggle("open");scrim
 scrim.addEventListener("click",closeNav);
 document.querySelectorAll(".nav .ni").forEach(b=>{const t=b.querySelector(".t");if(t)b.title=t.textContent;});
 document.addEventListener("click",e=>{
+  if(e.target.closest("#navAddPanel")){openIntake();return;}
   const tp=e.target.closest("[data-tpl]"); if(tp){loadTpl(tp.dataset.tpl,!!tp.dataset.autorun);return;}
   const rn=e.target.closest("[data-run]"); if(rn){loadTpl(rn.dataset.run,true);return;}
   const sc=e.target.closest("[data-scope]"); if(sc){setScope(sc.dataset.scope);return;}
