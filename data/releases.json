@@ -1,6 +1,19 @@
 {
   "surumler": [
     {
+      "surum": "0.5.2",
+      "tarih": "2026-10-18",
+      "faz": "v1.0 yolu",
+      "baslik": "Eğitim Programları + Panel ekle",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "Ana Merkez → Eğitim → Eğitim Programları: Ankara Teknopark 'Girişim & Yatırım Hukuku' programı (8 oturum × 3 ders, Eylül–Aralık 2026), tarihe göre ilerleme (yapıldı/sıradaki/planlı, elle düzeltilebilir), eğitmen ve misafir katılımcılar, oturum dokümanları (Drive linki ekle/sil — paylaşımlı), hizmet–modül–panel eşlemesi, network kartı" },
+        { "tur": "yeni", "metin": "Vibe kaynak çipi 'Eğitim programı' (Juris ve Tüm portföy kapsamında): program ve dokümanlar Claude bağlamına girer" },
+        { "tur": "yeni", "metin": "Sol panelde '+ Panel ekle · Drive linki' formu (Intake-lite); Vibe'daki Drive linki aynı formu açar; sol panel 304 px" },
+        { "tur": "duzeltme", "metin": "Intake: paylaşılmamış/boş klasörde net hata; bozuk service account anahtarı servisi düşürmez" }
+      ]
+    },
+    {
       "surum": "0.5.1",
       "tarih": "2026-10-18",
       "faz": "v1.0 yolu",
@@ -150,7 +163,7 @@
     }
   ],
   "planli": [
-    { "surum": "0.5.2", "baslik": "Veri doğruluğu turu", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
+    { "surum": "0.5.3", "baslik": "Veri doğruluğu turu", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

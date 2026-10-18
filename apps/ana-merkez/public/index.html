@@ -1,6 +1,7 @@
 <!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <!-- Yerel çalıştırma: claude.ai dışında window.claude yoksa bu adaptör /api/sample üzerinden Claude API'ye bağlanır -->
 <script src="claude-adapter.js"></script>
+<script src="egitim.data.js"></script>
 </head><body>
 <title>MTFG Ana Merkez</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -230,6 +231,32 @@ a{color:inherit}
 .cad .f{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red-ink);font-weight:600}
 .cad b{display:block;margin-top:3px}
 .cad p{margin:4px 0 0;font-size:12px;color:var(--ink-2)}
+/* Eğitim programı zaman çizelgesi */
+.eg-sess{display:grid;grid-template-columns:120px 1fr;gap:0 16px;padding:14px 16px;border-top:1px solid var(--divider)}
+.eg-sess:first-child{border-top:0}
+.eg-sess .when{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3);line-height:1.6}
+.eg-sess .when b{display:block;font-family:var(--font-display);font-size:20px;color:var(--ink);line-height:1.1;margin-bottom:2px}
+.eg-sess.done .when b{color:var(--success)} .eg-sess.next .when b{color:var(--red-ink)}
+.eg-sess h4{margin:0;font-size:14px;font-weight:600;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.eg-sess .q{font-family:var(--font-display);font-style:italic;color:var(--ink-2);font-size:13px;margin:2px 0 8px}
+.eg-les{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;font-size:12.5px;align-items:baseline}
+.eg-les .n{font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+.eg-les .who{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+.eg-docs{margin-top:8px;display:flex;flex-direction:column;gap:4px;font-size:12px}
+.eg-docs .d{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.eg-docs .d .t{color:var(--ink-2)}
+.eg-docs a{color:var(--info);font-weight:600;text-decoration:none}
+.eg-add{display:none;gap:6px;margin-top:6px;flex-wrap:wrap}
+.eg-add.open{display:flex}
+.eg-add input{flex:1;min-width:160px;padding:6px 9px;border:1px solid var(--border);border-radius:7px;font:inherit;font-size:12.5px;background:var(--bg);color:var(--ink)}
+.eg-link{font-size:11.5px;color:var(--info);font-weight:600;background:none;border:0;padding:0;cursor:pointer}
+.eg-map{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.eg-map .m{padding:12px 14px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bg-elev)}
+.eg-map .m .no{font-family:var(--font-display);font-size:22px;color:var(--red-ink);line-height:1}
+.eg-map .m b{display:block;margin-top:4px;font-size:13px}
+.eg-map .m p{margin:4px 0 6px;font-size:12px;color:var(--ink-2)}
+.eg-map .fnchip{font-family:var(--font-mono);font-size:10.5px;background:var(--tint-08);padding:2px 6px;border-radius:4px;margin-right:4px}
+@media (max-width:620px){.eg-sess{grid-template-columns:1fr}.eg-les{grid-template-columns:auto 1fr}.eg-les .who{grid-column:2}}
 .risk td.sev{font-family:var(--font-mono);font-size:11px}
 .dotsev{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
 .callout{display:flex;gap:12px;padding:12px 14px;border-radius:var(--r-md);background:var(--accent-bg);border:1px solid rgba(188,47,44,.25);font-size:12.5px;color:var(--ink-2)}
@@ -474,6 +501,9 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
   <div class="navsec"><div class="h">Dayanak</div>
     <button class="ni" data-view="dataroom"><span class="k">09</span><span class="t">Data Room</span></button>
     <button class="ni" data-view="cadence"><span class="k">10</span><span class="t">Yönetişim Takvimi</span></button>
+  </div>
+  <div class="navsec"><div class="h">Eğitim</div>
+    <button class="ni" data-view="egitim"><span class="k">11</span><span class="t">Eğitim Programları</span><span class="pct" id="navEgitim"></span></button>
   </div>
 
   <div class="navsec" id="navPanels"><div class="h top">Kurumsal Yönetim Panelleri · Juris</div>
@@ -759,6 +789,12 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
     </div>
   </section>
 
+  <!-- 11 EĞİTİM -->
+  <section class="view" id="v-egitim">
+    <div class="page-h"><div><div class="eyebrow">11 · Eğitim</div><h1>Eğitim Programları</h1><p>Verdiğimiz hizmetlere paralel eğitimler: her oturum paneldeki bir fonksiyona ve konuya bağlanır. Eğitim aynı zamanda <b>network</b> kanalıdır — katılımcılar ve misafir yatırımcılar funnel'a girer.</p></div><div class="right"><button class="btn" disabled title="v0.5.3: modül kataloğundan yeni program oluşturucu">Yeni program · v0.5.3</button></div></div>
+    <div id="egitimBody"></div>
+  </section>
+
   </div>
   <div id="frameStash" aria-hidden="true"></div>
 </main>
@@ -903,6 +939,68 @@ function renderDocs(){
     DOCS.map(d=>`<tr class="row"><td><span class="code">${d[0]}</span> <span class="sm">${d[1]}</span></td><td class="nm">${d[2]}</td><td class="sm">${d[3]}</td><td>${docPill(d[4])}</td><td class="sm">${d[5]}</td></tr>`).join("");
 }
 
+/* ======= EĞİTİM (v0.5.2) — programlar, oturum ilerlemesi, dokümanlar, hizmet eşlemesi, network =======
+   egitimState (sunucu, vibe_state:egitim): [{k:"st",sid,st,note}] oturum durumu düzeltmesi · [{k:"doc",id,sid,t,url,by,date}] eklenen doküman */
+let egitimState=[];
+const EG_ST={done:["ok","Yapıldı"],next:["red","Sıradaki"],planned:["neu","Planlı"],cancel:["warn","Ertelendi"]};
+const egP=()=>EGITIM.programlar[0];
+const egTeacher=id=>(EGITIM.egitmenler.find(e=>e.id===id)||{ad:id}).ad;
+const egFmt=d=>new Date(d+"T00:00:00").toLocaleDateString("tr-TR",{day:"2-digit",month:"long"});
+function egStatus(p){ const today=new Date().toISOString().slice(0,10); let nextSet=false;
+  return p.oturumlar.map(s=>{ const ov=egitimState.find(x=>x.k==="st"&&x.sid===p.id+":"+s.no); if(ov&&ov.st) return ov.st;
+    if(s.tarih<today) return "done"; if(!nextSet){nextSet=true;return "next";} return "planned"; }); }
+function egDocs(p,sno){ const base=p.dokumanlar.filter(d=>d.oturum===sno); const added=egitimState.filter(x=>x.k==="doc"&&x.sid===p.id+":"+sno).map(x=>({id:x.id,t:x.t,url:x.url,tur:"ek",not:(x.by||"")+" · "+(x.date||"").slice(0,10),ek:true}));
+  const links=Object.fromEntries(egitimState.filter(x=>x.k==="link").map(x=>[x.id,x.url])); return base.map(d=>({...d,url:links[d.id]||d.url})).concat(added); }
+function renderEgitim(){
+  const el=$("#egitimBody"); if(!el||typeof EGITIM==="undefined")return; const p=egP(); const sts=egStatus(p);
+  const done=sts.filter(s=>s==="done").length, total=p.oturumlar.length, lessons=p.oturumlar.reduce((a,s)=>a+s.dersler.length,0), lessonsDone=p.oturumlar.filter((s,i)=>sts[i]==="done").reduce((a,s)=>a+s.dersler.length,0);
+  const nextI=sts.indexOf("next"), next=nextI>=0?p.oturumlar[nextI]:null;
+  const teachers=new Set(p.oturumlar.flatMap(s=>s.dersler.map(d=>d[1]))); const guests=p.oturumlar.filter(s=>s.misafir).length;
+  const docsAll=p.oturumlar.flatMap(s=>egDocs(p,s.no)).concat(egDocs(p,0)); const docsLinked=docsAll.filter(d=>d.url).length;
+  $("#navEgitim").textContent=`${done}/${total}`;
+  const docRow=d=>`<div class="d"><span class="pill ${d.url?"belge":"yok"}">${d.url?"belge":"link yok"}</span><span class="t">${esc(d.t)}</span>${d.url?`<a href="${esc(d.url)}" target="_blank" rel="noopener">aç ↗</a>`:`<button class="eg-link" data-eglink="${esc(d.id)}">link ekle</button>`}<span class="muted" style="font-size:11px">${esc(d.not||"")}</span>${d.ek?`<button class="eg-link" style="color:var(--ink-3)" data-egdel="${esc(d.id)}">sil</button>`:""}</div>`;
+  const sess=p.oturumlar.map((s,i)=>{ const st=sts[i]; const m=EGITIM.moduller.find(x=>x.no===s.modul); const sid=p.id+":"+s.no;
+    return `<div class="eg-sess ${st}"><div class="when"><b>${String(s.no).padStart(2,"0")}</b>${egFmt(s.tarih)}<br>${esc(s.duzey)}<br><span class="pill ${EG_ST[st][0]}" style="margin-top:4px">${EG_ST[st][1]}</span></div>
+      <div><h4>${esc(m.t)}<span class="pill info">${m.fn.join(" · ")}</span>${s.misafir?`<span class="pill warn">Misafir: ${esc(s.misafir)}</span>`:""}</h4><div class="q">${esc(m.soru)}</div>
+      <div class="eg-les">${s.dersler.map((d,j)=>`<span class="n">${s.no}.${j+1} · ${d[2]}</span><span>${esc(d[0])}</span><span class="who">${esc(egTeacher(d[1]))}</span>`).join("")}</div>
+      <div class="eg-docs">${egDocs(p,s.no).map(docRow).join("")}<div><button class="eg-link" data-egadd="${sid}">＋ Doküman ekle</button><span class="muted" style="font-size:11px;margin-left:8px">Panel bağı: ${m.panel.map(esc).join(" · ")}</span></div>
+      <form class="eg-add" data-egform="${sid}"><input name="t" placeholder="Doküman adı" required><input name="url" type="url" placeholder="https://drive.google.com/…" required><button class="btn primary" type="submit" style="height:30px">Ekle</button><button class="btn" type="button" data-egcancel="${sid}" style="height:30px">Vazgeç</button></form></div>
+      <div class="muted" style="font-size:11px;margin-top:8px">Durum: ${["done","next","planned","cancel"].map(k=>`<button class="eg-link" style="color:${st===k?"var(--ink)":"var(--ink-3)"};margin-right:8px" data-egst="${sid}" data-st="${k}">${EG_ST[k][1]}</button>`).join("")}</div></div></div>`; }).join("");
+  el.innerHTML=`
+  <div class="tiles">
+    <div class="tile accent"><div class="l">Aktif program</div><div class="v" style="font-size:18px;line-height:1.25">${esc(p.kurum)}</div><div class="d">${esc(p.donem)} · ${esc(p.gun)} · ${esc(p.yer)}</div></div>
+    <div class="tile"><div class="l">Oturum</div><div class="v">${done}<small>/ ${total}</small></div><div class="meter" style="margin-top:8px">${bar(Math.round(done/total*100),"var(--navy)")}</div></div>
+    <div class="tile"><div class="l">Ders</div><div class="v">${lessonsDone}<small>/ ${lessons}</small></div><div class="d">${esc(p.format)}</div></div>
+    <div class="tile"><div class="l">Sıradaki</div><div class="v" style="font-size:18px;line-height:1.25">${next?egFmt(next.tarih):"—"}</div><div class="d">${next?esc(EGITIM.moduller.find(x=>x.no===next.modul).t):"Program tamamlandı"}</div></div>
+    <div class="tile"><div class="l">Eğitmen</div><div class="v">${teachers.size}</div><div class="d">Juris ortakları + birim avukatı</div></div>
+    <div class="tile"><div class="l">Misafir oturumu</div><div class="v">${guests}</div><div class="d">yatırımcı · girişimci · danışman</div></div>
+    <div class="tile"><div class="l">Doküman</div><div class="v">${docsLinked}<small>/ ${docsAll.length}</small></div><div class="d">linkli / toplam</div></div>
+  </div>
+  <div class="sec"><div class="sec-h"><h2>${esc(p.ad)} — ${esc(p.tema)}</h2><span class="meta">${esc(p.motto)} · Koordinatör: ${esc(egTeacher(p.koordinator))} · Hedef kitle: ${esc(p.hedefKitle)}</span></div>
+    <div class="card">${sess}</div>
+    <div class="eg-docs" style="margin-top:10px"><b style="font-size:12.5px">Program dokümanları</b>${egDocs(p,0).map(docRow).join("")}<div><button class="eg-link" data-egadd="${p.id}:0">＋ Doküman ekle</button></div><form class="eg-add" data-egform="${p.id}:0"><input name="t" placeholder="Doküman adı" required><input name="url" type="url" placeholder="https://drive.google.com/…" required><button class="btn primary" type="submit" style="height:30px">Ekle</button><button class="btn" type="button" data-egcancel="${p.id}:0" style="height:30px">Vazgeç</button></form></div>
+  </div>
+  <div class="sec"><div class="sec-h"><h2>Hizmetlerle eşleme</h2><span class="meta">Her modül paneldeki bir fonksiyona bağlanır — eğitimde anlatılan, panelde yapılan iştir</span></div>
+    <div class="eg-map">${EGITIM.moduller.map(m=>`<div class="m"><div class="no">${String(m.no).padStart(2,"0")}</div><b>${esc(m.t)}</b><p>${esc(m.hizmet)}</p><div>${m.fn.map(f=>`<span class="fnchip">${f}</span>`).join("")}</div><div class="muted" style="font-size:11.5px;margin-top:6px">${m.panel.map(esc).join(" · ")}</div></div>`).join("")}</div>
+  </div>
+  <div class="sec"><div class="sec-h"><h2>Network</h2><span class="meta">Eğitim → tanışma → funnel</span></div>
+    <div class="grid2">
+      <div class="card pad"><b style="font-size:13.5px">Ev sahibi · ${esc(p.kurum)}</b><p class="muted" style="font-size:12.5px;margin:6px 0 0">${esc(p.yer)} · ${esc(p.donem)} · her ay 2 oturum. ${esc(p.network.amac)}</p><p class="muted" style="font-size:12px;margin:6px 0 0">Kanal: ${esc(p.network.kanal)}</p></div>
+      <div class="card pad"><b style="font-size:13.5px">Misafir katılımcılar</b><div class="eg-les" style="margin-top:8px">${p.oturumlar.filter(s=>s.misafir).map(s=>`<span class="n">${String(s.no).padStart(2,"0")} · ${egFmt(s.tarih)}</span><span>${esc(s.misafir)}</span><span class="who">${esc(EGITIM.moduller.find(x=>x.no===s.modul).t.split(",")[0])}</span>`).join("")}</div><p class="muted" style="font-size:12px;margin:8px 0 0">Final atölyesi: ${esc(p.final)}</p></div>
+    </div>
+  </div>`;
+}
+function egSave(){ pushState("egitim"); renderEgitim(); }
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-egadd]"); if(a){ const f=document.querySelector(`.eg-add[data-egform="${a.dataset.egadd}"]`); if(f){f.classList.add("open");f.t.focus();} return; }
+  const c=e.target.closest("[data-egcancel]"); if(c){ const f=document.querySelector(`.eg-add[data-egform="${c.dataset.egcancel}"]`); if(f)f.classList.remove("open"); return; }
+  const s=e.target.closest("[data-egst]"); if(s){ egitimState=egitimState.filter(x=>!(x.k==="st"&&x.sid===s.dataset.egst)); egitimState.push({k:"st",sid:s.dataset.egst,st:s.dataset.st}); egSave(); return; }
+  const l=e.target.closest("[data-eglink]"); if(l){ const url=prompt("Drive / dosya linki:"); if(!url)return; egitimState=egitimState.filter(x=>!(x.k==="link"&&x.id===l.dataset.eglink)); egitimState.push({k:"link",id:l.dataset.eglink,url:url.trim()}); egSave(); return; }
+  const d=e.target.closest("[data-egdel]"); if(d){ egitimState=egitimState.filter(x=>!(x.k==="doc"&&x.id===d.dataset.egdel)); egSave(); return; }
+});
+document.addEventListener("submit",e=>{ const f=e.target.closest(".eg-add[data-egform]"); if(!f)return; e.preventDefault();
+  egitimState.push({k:"doc",id:uid(),sid:f.dataset.egform,t:f.t.value.trim(),url:f.url.value.trim(),by:"",date:new Date().toISOString()}); egSave(); });
+
 /* ======= PANEL ÇERÇEVELERİ (Onscala / Codemag / Zyrone / Qervan–WeTrade / Meown AI) ======= */
 const frames={};
 function syncTheme(f){try{const t=document.documentElement.getAttribute("data-theme");const r=f.contentDocument.documentElement;t?r.setAttribute("data-theme",t):r.removeAttribute("data-theme");}catch(e){}}
@@ -935,7 +1033,7 @@ async function panelData(id){
 
 /* ======= VIBE MANAGEMENT ======= */
 const SCOPES=[["all","Tüm portföy","#E5574F"],["mtfg","MTFG","#F3F1EA"],["onscala","Onscala","#E0A25A"],["codemag","Codemag","#6FA0E0"],["zyrone","Zyrone","#5CBF8C"],["qervan","Qervan–WeTrade","#E0A25A"],["meown","Meown AI","#6FA0E0"],["juris","Juris","#5CBF8C"],["fevup","Fevup","#E5574F"],["marqby","Marqby","#6FA0E0"],["d2x","D2-X","#E0A25A"]];
-const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["docs","MTFG Data Room"],["onscala","Onscala paneli"],["codemag","Codemag paneli"],["zyrone","Zyrone paneli"],["qervan","Qervan–WeTrade paneli"],["meown","Meown AI paneli"]];
+const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["docs","MTFG Data Room"],["egitim","Eğitim programı"],["onscala","Onscala paneli"],["codemag","Codemag paneli"],["zyrone","Zyrone paneli"],["qervan","Qervan–WeTrade paneli"],["meown","Meown AI paneli"]];
 const ALANLAR=[
  ["genel","Genel","Konuya en uygun bakış açısını seç."],
  ["strateji","Strateji","Yatırım tezi (T1–T6), portföy konumlandırması ve odak kararları merceğinden bak; her öneriyi tez kriterine bağla."],
@@ -947,7 +1045,7 @@ const ALANLAR=[
  ["finans","Finans","Bütçe, nakit akışı, borç yapısı, bilanço ve mizan merceğinden; rakamları yalnızca veriden al, kaynak belgeyi belirt."],
  ["iletisim","İletişim","Müvekkil ve paydaş iletişimi: e-posta, gündem, tutanak ve hatırlatma formatlarında, kısa ve kurumsal."],
 ];
-let scope="all", alan="genel"; const src={portfolio:true,risks:true,docs:false,onscala:true,codemag:true,zyrone:true,qervan:true,meown:true};
+let scope="all", alan="genel"; const src={portfolio:true,risks:true,docs:false,egitim:false,onscala:true,codemag:true,zyrone:true,qervan:true,meown:true};
 /* Panel kaynakları: tek müvekkil kapsamında yalnız o panel; MTFG/portföy kapsamlarında tüm paneller (P) ya da hiçbiri (N) */
 let PANEL_IDS=Object.keys(PANELS);
 const panelSrc=on=>Object.fromEntries(PANEL_IDS.map(id=>[id,on?1:0]));
@@ -956,6 +1054,7 @@ const SCOPE_SRC={all:{portfolio:1,risks:1,docs:0,...panelSrc(1)},mtfg:{portfolio
   onscala:{portfolio:0,risks:0,docs:0,...onlyPanel("onscala")},codemag:{portfolio:0,risks:0,docs:0,...onlyPanel("codemag")},
   zyrone:{portfolio:0,risks:0,docs:0,...onlyPanel("zyrone")},qervan:{portfolio:0,risks:0,docs:0,...onlyPanel("qervan")},meown:{portfolio:0,risks:0,docs:0,...onlyPanel("meown")},
   juris:{portfolio:1,risks:1,docs:0,...panelSrc(1)},fevup:{portfolio:1,risks:1,docs:0,...panelSrc(0)},marqby:{portfolio:1,risks:1,docs:0,...panelSrc(0)},d2x:{portfolio:1,risks:1,docs:0,...panelSrc(0)}};
+for(const k of Object.keys(SCOPE_SRC)) SCOPE_SRC[k].egitim=(k==="juris"||k==="all")?1:0; /* eğitim programı: Juris ve tüm portföy kapsamında */
 
 /* Intake-lite panelleri (v0.5.1): sunucuda Drive linkinden üretilenler /api/panels'ten gelir; sol menü, portföy kartı, Vibe kapsam/kaynak ve başlıklara eklenir */
 async function loadDynamicPanels(){
@@ -1052,10 +1151,11 @@ let sessions=lsGet(LSK.sess,null); if(!Array.isArray(sessions)){sessions=SEED_SE
 let library=lsGet(LSK.lib,[]); if(!Array.isArray(library))library=[];
 /* Paylaşımlı durum (v0.4.2): oturumlar ve kütüphane sunucuda (/api/vibe/state); localStorage yalnız önbellek + tek seferlik taşıma kaynağı */
 const VAPI="/api/vibe/state";
-function pushState(key){ const value=key==="sessions"?sessions:library; fetch(VAPI+"/"+key,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(value)}).catch(()=>{}); }
+function pushState(key){ const value=key==="sessions"?sessions:key==="egitim"?egitimState:library; fetch(VAPI+"/"+key,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(value)}).catch(()=>{}); }
 async function pullState(){ try{ const r=await fetch(VAPI,{credentials:"same-origin"}); if(!r.ok)return; const st=await r.json();
   if(st.sessions&&Array.isArray(st.sessions.value)){ sessions=st.sessions.value; lsSet(LSK.sess,sessions); } else if(sessions.some(s=>!s.example)){ pushState("sessions"); }
   if(st.library&&Array.isArray(st.library.value)){ library=st.library.value; lsSet(LSK.lib,library); } else if(library.length){ pushState("library"); }
+  if(st.egitim&&Array.isArray(st.egitim.value)){ egitimState=st.egitim.value; renderEgitim(); }
   if(typeof renderStudio==="function")renderStudio(); if(typeof renderSessions==="function")renderSessions(); if(typeof renderLibrary==="function")renderLibrary(); if(typeof renderRecent==="function")renderRecent(); if(typeof renderThread==="function")renderThread();
   $("#sessCnt").textContent=sessions.length; $("#libCnt").textContent=library.length; syncNavCounts(); }catch(e){} }
 let curSess=null, running=null, sampleP=null, vtab="studio", sfil="all", lfil="all";
@@ -1156,6 +1256,7 @@ async function buildContext(){
   if(src.portfolio){ used.push("Portföy kaydı"); parts.push("## MTFG Portföy kaydı\n"+JSON.stringify(ASSETS.map(a=>({kod:a.code,ad:a.name,sinif:a.cls,kategori:a.cat,mtfgPayi:a.stake,digerPaydaslar:a.others,nakit:cfLabel[a.cf][1],deger:eqLabel[a.eq][1],tezSkoru:fitScore(a),tezPuanlari:a.fit,dayanak:a.doc+" – "+a.docName,gate:a.gate,not:a.note})))+"\nTez kriterleri: "+CRIT.map(c=>c[0]+" "+c[1]).join("; ")+"\nFunnel: "+JSON.stringify(FUNNEL.map(f=>({asama:f.s,iliskiler:f.items.map(x=>x[0]+" ("+x[1]+")")})))); }
   if(src.risks){ used.push("Risk kaydı"); parts.push("## MTFG Risk kaydı\n"+JSON.stringify(RISKS.map(r=>({id:r[0],risk:r[1],alan:r[2],olasilik:r[3],etki:r[4],skor:r[3]*r[4],sahip:r[5],dayanakBelge:r[6],dayanak:r[7]})))); }
   if(src.docs){ used.push("MTFG Data Room"); parts.push("## MTFG Data Room\n"+JSON.stringify(DOCS.map(d=>({klasor:d[0]+" "+d[1],belge:d[2],icerik:d[3],durum:d[4],panel:d[5]})))); }
+  if(src.egitim&&typeof EGITIM!=="undefined"){ const p=egP(), sts=egStatus(p); used.push("Eğitim programı"); parts.push("## Eğitim programı · "+p.kurum+"\n"+JSON.stringify({program:p.ad,tema:p.tema,yer:p.yer,donem:p.donem,format:p.format,hedefKitle:p.hedefKitle,oturumlar:p.oturumlar.map((s,i)=>({no:s.no,tarih:s.tarih,durum:sts[i],modul:EGITIM.moduller.find(m=>m.no===s.modul).t,duzey:s.duzey,misafir:s.misafir,dersler:s.dersler.map(d=>d[0]+" ("+egTeacher(d[1])+", "+d[2]+")"),dokuman:egDocs(p,s.no).map(d=>d.t+(d.url?" ["+d.url+"]":" [link yok]"))})),hizmetEslemesi:EGITIM.moduller.map(m=>({modul:m.no,hizmet:m.hizmet,fn:m.fn,panel:m.panel}))})); }
   for(const id of PANEL_IDS) if(src[id]){ const d=await panelData(id); used.push(PANELS[id].name+" ("+d.src+")"); parts.push(`## ${PANELS[id].name} Kurumsal Yönetim Paneli (${d.src})\n`+d.txt); }
   return {text:parts.join("\n\n"),used};
 }
@@ -1244,7 +1345,7 @@ function copyText(txt,btn){ const done=()=>{const o=btn.textContent;btn.textCont
 function fallbackCopy(txt,done){ const ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");done();}catch(e){} ta.remove(); }
 
 /* ======= NAV ======= */
-const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI"};
+const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi",egitim:"Eğitim Programları","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI"};
 let current="vibe";
 function go(v){
   if(!titles[v]) v="vibe"; current=v; const isPanel=v.startsWith("p-");
@@ -1297,7 +1398,7 @@ $("#vsend").addEventListener("click",run);
 $("#vq").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();run();}});
 $("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
 
-renderHome();renderThesis();renderPortfolio();renderFunnel();renderVB();renderCapital();renderValue();renderRisk();renderDocs();renderVibeStatic();
+renderHome();renderThesis();renderPortfolio();renderFunnel();renderVB();renderCapital();renderValue();renderRisk();renderDocs();renderEgitim();renderVibeStatic();
 /* açılış görünümü: #p-<slug> (admin "Aç" linki) > son görünüm > vibe */
 let v0="vibe"; try{v0=(location.hash.startsWith("#p-")?location.hash.slice(1):"")||localStorage.getItem("mtfg-view")||"vibe"}catch(e){} go(titles[v0]?v0:"vibe");
 pullState();

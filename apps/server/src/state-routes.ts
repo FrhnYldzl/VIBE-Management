@@ -5,7 +5,7 @@ import type { Store } from "./store.ts";
 
 const STATUSES = ["done", "review", "progress", "input", "pending"] as const;
 const client = z.string().regex(/^[a-z0-9-]{1,40}$/);
-const VIBE_KEYS = ["sessions", "library"] as const;
+const VIBE_KEYS = ["sessions", "library", "egitim"] as const; // egitim: oturum durum düzeltmeleri + eklenen dokümanlar (v0.5.2)
 
 export function registerState(app: FastifyInstance, store: Store) {
   const who = (req: { session: { u: string } | null }) => req.session?.u ?? "anon";

@@ -3,6 +3,21 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.2] — 2026-10-18 · Eğitim Programları + Panel ekle
+
+### Eklendi
+- **Eğitim → Eğitim Programları** (`apps/ana-merkez/public/egitim.data.js` + görünüm): Ankara Teknopark "Girişim & Yatırım Hukuku Eğitimi —
+  Bir Girişimin Kuruluştan Exit'e Yolculuğu" (8 oturum × 3 ders, Salı, Eylül–Aralık 2026, Teknopark Ankara VIP Salon). Oturum zaman çizelgesi
+  tarihe göre yapıldı / sıradaki / planlı (elle düzeltilebilir), dersler + eğitmenler + saatler, misafir katılımcılar, oturum dokümanları
+  (bilinen slaytlar "link yok" → Drive linki ekle; yeni doküman ekle/sil), **hizmet–modül–panel eşlemesi** (PLAN/İCRA/DENETİM/RAPORLAMA),
+  network kartı (ev sahibi, misafirler, final atölyesi). Durum düzeltmeleri ve dokümanlar sunucuda (`vibe_state: egitim`) — iki kullanıcıda ortak.
+- Vibe kaynak çipi **Eğitim programı** (Juris ve Tüm portföy kapsamında açık): program, oturum durumu, dokümanlar ve hizmet eşlemesi bağlama girer.
+- Sol panel: **"＋ Panel ekle · Drive linki"** formu (Intake-lite); Vibe'a yapıştırılan Drive linki aynı formu açar. Sol panel 304 px.
+
+### Düzeltildi
+- Intake: paylaşılmamış ya da alt klasörsüz Drive klasöründe boş panel yerine net hata (`files.get` ön kontrolü); bozuk
+  `GOOGLE_SERVICE_ACCOUNT_JSON` servisi düşürmez, hata health/A3'te görünür.
+
 ## [0.5.1] — 2026-10-18 · Intake-lite: Drive linki → panel kartı
 
 ### Eklendi
