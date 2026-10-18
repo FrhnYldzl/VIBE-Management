@@ -1,10 +1,22 @@
 {
   "guncelleme": "2026-10-18",
-  "kaynak": "docs/product/V1-PLAN.md",
+  "kaynak": "Landing (apps/server/public/index.html) 'Sürümler ve Paketler' + docs/product/V1-PLAN.md",
+  "northStar": [
+    { "k": "01", "ad": "Nakit Akışı", "sutun": "Beklenti yönetimi · bütçe, hedef, sapma" },
+    { "k": "02", "ad": "Networth", "sutun": "Dokümantasyon ve iletişim · kayıt yoksa olmamıştır" },
+    { "k": "03", "ad": "Yönetilen Risk", "sutun": "Karar ve aksiyon · karar kaydı, görev, review" }
+  ],
   "durumlar": { "done": "Tamamlandı", "progress": "Devam ediyor", "next": "Sırada", "planned": "Planlı", "vision": "Vizyon" },
   "surumler": [
     {
-      "v": "1.0", "ad": "Günlük kullanıma hazır", "hedef": "2 kullanıcı · Drive gerçek kaynak · Railway tek servis · landing + uygulama + admin · temel güvenlik",
+      "v": "1.0", "paket": "Stüdyo", "ad": "Şimdi · Stüdyo", "hedef": "Tek portföy, tek ekip (Ferhan + Gülşah). Paneller elle kurulur, Claude istek anında okur. Drive gerçek kaynak, Railway tek servis, e-posta girişi.",
+      "odeme": "Çalışma alanı başına · aylık — Claude kullanımı kullanıcının kendi API anahtarından",
+      "kapsam": [
+        "Vibe stüdyosu: kapsam, alan, kaynak çipleri", "13 şablon · 4 doküman tabanlı (Jurisleştir dahil)", "Dosya ekleme: PDF, metin, görsel",
+        "Oturumlar ve Çıktı Kütüphanesi (paylaşımlı)", "Portföy paneli + 5 kurumsal yönetim paneli (tek kit)", "Süreç katmanı panel içinde (aksiyon, karar, toplantı)",
+        "Landing + admin + e-posta girişi + Railway"
+      ],
+      "northStarEtkisi": "Dokümantasyon ve iletişim hızlanır; karar gündemi belgeyle gelir.",
       "adimlar": [
         { "v": "0.1.0", "ad": "Mr. F operatör konsolu temeli", "durum": "done", "alan": "Ürün" },
         { "v": "0.1.1", "ad": "Juris görsel standardı", "durum": "done", "alan": "Tasarım" },
@@ -12,41 +24,53 @@
         { "v": "0.2.1", "ad": "Zyrone · Qervan–WeTrade · Meown AI panelleri", "durum": "done", "alan": "Veri" },
         { "v": "0.2.2", "ad": "Panel kaynak paketleri + canlı okuma", "durum": "done", "alan": "Veri" },
         { "v": "0.3.0", "ad": "Tek panel kiti (5 müvekkil aynı master'dan)", "durum": "done", "alan": "Altyapı" },
-        { "v": "0.4.0", "ad": "Tek Fastify servis + Railway config + admin iskeleti (Yol Haritası)", "durum": "done", "alan": "Altyapı",
-          "kabul": "npm start tek portta landing/app/admin/api (yerelde doğrulandı); Railway deploy ilk push sonrası" },
-        { "v": "0.4.1", "ad": "Kimlik: e-posta + parola (ana yol), GitHub OAuth yalnız geliştirici, imzalı oturum çerezi", "durum": "done", "alan": "Güvenlik",
-          "kabul": "İki e-posta kullanıcısı giriş yapıyor; başkası 401; yerelde doğrulandı (Railway Variables kurucu girecek)" },
-        { "v": "0.4.2", "ad": "Paylaşımlı durum: durum çipleri + Vibe oturumları DB'ye (SQLite + Railway Volume)", "durum": "done", "alan": "Altyapı",
-          "kabul": "İki cihazda aynı durum (API doğrulandı; Railway'de Volume + DATA_PATH kurucu ayarlayacak)" },
-        { "v": "0.5.0", "ad": "Drive senkronu v1: A–F tarama → DATAROOM durum/link → .data.js → build; admin Paneller & Senkron", "durum": "next", "alan": "Veri",
-          "kabul": "5 müvekkil Drive'dan güncel; fark raporu" },
-        { "v": "0.5.1", "ad": "Veri doğruluğu turu: veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil", "durum": "planned", "alan": "Veri",
-          "kabul": "Checklist %100" },
-        { "v": "0.6.0", "ad": "Vibe üretim: API key, SDK güncel, model kademeleri, token tavanı + sayaç", "durum": "planned", "alan": "Vibe",
-          "kabul": "Vibe canlı, maliyet admin'de görünür" },
-        { "v": "0.6.1", "ad": "Admin tamam: sürümler, geri bildirim, kullanıcılar, sağlık", "durum": "planned", "alan": "Admin" },
-        { "v": "0.7.0", "ad": "Landing + güvenlik taraması (CSP, rate limit, audit) + alan adı", "durum": "planned", "alan": "Ürün",
-          "kabul": "Lighthouse ≥90; dış erişimde login zorunlu" },
+        { "v": "0.4.0", "ad": "Tek Fastify servis + Railway config + admin iskeleti (Yol Haritası)", "durum": "done", "alan": "Altyapı", "kabul": "npm start tek portta landing/app/admin/api" },
+        { "v": "0.4.1", "ad": "Kimlik: e-posta + parola (ana yol), GitHub OAuth yalnız geliştirici, imzalı oturum çerezi", "durum": "done", "alan": "Güvenlik", "kabul": "İki e-posta kullanıcısı giriş yapıyor; başkası 401" },
+        { "v": "0.4.2", "ad": "Paylaşımlı durum: durum çipleri + Vibe oturumları DB'ye (SQLite + Railway Volume)", "durum": "done", "alan": "Altyapı", "kabul": "İki cihazda aynı durum" },
+        { "v": "0.4.3", "ad": "Railway canlı: Variables + Volume etkin, kimlik açık, db volume; api/web servisleri silindi", "durum": "progress", "alan": "Yayın", "kabul": "health: kimlik açık · db volume; /app oturum ister" },
+        { "v": "0.5.0", "ad": "Landing'deki kurucu yol haritası ürüne işlendi (North Star, paketler, kapsam) — admin Yol Haritası", "durum": "progress", "alan": "Ürün" },
+        { "v": "0.5.1", "ad": "Veri doğruluğu turu: veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil", "durum": "next", "alan": "Veri", "kabul": "Checklist %100" },
+        { "v": "0.6.0", "ad": "Vibe üretim: API key, model kademeleri, token tavanı + sayaç; 13 şablon gözden geçirme", "durum": "planned", "alan": "Vibe", "kabul": "Vibe canlı, maliyet admin'de görünür" },
+        { "v": "0.6.1", "ad": "Admin tamam: geri bildirim gelen kutusu, sürümler, kullanıcı düzenleme, sağlık", "durum": "planned", "alan": "Admin" },
+        { "v": "0.7.0", "ad": "Güvenlik taraması (CSP, rate limit, audit), alan adı vibe.jurishukuk.com, Lighthouse ≥90", "durum": "planned", "alan": "Güvenlik" },
         { "v": "1.0.0", "ad": "Kabul: 2 hafta kesintisiz günlük kullanım, açık hata 0, veri doğrulama tamam", "durum": "planned", "alan": "Yayın" }
       ]
     },
     {
-      "v": "2.0", "ad": "Müvekkil yüzü ve otomasyon", "hedef": "Müvekkil salt-okunur erişim · bildirimler · Notion okuma · Claude ile metin taslağı · Postgres",
+      "v": "2.0", "paket": "Ofis", "ad": "Ofis · Bağlı sistemler", "hedef": "Ekip ve bağlı şirketler. Veri kendiliğinden akar; ajanlar ritmi tutar.",
+      "odeme": "Çalışma alanı + bağlı şirket başına — kullanıcı sayısı değil şirket sayısı ölçeklenir",
+      "kapsam": [
+        "Vibe MCP: muhasebe, banka, e-fatura, e-ticaret, reklam, SGK bağlayıcıları", "Data Room Ajanı: belge geldiğinde beyan → belge",
+        "Brifing, Toplantı, Finans ve Vergi ajanları; zamanlanmış akışlar", "Gmail: durum maili ve hatırlatmalar taslak olarak kutuya",
+        "Ortak oturumlar, roller (yatırımcı · danışman · yönetim), onay kapıları", "Değerleme, nakit akışı ve borç tabloları gerçek rakamla",
+        "Pazarlama ve satış katmanı: ciro, ROAS, teklif stoğu"
+      ],
+      "northStarEtkisi": "Beklenti yönetimi gerçek rakamla; Nakit Akışı ve Networth ilk kez dolu.",
       "adimlar": [
-        { "v": "2.0", "ad": "Müvekkil girişi (salt okunur panel, kendi Data Room'u), e-posta davet", "durum": "vision", "alan": "Ürün" },
-        { "v": "2.0", "ad": "Girdi bekleyen kalemler için haftalık özet bildirimi (Gmail taslağı)", "durum": "vision", "alan": "Otomasyon" },
-        { "v": "2.0", "ad": "Notion Command Center okuma · Toplantı → Decision Log", "durum": "vision", "alan": "Veri" },
-        { "v": "2.0", "ad": "Panel metinlerinin Claude ile taslaklanması (dayanak linkli), insan onayıyla yayın", "durum": "vision", "alan": "Vibe" },
-        { "v": "2.0", "ad": "Postgres'e geçiş (çoklu kullanıcı)", "durum": "vision", "alan": "Altyapı" }
+        { "v": "2.0", "ad": "Panel üretimi (Intake-lite): Vibe'a Data Room linki yapıştır → drive-sync tarar → .data.js taslağı → kit build → panel HTML, Kurumsal Yönetim Panelleri'ne otomatik eklenir (kurucu fikri 18.10)", "durum": "vision", "alan": "Veri" },
+        { "v": "2.0", "ad": "Drive senkronu: A–F tarama → durum önerileri (pending/input → review) → onayla uygula; dayanak linkleri panelde (drive-sync WIP hazır)", "durum": "vision", "alan": "Veri" },
+        { "v": "2.0", "ad": "Vibe MCP sunucusu: company.get_data_room / get_panel, finance.pull_trial_balance, dataroom.file_document, process.create_action / log_decision", "durum": "vision", "alan": "Altyapı" },
+        { "v": "2.0", "ad": "Bağlayıcılar: ön muhasebe/ERP, e-Fatura/e-Defter, banka, Shopify/Trendyol/Amazon, Meta/Google Ads, CRM, SGK/bordro", "durum": "vision", "alan": "Entegrasyon" },
+        { "v": "2.0", "ad": "Data Room Ajanı (olay bazlı): belgeyi sınıflandır, klasöre koy, beyan → belge; eksik belge için talep taslağı", "durum": "vision", "alan": "Ajan" },
+        { "v": "2.0", "ad": "Brifing Ajanı (Pazartesi 08:45) · Toplantı Ajanı (not → tutanak, karar, aksiyon) · Finans ve Vergi Ajanı (aylık)", "durum": "vision", "alan": "Ajan" },
+        { "v": "2.0", "ad": "Gmail taslakları; ortak oturumlar, roller, onay kapıları; Postgres'e geçiş", "durum": "vision", "alan": "Ürün" }
       ]
     },
     {
-      "v": "3.0", "ad": "Platform", "hedef": "Çok firmalı kit · Mr. F entegrasyonu · ajanlar · faturalama",
+      "v": "3.0", "paket": "Platform", "ad": "Platform · Çok kiracılı", "hedef": "Danışmanlık firmaları, aile ofisleri ve holdingler kendi müvekkil ve portföylerini aynı metodolojiyle yönetir.",
+      "odeme": "Platform lisansı + metodoloji paketi + API kullanımı — kiracı başına lisans; alan paketleri ayrı; ajan kapasitesi kullanım bazlı",
+      "kapsam": [
+        "Kiracı başına Data Room, paneller, kütüphane, etik duvarlar", "Ajan orkestrasyonu: planlayıcı, paralel alt-ajanlar, denetim izi, hafıza",
+        "Intake, Due Diligence, Değerleme, Teşvik ve Mevzuat ajanları", "Metodoloji paketleri: şablon + mercek + ajan setleri paylaşılabilir",
+        "Açık API ve MCP: dış uygulamalar şirketi sorgular", "Belge / beyan denetim izi ve yetki devri raporları", "Çok dilli çıktı (TR · EN), SSO ve kurumsal güvenlik"
+      ],
+      "northStarEtkisi": "Karar ve aksiyon ölçeklenir; Yönetilen Risk portföy genelinde izlenir.",
       "adimlar": [
-        { "v": "3.0", "ad": "Çok firmalı (Juris dışı danışmanlar) tek kit + şablon pazarı", "durum": "vision", "alan": "Ürün" },
-        { "v": "3.0", "ad": "Mr. F / Problem Pazaryeri entegrasyonu: müvekkil problemleri → çözüm/kanıt", "durum": "vision", "alan": "Ürün" },
-        { "v": "3.0", "ad": "Ajanlar: Drive senkronu + risk tespiti + rapor üretimi zamanlanmış", "durum": "vision", "alan": "Otomasyon" },
-        { "v": "3.0", "ad": "Faturalama ve plan yönetimi", "durum": "vision", "alan": "İş" }
+        { "v": "3.0", "ad": "Çok kiracılı yapı: kiracı başına Data Room / panel / kütüphane, etik duvarlar, rol bazlı erişim", "durum": "vision", "alan": "Altyapı" },
+        { "v": "3.0", "ad": "Ajan orkestrasyonu: Planla → Onay kapısı → Paralel çalıştır → Atıf + denetim izi → Hafıza + nudge", "durum": "vision", "alan": "Ajan" },
+        { "v": "3.0", "ad": "Intake · Due Diligence · Değerleme (NAV/MOIC/IRR) · Teşvik Radarı · Mevzuat Radarı ajanları", "durum": "vision", "alan": "Ajan" },
+        { "v": "3.0", "ad": "Metodoloji paketleri (Hukuk, Finans-Vergi-Teşvik, Pazarlama-Satış, İK) ve paket pazarı; Mr. F / Problem Pazaryeri entegrasyonu", "durum": "vision", "alan": "İş" },
+        { "v": "3.0", "ad": "Açık API + MCP istemcileri, çok dilli çıktı, SSO, faturalama", "durum": "vision", "alan": "Platform" }
       ]
     }
   ]

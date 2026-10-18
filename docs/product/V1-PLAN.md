@@ -85,18 +85,20 @@ DB seçimi: **v1'de SQLite (Node yerleşik `node:sqlite`) + Railway Volume**. Ge
 
 ## 5. v2.0 ve v3.0 vizyonu (admin'de izlenir)
 
-**v2.0 — Müvekkil yüzü ve otomasyon**
-- Müvekkil girişi (salt okunur panel, kendi Data Room'u), e-posta davet
-- Bildirimler: girdi bekleyen kalemler için haftalık özet (Gmail taslağı)
-- Notion Command Center okuma (portföy, kararlar) · Toplantı → Decision Log otomasyonu
-- Panel metinlerinin Claude ile taslaklanması (dayanak linkli), insan onayıyla yayın
-- Postgres'e geçiş (çoklu kullanıcı)
+> Bağlayıcı kaynak: landing'deki **"Sürümler ve Paketler"**, **North Star** (Nakit Akışı · Networth · Yönetilen Risk), **Ajan Orkestrasyonu**
+> ve **Yatay × Dikey katman matrisi** (kurucu, 18.10.2026). `data/roadmap.json` bunu birebir taşır; aşağısı özet.
 
-**v3.0 — Platform**
-- Çok firmalı (Juris dışı danışmanlar) tek kit + şablon pazarı
-- Mr. F / Problem Pazaryeri entegrasyonu: müvekkil problemleri → çözüm/kanıt
-- Ajanlar: Drive senkronu + risk tespiti + rapor üretimi zamanlanmış
-- Faturalama ve plan yönetimi
+**v1.0 — Stüdyo** (şimdi): tek portföy, tek ekip; paneller elle, Claude istek anında okur. Ödeme: çalışma alanı başına · aylık.
+
+**v2.0 — Ofis · Bağlı sistemler**: Vibe MCP bağlayıcıları (muhasebe, banka, e-fatura, e-ticaret, reklam, SGK); Data Room, Brifing,
+Toplantı, Finans-Vergi ajanları; Gmail taslakları; ortak oturumlar, roller, onay kapıları; gerçek rakamla değerleme/nakit/borç;
+pazarlama-satış katmanı. Ödeme: çalışma alanı + bağlı şirket başına.
+**İlk adım (kurucu fikri):** *Intake-lite* — Vibe'a Data Room linki yapıştır → `drive-sync` tarar → `.data.js` taslağı → kit build →
+panel HTML Kurumsal Yönetim Panelleri'ne eklenir. Tek kit (v0.3) ve drive-sync (WIP) bunun için hazır.
+
+**v3.0 — Platform · Çok kiracılı**: kiracı başına Data Room/panel/kütüphane ve etik duvarlar; ajan orkestrasyonu (planla → onay →
+paralel → atıf/denetim izi → hafıza); Intake, DD, Değerleme, Teşvik Radarı, Mevzuat Radarı; metodoloji paketleri ve paket pazarı
+(Mr. F entegrasyonu); açık API + MCP; TR/EN, SSO, faturalama. Ödeme: platform lisansı + metodoloji paketi + API kullanımı.
 
 ## 6. Güvenlik (v1 düzeyi)
 GitHub OAuth (allowlist) + parola yedeği · HttpOnly/Secure/SameSite çerez · HTTPS (Railway) · CSP · `/api/sample` hız sınırı ve token tavanı · gizli bilgiler yalnız env · bağımlılık denetimi · DB yedeği. Daha fazlası (2FA, denetim izi, SSO) v2.
