@@ -1,6 +1,20 @@
 {
   "surumler": [
     {
+      "surum": "0.5.1",
+      "tarih": "2026-10-18",
+      "faz": "v1.0 yolu",
+      "baslik": "Intake-lite: Drive linki → panel kartı",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "Admin → Paneller & Senkron: müvekkil adı + Drive Data Room linki → tarama (A–F → alt başlık → dosya) → standart .data.js taslağı → kit build + smoke → panel kartı; yeniden tara / sil" },
+        { "tur": "yeni", "metin": "Ana Merkez: paneller dinamik (/api/panels) — sol menü, portföy kartı (Intake-lite rozeti), Vibe kapsam/kaynak çipleri, canlı okuma; #p-<slug> ile doğrudan açılış" },
+        { "tur": "yeni", "metin": "API: POST /api/intake · GET /api/panels · POST /api/panels/:slug/rescan · DELETE /api/panels/:slug · GET /api/intake/status; paneller Volume /data/panels'ten /app/p/ altında servis edilir" },
+        { "tur": "yeni", "metin": "tools/intake.js (jenerik veri üretici) + kit.js modül API'si (buildFile/smokeFile); Google service account kurulum adımları RAILWAY.md §3b" },
+        { "tur": "test", "metin": "38 test yeşil (intake: sahte Drive ile tarama→panel, yeniden tarama, silme, hata yolları)" }
+      ]
+    },
+    {
       "surum": "0.4.4",
       "tarih": "2026-10-18",
       "faz": "v1.0 yolu",
@@ -136,7 +150,7 @@
     }
   ],
   "planli": [
-    { "surum": "0.5.0", "baslik": "Drive senkronu", "ozet": "Data Room A–F tarama → DATAROOM durum/link → .data.js → build; admin Paneller & Senkron" },
+    { "surum": "0.5.2", "baslik": "Veri doğruluğu turu", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

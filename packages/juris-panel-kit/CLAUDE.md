@@ -8,7 +8,8 @@ Tasarım ve ortak kod `src/template.html`'de; müvekkile göre yalnız `src/clie
 - `src/template.html` — master'dan türetilen ortak kod (CSS + kabuk + helpers + router). `CLIENT_DATA` işaretçisi müvekkil verisinin yeridir. Elle düzenleme; `node tools/kit.js template` üretir.
 - `src/clients/<slug>.data.js` — müvekkil blokları: `CLIENT` (+`startLabel`), `FUNCTIONS`, `D/doc/O/U`, `DATAROOM`, `BASIS_COUNT`, `ASSESS_TABS`, `SRC`, `ENTS`, `BMC/LEAN/OKR/RACI`, `FIN` (+`FINSTRUCT`/`DEBT`/`LEASING`), `REVACT/VALPROC/PROJECTS`, `DD/DD_DONE/CONTRACTS/RISKS`, `MEETINGS/ACTIONS/DECISIONS/MAILS`, `E0`, `assessA–F`, `viewInsights`, `ONBOARD/LEARN`.
   `assessA–F` ve `viewInsights` müvekkile özgü **metin** taşıdığı için veri dosyasındadır; yapı template helper'larını (docH, canvas, okrGrid, barChart, ddList, heatmap…) kullanır.
-- `tools/kit.js` — `template` · `extract <html> <slug>` · `build <slug>` · `smoke <slug>` · `compare <slug> <eski.html>` · `all [--deploy]`.
+- `tools/kit.js` — `template` · `extract <html> <slug>` · `build <slug>` · `smoke <slug>` · `compare <slug> <eski.html>` · `all [--deploy]`. Modül olarak da kullanılır: `buildFile(dataFile, outFile, title)`, `smokeFile(file)` (sunucu Intake-lite bunu çağırır).
+- `tools/intake.js` — **Intake-lite** (v0.5.1): Drive taramasından (`scanRoot`) jenerik `.data.js` üretir (`generateDataJs`). Eksik A–F bölümleri standarttan tamamlanır; metinler "Intake-lite taslağı" diliyledir, Juris doldurur. Sunucu üretimini `var/panels` (Railway: `/data/panels`) altına yazar; repoya girmez.
 - `dist/juris-panel-<slug>.html` — üretilen paneller. `--deploy` ile `apps/ana-merkez/public/<slug>.html`'e kopyalanır.
 - `build/` (assemble.py, block_*.js) — **eski akış, arşiv**. Kullanılmaz.
 - Kaynak arşiv: `packages/juris-panels/` (kurucunun paket halinde verdiği Qervan/Zyrone/Onscala kaynakları, birebir).

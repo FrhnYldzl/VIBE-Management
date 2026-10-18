@@ -3,6 +3,22 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.1] — 2026-10-18 · Intake-lite: Drive linki → panel kartı
+
+### Eklendi
+- **Intake-lite** (kurucu önerisi 4): Admin → **Paneller & Senkron** formu — müvekkil adı + Drive Data Room kök linki (+ kısa ad, tüzel
+  kişilikler, başlangıç) → service account ile tarama (bölüm A–F → alt başlık → dosya, bir seviye derin) → `tools/intake.js` standart
+  `.data.js` taslağı (DATAROOM dosya satırları "Onay Bekliyor", eksik bölümler standarttan; BMC/OKR/RACI/DD/FIN iskeletleri, jenerik
+  assessA–F + Insights, "Intake-lite taslağı" notları) → `kit.js buildFile` + `smokeFile` → kayıt (`panels` tablosu) → panel kartı.
+- API: `POST /api/intake`, `GET /api/panels`, `GET /api/panels/:slug/data`, `POST /api/panels/:slug/rescan`, `DELETE /api/panels/:slug`,
+  `GET /api/intake/status`. Üretilen HTML'ler Volume'de (`/data/panels`, `PANELS_DIR`) ve `/app/p/<slug>.html` altında (aynı origin → durum çipleri çalışır).
+- Ana Merkez: paneller **dinamik** — `/api/panels` sol menüye, portföy kartlarına (Intake-lite rozeti), Vibe kapsam/kaynak çiplerine ve canlı
+  okumaya eklenir; `#p-<slug>` ile doğrudan açılır. Health: `GOOGLE_SERVICE_ACCOUNT`, `PANELS_DIR`.
+- `kit.js` modül API'si (`buildFile`, `smokeFile`); `@vibe/drive-sync` tip bildirimi; Google service account kurulumu `docs/ops/RAILWAY.md §3b`.
+
+### Testler
+- 38 test yeşil: intake üreteci (tarama → veri → derleme → smoke) ve sunucu akışı (sahte Drive; yeniden tarama, silme, 400/502/503 yolları).
+
 ## [0.4.4] — 2026-10-18 · Kurucu önerileri (canlı sonrası ilk tur)
 
 ### Eklendi

@@ -53,6 +53,24 @@ Her `auth:hash` çıktısının ilk satırı `scrypt~...~...` hash'idir → `PAS
 DB'de varsa env değeri yok sayılır. Parola değiştirme: giriş → `/hesap`. Unutulan parola: Admin → Kullanıcılar → "Parola sıfırla".
 Anthropic anahtarı değişken adı: `VIBE_MANAGEMENT` (alt çizgi) ya da `ANTHROPIC_API_KEY`.
 
+## 3b. Google service account (Intake-lite · v0.5.1)
+Intake-lite, Drive Data Room'u **service account** ile okur (kullanıcı OAuth'u yok; salt okunur). Bir kez kurulur.
+
+1. [console.cloud.google.com](https://console.cloud.google.com) → proje oluştur (örn. `vibe-management`) → **APIs & Services → Library → Google Drive API → Enable**.
+2. **IAM & Admin → Service Accounts → Create service account**: ad `vibe-intake`, rol gerekmez → Done.
+3. Servis hesabına tıkla → **Keys → Add key → Create new key → JSON** → dosya iner (tek kopya; kaybolursa yeni anahtar üretilir).
+4. JSON'u Railway'e tek satır olarak ekle. PowerShell'de:
+   ```bash
+   [Convert]::ToBase64String([IO.File]::ReadAllBytes("$HOME\Downloads\vibe-management-xxxx.json")) | Set-Clipboard
+   ```
+   Railway → Variables → **`GOOGLE_SERVICE_ACCOUNT_JSON`** = panodaki base64 metin (ham JSON da kabul edilir; base64 Raw Editor'da güvenlidir).
+5. Drive'da müvekkilin **Data Room kök klasörünü** (A–F klasörlerini içeren) servis hesabının e-postasıyla paylaş:
+   `vibe-intake@<proje>.iam.gserviceaccount.com` → **Görüntüleyen**. Alt klasörler paylaşımı miras alır. Paylaşımlı Sürücü'de ise hesabı sürücüye "Görüntüleyen" ekle.
+6. Deploy sonrası Admin → **Paneller & Senkron**: "Drive bağlantısı: Hazır" + SA e-postası görünür. Formu doldur → **Tara ve paneli üret**.
+   Panel dosyaları Volume'de `/data/panels/` altında durur (`PANELS_DIR` ile değiştirilebilir); kayıt SQLite `panels` tablosunda.
+
+Yerelde: `apps/server/.env` içine `GOOGLE_SERVICE_ACCOUNT_JSON=<base64>` yaz; health → `ortam.GOOGLE_SERVICE_ACCOUNT: true`.
+
 ## 4. Alan adı
 Servis → **Settings → Networking → Generate Domain** (örn. `vibe-management.up.railway.app`). Özel alan adı: `vibe.jurishukuk.com` → CNAME.
 GitHub OAuth kullanılacaksa OAuth App'teki callback: `https://<alan-adi>/auth/github/callback`.
@@ -72,3 +90,6 @@ GitHub OAuth kullanılacaksa OAuth App'teki callback: `https://<alan-adi>/auth/g
 | `/api/health` `db: "yerel dosya"` | `DATA_PATH` yok ya da Volume mount edilmedi |
 | Giriş sonrası tekrar `/login` | Çerez `Secure` — alan adı https olmalı (Railway domain https'tir); özel domain'de sertifika bekleyin |
 | Vibe `503 ANTHROPIC_API_KEY` | anahtar girilmedi (v0.6.0'da zaten planlı) |
+| Admin A3 "Drive bağlantısı: Kurulmadı" | `GOOGLE_SERVICE_ACCOUNT_JSON` yok ya da JSON bozuk (§3b) |
+| Intake `502 Drive taraması başarısız … paylaşıldı mı?` | Kök klasör SA e-postasıyla paylaşılmadı, ya da link bir klasör değil (dosya/Doc linki) |
+| Intake `503 Drive bağlı değil` | değişken sürece ulaşmadı → health `ortam.GOOGLE_SERVICE_ACCOUNT` kontrol |

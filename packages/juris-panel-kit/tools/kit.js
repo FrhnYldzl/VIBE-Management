@@ -180,6 +180,43 @@ function clients() {
   return fs.readdirSync(path.join(ROOT, "src", "clients")).filter((f) => f.endsWith(".data.js")).map((f) => f.replace(".data.js", ""));
 }
 
+/* ---- modül API'si (sunucu Intake-lite kullanır): keyfi veri dosyası → keyfi çıktı ---- */
+function buildFile(dataFile, outFile, title) {
+  const tpl = fs.readFileSync(path.join(ROOT, "src", "template.html"), "utf8");
+  const data = fs.readFileSync(dataFile, "utf8");
+  if (!tpl.includes(MARKER)) throw new Error("şablonda marker yok");
+  let out = tpl.replace(MARKER, () => data);
+  const t = title ?? (data.match(/name:"([^"]+)"/) || [])[1];
+  if (t) out = out.replace("<title>Juris Kurumsal Yönetim Paneli</title>", `<title>Juris Kurumsal Yönetim Paneli – ${t}</title>`);
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
+  fs.writeFileSync(outFile, out);
+  return outFile;
+}
+/** smoke() ile aynı denetim; dosya yolu alır, {ok, bad[], views, items, docs, pct} döndürür (çıktıya yazmaz) */
+function smokeFile(file) {
+  const s = fs.readFileSync(file, "utf8");
+  const [a, b] = scriptBounds(s); const js = s.slice(a + 8, b);
+  const els = {};
+  const mk = () => ({ innerHTML: "", scrollTop: 0, textContent: "", hidden: false, classList: { toggle() {}, remove() {}, add() {}, contains: () => false }, addEventListener() {}, dataset: {}, setAttribute() {}, getAttribute: () => null, querySelectorAll: () => [], querySelector: () => null, style: {} });
+  const doc = { getElementById: (id) => els[id] || (els[id] = mk()), querySelectorAll: () => [], querySelector: () => mk(), addEventListener() {}, documentElement: mk(), body: mk(), createElement: mk };
+  const sandbox = { document: doc, window: { addEventListener() {}, matchMedia: () => ({ matches: false, addEventListener() {} }) }, localStorage: { getItem: () => null, setItem() {}, removeItem() {} }, location: { hash: "", href: "", protocol: "file:" }, history: { replaceState() {} }, console, setTimeout: () => 0, requestAnimationFrame: () => 0, navigator: { userAgent: "" }, Intl, Date, Math, JSON, Object, Array, String, Number, RegExp, Map, Set, Promise, Error, fetch: () => Promise.reject(new Error("no net")) };
+  sandbox.window.document = doc; sandbox.globalThis = sandbox; sandbox.self = sandbox;
+  const test = `
+    const __bad=[]; const __ents=CLIENT.short.concat(CLIENT.short.length>1?["Konsolide"]:[]);
+    const __views=["home","insights","ob-onboarding","ob-learn",...Object.keys(FUNCTIONS).map(k=>"fn-"+k),...allItems().map(i=>i.id)];
+    const __chk=(v,label=v)=>{ try{ current=v; render(); const h=document.getElementById("view").innerHTML; const m=h.match(/undefined|NaN|\\[object Object\\]/g); if(m) __bad.push(label+" ("+m.slice(0,3).join(",")+")"); } catch(e){ __bad.push(label+" ERR "+e.message); } };
+    for(const v of __views) __chk(v);
+    for(const t of "ABCDEF") for(const e of __ents){ assessEnt=e; __chk("as-"+t, "as-"+t+"/"+e); }
+    __result={views:__views.length+6*__ents.length, bad:__bad, items:allItems().length, docs:stats(allItems()).total, pct:stats(allItems()).pct};`;
+  const vm = require("vm"); const ctx = vm.createContext(sandbox);
+  try { vm.runInContext(js + "\n" + test, ctx, { filename: path.basename(file) }); }
+  catch (e) { return { ok: false, bad: ["YÜKLEME HATASI: " + e.message], views: 0, items: 0, docs: 0, pct: 0 }; }
+  const r = ctx.__result; return { ok: r.bad.length === 0, ...r };
+}
+module.exports = { buildFile, smokeFile, ROOT, MARKER, TEMPLATE_NAMES };
+
+if (require.main !== module) { /* modül olarak kullanılıyor — CLI çalıştırma */ }
+else {
 const [, , cmd, ...args] = process.argv;
 if (cmd === "template") makeTemplate();
 else if (cmd === "extract") extract(path.resolve(args[0]), args[1]);
@@ -194,3 +231,4 @@ else if (cmd === "all") {
   process.exit(ok ? 0 : 1);
 }
 else { console.log(fs.readFileSync(__filename, "utf8").split("*/")[0]); process.exit(1); }
+}

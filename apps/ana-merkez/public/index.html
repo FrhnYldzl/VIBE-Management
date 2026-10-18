@@ -461,7 +461,7 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
     <button class="ni" data-view="cadence"><span class="k">10</span><span class="t">Yönetişim Takvimi</span></button>
   </div>
 
-  <div class="navsec"><div class="h top">Kurumsal Yönetim Panelleri · Juris</div>
+  <div class="navsec" id="navPanels"><div class="h top">Kurumsal Yönetim Panelleri · Juris</div>
     <button class="ni" data-view="p-onscala"><span class="k">ON</span><span class="t">Onscala</span><span class="pct">Danışmanlık</span></button>
     <button class="ni" data-view="p-codemag"><span class="k">CM</span><span class="t">Codemag</span><span class="pct">Danışmanlık</span></button>
     <button class="ni" data-view="p-zyrone"><span class="k">ZY</span><span class="t">Zyrone</span><span class="pct">Danışmanlık</span></button>
@@ -823,7 +823,7 @@ function renderHome(){
   const docd=DOCS.filter(d=>d[4]==="belge").length; $("#t-doc").innerHTML=`${Math.round(docd/DOCS.length*100)}<small>%</small>`;
   $("#t-assets").textContent=ASSETS.length; $("#t-assets-d").textContent=`${nCo} şirket · ${nVcp} VCP projesi`;
   $("#pf-count").textContent=ASSETS.length;
-  $("#pcards").innerHTML=Object.entries(PANELS).map(([id,p])=>`<button class="card pcard" data-view="p-${id}"><div class="top"><b>${p.name}</b><span class="pill red">Danışmanlık</span></div><div class="muted" style="font-size:12.5px">${esc(p.entity)} · başlangıç ${p.since}</div><div style="font-size:12.5px;color:var(--ink-2)">${esc(p.line)}</div><div class="facts">${p.facts.map(f=>`<span>${esc(f)}</span>`).join("")}</div><span class="go">Paneli aç →</span></button>`).join("");
+  $("#pcards").innerHTML=Object.entries(PANELS).map(([id,p])=>`<button class="card pcard" data-view="p-${id}"><div class="top"><b>${esc(p.name)}</b><span class="pill ${p.intake?"blue":"red"}">${p.intake?"Intake-lite":"Danışmanlık"}</span></div><div class="muted" style="font-size:12.5px">${esc(p.entity)} · başlangıç ${p.since}</div><div style="font-size:12.5px;color:var(--ink-2)">${esc(p.line)}</div><div class="facts">${p.facts.map(f=>`<span>${esc(f)}</span>`).join("")}</div><span class="go">Paneli aç →</span></button>`).join("");
   $("#cfv").innerHTML=`<tr><th>Varlık</th><th>Sınıf</th><th>Nakit akışı (bugün)</th><th>Değer (yarın)</th><th class="r">Tez uyumu</th><th>Dayanak</th></tr>`+
     ASSETS.map(a=>`<tr class="row"><td><span class="nm">${a.name}</span> <span class="code">${a.code}</span></td><td class="sm">${a.cls}</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill ${eqLabel[a.eq][0]}">${eqLabel[a.eq][1]}</span></td><td class="r"><span class="score ${scoreCls(fitScore(a))}">${fitScore(a)}</span></td><td>${docPill(a.doc)}</td></tr>`).join("");
   $("#agenda").innerHTML=[["Yatırım Tezi v1.0'ı onayla (IPS)","Strateji"],["Ariwon ve Katalist cap table'ını doğrula","Yapı"],["D2-X ve EuroStep yapı kararı (Gate 1)","Venture"],["Değerleme politikası + ilk NAV işaretlemesi","Finans"],["2027 bütçesi ve sermaye tahsis tavanları","Finans"],["Onscala ve Codemag: girdi gecikmesi ve ücret/değer dengesi","Danışmanlık"],["Yetki devri planı (key person)","Risk"]]
@@ -920,13 +920,35 @@ const ALANLAR=[
 ];
 let scope="all", alan="genel"; const src={portfolio:true,risks:true,docs:false,onscala:true,codemag:true,zyrone:true,qervan:true,meown:true};
 /* Panel kaynakları: tek müvekkil kapsamında yalnız o panel; MTFG/portföy kapsamlarında tüm paneller (P) ya da hiçbiri (N) */
-const PANEL_IDS=Object.keys(PANELS);
+let PANEL_IDS=Object.keys(PANELS);
 const panelSrc=on=>Object.fromEntries(PANEL_IDS.map(id=>[id,on?1:0]));
 const onlyPanel=id=>Object.fromEntries(PANEL_IDS.map(p=>[p,p===id?1:0]));
 const SCOPE_SRC={all:{portfolio:1,risks:1,docs:0,...panelSrc(1)},mtfg:{portfolio:1,risks:1,docs:1,...panelSrc(0)},
   onscala:{portfolio:0,risks:0,docs:0,...onlyPanel("onscala")},codemag:{portfolio:0,risks:0,docs:0,...onlyPanel("codemag")},
   zyrone:{portfolio:0,risks:0,docs:0,...onlyPanel("zyrone")},qervan:{portfolio:0,risks:0,docs:0,...onlyPanel("qervan")},meown:{portfolio:0,risks:0,docs:0,...onlyPanel("meown")},
   juris:{portfolio:1,risks:1,docs:0,...panelSrc(1)},fevup:{portfolio:1,risks:1,docs:0,...panelSrc(0)},marqby:{portfolio:1,risks:1,docs:0,...panelSrc(0)},d2x:{portfolio:1,risks:1,docs:0,...panelSrc(0)}};
+
+/* Intake-lite panelleri (v0.5.1): sunucuda Drive linkinden üretilenler /api/panels'ten gelir; sol menü, portföy kartı, Vibe kapsam/kaynak ve başlıklara eklenir */
+async function loadDynamicPanels(){
+  let rows=[]; try{ const r=await fetch("/api/panels",{credentials:"same-origin"}); if(r.ok) rows=await r.json(); }catch(e){}
+  rows=rows.filter(p=>p&&p.slug&&!PANELS[p.slug]); if(!rows.length) return;
+  const nav=$("#navPanels");
+  for(const p of rows){
+    const since=(p.scanned_at||"").slice(0,10).split("-").reverse().join(".");
+    PANELS[p.slug]={name:p.name,file:p.file,entity:p.entities.join(" · "),since,intake:true,
+      facts:[`${p.files} Drive dosyası`,`${p.folders} alt klasör`,p.status==="ok"?"taslak panel":p.status==="warn"?"Data Room boş":"tarama uyarısı"],
+      line:"Intake-lite: Drive Data Room taramasından kuruldu; metinler ve rakamlar Juris tarafından doldurulacak.",
+      fallback:`${p.name}: Intake-lite taslağı (${since}). Drive Data Room'da ${p.files} dosya / ${p.folders} alt klasör; DD checklist standart, OKR hedefleri iletilmedi, mali tablo yok.`};
+    titles["p-"+p.slug]=p.name; SCOPES.push([p.slug,p.name,"#6FA0E0"]); SOURCES.push([p.slug,p.name+" paneli"]); src[p.slug]=true;
+    const b=document.createElement("button"); b.className="ni"; b.dataset.view="p-"+p.slug; b.title=p.name;
+    b.innerHTML=`<span class="k">${esc((p.short[0]||p.name).replace(/[^A-Za-zÇĞİÖŞÜçğıöşü]/g,"").slice(0,2).toUpperCase())}</span><span class="t">${esc(p.name)}</span><span class="pct">Intake</span>`;
+    nav.appendChild(b);
+  }
+  PANEL_IDS=Object.keys(PANELS);
+  for(const k of Object.keys(SCOPE_SRC)){ const on=["all","juris"].includes(k); if(PANELS[k]) Object.assign(SCOPE_SRC[k],onlyPanel(k)); else Object.assign(SCOPE_SRC[k],panelSrc(on?1:0)); }
+  for(const p of rows) SCOPE_SRC[p.slug]={portfolio:0,risks:0,docs:0,...onlyPanel(p.slug)};
+  renderHome(); renderScope(); renderSrcs();
+}
 
 const TEMPLATES=[
  {id:"jurisify",cat:"Doküman",art:"a2",gl:"J",lb:"Jurisleştir",title:"Jurisleştir",desc:"Eklediğiniz dokümanı Juris'in kurumsal diline ve yapısına çevirir: başlık düzeni, hukuki netlik, sorumlu ve dayanak satırları.",scope:"juris",alan:"iletisim",out:"Doküman",file:true,
@@ -1214,8 +1236,10 @@ $("#vq").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.metaKey||e.ctrlKe
 $("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
 
 renderHome();renderThesis();renderPortfolio();renderFunnel();renderVB();renderCapital();renderValue();renderRisk();renderDocs();renderVibeStatic();
-let v0="vibe"; try{v0=localStorage.getItem("mtfg-view")||"vibe"}catch(e){} go(titles[v0]?v0:"vibe");
+/* açılış görünümü: #p-<slug> (admin "Aç" linki) > son görünüm > vibe */
+let v0="vibe"; try{v0=(location.hash.startsWith("#p-")?location.hash.slice(1):"")||localStorage.getItem("mtfg-view")||"vibe"}catch(e){} go(titles[v0]?v0:"vibe");
 pullState();
+loadDynamicPanels().then(()=>{ if(v0.startsWith("p-")&&titles[v0]&&current!==v0) go(v0); $("#vstatus").textContent=$("#vstatus").textContent.replace(/\d+ panel/,`${PANEL_IDS.length} panel`); });
 getSample().then(s=>{ $("#vdot").classList.toggle("off",!s); $("#vstatus").textContent=s?`Vibe Management · Claude bağlı · ${PANEL_IDS.length} panel canlı`:"Vibe Management · Claude bu görünümde yok"; $("#vnote").textContent=s?"Panel verisi sadece istek anında okunur ve Claude'a bağlam olarak gönderilir; ilk çalıştırmada izin istenir.":"Şablonlar istemi hazırlar; Claude bağlantısı claude.ai görünümünde açılır."; });
 </script>
 

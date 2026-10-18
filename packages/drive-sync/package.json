@@ -5,5 +5,6 @@
   "type": "module",
   "description": "Google Drive Data Room tarayıcı — service account, klasör listesi, müvekkil .data.js okuyucu, durum önerileri",
   "main": "index.mjs",
-  "exports": { ".": "./index.mjs" }
+  "types": "index.d.ts",
+  "exports": { ".": { "types": "./index.d.ts", "default": "./index.mjs" } }
 }

@@ -5,6 +5,13 @@ import { dirname } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
 export interface PanelStatusRow { key: string; status: string; updated_by: string; updated_at: string }
+export interface PanelRow {
+  slug: string; name: string; short: string[]; entities: string[]; drive_root: string;
+  status: "ok" | "warn" | "error"; files: number; folders: number; smoke: { ok: boolean; bad: string[]; views: number; items: number; docs: number; pct: number } | null;
+  created_by: string; created_at: string; scanned_at: string | null; error: string | null;
+}
+type PanelRaw = Omit<PanelRow, "short" | "entities" | "smoke"> & { short: string; entities: string; smoke: string | null };
+const panelRow = (r: PanelRaw): PanelRow => ({ ...r, short: JSON.parse(r.short), entities: JSON.parse(r.entities), smoke: r.smoke ? JSON.parse(r.smoke) : null });
 
 export function openStore(path: string) {
   if (path !== ":memory:") mkdirSync(dirname(path), { recursive: true });
@@ -28,7 +35,21 @@ export function openStore(path: string) {
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
       password_changed_at TEXT, last_login_at TEXT
     );
+    -- Intake-lite panelleri: Drive linki → üretilen .data.js + HTML (dosyalar Volume'de, kayıt burada)
+    CREATE TABLE IF NOT EXISTS panels (
+      slug TEXT PRIMARY KEY, name TEXT NOT NULL, short TEXT NOT NULL, entities TEXT NOT NULL, drive_root TEXT NOT NULL,
+      status TEXT NOT NULL, files INTEGER NOT NULL DEFAULT 0, folders INTEGER NOT NULL DEFAULT 0, smoke TEXT,
+      created_by TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      scanned_at TEXT, error TEXT
+    );
   `);
+  const qPanel = db.prepare("SELECT * FROM panels WHERE slug = ?");
+  const qPanels = db.prepare("SELECT * FROM panels ORDER BY created_at");
+  const uPanel = db.prepare(`INSERT INTO panels (slug, name, short, entities, drive_root, status, files, folders, smoke, created_by, scanned_at, error)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(slug) DO UPDATE SET name = excluded.name, short = excluded.short, entities = excluded.entities, drive_root = excluded.drive_root,
+      status = excluded.status, files = excluded.files, folders = excluded.folders, smoke = excluded.smoke, scanned_at = excluded.scanned_at, error = excluded.error`);
+  const dPanel = db.prepare("DELETE FROM panels WHERE slug = ?");
   const qUser = db.prepare("SELECT email, name, hash, created_at, password_changed_at, last_login_at FROM users WHERE email = ?");
   const qUsers = db.prepare("SELECT email, name, created_at, password_changed_at, last_login_at FROM users ORDER BY email");
   const iUser = db.prepare("INSERT OR IGNORE INTO users (email, name, hash) VALUES (?, ?, ?)");
@@ -60,6 +81,13 @@ export function openStore(path: string) {
     addUserIfMissing(email: string, name: string, hash: string): boolean { return iUser.run(email.toLowerCase(), name, hash).changes > 0; },
     setUserHash(email: string, hash: string): boolean { return uHash.run(hash, email.toLowerCase()).changes > 0; },
     touchLogin(email: string) { uLogin.run(email.toLowerCase()); },
+    /* ---- Intake-lite panelleri ---- */
+    getPanel: (slug: string) => { const r = qPanel.get(slug) as PanelRaw | undefined; return r ? panelRow(r) : undefined; },
+    listPanels: () => (qPanels.all() as unknown as PanelRaw[]).map(panelRow),
+    upsertPanel(p: Omit<PanelRow, "created_at">) {
+      uPanel.run(p.slug, p.name, JSON.stringify(p.short), JSON.stringify(p.entities), p.drive_root, p.status, p.files, p.folders, p.smoke ? JSON.stringify(p.smoke) : null, p.created_by, p.scanned_at, p.error);
+    },
+    deletePanel: (slug: string) => dPanel.run(slug).changes > 0,
     stats() {
       const p = db.prepare("SELECT COUNT(*) AS n, COUNT(DISTINCT client) AS c FROM panel_status").get() as { n: number; c: number };
       const v = db.prepare("SELECT key, length(json) AS bytes, updated_at FROM vibe_state").all() as { key: string; bytes: number; updated_at: string }[];

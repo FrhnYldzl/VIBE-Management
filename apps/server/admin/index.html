@@ -52,7 +52,7 @@ td .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin-rig
     <button class="ni" data-view="feedback"><span class="k">A2</span><span class="t">Geri Bildirim</span><span class="pct">v0.6.1</span></button>
   </div>
   <div class="navsec"><div class="h">Veri ve sistem</div>
-    <button class="ni" data-view="panels"><span class="k">A3</span><span class="t">Paneller &amp; Senkron</span><span class="pct">v0.5.0</span></button>
+    <button class="ni" data-view="panels"><span class="k">A3</span><span class="t">Paneller &amp; Senkron</span><span class="pct" id="navPanelCnt"></span></button>
     <button class="ni" data-view="users"><span class="k">A4</span><span class="t">Kullanıcılar</span></button>
     <button class="ni" data-view="health"><span class="k">A5</span><span class="t">Sağlık</span></button>
   </div>
@@ -73,7 +73,7 @@ const $=s=>document.querySelector(s);const esc=s=>String(s??"").replace(/[&<>"]/
 const titles={roadmap:"Yol Haritası",releases:"Sürümler",feedback:"Geri Bildirim",panels:"Paneller & Senkron",users:"Kullanıcılar",health:"Sağlık"};
 const STATUS={done:"Tamamlandı",progress:"Devam ediyor",next:"Sırada",planned:"Planlı",vision:"Vizyon"};
 const COLOR={done:"var(--success)",progress:"var(--warn)",next:"var(--info)",planned:"var(--neutral)",vision:"var(--red-ink)"};
-let RM=null, REL=null, HEALTH=null, ME=null, AUTHCFG=null, USERS=null, current="roadmap";
+let RM=null, REL=null, HEALTH=null, ME=null, AUTHCFG=null, USERS=null, INTAKE=null, PANELS=null, current="roadmap";
 $("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
 
 function stats(steps){const c={done:0,progress:0,next:0,planned:0,vision:0,total:steps.length};steps.forEach(s=>c[s.durum]++);c.pct=c.total?Math.round(100*(c.done+.5*c.progress)/c.total):0;return c;}
@@ -104,7 +104,7 @@ function viewReleases(){
 }
 function viewHealth(){
   const h=HEALTH||{};return `<div class="page-h"><div><div class="eyebrow">Veri ve sistem · A5</div><h1>Sağlık</h1><p>Tek servis: landing · /app · /admin · /api. Railway health check: <b>/api/health</b>.</p></div></div>
-  <div class="tiles"><div class="tile accent"><div class="l">Servis</div><div class="v">${h.ok?"OK":"—"}</div><div class="d">v${esc(h.surum||"?")}</div></div><div class="tile"><div class="l">Vibe (Claude)</div><div class="v">${h.vibe?"Açık":"Kapalı"}</div><div class="d">${h.vibe?"ANTHROPIC_API_KEY tanımlı":"anahtar yok → v0.6.0"}</div></div><div class="tile"><div class="l">Veritabanı</div><div class="v" style="font-size:20px">${esc(h.db||"—")}</div><div class="d">SQLite · ${h.db==="volume"?"Railway Volume (/data)":h.db==="yerel dosya"?"var/vibe.db — Railway'de DATA_PATH=/data/vibe.db ayarlayın":"test"}</div></div><div class="tile"><div class="l">Drive senkronu</div><div class="v">—</div><div class="d">v0.5.0</div></div><div class="tile"><div class="l">Kimlik</div><div class="v">${h.kimlik==="açık"?"Açık":"Kapalı"}</div><div class="d">e-posta + parola · GitHub (geliştirici)</div></div></div>`;
+  <div class="tiles"><div class="tile accent"><div class="l">Servis</div><div class="v">${h.ok?"OK":"—"}</div><div class="d">v${esc(h.surum||"?")}</div></div><div class="tile"><div class="l">Vibe (Claude)</div><div class="v">${h.vibe?"Açık":"Kapalı"}</div><div class="d">${h.vibe?"ANTHROPIC_API_KEY tanımlı":"anahtar yok → v0.6.0"}</div></div><div class="tile"><div class="l">Veritabanı</div><div class="v" style="font-size:20px">${esc(h.db||"—")}</div><div class="d">SQLite · ${h.db==="volume"?"Railway Volume (/data)":h.db==="yerel dosya"?"var/vibe.db — Railway'de DATA_PATH=/data/vibe.db ayarlayın":"test"}</div></div><div class="tile"><div class="l">Drive (Intake-lite)</div><div class="v">${h.ortam?.GOOGLE_SERVICE_ACCOUNT?"Hazır":"Yok"}</div><div class="d">${h.ortam?.GOOGLE_SERVICE_ACCOUNT?"service account tanımlı":"GOOGLE_SERVICE_ACCOUNT_JSON → A3"}</div></div><div class="tile"><div class="l">Kimlik</div><div class="v">${h.kimlik==="açık"?"Açık":"Kapalı"}</div><div class="d">e-posta + parola · GitHub (geliştirici)</div></div></div>`;
 }
 const fmtD2=d=>d?new Date(d).toLocaleString("tr-TR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}):"—";
 function viewUsers(){
@@ -124,18 +124,59 @@ function viewUsers(){
 async function resetPassword(email){ const p=prompt(`${email} için yeni parola (en az 10 karakter):`); if(!p)return; if(p.length<10){alert("En az 10 karakter.");return;} const r=await fetch("/api/users/"+encodeURIComponent(email)+"/password",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({password:p})}); alert(r.ok?"Parola sıfırlandı. Kullanıcıya iletin; girişte Hesap'tan değiştirsin.":"Olmadı: "+(await r.text())); loadUsers(); }
 async function addUser(){ const email=prompt("E-posta:"); if(!email)return; const name=prompt("Ad:",email.split("@")[0]); if(!name)return; const p=prompt("Başlangıç parolası (en az 10 karakter):"); if(!p||p.length<10){alert("En az 10 karakter.");return;} const r=await fetch("/api/users",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({email,name,password:p})}); alert(r.ok?"Kullanıcı eklendi.":"Olmadı: "+(await r.text())); loadUsers(); }
 async function loadUsers(){ try{ USERS=await fetch("/api/users",{credentials:"same-origin"}).then(r=>r.ok?r.json():[]); }catch(e){USERS=[];} if(current==="users")render(); }
+/* A3 · Paneller & Senkron — Intake-lite (v0.5.1) */
+function viewPanels(){
+  const st=INTAKE||{hazir:false,serviceAccount:null,adimlar:[]}; const ps=PANELS||[];
+  const sm=p=>p.smoke?`${p.smoke.views} görünüm · ${p.smoke.items} başlık · ${p.smoke.docs} doküman`:"—";
+  return `<div class="page-h"><div><div class="eyebrow">Veri ve sistem · A3</div><h1>Paneller &amp; Senkron</h1><p><b>Intake-lite:</b> Drive Data Room linki + müvekkil adı → tarama → standart veri taslağı → panel. Üretilen panel Ana Merkez'de <b>Kurumsal Yönetim Panelleri</b> altında kart olur; metinleri Juris doldurur.</p></div></div>
+  <div class="tiles"><div class="tile accent"><div class="l">Drive bağlantısı</div><div class="v" style="font-size:20px">${st.hazir?"Hazır":"Kurulmadı"}</div><div class="d" style="color:rgba(255,255,255,.65)">${st.serviceAccount?esc(st.serviceAccount):"GOOGLE_SERVICE_ACCOUNT_JSON yok"}</div></div>
+  <div class="tile"><div class="l">Intake panelleri</div><div class="v">${ps.length}</div><div class="d">+ 5 el yapımı panel (kit)</div></div>
+  <div class="tile"><div class="l">Son tarama</div><div class="v" style="font-size:20px">${ps.length?fmtD2(ps.map(p=>p.scanned_at).sort().pop()):"—"}</div><div class="d">yeniden tarama panel satırından</div></div></div>
+  ${!st.hazir?`<div class="note"><span>▲</span><div><b>Kurulum gerekli:</b> ${st.adimlar.map(esc).join(" · ")}. Adımlar: <code>docs/ops/RAILWAY.md → Google service account</code>.</div></div>`:""}
+  <div class="sec"><div class="sec-h"><h2>Yeni panel</h2><span class="meta">Drive linki + müvekkil adı</span></div><div class="card pad">
+   <form id="intakeForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;align-items:end">
+    <label style="font-size:12px;color:var(--ink-3)">Müvekkil adı<input name="name" required placeholder="Örn. Çağrı Teknoloji A.Ş." style="display:block;width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font:inherit;background:var(--paper)"></label>
+    <label style="font-size:12px;color:var(--ink-3)">Kısa ad (panel anahtarı)<input name="short" placeholder="Örn. Çağrı" style="display:block;width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font:inherit;background:var(--paper)"></label>
+    <label style="font-size:12px;color:var(--ink-3);grid-column:1/-1">Drive Data Room kök klasörü (A–F klasörlerini içeren)<input name="driveRoot" required type="url" placeholder="https://drive.google.com/drive/folders/…" style="display:block;width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font:inherit;background:var(--paper)"></label>
+    <label style="font-size:12px;color:var(--ink-3)">Tüzel kişilikler (virgülle, isteğe bağlı)<input name="entities" placeholder="Örn. X A.Ş., Y Ltd. Şti." style="display:block;width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font:inherit;background:var(--paper)"></label>
+    <label style="font-size:12px;color:var(--ink-3)">Hizmet başlangıcı (isteğe bağlı)<input name="kickoff" placeholder="2026-11-01" style="display:block;width:100%;margin-top:4px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font:inherit;background:var(--paper)"></label>
+    <div><button class="btn primary" type="submit" ${st.hazir?"":"disabled"} id="intakeGo">Tara ve paneli üret</button></div>
+   </form><div id="intakeOut" class="muted" style="margin-top:10px;font-size:12.5px"></div>
+   <div class="muted" style="margin-top:8px;font-size:12px">Klasör, service account e-postasıyla <b>Görüntüleyen</b> olarak paylaşılmış olmalı. Tarama: bölüm klasörleri (A–F) → alt başlıklar → dosyalar (bir seviye derin). Dosyalar panelde "Onay Bekliyor" doküman satırı olur.</div></div></div>
+  <div class="sec"><div class="sec-h"><h2>Intake panelleri</h2><span class="meta">kaynak: veritabanı + Volume/panels</span></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Panel</th><th>Tüzel kişilik</th><th>Drive</th><th>Smoke</th><th>Tarama</th><th>Durum</th><th></th></tr></thead><tbody>
+  ${ps.map(p=>`<tr><td><b>${esc(p.name)}</b><div class="muted" style="font-size:11px;font-family:var(--font-mono)">${esc(p.slug)}</div></td><td style="color:var(--ink-2)">${esc(p.entities.join(" · "))}</td><td class="owner">${p.files} dosya · ${p.folders} alt klasör · <a href="${esc(p.drive_root)}" target="_blank" rel="noopener">klasör ↗</a></td><td class="owner">${sm(p)}</td><td class="owner">${fmtD2(p.scanned_at)}<div class="muted" style="font-size:11px">${esc(p.created_by)}</div></td><td><span class="status ${p.status==="ok"?"done":p.status==="warn"?"input":"pending"}">${p.status==="ok"?"Hazır":p.status==="warn"?"Data Room boş":"Hata"}</span>${p.error?`<div class="muted" style="font-size:11px;max-width:260px">${esc(p.error)}</div>`:""}</td><td style="white-space:nowrap"><a class="btn" href="/app/#p-${esc(p.slug)}" target="_blank" rel="noopener">Aç</a> <button class="btn" data-rescan="${esc(p.slug)}">Yeniden tara</button> <button class="btn" data-pdel="${esc(p.slug)}">Sil</button></td></tr>`).join("")}
+  ${!ps.length?`<tr><td colspan="7" class="muted">Henüz Intake-lite paneli yok. Onscala · Codemag · Zyrone · Qervan–WeTrade · Meown AI el yapımıdır (packages/juris-panel-kit).</td></tr>`:""}
+  </tbody></table></div></div></div>`;
+}
+async function loadPanels(){ try{ [INTAKE,PANELS]=await Promise.all([fetch("/api/intake/status",{credentials:"same-origin"}).then(r=>r.ok?r.json():null),fetch("/api/panels",{credentials:"same-origin"}).then(r=>r.ok?r.json():[])]); $("#navPanelCnt").textContent=PANELS?String(5+PANELS.length):""; }catch(e){} if(current==="panels")render(); }
+async function runIntake(form){
+  const fd=new FormData(form); const body={name:fd.get("name"),driveRoot:fd.get("driveRoot")};
+  if(fd.get("short"))body.short=fd.get("short"); if(fd.get("kickoff"))body.kickoff=fd.get("kickoff");
+  const ents=String(fd.get("entities")||"").split(",").map(s=>s.trim()).filter(Boolean); if(ents.length)body.entities=ents;
+  const out=$("#intakeOut"), btn=$("#intakeGo"); btn.disabled=true; out.textContent="Drive taranıyor ve panel üretiliyor… (10–60 sn)";
+  try{ const r=await fetch("/api/intake",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(body)}); const j=await r.json();
+    if(!r.ok){ out.innerHTML=`<span style="color:var(--red-ink)">Olmadı:</span> ${esc(j.hata||r.status)}${j.ayrinti?" · "+esc(JSON.stringify(j.ayrinti)):""}`; btn.disabled=false; return; }
+    out.innerHTML=`<b>${esc(j.name)}</b> üretildi · ${j.files} dosya / ${j.folders} alt klasör · ${j.bolumler.map(b=>esc(b.baslik.split(".")[0])+":"+b.dosya).join(" · ")} · <a href="/app/#p-${esc(j.slug)}" target="_blank" rel="noopener">Ana Merkez'de aç ↗</a>`;
+    form.reset(); loadPanels();
+  }catch(e){ out.textContent="Bağlantı hatası: "+e.message; btn.disabled=false; }
+}
+async function rescanPanel(slug){ const r=await fetch("/api/panels/"+encodeURIComponent(slug)+"/rescan",{method:"POST",credentials:"same-origin"}); if(!r.ok)alert("Olmadı: "+(await r.text())); loadPanels(); }
+async function deletePanel(slug){ if(!confirm(slug+" paneli silinsin mi? (Drive'daki dosyalara dokunulmaz; paneldeki durum işaretleri kalır)"))return; const r=await fetch("/api/panels/"+encodeURIComponent(slug),{method:"DELETE",credentials:"same-origin"}); if(!r.ok)alert("Olmadı: "+(await r.text())); loadPanels(); }
 function placeholder(k,ver,desc){return `<div class="page-h"><div><div class="eyebrow">${esc(k)}</div><h1>${esc(titles[current])}</h1><p>${esc(desc)}</p></div></div><div class="card pad" style="color:var(--ink-3)">Bu görünüm <b style="color:var(--ink)">${esc(ver)}</b> sürümünde gelir. Kapsam: Yol Haritası → v1.0.</div>`;}
 function render(){
   const el=$("#view"); $("#crumb").textContent=titles[current]; document.querySelectorAll(".ni[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===current));
   if(!RM){el.innerHTML='<div class="card pad">Yükleniyor…</div>';return;}
-  el.innerHTML=current==="roadmap"?viewRoadmap():current==="releases"?viewReleases():current==="health"?viewHealth():current==="feedback"?placeholder("Ürün yönetimi · A2","v0.6.1","Uygulama içi geri bildirim gelen kutusu ve triage (şimdi / sonraki / fikir / ret)."):current==="panels"?placeholder("Veri ve sistem · A3","v0.5.0","Beş müvekkil paneli, Drive Data Room senkron durumu, son tarama, farklar ve yeniden üretim."):viewUsers();
+  el.innerHTML=current==="roadmap"?viewRoadmap():current==="releases"?viewReleases():current==="health"?viewHealth():current==="feedback"?placeholder("Ürün yönetimi · A2","v0.6.1","Uygulama içi geri bildirim gelen kutusu ve triage (şimdi / sonraki / fikir / ret)."):current==="panels"?viewPanels():viewUsers();
   $("#main").scrollTop=0; $("#nav").classList.remove("open"); $("#scrim").classList.remove("open");
 }
 document.addEventListener("click",e=>{const b=e.target.closest(".ni[data-view]");if(b){current=b.dataset.view;location.hash=current;render();return;}
-  const r=e.target.closest("[data-reset]"); if(r){resetPassword(r.dataset.reset);return;} if(e.target.closest("#uAdd")){addUser();} });
+  const r=e.target.closest("[data-reset]"); if(r){resetPassword(r.dataset.reset);return;} if(e.target.closest("#uAdd")){addUser();return;}
+  const rs=e.target.closest("[data-rescan]"); if(rs){rs.disabled=true;rs.textContent="Taranıyor…";rescanPanel(rs.dataset.rescan);return;}
+  const pd=e.target.closest("[data-pdel]"); if(pd){deletePanel(pd.dataset.pdel);return;} });
+document.addEventListener("submit",e=>{ if(e.target.id==="intakeForm"){e.preventDefault();runIntake(e.target);} });
 $("#menuBtn").addEventListener("click",()=>{$("#nav").classList.toggle("open");$("#scrim").classList.toggle("open");});$("#scrim").addEventListener("click",()=>{$("#nav").classList.remove("open");$("#scrim").classList.remove("open");});
 current=titles[location.hash.slice(1)]?location.hash.slice(1):"roadmap"; render();
-Promise.all([fetch("/api/roadmap").then(r=>r.json()),fetch("/api/releases").then(r=>r.json()),fetch("/api/health").then(r=>r.json()).catch(()=>null),fetch("/api/me").then(r=>r.json()).catch(()=>null),fetch("/api/auth/config").then(r=>r.json()).catch(()=>null)]).then(([rm,rel,h,me,ac])=>{RM=rm;REL=rel;HEALTH=h;ME=me;AUTHCFG=ac;$("#ver").textContent="v"+(h?.surum||rel.guncel);$("#vibeState").textContent="Vibe: "+(h?.vibe?"açık":"kapalı");$("#rmPct").textContent=stats(rm.surumler[0].adimlar).pct+"%";if(me&&!ac?.disabled){$("#who").textContent=me.name;$("#who").hidden=false;$("#logout").hidden=false;}render();loadUsers();});
+Promise.all([fetch("/api/roadmap").then(r=>r.json()),fetch("/api/releases").then(r=>r.json()),fetch("/api/health").then(r=>r.json()).catch(()=>null),fetch("/api/me").then(r=>r.json()).catch(()=>null),fetch("/api/auth/config").then(r=>r.json()).catch(()=>null)]).then(([rm,rel,h,me,ac])=>{RM=rm;REL=rel;HEALTH=h;ME=me;AUTHCFG=ac;$("#ver").textContent="v"+(h?.surum||rel.guncel);$("#vibeState").textContent="Vibe: "+(h?.vibe?"açık":"kapalı");$("#rmPct").textContent=stats(rm.surumler[0].adimlar).pct+"%";if(me&&!ac?.disabled){$("#who").textContent=me.name;$("#who").hidden=false;$("#logout").hidden=false;}render();loadUsers();loadPanels();});
 </script>
 </body>
 </html>
