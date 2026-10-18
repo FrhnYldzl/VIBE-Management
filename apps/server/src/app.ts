@@ -39,6 +39,17 @@ export function buildApp({ logger = false, auth = configFromEnv(), store }: { lo
   app.get("/api/health", async () => ({
     ok: true, surum: VERSION, vibe: Boolean(process.env.ANTHROPIC_API_KEY), kimlik: auth.disabled ? "kapalı" : "açık",
     db: db.path === ":memory:" ? "bellek" : db.path.startsWith("/data") ? "volume" : "yerel dosya",
+    // teşhis: hangi ortam değişkenleri sürece ulaşmış (yalnız varlık/adet, değer yok)
+    ortam: {
+      NODE_ENV: process.env.NODE_ENV ?? null,
+      SESSION_SECRET: Boolean(process.env.SESSION_SECRET),
+      PASSWORD_USERS: Object.keys(auth.passwordUsers).length,
+      GITHUB: Boolean(auth.github),
+      DATA_PATH: process.env.DATA_PATH ?? null,
+      ANTHROPIC_API_KEY: Boolean(process.env.ANTHROPIC_API_KEY),
+      RAILWAY_SERVICE: process.env.RAILWAY_SERVICE_NAME ?? null,
+      RAILWAY_ENV: process.env.RAILWAY_ENVIRONMENT_NAME ?? null,
+    },
   }));
   app.get("/api/roadmap", async () => json("roadmap.json"));
   app.get("/api/releases", async () => ({ guncel: VERSION, ...json<Record<string, unknown>>("releases.json") }));
