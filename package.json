@@ -16,7 +16,7 @@
     "dev:mrf": "concurrently -n api,web -c yellow,cyan \"npm run dev -w @vibe/api\" \"npm run dev -w @vibe/web\"",
     "panels": "node packages/juris-panel-kit/tools/kit.js all --deploy",
     "auth:hash": "npm run auth:hash -w @vibe/server --",
-    "build": "npm run build -w @vibe/web",
+    "build:mrf": "npm run build -w @vibe/web",
     "typecheck": "tsc -p packages/core && tsc -p apps/api && tsc -p apps/web && tsc -p apps/server",
     "test": "vitest run",
     "score": "python scripts/score.py"

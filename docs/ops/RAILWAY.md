@@ -8,7 +8,9 @@ Repo: `FrhnYldzl/VIBE-Management` · dal: `main` · servis: `apps/server` (Fasti
 2. Railway monorepo'yu görüp **üç servis** üretebilir (`@vibe/server`, `@vibe/api`, `@vibe/web`). Yalnız **`@vibe/server`** kalır;
    `@vibe/api` ve `@vibe/web` (Mr. F konsolu, v1 kapsamı dışı) servislerini silin. Root Directory boş (repo kökü), start `npm start`.
 3. İlk deploy Variables girilmeden **kimlik yapılandırma hatası** verir (beklenen). Önce §2–3'ü tamamlayın.
-4. Build: Nixpacks bağımlılıkları kendisi kurar; `railway.json`'da **buildCommand yok** (ikinci `npm ci` cache mount ile çakışıp
+4. Kök `package.json`'da `build` script'i **yoktur** (Mr. F konsolu `build:mrf`): Nixpacks `build` görürse `npm run build` çalıştırır ve
+   `NODE_ENV=production` altında devDependency'siz ortamda `vite: not found` ile düşer (18.10 d680d78 deploy'u). Sunucu `tsx` ile derlemesiz çalışır.
+5. Build: Nixpacks bağımlılıkları kendisi kurar; `railway.json`'da **buildCommand yok** (ikinci `npm ci` cache mount ile çakışıp
    `EBUSY … node_modules/.cache` / exit 240 veriyordu — 2026-10-18'de kaldırıldı). Sunucu `tsx` ile kaynaktan çalışır, derleme gerekmez.
 
 ## 2. Volume (paylaşımlı durum için)
