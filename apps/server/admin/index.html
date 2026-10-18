@@ -53,7 +53,7 @@ td .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin-rig
   </div>
   <div class="navsec"><div class="h">Veri ve sistem</div>
     <button class="ni" data-view="panels"><span class="k">A3</span><span class="t">Paneller &amp; Senkron</span><span class="pct">v0.5.0</span></button>
-    <button class="ni" data-view="users"><span class="k">A4</span><span class="t">Kullanıcılar</span><span class="pct">v0.4.1</span></button>
+    <button class="ni" data-view="users"><span class="k">A4</span><span class="t">Kullanıcılar</span></button>
     <button class="ni" data-view="health"><span class="k">A5</span><span class="t">Sağlık</span></button>
   </div>
   <div class="navsec"><div class="h">Yüzeyler</div>
@@ -64,7 +64,7 @@ td .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin-rig
 </nav>
 <div class="scrim" id="scrim"></div>
 <main class="main" id="main"><div class="wrap">
-  <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü">☰</button><div class="crumb">VIBE Admin · <b id="crumb">Yol Haritası</b></div><div class="spacer"></div><div class="date" id="today"></div></div>
+  <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü">☰</button><div class="crumb">VIBE Admin · <b id="crumb">Yol Haritası</b></div><div class="spacer"></div><div class="date" id="who"></div><a class="btn" href="/auth/logout" id="logout" hidden>Çıkış</a><div class="date" id="today"></div></div>
   <div id="view"></div>
 </div></main>
 </div>
@@ -73,7 +73,7 @@ const $=s=>document.querySelector(s);const esc=s=>String(s??"").replace(/[&<>"]/
 const titles={roadmap:"Yol Haritası",releases:"Sürümler",feedback:"Geri Bildirim",panels:"Paneller & Senkron",users:"Kullanıcılar",health:"Sağlık"};
 const STATUS={done:"Tamamlandı",progress:"Devam ediyor",next:"Sırada",planned:"Planlı",vision:"Vizyon"};
 const COLOR={done:"var(--success)",progress:"var(--warn)",next:"var(--info)",planned:"var(--neutral)",vision:"var(--red-ink)"};
-let RM=null, REL=null, HEALTH=null, current="roadmap";
+let RM=null, REL=null, HEALTH=null, ME=null, AUTHCFG=null, current="roadmap";
 $("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
 
 function stats(steps){const c={done:0,progress:0,next:0,planned:0,vision:0,total:steps.length};steps.forEach(s=>c[s.durum]++);c.pct=c.total?Math.round(100*(c.done+.5*c.progress)/c.total):0;return c;}
@@ -101,19 +101,34 @@ function viewReleases(){
 }
 function viewHealth(){
   const h=HEALTH||{};return `<div class="page-h"><div><div class="eyebrow">Veri ve sistem · A5</div><h1>Sağlık</h1><p>Tek servis: landing · /app · /admin · /api. Railway health check: <b>/api/health</b>.</p></div></div>
-  <div class="tiles"><div class="tile accent"><div class="l">Servis</div><div class="v">${h.ok?"OK":"—"}</div><div class="d">v${esc(h.surum||"?")}</div></div><div class="tile"><div class="l">Vibe (Claude)</div><div class="v">${h.vibe?"Açık":"Kapalı"}</div><div class="d">${h.vibe?"ANTHROPIC_API_KEY tanımlı":"anahtar yok → v0.6.0"}</div></div><div class="tile"><div class="l">Veritabanı</div><div class="v">—</div><div class="d">SQLite + Volume · v0.4.2</div></div><div class="tile"><div class="l">Drive senkronu</div><div class="v">—</div><div class="d">v0.5.0</div></div><div class="tile"><div class="l">Kimlik</div><div class="v">—</div><div class="d">GitHub OAuth · v0.4.1</div></div></div>`;
+  <div class="tiles"><div class="tile accent"><div class="l">Servis</div><div class="v">${h.ok?"OK":"—"}</div><div class="d">v${esc(h.surum||"?")}</div></div><div class="tile"><div class="l">Vibe (Claude)</div><div class="v">${h.vibe?"Açık":"Kapalı"}</div><div class="d">${h.vibe?"ANTHROPIC_API_KEY tanımlı":"anahtar yok → v0.6.0"}</div></div><div class="tile"><div class="l">Veritabanı</div><div class="v">—</div><div class="d">SQLite + Volume · v0.4.2</div></div><div class="tile"><div class="l">Drive senkronu</div><div class="v">—</div><div class="d">v0.5.0</div></div><div class="tile"><div class="l">Kimlik</div><div class="v">${h.kimlik==="açık"?"Açık":"Kapalı"}</div><div class="d">e-posta + parola · GitHub (geliştirici)</div></div></div>`;
+}
+function viewUsers(){
+  const a=AUTHCFG||{emails:[],allowedGithubUsers:[]}; const me=ME||{};
+  const row=(kim,yol,durum)=>`<tr><td class="doc">${esc(kim)}</td><td><span class="fnchip">${yol}</span></td><td>${durum}</td></tr>`;
+  return `<div class="page-h"><div><div class="eyebrow">Veri ve sistem · A4</div><h1>Kullanıcılar</h1><p>Giriş <b>e-posta + parola</b> ile; GitHub OAuth yalnızca geliştirici hesabı için. Kullanıcılar ortam değişkenlerinden gelir (Railway Variables); düzenleme arayüzü v0.6.1.</p></div></div>
+  <div class="tiles"><div class="tile accent"><div class="l">Oturum</div><div class="v" style="font-size:20px">${esc(me.name||"—")}</div><div class="d">${esc(me.u||"")} · ${me.via==="github"?"GitHub":me.via==="password"?"e-posta":"—"}</div></div>
+  <div class="tile"><div class="l">E-posta kullanıcısı</div><div class="v">${a.emails.length}</div><div class="d">PASSWORD_USERS</div></div>
+  <div class="tile"><div class="l">GitHub (geliştirici)</div><div class="v">${a.allowedGithubUsers.length}</div><div class="d">${a.github?"OAuth App tanımlı":"OAuth App yok"}</div></div>
+  <div class="tile"><div class="l">Kimlik</div><div class="v" style="font-size:20px">${a.disabled?"Kapalı":"Açık"}</div><div class="d">${a.disabled?"geliştirme modu":"oturum çerezi 30 gün"}</div></div></div>
+  <div class="sec"><div class="sec-h"><h2>Yetkili kullanıcılar</h2><span class="meta">kaynak: ortam değişkenleri</span></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Kim</th><th>Yol</th><th>Durum</th></tr></thead><tbody>
+  ${a.emails.map(e=>row(e,"e-posta + parola",`<span class="status done">Aktif</span>`)).join("")}
+  ${a.allowedGithubUsers.map(u=>row("@"+u,"GitHub OAuth",`<span class="status ${a.github?"done":"planned"}">${a.github?"Aktif":"OAuth App bekliyor"}</span>`)).join("")}
+  ${!a.emails.length&&!a.allowedGithubUsers.length?`<tr><td colspan="3" class="muted">Tanımlı kullanıcı yok — .env.example'a bakın.</td></tr>`:""}
+  </tbody></table></div></div></div>
+  <div class="note"><span>▲</span><div><b>Yeni kullanıcı:</b> <code>npm run auth:hash -- &lt;parola&gt;</code> → çıktıyı <code>PASSWORD_USERS</code>'a <code>eposta:hash</code> olarak ekleyin, Railway yeniden dağıtır. Parola sıfırlama = yeni hash.</div></div>`;
 }
 function placeholder(k,ver,desc){return `<div class="page-h"><div><div class="eyebrow">${esc(k)}</div><h1>${esc(titles[current])}</h1><p>${esc(desc)}</p></div></div><div class="card pad" style="color:var(--ink-3)">Bu görünüm <b style="color:var(--ink)">${esc(ver)}</b> sürümünde gelir. Kapsam: Yol Haritası → v1.0.</div>`;}
 function render(){
   const el=$("#view"); $("#crumb").textContent=titles[current]; document.querySelectorAll(".ni[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===current));
   if(!RM){el.innerHTML='<div class="card pad">Yükleniyor…</div>';return;}
-  el.innerHTML=current==="roadmap"?viewRoadmap():current==="releases"?viewReleases():current==="health"?viewHealth():current==="feedback"?placeholder("Ürün yönetimi · A2","v0.6.1","Uygulama içi geri bildirim gelen kutusu ve triage (şimdi / sonraki / fikir / ret)."):current==="panels"?placeholder("Veri ve sistem · A3","v0.5.0","Beş müvekkil paneli, Drive Data Room senkron durumu, son tarama, farklar ve yeniden üretim."):placeholder("Veri ve sistem · A4","v0.4.1","GitHub OAuth allowlist (2 kişi), parola yedeği, oturumlar.");
+  el.innerHTML=current==="roadmap"?viewRoadmap():current==="releases"?viewReleases():current==="health"?viewHealth():current==="feedback"?placeholder("Ürün yönetimi · A2","v0.6.1","Uygulama içi geri bildirim gelen kutusu ve triage (şimdi / sonraki / fikir / ret)."):current==="panels"?placeholder("Veri ve sistem · A3","v0.5.0","Beş müvekkil paneli, Drive Data Room senkron durumu, son tarama, farklar ve yeniden üretim."):viewUsers();
   $("#main").scrollTop=0; $("#nav").classList.remove("open"); $("#scrim").classList.remove("open");
 }
 document.addEventListener("click",e=>{const b=e.target.closest(".ni[data-view]");if(b){current=b.dataset.view;location.hash=current;render();}});
 $("#menuBtn").addEventListener("click",()=>{$("#nav").classList.toggle("open");$("#scrim").classList.toggle("open");});$("#scrim").addEventListener("click",()=>{$("#nav").classList.remove("open");$("#scrim").classList.remove("open");});
 current=titles[location.hash.slice(1)]?location.hash.slice(1):"roadmap"; render();
-Promise.all([fetch("/api/roadmap").then(r=>r.json()),fetch("/api/releases").then(r=>r.json()),fetch("/api/health").then(r=>r.json()).catch(()=>null)]).then(([rm,rel,h])=>{RM=rm;REL=rel;HEALTH=h;$("#ver").textContent="v"+(h?.surum||rel.guncel);$("#vibeState").textContent="Vibe: "+(h?.vibe?"açık":"kapalı");$("#rmPct").textContent=stats(rm.surumler[0].adimlar).pct+"%";render();});
+Promise.all([fetch("/api/roadmap").then(r=>r.json()),fetch("/api/releases").then(r=>r.json()),fetch("/api/health").then(r=>r.json()).catch(()=>null),fetch("/api/me").then(r=>r.json()).catch(()=>null),fetch("/api/auth/config").then(r=>r.json()).catch(()=>null)]).then(([rm,rel,h,me,ac])=>{RM=rm;REL=rel;HEALTH=h;ME=me;AUTHCFG=ac;$("#ver").textContent="v"+(h?.surum||rel.guncel);$("#vibeState").textContent="Vibe: "+(h?.vibe?"açık":"kapalı");$("#rmPct").textContent=stats(rm.surumler[0].adimlar).pct+"%";if(me&&!ac?.disabled){$("#who").textContent=me.name;$("#logout").hidden=false;}render();});
 </script>
 </body>
 </html>

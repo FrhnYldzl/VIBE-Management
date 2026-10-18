@@ -3,6 +3,16 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.4.1] — 2026-10-18 · Kimlik
+
+### Eklendi
+- **E-posta + parola girişi** (ana yol; `PASSWORD_USERS=eposta:scrypt$salt$hash`, `npm run auth:hash -- <parola>`) ve
+  **GitHub OAuth** yalnızca geliştirici hesabı için (`ALLOWED_GITHUB_USERS=FrhnYldzl`). Bağımlılıksız: HMAC imzalı HttpOnly
+  oturum çerezi (30 gün, Secure/SameSite=Lax), scrypt parola, CSRF için OAuth `state` çerezi.
+- Koruma: landing, `/login`, `/auth/*`, `/api/health` dışında her yol oturum ister (HTML → `/login?next=`, API → 401).
+- `/login` sayfası (Juris standardı), `/auth/logout`, `/api/me`, `/api/auth/config`. Admin: Kullanıcılar görünümü canlı, üst çubukta oturum + Çıkış.
+- Geliştirme modu: hiçbir yöntem tanımlı değilse ve `NODE_ENV!=production` ise kimlik kapalı (uyarı loglanır). `apps/server/.env` otomatik yüklenir.
+
 ## [0.4.0] — 2026-10-18 · Tek servis + admin iskeleti (v1.0 yolu başladı)
 
 ### Eklendi

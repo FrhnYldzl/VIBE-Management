@@ -6,7 +6,8 @@
   "description": "VIBE Management tek servis: landing (/), Ana Merkez (/app), admin (/admin), API (/api), Anthropic köprüsü",
   "scripts": {
     "dev": "tsx watch --clear-screen=false src/index.ts",
-    "start": "tsx src/index.ts"
+    "start": "tsx src/index.ts",
+    "auth:hash": "tsx src/hash-password.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.70.0",

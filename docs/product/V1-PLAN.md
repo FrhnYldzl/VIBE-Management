@@ -22,7 +22,7 @@
 
 ### Teknik
 1. **Tek servis** — `apps/ana-merkez/server` Fastify'a taşınır; aynı süreç: landing (`/`), uygulama (`/app`), admin (`/admin`), API (`/api/*`), Anthropic köprüsü. Railway tek servis, tek port. ✅ v0.4.0'da başladı.
-2. **Kimlik** — GitHub OAuth (kullanıcı adı allowlist: 2 kişi) + parola yedeği (argon2 hash, env'den). Oturum: imzalı HttpOnly çerez. Landing ve `/health` hariç her şey kimlik ister.
+2. **Kimlik** — **E-posta + parola** ana yol (scrypt hash, env'den; Gülşah için GitHub gerekmez); GitHub OAuth yalnız geliştirici hesabı (FrhnYldzl). Oturum: HMAC imzalı HttpOnly çerez. Landing ve `/api/health` hariç her şey kimlik ister. ✅ v0.4.1.
 3. **Paylaşımlı durum** — localStorage'daki üç şey veritabanına: panel durum çipleri (`juris-panel:*`), Vibe oturumları/kütüphane, geri bildirim. Küçük veri; bkz. §3.
 4. **Drive senkronu** — Service account ile Data Room A–F taraması → `DATAROOM` durumları (dosya var → done/review, boş → pending, bekleniyor → input) + dayanak linkleri → `.data.js` yeniden üretim → kit build → panel yenilenir. Admin'de "son senkron / fark" ekranı.
 5. **Admin paneli** — Yol haritası (v1/v2/v3), sürüm notları, geri bildirim gelen kutusu, paneller & senkron durumu, kullanıcılar, sağlık/ortam. Juris standardı, tek dosya.

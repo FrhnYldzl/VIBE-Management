@@ -1,6 +1,18 @@
 {
   "surumler": [
     {
+      "surum": "0.4.1",
+      "tarih": "2026-10-18",
+      "faz": "v1.0 yolu",
+      "baslik": "Kimlik: e-posta + parola, GitHub (geliştirici)",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "E-posta + parola girişi (scrypt), GitHub OAuth yalnız geliştirici; HMAC imzalı HttpOnly oturum çerezi" },
+        { "tur": "yeni", "metin": "Landing, /login, /auth/*, /api/health dışında her yol korunur; /login sayfası, çıkış, /api/me" },
+        { "tur": "yeni", "metin": "Admin → Kullanıcılar canlı; üst çubukta oturum + Çıkış" }
+      ]
+    },
+    {
       "surum": "0.4.0",
       "tarih": "2026-10-18",
       "faz": "v1.0 yolu",
@@ -88,7 +100,6 @@
     }
   ],
   "planli": [
-    { "surum": "0.4.1", "baslik": "Kimlik", "ozet": "GitHub OAuth (2 kişilik allowlist) + parola yedeği, oturum çerezi" },
     { "surum": "0.4.2", "baslik": "Paylaşımlı durum", "ozet": "Durum çipleri + Vibe oturumları SQLite + Railway Volume'a" },
     { "surum": "0.5.0", "baslik": "Drive senkronu", "ozet": "Data Room A–F tarama → DATAROOM durum/link → .data.js → build; admin Paneller & Senkron" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },

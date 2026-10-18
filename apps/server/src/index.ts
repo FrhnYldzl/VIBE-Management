@@ -1,4 +1,8 @@
+import { join } from "node:path";
 import { buildApp } from "./app.ts";
+
+// Yerelde apps/server/.env (git dışı); Railway'de Variables zaten ortamda
+try { process.loadEnvFile(join(import.meta.dirname, "..", ".env")); } catch { /* .env yoksa sorun değil */ }
 
 const app = buildApp({ logger: true });
 // Railway PORT verir; yerelde 8787 (Ana Merkez'in eski portu)

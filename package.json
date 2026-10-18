@@ -1,6 +1,6 @@
 {
   "name": "vibe-management",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "description": "Mr. F ve Problem Pazaryeri — operatör konsolu ve platform",
   "workspaces": [
@@ -15,6 +15,7 @@
     "dev": "npm run dev -w @vibe/server",
     "dev:mrf": "concurrently -n api,web -c yellow,cyan \"npm run dev -w @vibe/api\" \"npm run dev -w @vibe/web\"",
     "panels": "node packages/juris-panel-kit/tools/kit.js all --deploy",
+    "auth:hash": "npm run auth:hash -w @vibe/server --",
     "build": "npm run build -w @vibe/web",
     "typecheck": "tsc -p packages/core && tsc -p apps/api && tsc -p apps/web && tsc -p apps/server",
     "test": "vitest run",
