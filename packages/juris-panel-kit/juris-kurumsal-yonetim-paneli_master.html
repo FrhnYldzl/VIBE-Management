@@ -477,13 +477,20 @@ const STATUS={done:"Tamamlandı",review:"Onay Bekliyor",progress:"Devam Ediyor",
 const CYCLE=["pending","input","progress","review","done"];
 const LS="juris-panel:"+CLIENT.id;
 let overrides={}; try{overrides=JSON.parse(localStorage.getItem(LS)||"{}");}catch(e){overrides={};}
+/* Paylaşımlı durum (v0.4.2): Ana Merkez sunucusunda çalışırken durum çipleri /api/panels/<client>/status ile senkron; file:// ya da sunucusuz açılışta sessizce localStorage'da kalır */
+const API=location.protocol.startsWith("http")?"/api/panels/"+encodeURIComponent(CLIENT.id)+"/status":null;
+async function syncOverrides(){ if(!API)return; try{ const r=await fetch(API,{credentials:"same-origin"}); if(!r.ok)return; const d=await r.json(); const srv=d.overrides||{};
+  const local=Object.keys(overrides); if(!Object.keys(srv).length&&local.length){ await fetch(API+"/bulk",{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(overrides)}); } /* tek seferlik taşıma: sunucu boş, tarayıcı dolu */
+  else { overrides=Object.assign({},overrides,srv); try{localStorage.setItem(LS,JSON.stringify(overrides));}catch(e){} }
+  if(typeof render==="function"&&typeof current!=="undefined"){render(); if(typeof renderNav==="function")renderNav();} }catch(e){} }
 let current="home", assessTab="A", assessEnt="Dynamics";
 try{assessTab=localStorage.getItem(LS+":atab")||"A";assessEnt=localStorage.getItem(LS+":aent")||"Dynamics";}catch(e){}
 const openSections=new Set(["A","E"]);
 const allItems=()=>DATAROOM.flatMap(s=>s.items.map(it=>({...it,section:s})));
 const docKey=(it,i)=>it.id+":"+i;
 const stOf=(it,i)=>overrides[docKey(it,i)]||it.docs[i].status;
-function setStatus(it,i,s){overrides[docKey(it,i)]=s;try{localStorage.setItem(LS,JSON.stringify(overrides));}catch(e){}}
+function setStatus(it,i,s){overrides[docKey(it,i)]=s;try{localStorage.setItem(LS,JSON.stringify(overrides));}catch(e){}
+  if(API){fetch(API,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({key:docKey(it,i),status:s})}).catch(()=>{});}}
 function stats(items){const c={done:0,review:0,progress:0,input:0,pending:0,total:0};items.forEach(it=>it.docs.forEach((d,i)=>{c[stOf(it,i)]++;c.total++;}));c.pct=c.total?Math.round(100*(c.done+.5*(c.review+c.progress))/c.total):0;return c;}
 const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 function bar(c){const w=k=>c.total?(100*c[k]/c.total)+"%":"0%";return `<div class="bar"><i class="s-done" style="width:${w("done")}"></i><i class="s-review" style="width:${w("review")}"></i><i class="s-progress" style="width:${w("progress")}"></i><i class="s-input" style="width:${w("input")}"></i></div>`;}
@@ -835,6 +842,7 @@ const h=(location.hash||"").slice(1);
 if(/^fn\d$/.test(h)){const k=Object.keys(FUNCTIONS).find(k=>FUNCTIONS[k].k===h[2]);if(k)current="fn-"+k;}
 else if(/^as-[A-F]$/.test(h)||h==="home"||h==="insights"||h==="ob-onboarding"||h==="ob-learn"||allItems().some(i=>i.id===h))current=h;
 render();
+syncOverrides();
 </script>
 
 </body></html>

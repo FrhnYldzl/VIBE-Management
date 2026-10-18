@@ -57,7 +57,8 @@ Mr. F operatör konsolu (web http://localhost:5173 · API 127.0.0.1:4310, `VIBE_
 npm run dev:mrf
 ```
 
-**Railway:** repo'yu bağla, `railway.json` okunur (`npm start`, health `/api/health`), Variables: `ANTHROPIC_API_KEY`. Tek servis, tek port.
+**Railway:** repo'yu bağla, `railway.json` okunur (`npm start`, health `/api/health`). Volume ekle (mount `/data`). Variables: `SESSION_SECRET`,
+`PASSWORD_USERS`, `DATA_PATH=/data/vibe.db`, `ANTHROPIC_API_KEY`, isteğe bağlı `GITHUB_CLIENT_ID/SECRET` + `ALLOWED_GITHUB_USERS` (bkz. `.env.example`). Tek servis, tek port.
 
 Çalışma zamanı verisi `var/vibe.db` dosyasına yazılır (git dışı).
 

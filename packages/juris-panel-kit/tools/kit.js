@@ -18,7 +18,7 @@ const MARKER = "/*__CLIENT_DATA__*/";
 
 /* Ortak (template) tanımlar — bunların dışındaki her üst düzey tanım müvekkil verisidir */
 const TEMPLATE_NAMES = new Set([
-  "STATUS","CYCLE","LS","overrides","current","openSections","assessEnt","allItems","docKey","stOf","setStatus","stats",
+  "STATUS","CYCLE","LS","overrides","API","syncOverrides","current","openSections","assessEnt","allItems","docKey","stOf","setStatus","stats",
   "esc","bar","legend","li","ghost","shortTitle","tiles","docTable","areaCard","viewHome","viewFn","viewItem",
   "basisLine","docH","entTabs","blk","docbar","canvas","okrGrid","barChart","STAGES","stagesEl","ddList","ddAll","heatmap",
   "assessHead","viewAssess","sec","lbl","LSTAT","onboardStats","viewOnboard","viewLearn","hbar","stackRow",
@@ -122,7 +122,7 @@ function smoke(slug) {
   const doc = { getElementById: (id) => els[id] || (els[id] = mk()), querySelectorAll: () => [], querySelector: () => mk(), addEventListener() {}, documentElement: mk(), body: mk(), createElement: mk };
   const sandbox = {
     document: doc, window: { addEventListener() {}, matchMedia: () => ({ matches: false, addEventListener() {} }) },
-    localStorage: { getItem: () => null, setItem() {}, removeItem() {} }, location: { hash: "", href: "" }, history: { replaceState() {} },
+    localStorage: { getItem: () => null, setItem() {}, removeItem() {} }, location: { hash: "", href: "", protocol: "file:" }, history: { replaceState() {} },
     console, setTimeout: () => 0, requestAnimationFrame: () => 0, navigator: { userAgent: "" }, Intl, Date, Math, JSON, Object, Array, String, Number, RegExp, Map, Set, Promise, Error,
   };
   sandbox.window.document = doc; sandbox.globalThis = sandbox; sandbox.self = sandbox;
@@ -150,7 +150,7 @@ function renderAll(file) {
   const els = {};
   const mk = () => ({ innerHTML: "", scrollTop: 0, textContent: "", hidden: false, classList: { toggle() {}, remove() {}, add() {}, contains: () => false }, addEventListener() {}, dataset: {}, setAttribute() {}, getAttribute: () => null, querySelectorAll: () => [], querySelector: () => null, style: {} });
   const doc = { getElementById: (id) => els[id] || (els[id] = mk()), querySelectorAll: () => [], querySelector: () => mk(), addEventListener() {}, documentElement: mk(), body: mk(), createElement: mk };
-  const sandbox = { document: doc, window: { addEventListener() {}, matchMedia: () => ({ matches: false, addEventListener() {} }) }, localStorage: { getItem: () => null, setItem() {}, removeItem() {} }, location: { hash: "", href: "" }, history: { replaceState() {} }, console, setTimeout: () => 0, requestAnimationFrame: () => 0, navigator: { userAgent: "" }, Intl, Date, Math, JSON, Object, Array, String, Number, RegExp, Map, Set, Promise, Error };
+  const sandbox = { document: doc, window: { addEventListener() {}, matchMedia: () => ({ matches: false, addEventListener() {} }) }, localStorage: { getItem: () => null, setItem() {}, removeItem() {} }, location: { hash: "", href: "", protocol: "file:" }, history: { replaceState() {} }, console, setTimeout: () => 0, requestAnimationFrame: () => 0, navigator: { userAgent: "" }, Intl, Date, Math, JSON, Object, Array, String, Number, RegExp, Map, Set, Promise, Error };
   sandbox.window.document = doc; sandbox.globalThis = sandbox; sandbox.self = sandbox;
   const test = `
     __out={}; const __ents=CLIENT.short.concat(CLIENT.short.length>1?["Konsolide"]:[]);

@@ -1,6 +1,18 @@
 {
   "surumler": [
     {
+      "surum": "0.4.2",
+      "tarih": "2026-10-18",
+      "faz": "v1.0 yolu",
+      "baslik": "Paylaşımlı durum: SQLite + Railway Volume",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "Panel durum çipleri ve Vibe oturumları/kütüphanesi sunucuda (node:sqlite, DATA_PATH); localStorage önbellek + tek seferlik taşıma" },
+        { "tur": "yeni", "metin": "API: /api/panels/:client/status (+bulk, log), /api/vibe/state, /api/state/stats; health db alanı" },
+        { "tur": "test", "metin": "25 test yeşil; 5 panel yeniden üretildi" }
+      ]
+    },
+    {
       "surum": "0.4.1",
       "tarih": "2026-10-18",
       "faz": "v1.0 yolu",
@@ -100,7 +112,6 @@
     }
   ],
   "planli": [
-    { "surum": "0.4.2", "baslik": "Paylaşımlı durum", "ozet": "Durum çipleri + Vibe oturumları SQLite + Railway Volume'a" },
     { "surum": "0.5.0", "baslik": "Drive senkronu", "ozet": "Data Room A–F tarama → DATAROOM durum/link → .data.js → build; admin Paneller & Senkron" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }

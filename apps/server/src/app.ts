@@ -5,8 +5,10 @@ import Fastify from "fastify";
 import { z } from "zod";
 import { type AuthConfig, configFromEnv } from "./auth.ts";
 import { registerAuth } from "./auth-routes.ts";
-import { ADMIN_DIR, ANA_MERKEZ_PUBLIC, DATA_DIR, LANDING_DIR, VERSION } from "./paths.ts";
+import { ADMIN_DIR, ANA_MERKEZ_PUBLIC, DATA_DIR, LANDING_DIR, ROOT, VERSION } from "./paths.ts";
 import { registerSample } from "./sample.ts";
+import { registerState } from "./state-routes.ts";
+import { openStore, type Store } from "./store.ts";
 
 /**
  * Tek servis:
@@ -16,9 +18,12 @@ import { registerSample } from "./sample.ts";
  *   /api/*       health · roadmap · releases · sample (Claude köprüsü)
  * Kimlik: landing, /login, /auth/*, /api/health hariç her yol oturum ister (auth-routes.ts).
  */
-export function buildApp({ logger = false, auth = configFromEnv() }: { logger?: boolean; auth?: AuthConfig } = {}) {
+export function buildApp({ logger = false, auth = configFromEnv(), store }: { logger?: boolean; auth?: AuthConfig; store?: Store } = {}) {
   const app = Fastify({ logger, trustProxy: true }); // Railway proxy → x-forwarded-proto ile https algısı
   const json = <T>(name: string) => JSON.parse(readFileSync(join(DATA_DIR, name), "utf-8")) as T;
+  // Paylaşımlı durum: DATA_PATH (Railway Volume, örn. /data/vibe.db) · yerelde var/vibe.db
+  const db = store ?? openStore(process.env.DATA_PATH ?? join(ROOT, "var", "vibe.db"));
+  app.addHook("onClose", async () => { if (!store) db.close(); });
   if (auth.disabled) app.log.warn("KİMLİK KAPALI: hiçbir giriş yöntemi tanımlı değil (geliştirme modu). Production'da SESSION_SECRET + GITHUB_* / PASSWORD_USERS zorunlu.");
   if (!auth.disabled && !auth.secret) throw new Error("SESSION_SECRET tanımlı değil");
   app.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: "string" }, (_req, body, done) => done(null, Object.fromEntries(new URLSearchParams(body as string))));
@@ -31,10 +36,14 @@ export function buildApp({ logger = false, auth = configFromEnv() }: { logger?: 
     return reply.status(e.statusCode ?? 500).send({ hata: e.message ?? "Sunucu hatası" });
   });
 
-  app.get("/api/health", async () => ({ ok: true, surum: VERSION, vibe: Boolean(process.env.ANTHROPIC_API_KEY), kimlik: auth.disabled ? "kapalı" : "açık" }));
+  app.get("/api/health", async () => ({
+    ok: true, surum: VERSION, vibe: Boolean(process.env.ANTHROPIC_API_KEY), kimlik: auth.disabled ? "kapalı" : "açık",
+    db: db.path === ":memory:" ? "bellek" : db.path.startsWith("/data") ? "volume" : "yerel dosya",
+  }));
   app.get("/api/roadmap", async () => json("roadmap.json"));
   app.get("/api/releases", async () => ({ guncel: VERSION, ...json<Record<string, unknown>>("releases.json") }));
   registerSample(app);
+  registerState(app, db);
 
   // statik yüzeyler — her biri kendi kökünde, göreli yollar (onscala.html, claude-adapter.js) çalışır
   app.register(fastifyStatic, { root: LANDING_DIR, prefix: "/", wildcard: false, decorateReply: true });

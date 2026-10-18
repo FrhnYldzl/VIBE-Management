@@ -3,6 +3,17 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.4.2] — 2026-10-18 · Paylaşımlı durum (SQLite + Railway Volume)
+
+### Eklendi
+- `apps/server/src/store.ts` (node:sqlite; `DATA_PATH`, Railway Volume `/data/vibe.db`, yerelde `var/vibe.db`) ve API:
+  `GET/PUT /api/panels/:client/status` (+`/bulk` tek seferlik taşıma, `/log`), `GET /api/vibe/state`, `PUT /api/vibe/state/:key`
+  (sessions · library), `GET /api/state/stats`. Health `db` alanı; admin Sağlık'ta veritabanı tile'ı.
+- Panel master: durum çipleri sunucuyla senkron (`syncOverrides`, `setStatus` → PUT); sunucu boşsa tarayıcıdaki override'lar
+  otomatik taşınır; file:// açılışta localStorage'da kalır. 5 panel yeniden üretildi (smoke temiz).
+- Ana Merkez: Vibe oturumları ve kütüphane `/api/vibe/state` ile paylaşımlı (`pullState`/`pushState`); localStorage önbellek.
+  İki kullanıcı için son yazan kazanır (ADR 0002).
+
 ## [0.4.1] — 2026-10-18 · Kimlik
 
 ### Eklendi
