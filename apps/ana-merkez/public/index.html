@@ -891,11 +891,12 @@ async function showPanel(id){
 const PANEL_EXTRACT=`(()=>{const c=stats(allItems());const out={sirket:CLIENT.name,unvan:CLIENT.entities,baslangic:CLIENT.kickoff,hizmetPlaniTamamlanma:c.pct+"%",dokumanDurumu:{toplam:c.total,tamamlandi:c.done,onayBekliyor:c.review,devamEdiyor:c.progress,girdiBekleniyor:c.input,baslamadi:c.pending},kisiler:CLIENT.contacts,
 girdiBekleyenler:allItems().flatMap(it=>it.docs.map((d,i)=>({d,s:stOf(it,i),bas:it.title})).filter(x=>x.s==="input").map(x=>({baslik:x.bas,belge:x.d.t,kimden:x.d.owner}))),
 onayBekleyenler:allItems().flatMap(it=>it.docs.map((d,i)=>({d,s:stOf(it,i),bas:it.title})).filter(x=>x.s==="review").map(x=>({baslik:x.bas,belge:x.d.t,kimden:x.d.owner}))),
-riskler:RISKS.map(r=>({id:r.id,risk:r.t,skor:r.p*r.i,kapatanAksiyon:r.ifnot})),
-aksiyonlar:ACTIONS.map(a=>({sahip:a[0],aksiyon:a[1],oncelik:a[2],durum:STATUS[a[4]]})),
-kararlar:DECISIONS.map(d=>({konu:d[0],karar:d[1],durum:d[2]==="done"?"alındı":"bekliyor"})),
-sonToplantilar:MEETINGS.slice(0,3).map(m=>({tarih:m.d,baslik:m.t,teslimEdilemeyen:m.undelivered})),
-okr:OKR[E0].map(o=>({bolum:o.t,hedef:o.o,kr:o.kr.map(k=>k[0]+" ("+k[1]+", %"+k[2]+")")}))};return JSON.stringify(out);})()`;
+riskler:(typeof RISKS!=="undefined"?RISKS:[]).map(r=>({id:r.id,risk:r.t,skor:r.p*r.i,kapatanAksiyon:r.ifnot})),
+/* Panel kiti sürümleri farklı veri setleri taşır (eski Qervan: ACTIONS/DECISIONS yok) — eksik olanı boş geç, panel yine canlı okunsun */
+aksiyonlar:(typeof ACTIONS!=="undefined"?ACTIONS:[]).map(a=>({sahip:a[0],aksiyon:a[1],oncelik:a[2],durum:STATUS[a[4]]})),
+kararlar:(typeof DECISIONS!=="undefined"?DECISIONS:[]).map(d=>({konu:d[0],karar:d[1],durum:d[2]==="done"?"alındı":"bekliyor"})),
+sonToplantilar:(typeof MEETINGS!=="undefined"?MEETINGS:[]).slice(0,3).map(m=>({tarih:m.d,baslik:m.t,teslimEdilemeyen:m.undelivered})),
+okr:(()=>{try{const o=typeof OKR==="undefined"?null:(Array.isArray(OKR)?OKR:(OKR[typeof E0!=="undefined"?E0:CLIENT.short[0]]||Object.values(OKR)[0]));return (o||[]).map(o=>({bolum:o.t,hedef:o.o,kr:o.kr.map(k=>k[0]+" ("+k[1]+", %"+k[2]+")")}));}catch(e){return [];}})()};return JSON.stringify(out);})()`;
 async function panelData(id){
   try{const f=await ensureFrame(id);const txt=f.contentWindow.eval(PANEL_EXTRACT);if(txt)return {src:"canlı panel",txt};}catch(e){}
   return {src:"özet (panel okunamadı)",txt:PANELS[id].fallback};

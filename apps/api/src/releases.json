@@ -1,6 +1,17 @@
 {
   "surumler": [
     {
+      "surum": "0.2.2",
+      "tarih": "2026-10-18",
+      "faz": "Ana Merkez",
+      "baslik": "Panel kaynak paketleri + canlı okuma",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "packages/juris-panels: Qervan–WeTrade (v4), Zyrone, Onscala kaynak paketleri birebir; dist HTML'ler public'e yenilendi" },
+        { "tur": "duzeltme", "metin": "PANEL_EXTRACT eksik veri setlerini boş geçer → 5 panel de Vibe'a canlı okunur" }
+      ]
+    },
+    {
       "surum": "0.2.1",
       "tarih": "2026-10-18",
       "faz": "Ana Merkez",
@@ -53,8 +64,8 @@
     }
   ],
   "planli": [
-    { "surum": "0.2.2", "baslik": "Qervan panelini kitten yeniden üret", "ozet": "block_config/assess/views ile Qervan–WeTrade panelini master'dan derleyip canlı veriye geçirme" },
-    { "surum": "0.3.0", "baslik": "Drive senkronu", "ozet": "Data room klasörlerinden durum (done/pending/input) ve dayanak linklerini otomatik okuma" },
+    { "surum": "0.3.0", "baslik": "Tek panel kiti", "ozet": "Üç kit mimarisini tek template + müvekkil .data.js + build/smoke akışında birleştirme; 5 müvekkil aynı master'dan" },
+    { "surum": "0.3.1", "baslik": "Drive senkronu", "ozet": "Data room klasörlerinden durum (done/pending/input) ve dayanak linklerini otomatik okuyup .data.js üretme" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

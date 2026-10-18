@@ -3,6 +3,19 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.2.2] — 2026-10-18 · Panel kaynak paketleri + canlı okuma
+
+### Eklendi
+- `packages/juris-panels/{qervan-wetrade,zyrone,onscala}`: kurucunun panel kod paketleri birebir (her biri kendi build akışıyla).
+- `public/qervan.html` v4'e (Insights, MEETINGS) yükseltildi; `zyrone.html` ve `onscala.html` paketlerdeki dist ile yenilendi.
+
+### Değişti
+- `PANEL_EXTRACT` eksik veri setlerini (`ACTIONS`, `DECISIONS`, `MEETINGS`, `RISKS`) boş geçer → tüm paneller Vibe bağlamına canlı okunur.
+
+### Bilinen
+- Vibe stüdyosu için `apps/ana-merkez/.env` içinde `ANTHROPIC_API_KEY` gerekir; yoksa istek `upstream_error` döner.
+- Üç paket üç farklı kit mimarisi taşıyor (template+data.js / js modülleri / src parçaları) — 0.3'te tek kitte birleştirilecek.
+
 ## [0.2.1] — 2026-10-18 · Ana Merkez'e üç panel
 
 ### Eklendi

@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
 <title>Juris Kurumsal Yönetim Paneli – Zyrone</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -260,6 +259,7 @@ button.status:hover{border-color:currentColor}
 @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
 </style>
 
+
 <div class="app">
   <nav class="nav" id="nav" aria-label="Ana menü">
     <div class="brand">
@@ -285,6 +285,7 @@ button.status:hover{border-color:currentColor}
 </div>
 
 <script>
+/* MÜVEKKİLE ÖZGÜ: CLIENT, FUNCTIONS, U (Drive linkleri), DATAROOM, BASIS_COUNT */
 /* =========================================================
    CLIENT CONFIG — her müvekkil için bu blok değişir.
    Durum: done · review (onay bekliyor) · progress · input (girdi bekleniyor – kimden olduğu 'owner' alanında) · pending
@@ -471,7 +472,7 @@ const DATAROOM = [
 
 /* dayanak sayacı: doküman mı beyan mı */
 const BASIS_COUNT={doc:["Ç1–Ç2 Hizmet Teklifi (Mart 2026) ve Danışmanlık Sözleşmesi","E-7 Havelsan Uyuşmazlık Tespiti raporu + dava dilekçesi + ihtarnameler","B.3 31.03.2026 bağımsız denetim avukat yazısı","Arşiv: 2022 Şirketler Hukuku Uyumu Durum Tespiti · 2023 Project DCM kapanış dokümanları","E-6 Aydınlatma metinleri (2022)"],beyan:["E-1 Dynamics Risk Tespiti Formu yanıtları (28.04 · Drive'da dolu nüsha yok)","A.1 İş Modeli Kanvası (yazışmalardan derlendi)","A.3 Dynamics–Tactics ilişkisi ve ortaklık yapısı (08.09 · 08.10)","E-2 / E-4 NDA, MoU, yetkilendirme görüşleri (e-posta ekleri)","E-3 İK dosyaları (e-posta)","E-5 Gerçek faydalanıcı · Konrul · DCM hisse devri (e-posta)"],none:["B Finans (bütçe · nakit · bilanço)","C Muhasebe","E-1 Tactics DD (form dahil)","D.1 Kamu / savunma sözleşmeleri","A.4 Pitch Deck","F-1 tutanaklar (08.04 · 13.10)"]};
-
+/* ORTAK ÇEKİRDEK: durum yönetimi, yardımcılar, Genel Bakış / Fonksiyon / Data Room görünümleri – müvekkilden bağımsız */
 /* ---------- state ---------- */
 const STATUS={done:"Tamamlandı",review:"Onay Bekliyor",progress:"Devam Ediyor",input:"Girdi Bekleniyor",pending:"Başlamadı"};
 const CYCLE=["pending","input","progress","review","done"];
@@ -554,6 +555,7 @@ function viewItem(id){
 /* =========================================================
    DURUM DEĞERLENDİRMESİ — veri (Zyrone)
    ========================================================= */
+/* MÜVEKKİLE ÖZGÜ VERİ + GÖRÜNÜM: Durum Değerlendirmesi A–F (BMC, LEAN, OKR, RACI, FIN, REVACT, PROJECTS, DD, CONTRACTS, RISKS, MEETINGS, ACTIONS, MAILS, ONBOARD, LEARN) */
 const ASSESS_TABS=[["A","Strateji ve Business","Kanvas · Grup yapısı · OKR · Org şeması · RACI"],["B","Finans","Trend · Bütçe · Nakit · Finansman/Teminat · Bilanço (şirket + konsolide)"],["C","Muhasebe","Hesap planı · Mizan · Finansal disiplin"],["D","Operasyonlar","Gelir faaliyetleri · Proje zinciri · Projeler"],["E","Hukuk","DD · Sözleşme · İK · NDA · KVKK · Uyuşmazlık · Risk"],["F","İletişim","Toplantı döngüsü · Aksiyonlar · Mailler"]];
 const SRC={
  teklif:{t:"Hizmet Teklifi · Mart 2026",u:U.teklif,k:"doc"}, contract:{t:"Danışmanlık Sözleşmesi · 01.04.2026",u:U.contract,k:"doc"}, havelsan:{t:"Zyrone–Havelsan Uyuşmazlık Tespiti raporu",u:U.havelsan,k:"doc"}, uyum:{t:"Şirketler Hukuku Uyumu Durum Tespiti Raporu · 2022 (arşiv)",u:U.uyum2022,k:"doc"}, dcm:{t:"Project DCM kapanış dokümanları · 2023 (arşiv)",u:U.pay2023,k:"doc"}, avyazi:{t:"Bağımsız denetim avukat yazısı · 31.03.2026",u:U.avYazi,k:"doc"},
@@ -757,6 +759,7 @@ function assessF(){
 const ONBOARD=[["Mevcut danışmanlık ilişkisi (2021 →)","DD mülakatı 2021 · uyum raporu 2022 · Project DCM 2023 · Havelsan 2024",1],["Güncel hizmet teklifi","09.03.2026 · 65.000 TL/ay · Dynamics + Tactics",1],["Danışmanlık sözleşmesi","01.04.2026 yürürlük · 07.04 gönderildi · imzalı nüsha Drive'da yok",0],["DD başlangıç toplantısı","08.04.2026",1],["Risk Tespiti Formları iletildi","09.04.2026 · iki şirket",1],["Dynamics formu yanıtlandı","28.04.2026",1],["Tactics formu yanıtlandı","bekleniyor",0],["DD belge seti","Dynamics kısmi (07.10) · Tactics yok",0],["Strateji toplantısı ve aksiyon listesi","08.09 · 16.09.2026",1],["Drive Data Room A–F açılışı","17.10.2026 · belgeler taşınmadı",1],["Aylık YK toplantı ritmi","teklif metodolojisi",0],["İş modeli ve kurumsal yapılandırma","doküman sonrası",0]];
 const LEARN=[{no:"16",t:"Hukuki Bilgilendirme ve Risk Tespiti Formu (şablon)",url:U.form,st:"applied",for:"E-1"},{no:"E-7",t:"Zyrone–Havelsan Uyuşmazlık Tespiti, Olası Riskler ve Çözüm Önerileri",url:U.havelsan,st:"shared",for:"E-7 / D.1b"},{no:"Arşiv",t:"Şirketler Hukuku Uyumuna İlişkin Hukuki Durum Tespiti Raporu (2022)",url:U.uyum2022,st:"shared",for:"E-1 / A.3"},{no:"Ç1",t:"Hizmet Teklifi – Yatırım Hazırlıklarına İlişkin Süreç Metodolojisi",url:U.teklif,st:"shared",for:"Onboarding"},{no:"E-5",t:"Gerçek Faydalanıcı Bildirimi – Görüş (06.10, e-posta)",st:"shared",for:"E-5 / C"},{no:"DD",t:"Due Diligence Asgari İnceleme Kılavuzu – A.Ş.",st:"planned",for:"E-1"},{no:"DR",t:"Data Room Veri Yükleme Yönergesi",st:"planned",for:"E-1 / B / C"},{no:"2",t:"İş Modeli Nedir ve Neden Analiz Edilir? – Bilgi Notu",st:"planned",for:"A.1"},{no:"32",t:"Kurumsal Yönetim ve Grup Yapısı – Bilgi Notu (Dynamics–Tactics)",st:"planned",for:"A.3"},{no:"FM",t:"Fikri Mülkiyet Sahipliği ve Tescil Zamanlaması – Bilgi Notu (Havelsan dersi)",st:"planned",for:"E-2 / E-7"},{no:"SS",t:"Savunma Sanayii İzinleri ve Tesis Güvenlik Belgesi – Bilgi Notu",st:"planned",for:"D.1"},{no:"27",t:"NDA Kullanım Bilgilendirme Dokümanı",st:"planned",for:"E-4"},{no:"A.4.2",t:"Yatırımcı Sunumu (Pitch Deck) Bilgi Notu",st:"planned",for:"A.4"}];
 const LSTAT={applied:["Özümsendi","done"],shared:["Paylaşıldı","review"],planned:["Planlı","pending"]};
+/* Onboarding, Learn ve Insights görünümleri (Insights'taki birkaç kutucuk metni müvekkile özgü) */
 function onboardStats(){const obDone=ONBOARD.filter(s=>s[2]).length,obTotal=ONBOARD.length;const lnDone=LEARN.filter(l=>l.st==="applied").length,lnShared=LEARN.filter(l=>l.st==="shared").length,lnTotal=LEARN.length;return {obDone,obTotal,obPct:Math.round(100*obDone/obTotal),lnDone,lnShared,lnTotal,lnPct:Math.round(100*(lnDone+.5*lnShared)/lnTotal)};}
 function viewOnboard(){const ob=onboardStats();const lvl=Math.min(5,Math.round(ob.obPct/20));
  return `<div class="page-h"><div><div class="eyebrow">Onboard &amp; Learn</div><h1>Onboarding</h1><p>Müvekkilin hizmet planına alışma yolculuğu. Adımlar tamamlandıkça gelişim seviyesi yükselir.</p></div></div>
@@ -805,7 +808,7 @@ function viewInsights(){
   <div class="card pad">${lbl("Girdi bekleyen · sorumlu bazında")}<div style="height:10px"></div>${hbar(Object.entries(owners).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,"var(--red-ink)",v+" kalem"]),Math.max(...Object.values(owners),1))}</div>
   <div class="card pad">${lbl("Toplantı ritmi · ay bazında toplantı kaydı (aksiyon maili: yalnızca Eylül)")}<div style="height:10px"></div><svg class="chart" viewBox="0 0 640 120" role="img" aria-label="Toplantı ritmi">${(()=>{const n=months.length,bw=(640-30)/n;return months.map((m,i)=>{const x=20+i*bw+4,h=counts[i]*20,w=bw-8;return `<rect x="${x}" y="${90-h}" width="${w}" height="${h}" rx="3" fill="${counts[i]?"var(--navy)":"var(--tint-12)"}"><title>${m}: ${counts[i]} toplantı kaydı</title></rect>${counts[i]===0?`<rect x="${x}" y="30" width="${w}" height="60" rx="3" fill="none" stroke="var(--border-strong)" stroke-dasharray="4 3"/>`:""}<text x="${x+w/2}" y="106" text-anchor="middle" style="font-size:9.5px">${m}</text>`;}).join("")+`<line class="grid" x1="20" x2="630" y1="90" y2="90"/>`;})()}</svg><div class="muted">2026'da 2 toplantı (Nisan, Eylül); 13.10 iptal. Teklifteki aylık YK toplantısı ritmi kurulmalı.</div></div>
  </div>`;}
-
+/* ORTAK: router, navigasyon, olay dinleyicileri, başlatma */
 /* ---------- router / nav ---------- */
 function crumbFor(v){const n=`<b>${esc(CLIENT.name)}</b>`;if(v==="home")return n+" · Genel Bakış";if(v==="insights")return n+" · Genel Bakış · Insights";if(v.startsWith("fn-"))return n+" · Fonksiyonlar · "+v.slice(3);if(v.startsWith("as-"))return n+" · Durum Değerlendirmesi · "+v.slice(3);if(v==="ob-onboarding")return n+" · Onboard &amp; Learn · Onboarding";if(v==="ob-learn")return n+" · Onboard &amp; Learn · Learn";const it=allItems().find(i=>i.id===v);return it?n+` · Data Room · ${esc(it.section.title)} · ${esc(it.title)}`:n;}
 function render(){const v=current,el=document.getElementById("view");
@@ -837,5 +840,5 @@ else if(/^as-[A-F]$/.test(h)||h==="home"||h==="insights"||h==="ob-onboarding"||h
 render();
 </script>
 
-</body></html>
+
 </body></html>

@@ -12,8 +12,11 @@ public/
   onscala.html        Juris Kurumsal Yönetim Paneli – Onscala (iframe ile gömülür, tek başına da açılır)
   codemag.html        Juris Kurumsal Yönetim Paneli – Codemag
   zyrone.html         Juris Kurumsal Yönetim Paneli – Zyrone (kit master ile aynı)
-  qervan.html         Juris Kurumsal Yönetim Paneli – Qervan–WeTrade (eski sürüm: ACTIONS/DECISIONS/MEETINGS yok → Vibe özet metnine düşer)
-  meown.html          Juris Kurumsal Yönetim Paneli – Meown AI (kitten üretildi)
+  qervan.html         Juris Kurumsal Yönetim Paneli – Qervan–WeTrade (v4, packages/juris-panels/qervan-wetrade/dist)
+  meown.html          Juris Kurumsal Yönetim Paneli – Meown AI (packages/juris-panel-kit ile üretildi)
+
+Panel kaynakları: packages/juris-panels/<müvekkil>/ (her biri kendi build'iyle). PANEL_EXTRACT eksik veri setlerini
+(ACTIONS/DECISIONS/MEETINGS) boş geçer; böylece farklı kit sürümleri de Vibe'a canlı okunur.
   claude-adapter.js   claude.ai dışında window.claude.use("sample") şimi → /api/sample
 server/
   index.mjs           Statik sunucu + Anthropic Messages API köprüsü (SSE akış)

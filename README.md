@@ -19,7 +19,9 @@ Juris Kurumsal Kimlik (lacivert #0A2240 · kırmızı #BC2F2C · Playfair Displa
 ```
 apps/ana-merkez           MTFG Ana Merkez — public/index.html (portföy + Vibe stüdyosu), onscala/codemag panelleri,
                           server/index.mjs (statik + Anthropic Messages API köprüsü, SSE)   ← ÜRÜNÜN ANA YÜZÜ
-packages/juris-panel-kit  Juris Kurumsal Yönetim Paneli master + müvekkil veri blokları + assemble.py / smoke.js
+packages/juris-panel-kit  Juris Kurumsal Yönetim Paneli master + müvekkil veri blokları + assemble.py / smoke.js (Zyrone master · Meown çıktısı)
+packages/juris-panels/    Müvekkil panel kaynak paketleri (kurucudan birebir): qervan-wetrade (template + .data.js + build.js),
+                          zyrone (src/js modülleri + build.py), onscala (src/* + build.py) — dist HTML'leri apps/ana-merkez/public'e kopyalanır
 apps/web  · apps/api      Mr. F operatör konsolu (React + Vite · Fastify + SQLite)
 packages/core             @vibe/core — Mr. F tipleri + skor motoru (score.py paritesi)
 data/ · scripts/score.py  Mr. F problem veri seti ve Python skorlayıcı

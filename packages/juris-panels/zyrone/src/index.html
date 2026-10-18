@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
+<title>Juris Kurumsal Yönetim Paneli – Zyrone</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+
+
+<div class="app">
+  <nav class="nav" id="nav" aria-label="Ana menü">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 200 200" aria-hidden="true"><g transform="translate(8,8)"><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#BC2F2C"/></g><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#FFFFFF" opacity=".96"/></svg>
+      <div><div class="name">Juris</div><div class="sub">Kurumsal Yönetim Paneli</div></div>
+    </div>
+    <div class="client" id="clientBox"></div>
+    <div class="navsec"><button class="ni" data-view="home"><span class="k">◌</span><span class="t">Genel Bakış</span></button><button class="ni" data-view="insights"><span class="k">◈</span><span class="t">Insights</span></button></div>
+    <div class="navsec"><div class="h">Fonksiyonlar</div><div id="fnNav"></div></div>
+    <div class="navsec"><div class="h">Durum Değerlendirmesi</div><div id="asNav"></div></div>
+    <div class="navsec"><div class="h">Data Room</div><div id="drNav"></div></div>
+    <div class="navsec"><div class="h">Onboard &amp; Learn</div><div id="obNav"></div></div>
+    <div class="navfoot">Şirketler Hukuku ve Kurumsal Yönetim Danışmanlığı · Doküman Haritası<br>Durum verisi: Google Drive Data Room + yazışmalar (18.10.2026)</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+  <main class="main" id="main"><div class="wrap">
+    <div class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menü"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+      <div class="crumb" id="crumb"></div><div class="spacer"></div><div class="date" id="today"></div>
+    </div>
+    <div id="view"></div>
+  </div></main>
+</div>
+
+<script src="js/01-client-config.js"></script>
+<script src="js/02-core.js"></script>
+<script src="js/03-assessments.js"></script>
+<script src="js/04-onboard-insights.js"></script>
+<script src="js/05-router.js"></script>
+
+
+</body></html>

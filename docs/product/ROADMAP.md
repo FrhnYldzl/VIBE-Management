@@ -6,9 +6,10 @@
 |---|---|---|---|
 | **v0.2.0** | Birebir alım | `apps/ana-merkez` + `packages/juris-panel-kit` repoda, `npm run ana-merkez` ile çalışır | ✅ |
 | **v0.2.1** | Paneller | Zyrone, Qervan-Wetrade, Meown AI panelleri `public/` + `PANELS` + menü + Vibe kapsamları | ✅ |
-| v0.2.2 | Qervan yeniden üretim | Qervan–WeTrade panelini kit master'ından derleyip canlı veriye geçirme | 🧭 |
-| v0.3 | Drive senkronu | Data room klasörlerinden durum (done/pending/input) otomatik okuma; dayanak linkleri | 💭 |
-| v0.4 | Çok-müvekkil üretim | `assemble.py` akışını konsoldan çalıştırma; yeni müvekkil = veri bloğu | 💭 |
+| **v0.2.2** | Kaynak paketleri | Qervan v4 · Zyrone · Onscala kod paketleri repoda; PANEL_EXTRACT toleranslı → 5 panel canlı | ✅ |
+| v0.3.0 | Tek panel kiti | Üç kit mimarisi → tek `template.html` + `clients/<slug>.data.js` + `build.js` + smoke; 5 müvekkil aynı master'dan üretilir | 🧭 |
+| v0.3.1 | Drive senkronu | Drive API ile data room klasörlerini tarayıp `.data.js` içindeki DATAROOM durumlarını (done/pending/input) ve dayanak linklerini üretme | 🧭 |
+| v0.4 | Çok-müvekkil kabuk | Ana Merkez'den yeni müvekkil = veri dosyası; build konsoldan; paylaşımlı durum katmanı (localStorage → DB) | 💭 |
 
 ## Mr. F (venture-building projesi) — aşağıdaki fazlar
 

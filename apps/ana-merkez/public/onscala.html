@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Juris Kurumsal Yönetim Paneli – Onscala</title>
+<title>Juris Kurumsal Yönetim Paneli</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
@@ -395,7 +395,7 @@ const DATAROOM = [
  ]},
  { id:"D", title:"D. Operasyonlar", url:F+"1bad0E9FQTmg45TBHqK85qN_Ph95Rbuu5", items:[
    { id:"D1", title:"D.1. Ana Faaliyetler", fn:"İCRA", area:"Şirket İçi Hukuki Süreçlerin Geliştirilmesi", url:F+"19oMFbw-pBaJZNLYDsF69TNFZoTMY7iu7",
-     subfolders:[["D.1.2 Satış · teklif formatı, maliyet dosyası",U.satis,false],["Onscala Teklifler · 10 dosya",U.teklifler,false],["D.1.2 Medya · kurumsal kimlik (5 PDF)",U.medya,false]],
+     subfolders:[["D.1.2 Satış · teklif formatı, maliyet dosyası",U.satis,false],["Onscala Teklifler · 13 dosya",U.teklifler,false],["D.1.2 Medya · kurumsal kimlik (5 PDF)",U.medya,false]],
      flow:["Müvekkil Yönetimi Yükler","Juris İnceler","Sözleşme setine girdi"], docs:[
      doc("DR","Teklif ve Sözleşme Formu – standart format (Onsacala - Teklif Formatı)",O.O,"done",U.teklifFormat),
      doc("DR","Proje Maliyet Dosyası Temmuz 2026 – teklif künyesi, maliyet hesabı, kâr",O.M,"done",U.maliyet),
@@ -857,6 +857,7 @@ const h=(location.hash||"").slice(1);
 if(/^fn\d$/.test(h)){const k=Object.keys(FUNCTIONS).find(k=>FUNCTIONS[k].k===h[2]);if(k)current="fn-"+k;}
 else if(/^as-[A-F]$/.test(h)||h==="home"||h==="insights"||h==="ob-onboarding"||h==="ob-learn"||allItems().some(i=>i.id===h))current=h;
 render();
+</script>
 </script>
 
 </body></html>
