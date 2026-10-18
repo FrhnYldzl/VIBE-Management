@@ -3,6 +3,16 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.3] — 2026-10-18 · Eğitim: program oluşturucu, katılımcılar → funnel
+
+### Eklendi
+- **＋ Yeni program**: kurum/ev sahibi, yer, program adı, başlangıç tarihi, oturum aralığı (haftalık · 2 haftada bir · aylık), varsayılan eğitmen,
+  koordinatör, modül seçimi (8 modül, katalog sırası) → tarihli oturumlar; dersler Ankara Teknopark şablonundan, düzey/misafir önerisi modülden.
+  Program sekmeleri (Ankara Teknopark + türetilenler), türetilen program silinebilir (katılımcı ve dokümanlarıyla). Kayıt `vibe_state: egitim` (`k:"prog"`).
+- **Katılımcılar**: ad, şirket, rol (Girişimci / Yatırımcı / Paydaş / Danışman / Diğer), not; satırdan **Funnel'a aktar** → İş Geliştirme Funnel'ında
+  yeni **0. Aday · Network** sütunu (kaynak: eğitim programı), tıklayınca eğitim görünümüne gider. Katılımcı tile'ı (liste / funnel'a aktarılan).
+- Funnel 5 sütun (≤1100px 3, ≤900px 2).
+
 ## [0.5.2] — 2026-10-18 · Eğitim Programları + Panel ekle
 
 ### Eklendi

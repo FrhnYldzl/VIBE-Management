@@ -197,7 +197,9 @@ a{color:inherit}
 .crit .c b{font-size:13px}
 .crit .c .q{font-size:12px;color:var(--ink-2);margin-top:2px}
 .crit .c .k{font-family:var(--font-mono);font-size:11px;color:var(--red-ink);width:26px;flex:0 0 26px;padding-top:2px}
-.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.funnel{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.stage.pre{border-style:dashed}
+@media (max-width:1100px){.funnel{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:900px){.funnel{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.funnel{grid-template-columns:1fr}}
 .stage{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);padding:12px 14px;min-width:0}
@@ -257,6 +259,13 @@ a{color:inherit}
 .eg-map .m p{margin:4px 0 6px;font-size:12px;color:var(--ink-2)}
 .eg-map .fnchip{font-family:var(--font-mono);font-size:10.5px;background:var(--tint-08);padding:2px 6px;border-radius:4px;margin-right:4px}
 @media (max-width:620px){.eg-sess{grid-template-columns:1fr}.eg-les{grid-template-columns:auto 1fr}.eg-les .who{grid-column:2}}
+.eg-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.eg-tabs .btn.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.imodal .chk{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 12px;margin-top:6px;font-size:12.5px}
+.imodal .chk label{display:flex;gap:8px;align-items:flex-start;margin:0;color:var(--ink)}
+.imodal select{display:block;width:100%;margin-top:4px;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font:inherit;font-size:13.5px;background:var(--bg);color:var(--ink)}
+.imodal .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media (max-width:520px){.imodal .row3{grid-template-columns:1fr}}
 .risk td.sev{font-family:var(--font-mono);font-size:11px}
 .dotsev{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
 .callout{display:flex;gap:12px;padding:12px 14px;border-radius:var(--r-md);background:var(--accent-bg);border:1px solid rgba(188,47,44,.25);font-size:12.5px;color:var(--ink-2)}
@@ -530,6 +539,19 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
     <div class="acts"><button type="button" class="btn" id="imCancel">Vazgeç</button><button type="submit" class="btn primary" id="imGo">Tara ve paneli üret</button></div>
   </form>
 </div>
+<div class="imodal" id="progModal" hidden>
+  <form class="box" id="progBox" style="width:min(720px,100%)">
+    <h2>Yeni eğitim programı</h2>
+    <p class="sub">Modül kataloğundan türetilir: seçilen modüller sırayla, başlangıç tarihinden itibaren seçilen aralıkla oturum olur. Dersler Ankara Teknopark programındaki şablondan gelir; eğitmen ve misafirler sonradan düzenlenir.</p>
+    <div class="row"><label>Kurum / ev sahibi<input name="kurum" required placeholder="Örn. İTÜ Çekirdek"></label><label>Yer<input name="yer" placeholder="Örn. Teknokent Konferans Salonu"></label></div>
+    <label>Program adı<input name="ad" value="Girişim & Yatırım Hukuku Eğitimi"></label>
+    <div class="row3"><label>Başlangıç tarihi<input name="baslangic" type="date" required></label><label>Oturum aralığı<select name="aralik"><option value="14">2 haftada bir</option><option value="7">Haftalık</option><option value="28">Aylık</option></select></label><label>Hedef kitle<input name="hedef" placeholder="Girişimciler, yatırımcılar, paydaşlar"></label></div>
+    <div class="row"><label>Varsayılan eğitmen<select name="egitmen" id="pgEg"></select></label><label>Koordinatör<select name="koord" id="pgKo"></select></label></div>
+    <label>Modüller (sıra katalog sırasıdır)</label><div class="chk" id="pgMod"></div>
+    <div class="out" id="pgOut"></div>
+    <div class="acts"><button type="button" class="btn" id="pgCancel">Vazgeç</button><button type="submit" class="btn primary">Programı oluştur</button></div>
+  </form>
+</div>
 
 <main class="main" id="main">
   <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button><div class="crumb" id="crumb"></div><div class="spacer"></div><div class="date" id="today"></div></div>
@@ -791,7 +813,8 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
 
   <!-- 11 EĞİTİM -->
   <section class="view" id="v-egitim">
-    <div class="page-h"><div><div class="eyebrow">11 · Eğitim</div><h1>Eğitim Programları</h1><p>Verdiğimiz hizmetlere paralel eğitimler: her oturum paneldeki bir fonksiyona ve konuya bağlanır. Eğitim aynı zamanda <b>network</b> kanalıdır — katılımcılar ve misafir yatırımcılar funnel'a girer.</p></div><div class="right"><button class="btn" disabled title="v0.5.3: modül kataloğundan yeni program oluşturucu">Yeni program · v0.5.3</button></div></div>
+    <div class="page-h"><div><div class="eyebrow">11 · Eğitim</div><h1>Eğitim Programları</h1><p>Verdiğimiz hizmetlere paralel eğitimler: her oturum paneldeki bir fonksiyona ve konuya bağlanır. Eğitim aynı zamanda <b>network</b> kanalıdır — katılımcılar ve misafir yatırımcılar funnel'a girer.</p></div><div class="right"><button class="btn primary" id="newProg">＋ Yeni program</button></div></div>
+    <div class="eg-tabs" id="egTabs"></div>
     <div id="egitimBody"></div>
   </section>
 
@@ -910,7 +933,10 @@ function renderPortfolio(){
   $("#cat").innerHTML=Object.entries(cats).map(([k,v])=>`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${k}</span><span class="mono muted">${v} varlık</span></div>${bar(Math.round(v/ASSETS.length*100),k==="Yatırım"?"var(--chart-4)":k.startsWith("Mal")?"var(--chart-2)":"var(--chart-3)")}</div>`).join("");
 }
 function renderFunnel(){
-  $("#funnel").innerHTML=FUNNEL.map((f,i)=>`<div class="stage"><div class="h"><b>${i+1}. ${f.s}</b><span class="n">${f.items.length}</span></div><div class="def">${f.def}</div><ul>${f.items.map(x=>`<li${x[2]?` class="go" data-view="${x[2]}" title="Paneli aç"`:""}>${x[0]}<span>${x[1]}${x[2]?" →":""}</span></li>`).join("")}</ul></div>`).join("");
+  /* 0. aşama: eğitim / etkinlik network'ünden gelen adaylar (egitimState k:"aday") — ilk hukuk işiyle 1. aşamaya geçer */
+  const adaylar=(typeof egitimState!=="undefined"?egitimState:[]).filter(x=>x.k==="aday");
+  const pre={s:"Aday · Network",def:"Eğitim ve etkinliklerden gelen tanışıklıklar. İlk hukuk işiyle müvekkile dönüşür.",pre:true,items:adaylar.map(a=>[a.ad,[a.sirket,a.rol].filter(Boolean).join(" · ")||"aday","egitim"])};
+  $("#funnel").innerHTML=[pre,...FUNNEL].map((f,i)=>`<div class="stage${f.pre?" pre":""}"><div class="h"><b>${i}. ${f.s}</b><span class="n">${f.items.length}</span></div><div class="def">${f.def}</div><ul>${f.items.map(x=>`<li${x[2]?` class="go" data-view="${x[2]}" title="${x[2]==="egitim"?"Eğitim programına git":"Paneli aç"}"`:""}>${esc(x[0])}<span>${esc(x[1])}${x[2]?" →":""}</span></li>`).join("")}${f.pre&&!f.items.length?'<li><span>Eğitim → Katılımcılar → "Funnel\'a aktar"</span></li>':""}</ul></div>`).join("");
   const sym=s=>s==="+"?'<span class="plus">+</span>':s==="⊕"?'<span class="plusc">⊕</span>':s==="→"?'<span class="arrow">→</span>':'<span class="minus">–</span>';
   $("#matrix").innerHTML=`<tr><th>İlişki</th><th style="text-align:center">Hukuk</th><th style="text-align:center">Kurumsal Yönetim</th><th style="text-align:center">Mal / Marka</th><th style="text-align:center">Hizmet / SaaS</th></tr>`+
     MATRIX.map(m=>`<tr class="row"><td class="nm">${m[0]}</td>${m.slice(1).map(s=>`<td class="c">${sym(s)}</td>`).join("")}</tr>`).join("");
@@ -941,9 +967,32 @@ function renderDocs(){
 
 /* ======= EĞİTİM (v0.5.2) — programlar, oturum ilerlemesi, dokümanlar, hizmet eşlemesi, network =======
    egitimState (sunucu, vibe_state:egitim): [{k:"st",sid,st,note}] oturum durumu düzeltmesi · [{k:"doc",id,sid,t,url,by,date}] eklenen doküman */
-let egitimState=[];
+let egitimState=[], egCur=null;
 const EG_ST={done:["ok","Yapıldı"],next:["red","Sıradaki"],planned:["neu","Planlı"],cancel:["warn","Ertelendi"]};
-const egP=()=>EGITIM.programlar[0];
+const EG_ROL=["Girişimci","Yatırımcı","Paydaş (teknopark · kuluçka)","Danışman","Diğer"];
+/* programlar: katalogdaki sabit program + kullanıcı oluşturdukları (egitimState k:"prog") */
+const egPrograms=()=>EGITIM.programlar.concat(egitimState.filter(x=>x.k==="prog").map(x=>x.p));
+const egP=()=>egPrograms().find(p=>p.id===egCur)||egPrograms()[0];
+const egSlug=s=>String(s).toLowerCase().replace(/[ığüşöçİ]/g,c=>({ı:"i",ğ:"g",ü:"u",ş:"s",ö:"o",ç:"c",İ:"i"}[c])).replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,30);
+const egLessonTpl=n=>(EGITIM.programlar[0].oturumlar.find(s=>s.modul===n)||{dersler:[]});
+/* Program oluşturucu: seçilen modüller → başlangıç + aralık ile tarihli oturumlar; dersler şablondan, eğitmen varsayılan */
+function egBuildProgram(f){
+  const start=new Date(f.baslangic+"T00:00:00"); const step=+f.aralik; const mods=f.moduller;
+  const AY=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"], GUN=["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
+  const oturumlar=mods.map((m,i)=>{ const d=new Date(start.getTime()+i*step*86400000); const tpl=egLessonTpl(m);
+    return {no:i+1,modul:m,tarih:d.toISOString().slice(0,10),ay:AY[d.getMonth()],duzey:tpl.duzey||"—",misafir:tpl.misafir||null,dersler:tpl.dersler.map(x=>[x[0],f.egitmen,x[2]])}; });
+  const last=oturumlar[oturumlar.length-1]; const yil=start.getFullYear();
+  return {id:egSlug(f.kurum)+"-"+yil+"-"+Math.random().toString(36).slice(2,5),ad:f.ad||"Girişim & Yatırım Hukuku Eğitimi",tema:"Bir Girişimin Kuruluştan Exit'e Yolculuğu",motto:"Neden ile Başla — Simon Sinek",
+    kurum:f.kurum,yer:f.yer||"—",gun:GUN[start.getDay()],format:`${oturumlar.length} Oturum × 3 Ders · ${oturumlar.length*3} saat`,donem:`${AY[start.getMonth()]}${last?"–"+AY[new Date(last.tarih).getMonth()]:""} ${yil}`,
+    baslangic:f.baslangic,bitis:last?last.tarih:f.baslangic,hedefKitle:f.hedef||"Girişimciler, yatırımcılar ve ekosistem paydaşları",koordinator:f.koord,
+    final:mods.includes(8)?"Yatırım Süreci Simülasyonu (8. modül)":"—",network:{amac:"Katılımcılar → Juris müvekkil adayı / MTFG funnel",kanal:"Oturum sonu tanışma · kontrol listeleri"},oturumlar,dokumanlar:[],olusturma:new Date().toISOString(),turetilmis:true};
+}
+function openProg(){ const f=$("#progBox"); f.reset(); $("#pgOut").textContent="";
+  $("#pgEg").innerHTML=EGITIM.egitmenler.map(e=>`<option value="${e.id}"${e.id==="fy"?" selected":""}>${esc(e.ad)}</option>`).join(""); $("#pgKo").innerHTML=EGITIM.egitmenler.map(e=>`<option value="${e.id}"${e.id==="ik"?" selected":""}>${esc(e.ad)}</option>`).join("");
+  $("#pgMod").innerHTML=EGITIM.moduller.map(m=>`<label><input type="checkbox" name="mod" value="${m.no}" checked><span><b>${String(m.no).padStart(2,"0")}</b> ${esc(m.t)}<br><span class="muted" style="font-size:11px">${m.fn.join(" · ")} · ${esc(m.hizmet)}</span></span></label>`).join("");
+  const d=new Date(); d.setDate(d.getDate()+((9-d.getDay())%7||7)); f.baslangic.value=d.toISOString().slice(0,10); /* önümüzdeki Salı */
+  $("#progModal").hidden=false; f.kurum.focus(); }
+function egParticipants(p){ return egitimState.filter(x=>x.k==="kat"&&x.pid===p.id); }
 const egTeacher=id=>(EGITIM.egitmenler.find(e=>e.id===id)||{ad:id}).ad;
 const egFmt=d=>new Date(d+"T00:00:00").toLocaleDateString("tr-TR",{day:"2-digit",month:"long"});
 function egStatus(p){ const today=new Date().toISOString().slice(0,10); let nextSet=false;
@@ -952,11 +1001,13 @@ function egStatus(p){ const today=new Date().toISOString().slice(0,10); let next
 function egDocs(p,sno){ const base=p.dokumanlar.filter(d=>d.oturum===sno); const added=egitimState.filter(x=>x.k==="doc"&&x.sid===p.id+":"+sno).map(x=>({id:x.id,t:x.t,url:x.url,tur:"ek",not:(x.by||"")+" · "+(x.date||"").slice(0,10),ek:true}));
   const links=Object.fromEntries(egitimState.filter(x=>x.k==="link").map(x=>[x.id,x.url])); return base.map(d=>({...d,url:links[d.id]||d.url})).concat(added); }
 function renderEgitim(){
-  const el=$("#egitimBody"); if(!el||typeof EGITIM==="undefined")return; const p=egP(); const sts=egStatus(p);
+  const el=$("#egitimBody"); if(!el||typeof EGITIM==="undefined")return; const p=egP(); if(!p)return; egCur=p.id; const sts=egStatus(p);
+  $("#egTabs").innerHTML=egPrograms().map(x=>`<button class="btn${x.id===p.id?" on":""}" data-egprog="${esc(x.id)}">${esc(x.kurum)} <span class="muted" style="font-weight:400;margin-left:4px">${esc(x.donem)}</span></button>`).join("")+(p.turetilmis?`<button class="btn" data-egprogdel="${esc(p.id)}" title="Bu programı sil" style="color:var(--ink-3)">Programı sil</button>`:"");
   const done=sts.filter(s=>s==="done").length, total=p.oturumlar.length, lessons=p.oturumlar.reduce((a,s)=>a+s.dersler.length,0), lessonsDone=p.oturumlar.filter((s,i)=>sts[i]==="done").reduce((a,s)=>a+s.dersler.length,0);
   const nextI=sts.indexOf("next"), next=nextI>=0?p.oturumlar[nextI]:null;
   const teachers=new Set(p.oturumlar.flatMap(s=>s.dersler.map(d=>d[1]))); const guests=p.oturumlar.filter(s=>s.misafir).length;
   const docsAll=p.oturumlar.flatMap(s=>egDocs(p,s.no)).concat(egDocs(p,0)); const docsLinked=docsAll.filter(d=>d.url).length;
+  const kat=egParticipants(p), adaylar=egitimState.filter(x=>x.k==="aday"&&x.pid===p.id);
   $("#navEgitim").textContent=`${done}/${total}`;
   const docRow=d=>`<div class="d"><span class="pill ${d.url?"belge":"yok"}">${d.url?"belge":"link yok"}</span><span class="t">${esc(d.t)}</span>${d.url?`<a href="${esc(d.url)}" target="_blank" rel="noopener">aç ↗</a>`:`<button class="eg-link" data-eglink="${esc(d.id)}">link ekle</button>`}<span class="muted" style="font-size:11px">${esc(d.not||"")}</span>${d.ek?`<button class="eg-link" style="color:var(--ink-3)" data-egdel="${esc(d.id)}">sil</button>`:""}</div>`;
   const sess=p.oturumlar.map((s,i)=>{ const st=sts[i]; const m=EGITIM.moduller.find(x=>x.no===s.modul); const sid=p.id+":"+s.no;
@@ -975,10 +1026,18 @@ function renderEgitim(){
     <div class="tile"><div class="l">Eğitmen</div><div class="v">${teachers.size}</div><div class="d">Juris ortakları + birim avukatı</div></div>
     <div class="tile"><div class="l">Misafir oturumu</div><div class="v">${guests}</div><div class="d">yatırımcı · girişimci · danışman</div></div>
     <div class="tile"><div class="l">Doküman</div><div class="v">${docsLinked}<small>/ ${docsAll.length}</small></div><div class="d">linkli / toplam</div></div>
+    <div class="tile"><div class="l">Katılımcı</div><div class="v">${kat.length}<small>· ${adaylar.length} funnel</small></div><div class="d">liste / funnel'a aktarılan</div></div>
   </div>
   <div class="sec"><div class="sec-h"><h2>${esc(p.ad)} — ${esc(p.tema)}</h2><span class="meta">${esc(p.motto)} · Koordinatör: ${esc(egTeacher(p.koordinator))} · Hedef kitle: ${esc(p.hedefKitle)}</span></div>
     <div class="card">${sess}</div>
     <div class="eg-docs" style="margin-top:10px"><b style="font-size:12.5px">Program dokümanları</b>${egDocs(p,0).map(docRow).join("")}<div><button class="eg-link" data-egadd="${p.id}:0">＋ Doküman ekle</button></div><form class="eg-add" data-egform="${p.id}:0"><input name="t" placeholder="Doküman adı" required><input name="url" type="url" placeholder="https://drive.google.com/…" required><button class="btn primary" type="submit" style="height:30px">Ekle</button><button class="btn" type="button" data-egcancel="${p.id}:0" style="height:30px">Vazgeç</button></form></div>
+  </div>
+  <div class="sec"><div class="sec-h"><h2>Katılımcılar</h2><span class="meta">Eğitimden gelen ilişki kaydı → "Funnel'a aktar" ile 0. aşama (Aday · Network)</span></div>
+    <div class="card"><div class="scroll"><table class="tbl"><tr><th>Ad</th><th>Şirket</th><th>Rol</th><th>Not</th><th>Funnel</th><th></th></tr>
+    ${kat.map(k=>{const a=adaylar.find(x=>x.katId===k.id);return `<tr class="row"><td class="nm">${esc(k.ad)}</td><td>${esc(k.sirket||"—")}</td><td><span class="pill ${k.rol==="Yatırımcı"?"warn":k.rol==="Girişimci"?"info":"neu"}">${esc(k.rol)}</span></td><td class="sm">${esc(k.not||"")}</td><td>${a?`<span class="pill ok">Aday · ${(a.date||"").slice(0,10)}</span>`:`<button class="eg-link" data-egaday="${k.id}">Funnel'a aktar →</button>`}</td><td><button class="eg-link" style="color:var(--ink-3)" data-egkatdel="${k.id}">sil</button></td></tr>`;}).join("")}
+    ${!kat.length?`<tr><td colspan="6" class="sm">Henüz katılımcı yok. Oturum sonrası tanışılan kişileri ekleyin; yatırımcı ve girişimciler funnel'a aday olarak geçer.</td></tr>`:""}
+    </table></div>
+    <form class="eg-add open" data-egkat="${p.id}" style="padding:10px 14px;border-top:1px solid var(--divider)"><input name="ad" placeholder="Ad Soyad" required><input name="sirket" placeholder="Şirket / kurum"><select name="rol" style="padding:6px 9px;border:1px solid var(--border);border-radius:7px;font:inherit;font-size:12.5px;background:var(--bg);color:var(--ink)">${EG_ROL.map(r=>`<option>${r}</option>`).join("")}</select><input name="not" placeholder="Not (ilgi alanı, ihtiyaç, takip)"><button class="btn primary" type="submit" style="height:30px">＋ Katılımcı</button></form></div>
   </div>
   <div class="sec"><div class="sec-h"><h2>Hizmetlerle eşleme</h2><span class="meta">Her modül paneldeki bir fonksiyona bağlanır — eğitimde anlatılan, panelde yapılan iştir</span></div>
     <div class="eg-map">${EGITIM.moduller.map(m=>`<div class="m"><div class="no">${String(m.no).padStart(2,"0")}</div><b>${esc(m.t)}</b><p>${esc(m.hizmet)}</p><div>${m.fn.map(f=>`<span class="fnchip">${f}</span>`).join("")}</div><div class="muted" style="font-size:11.5px;margin-top:6px">${m.panel.map(esc).join(" · ")}</div></div>`).join("")}</div>
@@ -990,15 +1049,27 @@ function renderEgitim(){
     </div>
   </div>`;
 }
-function egSave(){ pushState("egitim"); renderEgitim(); }
+function egSave(){ pushState("egitim"); renderEgitim(); renderFunnel(); }
 document.addEventListener("click",e=>{
+  if(e.target.closest("#newProg")){openProg();return;}
+  if(e.target.closest("#pgCancel")){$("#progModal").hidden=true;return;}
+  if(e.target.id==="progModal"){$("#progModal").hidden=true;return;}
+  const pg=e.target.closest("[data-egprog]"); if(pg){ egCur=pg.dataset.egprog; renderEgitim(); return; }
+  const pd=e.target.closest("[data-egprogdel]"); if(pd){ if(pd.dataset.arm){ const id=pd.dataset.egprogdel; egitimState=egitimState.filter(x=>!((x.k==="prog"&&x.p.id===id)||(x.pid===id)||(x.sid&&x.sid.startsWith(id+":")))); egCur=null; egSave(); } else { pd.dataset.arm="1"; pd.textContent="Emin misiniz? (katılımcılar ve dokümanlar da silinir)"; setTimeout(()=>{delete pd.dataset.arm;pd.textContent="Programı sil";},3000); } return; }
+  const ad=e.target.closest("[data-egaday]"); if(ad){ const k=egitimState.find(x=>x.k==="kat"&&x.id===ad.dataset.egaday); if(!k)return; egitimState.push({k:"aday",id:uid(),katId:k.id,pid:k.pid,ad:k.ad,sirket:k.sirket,rol:k.rol,kaynak:"Eğitim · "+(egP().kurum||""),date:new Date().toISOString()}); egSave(); return; }
+  const kd=e.target.closest("[data-egkatdel]"); if(kd){ egitimState=egitimState.filter(x=>!((x.k==="kat"&&x.id===kd.dataset.egkatdel)||(x.k==="aday"&&x.katId===kd.dataset.egkatdel))); egSave(); return; }
   const a=e.target.closest("[data-egadd]"); if(a){ const f=document.querySelector(`.eg-add[data-egform="${a.dataset.egadd}"]`); if(f){f.classList.add("open");f.t.focus();} return; }
   const c=e.target.closest("[data-egcancel]"); if(c){ const f=document.querySelector(`.eg-add[data-egform="${c.dataset.egcancel}"]`); if(f)f.classList.remove("open"); return; }
   const s=e.target.closest("[data-egst]"); if(s){ egitimState=egitimState.filter(x=>!(x.k==="st"&&x.sid===s.dataset.egst)); egitimState.push({k:"st",sid:s.dataset.egst,st:s.dataset.st}); egSave(); return; }
   const l=e.target.closest("[data-eglink]"); if(l){ const url=prompt("Drive / dosya linki:"); if(!url)return; egitimState=egitimState.filter(x=>!(x.k==="link"&&x.id===l.dataset.eglink)); egitimState.push({k:"link",id:l.dataset.eglink,url:url.trim()}); egSave(); return; }
   const d=e.target.closest("[data-egdel]"); if(d){ egitimState=egitimState.filter(x=>!(x.k==="doc"&&x.id===d.dataset.egdel)); egSave(); return; }
 });
-document.addEventListener("submit",e=>{ const f=e.target.closest(".eg-add[data-egform]"); if(!f)return; e.preventDefault();
+document.addEventListener("submit",e=>{
+  if(e.target.id==="progBox"){ e.preventDefault(); const f=e.target; const mods=[...f.querySelectorAll('input[name="mod"]:checked')].map(x=>+x.value); if(!mods.length){$("#pgOut").textContent="En az bir modül seçin.";$("#pgOut").classList.add("err");return;}
+    const p=egBuildProgram({kurum:f.kurum.value.trim(),yer:f.yer.value.trim(),ad:f.ad.value.trim(),baslangic:f.baslangic.value,aralik:f.aralik.value,hedef:f.hedef.value.trim(),egitmen:f.egitmen.value,koord:f.koord.value,moduller:mods});
+    egitimState.push({k:"prog",p}); egCur=p.id; $("#progModal").hidden=true; egSave(); go("egitim"); return; }
+  const kf=e.target.closest(".eg-add[data-egkat]"); if(kf){ e.preventDefault(); egitimState.push({k:"kat",id:uid(),pid:kf.dataset.egkat,ad:kf.ad.value.trim(),sirket:kf.sirket.value.trim(),rol:kf.rol.value,not:kf.not.value.trim(),date:new Date().toISOString()}); egSave(); return; }
+  const f=e.target.closest(".eg-add[data-egform]"); if(!f)return; e.preventDefault();
   egitimState.push({k:"doc",id:uid(),sid:f.dataset.egform,t:f.t.value.trim(),url:f.url.value.trim(),by:"",date:new Date().toISOString()}); egSave(); });
 
 /* ======= PANEL ÇERÇEVELERİ (Onscala / Codemag / Zyrone / Qervan–WeTrade / Meown AI) ======= */
@@ -1155,7 +1226,7 @@ function pushState(key){ const value=key==="sessions"?sessions:key==="egitim"?eg
 async function pullState(){ try{ const r=await fetch(VAPI,{credentials:"same-origin"}); if(!r.ok)return; const st=await r.json();
   if(st.sessions&&Array.isArray(st.sessions.value)){ sessions=st.sessions.value; lsSet(LSK.sess,sessions); } else if(sessions.some(s=>!s.example)){ pushState("sessions"); }
   if(st.library&&Array.isArray(st.library.value)){ library=st.library.value; lsSet(LSK.lib,library); } else if(library.length){ pushState("library"); }
-  if(st.egitim&&Array.isArray(st.egitim.value)){ egitimState=st.egitim.value; renderEgitim(); }
+  if(st.egitim&&Array.isArray(st.egitim.value)){ egitimState=st.egitim.value; renderEgitim(); renderFunnel(); }
   if(typeof renderStudio==="function")renderStudio(); if(typeof renderSessions==="function")renderSessions(); if(typeof renderLibrary==="function")renderLibrary(); if(typeof renderRecent==="function")renderRecent(); if(typeof renderThread==="function")renderThread();
   $("#sessCnt").textContent=sessions.length; $("#libCnt").textContent=library.length; syncNavCounts(); }catch(e){} }
 let curSess=null, running=null, sampleP=null, vtab="studio", sfil="all", lfil="all";

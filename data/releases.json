@@ -1,6 +1,18 @@
 {
   "surumler": [
     {
+      "surum": "0.5.3",
+      "tarih": "2026-10-18",
+      "faz": "v1.0 yolu",
+      "baslik": "Eğitim: program oluşturucu + katılımcı → funnel",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "'＋ Yeni program': kurum, yer, başlangıç, aralık (haftalık / 2 hafta / aylık), varsayılan eğitmen, koordinatör, modül seçimi → tarihli oturumlar (dersler Teknopark şablonundan); program sekmeleri, silme" },
+        { "tur": "yeni", "metin": "Katılımcılar: ad, şirket, rol (girişimci / yatırımcı / paydaş / danışman), not; 'Funnel'a aktar' → İş Geliştirme Funnel'ı 0. aşama 'Aday · Network' (paylaşımlı)" },
+        { "tur": "iyilestirme", "metin": "Funnel 5 sütun; aday satırından eğitim programına geçiş" }
+      ]
+    },
+    {
       "surum": "0.5.2",
       "tarih": "2026-10-18",
       "faz": "v1.0 yolu",
@@ -163,7 +175,7 @@
     }
   ],
   "planli": [
-    { "surum": "0.5.3", "baslik": "Veri doğruluğu turu", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
+    { "surum": "0.5.4", "baslik": "Veri doğruluğu turu", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]
