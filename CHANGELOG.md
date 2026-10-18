@@ -3,6 +3,18 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.3.0] — 2026-10-18 · Tek panel kiti
+
+### Değişti
+- Üç kit mimarisi (template+data.js / js modülleri / src parçaları / assemble.py) **tek kitte** birleşti: çekirdek = en güncel
+  master (Zyrone tabanlı, 18.10 — Insights, ENTS, FINSTRUCT, ACTIONS/DECISIONS); paketleme = `src/template.html` +
+  `src/clients/<slug>.data.js` + `tools/kit.js` (template · extract · build · smoke · compare · all --deploy).
+- Beş müvekkil (Onscala, Codemag, Zyrone, Qervan–WeTrade, Meown AI) aynı template'ten üretildi ve Ana Merkez'e kopyalandı.
+  Smoke: 187 görünüm temiz. Compare: eski panellerle görünüm bazında benzerlik Zyrone/Codemag/Onscala/Meown %100, Qervan %99
+  (onboarding tablosu sütun başlığı farkı).
+- Müvekkile özgü sabit metinler template'ten çıkarıldı: `assessEnt` varsayılanı → `CLIENT.short[0]`; onboarding metası → `CLIENT.startLabel`.
+- `build/` (assemble.py) ve `packages/juris-panels/` arşiv olarak kaldı.
+
 ## [0.2.2] — 2026-10-18 · Panel kaynak paketleri + canlı okuma
 
 ### Eklendi

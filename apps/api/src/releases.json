@@ -1,6 +1,17 @@
 {
   "surumler": [
     {
+      "surum": "0.3.0",
+      "tarih": "2026-10-18",
+      "faz": "Ana Merkez",
+      "baslik": "Tek panel kiti",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "iyilestirme", "metin": "Üç kit mimarisi tek kitte: en güncel master (Zyrone tabanlı) → template.html + clients/<slug>.data.js; tools/kit.js (template/extract/build/smoke/compare/all --deploy)" },
+        { "tur": "test", "metin": "5 müvekkil aynı template'ten: 187 görünüm smoke temiz; eski panellerle benzerlik %99–100" }
+      ]
+    },
+    {
       "surum": "0.2.2",
       "tarih": "2026-10-18",
       "faz": "Ana Merkez",
@@ -64,8 +75,7 @@
     }
   ],
   "planli": [
-    { "surum": "0.3.0", "baslik": "Tek panel kiti", "ozet": "Üç kit mimarisini tek template + müvekkil .data.js + build/smoke akışında birleştirme; 5 müvekkil aynı master'dan" },
-    { "surum": "0.3.1", "baslik": "Drive senkronu", "ozet": "Data room klasörlerinden durum (done/pending/input) ve dayanak linklerini otomatik okuyup .data.js üretme" },
+    { "surum": "0.3.1", "baslik": "Drive senkronu", "ozet": "Data room klasörlerinden durum (done/pending/input) ve dayanak linklerini otomatik okuyup .data.js DATAROOM bloğunu üretme" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

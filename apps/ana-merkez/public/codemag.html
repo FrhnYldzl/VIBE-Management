@@ -1,5 +1,6 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Juris Kurumsal Yönetim Paneli – Codemag</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
+<title>Juris Kurumsal Yönetim Paneli – CODEMAG</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
@@ -271,7 +272,7 @@ button.status:hover{border-color:currentColor}
     <div class="navsec"><div class="h">Durum Değerlendirmesi</div><div id="asNav"></div></div>
     <div class="navsec"><div class="h">Data Room</div><div id="drNav"></div></div>
     <div class="navsec"><div class="h">Onboard &amp; Learn</div><div id="obNav"></div></div>
-    <div class="navfoot">Şirketler Hukuku ve Kurumsal Yönetim Danışmanlığı · Doküman Haritası<br>Durum verisi: Google Drive Data Room (17.10.2026)</div>
+    <div class="navfoot">Şirketler Hukuku ve Kurumsal Yönetim Danışmanlığı · Doküman Haritası<br>Durum verisi: Google Drive Data Room + yazışmalar (18.10.2026)</div>
   </nav>
   <div class="scrim" id="scrim"></div>
   <main class="main" id="main"><div class="wrap">
@@ -289,8 +290,14 @@ button.status:hover{border-color:currentColor}
    Durum: done · review (onay bekliyor) · progress · input (girdi bekleniyor – kimden olduğu 'owner' alanında) · pending
    Dayanak: doc (Drive'da doküman var) · beyan (toplantı/soru seti/e-posta beyanı) · none
    ========================================================= */
+/* =========================================================
+   MÜVEKKİL VERİSİ — codemag
+   Kaynak: codemag.html · çıkarım: tools/kit.js extract · 2026-10-18
+   Bu dosya build sırasında src/template.html içindeki CLIENT_DATA işaretçisinin yerine gömülür.
+   Bloklar: CLIENT, FUNCTIONS, D, doc, O, U, DATAROOM, BASIS_COUNT, ASSESS_TABS, SRC, BMC, LEAN, OKR, RACI, FIN, LEASING, REVACT, VALPROC, PROJECTS, DD, DD_DONE, CONTRACTS, RISKS, MEETINGS, ACTIONS, DECISIONS, MAILS, E0, assessA, assessB, assessC, assessD, assessE, assessF, ONBOARD, LEARN, viewInsights
+   ========================================================= */
 const CLIENT = {
-  id:"codemag", name:"CODEMAG",
+  id:"codemag", startLabel:"Hizmet başlangıcı · Nisan–Eylül 2026", name:"CODEMAG",
   entities:["Codemag Yazılım Hizmetleri Ticaret Ltd. Şti."], short:["Codemag"],
   driveRoot:"https://drive.google.com/drive/folders/1MmlPT_B9qx4k-Tn41KJgVhfkUJu0noDu",
   planSheet:"https://docs.google.com/spreadsheets/d/1Wa7sEaJg4hkgDLEXaE7FViaPbqYDA6Ek6R0otjh6-is/edit", planLabel:"Hizmet Planı (14.10.2026)",
@@ -300,17 +307,22 @@ const CLIENT = {
   scopeOut:["Almanya GmbH kuruluşu, Handelsregister/Finanzamt tescilleri – ayrı yazılı mutabakat","Yatırım turu, GmbH → TR sermaye aktarımı, M&A yürütümü – kapsam dışı (stratejik görüş dahil)","Marka/patent/tasarım tescil, itiraz ve yenileme işlemleri – kapsam dışı (ihlal değerlendirmesi dahil)","Kapsamlı KVKK uyum projesi – yalnızca mini set dahil","Teknokent başvurusu ve mali sürdürme – Teşvik Danışmanı (Tolga Polat)","İşe alım ve 3 aylık İK süreç danışmanlığı – The Hire Factory (Juris hukuki koordinasyon)","Halka arz (BIST Büyüme Pazarı hedefi) ve sermaye piyasası işlemleri"],
   contacts:{ "Müvekkil Yönetimi":"Özgür Gömeç (yönetim · idari geçiş koordinasyonu) · Serkan Hacıoğlu (şirket sahibi · denetleyici rol – teyit edilecek)", "Mali Müşavir":"Teyit edilmedi – kick-off'ta muhasebe personeli alımı kararı", "İK Danışmanı":"The Hire Factory – Ceren Pirol (25.09.2026 →)", "Teşvik Danışmanı":"Tolga Polat – Teknokent seçenekleri ve mali sürdürme", "Juris":"Ferhan Yıldızlı · Gülşah Algın · Murat Gülgün · İlayda Karakum (DPP) · Tuğberk Dekak" },
 };
+
 const FUNCTIONS = {
   PLAN:{k:"1",title:"PLAN",desc:"Şirket stratejisinin analizi ve geliştirilmesi; kurumsal yönetim ve organizasyon yapısının tasarımı."},
   "İCRA":{k:"2",title:"İCRA",desc:"Şirket içi hukuki süreçlerin geliştirilmesi: standart proje paketi, satış sonrası/SaaS ve operasyon sözleşmeleri, İK, KVKK, dosya bazlı danışmanlık."},
   "DENETİM":{k:"3",title:"DENETİM",desc:"Hukuki denetim ve risk analizi: ön inceleme, Data Room kurulumu, due diligence, DPP mevzuat uyumu ve risk haritası."},
   RAPORLAMA:{k:"4",title:"RAPORLAMA",desc:"Performans izleme ve raporlama: 10 faaliyet + 5 finansal KPI, proje P&L, yönetim raporlaması, aksiyon ve karar takibi."},
 };
+
 const D="https://docs.google.com/document/d/", S="https://docs.google.com/spreadsheets/d/", P="https://docs.google.com/presentation/d/", F="https://drive.google.com/drive/folders/", FL="https://drive.google.com/file/d/";
+
 const doc=(no,t,owner,status,url,ent)=>({no,t,owner,status,url,ent});
+
 const O={J:"Juris",JM:"Juris → Müvekkil Yönetimi",M:"Müvekkil Yönetimi",SM:"Mali Müşavir",HR:"İK Danışmanı (The Hire Factory)",TP:"Teşvik Danışmanı (Tolga Polat)",O:"Ortak"};
 
 /* Drive dosya kısayolları */
+
 const U={
  tt1:D+"1X5mpCWuMxVLUFNs7M7eo23zZKi5FSSwv0hd1yXaHjcQ/edit", gemini:D+"1S18GS0vXapZyl1hONFZoq40XG9yuThtUCPoZa7bHwpM/edit", rec:FL+"1ctj_T8tszkj1AWUqoGV1APCU-n0zFqrO/view",
  brief:FL+"1b0D71FC-KpD_wNlFTzcEmpWABdJZi-TY/view", contract:D+"1cP0Z243GzqOjiKrVRHYc6UkfivPtbXSDHeEbPRL88mM/edit", teklif:FL+"19mW5j3VfVhgo0ZTY6BCJtHNLWAnOmU6N/view", teklifSlides:P+"1K4H9kE4MXv9lsf4k6Krk67j87cP-W-MyNxRko7PeYLY/edit", kapsam:FL+"1l4ncXD8Zq7_l2XOJCWlSkpmmjRMWcJu7/view", nda:FL+"1XfgeJMUTbcU_8Ndl2BpuqvM7j9STKPvN/view",
@@ -476,99 +488,16 @@ const DATAROOM = [
 ];
 
 /* dayanak sayacı: doküman mı beyan mı */
+
 const BASIS_COUNT={doc:["F-1 Kick-off Tutanağı (04.09.2026)","E-1 DPP Bilgi Notu (27.08)","A.5 Finansal Okuryazarlık Notu (21.09)","A.5 Hizmet Planı takip dosyası (14.10)","Teklif · Kapsam · Sözleşme · NDA (Teklif ve Sözleşme klasörü)","A.1 Codemag Brief – Nisan 2026 (müvekkil girdisi)"],beyan:["A.1 İş Modeli Kanvası (brief + tutanak)","A.3 Organizasyon (21.09 PNG, Drive'da yok)","E-3 İK (The Hire Factory yazışmaları)","D.2 Teknokent (13.10 beyanı)","A.2 / B Finansal hedefler (sayısal hedef yok)","E-5 Marka ihlali ve DPP ortaklık talepleri"],none:["B Finans (bütçe · nakit · bilanço)","C Muhasebe","E-1 DD Belge Checklist","E-2 Sözleşme Seti","E-4 Müşteri NDA Seti","E-6 KVKK","A.4 Pitch Deck"]};
 
 /* ---------- state ---------- */
-const STATUS={done:"Tamamlandı",review:"Onay Bekliyor",progress:"Devam Ediyor",input:"Girdi Bekleniyor",pending:"Başlamadı"};
-const CYCLE=["pending","input","progress","review","done"];
-const LS="juris-panel:"+CLIENT.id;
-let overrides={}; try{overrides=JSON.parse(localStorage.getItem(LS)||"{}");}catch(e){overrides={};}
-let current="home", assessTab="A", assessEnt="Codemag";
-try{assessTab=localStorage.getItem(LS+":atab")||"A";assessEnt=localStorage.getItem(LS+":aent")||"Codemag";}catch(e){}
-const openSections=new Set(["A","E"]);
-const allItems=()=>DATAROOM.flatMap(s=>s.items.map(it=>({...it,section:s})));
-const docKey=(it,i)=>it.id+":"+i;
-const stOf=(it,i)=>overrides[docKey(it,i)]||it.docs[i].status;
-function setStatus(it,i,s){overrides[docKey(it,i)]=s;try{localStorage.setItem(LS,JSON.stringify(overrides));}catch(e){}}
-function stats(items){const c={done:0,review:0,progress:0,input:0,pending:0,total:0};items.forEach(it=>it.docs.forEach((d,i)=>{c[stOf(it,i)]++;c.total++;}));c.pct=c.total?Math.round(100*(c.done+.5*(c.review+c.progress))/c.total):0;return c;}
-const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-function bar(c){const w=k=>c.total?(100*c[k]/c.total)+"%":"0%";return `<div class="bar"><i class="s-done" style="width:${w("done")}"></i><i class="s-review" style="width:${w("review")}"></i><i class="s-progress" style="width:${w("progress")}"></i><i class="s-input" style="width:${w("input")}"></i></div>`;}
-const legend=`<div class="legend"><span><i style="background:var(--success)"></i>Tamamlandı</span><span><i style="background:var(--info)"></i>Onay bekliyor</span><span><i style="background:var(--warn)"></i>Devam ediyor</span><span><i style="background:var(--red-ink)"></i>Girdi bekleniyor</span><span><i style="background:var(--neutral)"></i>Başlamadı</span></div>`;
-const li=a=>a.map(x=>`<li>${x}</li>`).join("");
-const ghost=(t,cls="")=>`<div class="note ${cls}"><span>▲</span><div>${t}</div></div>`;
-const shortTitle=t=>t.replace(/^[A-F][.\-]\d\.?\s*/,"");
 
-function tiles(c){return `<div class="tiles">
-  <div class="tile accent"><div class="l">Tamamlanma</div><div class="v num">${c.pct}<small>%</small></div><div style="margin-top:10px">${bar(c)}</div></div>
-  <div class="tile"><div class="l">Toplam doküman</div><div class="v num">${c.total}</div><div class="d">${c.done} tamamlandı</div></div>
-  <div class="tile"><div class="l">Onay bekliyor</div><div class="v num">${c.review}</div><div class="d">müvekkil yönetimi incelemesinde</div></div>
-  <div class="tile"><div class="l">Devam ediyor</div><div class="v num">${c.progress}</div><div class="d">Juris üzerinde</div></div>
-  <div class="tile"><div class="l">Girdi bekleniyor</div><div class="v num">${c.input}</div><div class="d">yönetim / mali müşavir / üretim ekibi</div></div>
-  <div class="tile"><div class="l">Başlamadı</div><div class="v num">${c.pending}</div><div class="d">planlı</div></div></div>`;}
-
-function docTable(it){return `<div class="tbl-wrap"><table><thead><tr><th>Doküman</th><th>Sorumlu</th><th>Durum</th><th>Drive</th></tr></thead><tbody>
- ${it.docs.map((d,i)=>{const s=stOf(it,i);return `<tr><td class="doc"><span class="no">${esc(d.no)}</span>${esc(d.t)}${d.ent?`<span class="ent">· ${esc(d.ent)}</span>`:""}</td><td class="owner">${esc(d.owner)}</td><td><button class="status ${s}" data-item="${it.id}" data-i="${i}" title="Durumu değiştirmek için tıklayın">${STATUS[s]}</button></td><td>${d.url?`<a class="linkbtn" href="${d.url}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}</td></tr>`;}).join("")}
- </tbody></table></div>`;}
-function areaCard(it){const c=stats([it]);return `<button class="card area" data-view="${it.id}"><div class="top"><span class="code">${esc(it.id.replace(/(\D)(\d)/,"$1.$2"))}</span><span class="ttl">${esc(shortTitle(it.title))}</span><span class="pct num">${c.pct}%</span></div>${bar(c)}<div class="foot"><span class="fnchip ${it.fn}">${it.fn}</span><span>${c.done}/${c.total} tamamlandı</span>${c.input?`<span>· ${c.input} girdi</span>`:""}${it.noFolder?`<span>· Drive klasörü yok</span>`:""}</div></button>`;}
-
-/* ---------- views ---------- */
-function viewHome(){
-  const items=allItems(), c=stats(items);
-  const fnCards=Object.keys(FUNCTIONS).map(k=>{const its=items.filter(i=>i.fn===k), cc=stats(its);return `<button class="card area" data-view="fn-${k}"><div class="top"><span class="code">${FUNCTIONS[k].k}</span><span class="ttl">${k}</span><span class="pct num">${cc.pct}%</span></div>${bar(cc)}<div class="foot"><span>${its.length} alt başlık</span><span>· ${cc.done}/${cc.total} doküman</span></div></button>`;}).join("");
-  const attention=[]; items.forEach(it=>it.docs.forEach((d,i)=>{const s=stOf(it,i);if(s==="review"||s==="input")attention.push({it,d,s});}));
-  const ob=onboardStats();
-  return `<div class="page-h"><div><div class="eyebrow">Genel Bakış</div><h1>${esc(CLIENT.name)}</h1><p>Hizmet planının dört fonksiyonu, A–F Data Room sırası ve Durum Değerlendirmesi çıktıları tek ekranda. Danışmanlık başlangıcı: ${CLIENT.kickoff}.</p></div>
-   <div class="right"><a class="btn" href="${CLIENT.planSheet}" target="_blank" rel="noopener">${esc(CLIENT.planLabel||"Hizmet Planı")} ↗</a><a class="btn primary" href="${CLIENT.driveRoot}" target="_blank" rel="noopener">Data Room ↗</a></div></div>
-  ${tiles(c)}${legend}
-  <div class="sec"><button class="card area" data-view="insights" style="flex-direction:row;align-items:center;gap:14px"><span class="code">◈</span><span class="ttl">Insights – iş planı metrikleri ve genel durum grafikleri</span><span class="pct">Aç →</span></button></div>
-  <div class="sec"><div class="sec-h"><h2>Dayanak durumu</h2><span class="meta">Panellerin dokümana mı beyana mı dayandığı</span></div><div class="grid3">
-   ${[["doc","Dokümana dayalı","green"],["beyan","Beyana dayalı",  "amber"],["none","Dayanak yok","red"]].map(([k,t,col])=>`<div class="card pad"><div class="row" style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:13.5px">${t}</b><span class="pill ${col}">${BASIS_COUNT[k].length}</span></div><ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(BASIS_COUNT[k])}</ul></div>`).join("")}
-  </div></div>
-  <div class="sec"><div class="sec-h"><h2>Fonksiyonlar</h2></div><div class="grid2">${fnCards}</div></div>
-  <div class="sec"><div class="sec-h"><h2>Durum Değerlendirmesi</h2><span class="meta">Çıktı dokümanları kendi formatında</span></div><div class="grid3">${ASSESS_TABS.map(([k,t,fmt])=>`<button class="card area" data-view="as-${k}"><div class="top"><span class="code">${k}</span><span class="ttl">${t}</span></div><div class="foot"><span>${fmt}</span></div></button>`).join("")}</div></div>
-  <div class="sec"><div class="sec-h"><h2>Data Room</h2><span class="meta">Drive klasör sırası</span></div>
-   ${DATAROOM.filter(s=>!s.virtual).map(s=>`<div style="margin-bottom:14px"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:15px;font-family:var(--font-body);font-weight:600">${esc(s.title)}</h2>${s.url?`<a class="linkbtn" href="${s.url}" target="_blank" rel="noopener">Klasör ↗</a>`:""}</div><div class="grid2">${s.items.map(areaCard).join("")}</div></div>`).join("")}</div>
-  <div class="sec"><div class="sec-h"><h2>Onboard &amp; Learn</h2><span class="meta">Müvekkil gelişim seviyesi</span></div><div class="grid2">
-   <button class="card area" data-view="ob-onboarding"><div class="top"><span class="code">OB</span><span class="ttl">Onboarding</span><span class="pct num">${ob.obPct}%</span></div>${bar({done:ob.obDone,review:0,progress:0,input:0,total:ob.obTotal})}<div class="foot"><span>${ob.obDone}/${ob.obTotal} adım</span></div></button>
-   <button class="card area" data-view="ob-learn"><div class="top"><span class="code">LN</span><span class="ttl">Learn – rehber ve bilgi notları</span><span class="pct num">${ob.lnPct}%</span></div>${bar({done:ob.lnDone,review:ob.lnShared,progress:0,input:0,total:ob.lnTotal})}<div class="foot"><span>${ob.lnDone} özümsendi · ${ob.lnShared} paylaşıldı · ${ob.lnTotal} toplam</span></div></button>
-  </div></div>
-  <div class="sec"><div class="sec-h"><h2>Dikkat gereken kalemler</h2><span class="meta">Onay ve girdi bekleyenler</span></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Doküman</th><th>Alt başlık</th><th>Kimden</th><th>Durum</th></tr></thead><tbody>
-   ${attention.map(a=>`<tr><td class="doc">${esc(a.d.t)}${a.d.ent?`<span class="ent">· ${esc(a.d.ent)}</span>`:""}</td><td><button class="linkbtn" data-view="${a.it.id}">${esc(a.it.title)}</button></td><td class="owner">${esc(a.d.owner)}</td><td><span class="status ${a.s}">${STATUS[a.s]}</span></td></tr>`).join("")}
-  </tbody></table></div></div></div>
-  <div class="sec"><div class="sec-h"><h2>Çalışma ritmi</h2></div><div class="rhythm">${CLIENT.rhythm.map(r=>`<div class="r"><b>${r[0]}</b><span>${r[1]}</span></div>`).join("")}<div class="r"><b>${CLIENT.entities.length}</b><span>Tüzel kişilik${CLIENT.legacy?` · ${CLIENT.legacy.length} eski yapı`:""}</span></div></div></div>`;
-}
-function viewFn(k){
-  const f=FUNCTIONS[k], items=allItems().filter(i=>i.fn===k), c=stats(items); const byArea={}; items.forEach(i=>{(byArea[i.area]=byArea[i.area]||[]).push(i);});
-  return `<div class="page-h"><div><div class="eyebrow">Fonksiyon ${f.k}</div><h1>${k}</h1><p>${esc(f.desc)}</p></div></div>${tiles(c)}${legend}
-  ${Object.keys(byArea).map(a=>`<div class="sec"><div class="sec-h"><h2>${esc(a)}</h2><span class="meta">${byArea[a].length} alt başlık</span></div><div class="grid2">${byArea[a].map(areaCard).join("")}</div></div>`).join("")}
-  <div class="sec"><div class="sec-h"><h2>Tüm dokümanlar</h2><span class="meta">Durum çipine tıklayarak güncelleyin</span></div>
-  ${items.map(it=>`<div class="card" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--divider);flex-wrap:wrap"><button class="linkbtn" data-view="${it.id}" style="font-weight:600;font-size:13.5px;color:var(--ink)">${esc(it.title)}</button><span class="muted num">${stats([it]).pct}%</span>${it.url?`<a class="linkbtn" href="${it.url}" target="_blank" rel="noopener" style="margin-left:auto">Klasör ↗</a>`:`<span class="muted" style="margin-left:auto">Drive klasörü yok</span>`}</div>${docTable(it)}</div>`).join("")}</div>`;
-}
-function viewItem(id){
-  const it=allItems().find(i=>i.id===id); if(!it) return viewHome(); const c=stats([it]);
-  return `<div class="page-h"><div><div class="eyebrow">${esc(it.section.title)} · <span class="fnchip ${it.fn}">${it.fn}</span></div><h1>${esc(it.title)}</h1><p>${esc(it.area)}</p></div>
-   <div class="right"><button class="btn" data-view="as-${it.id[0]}">Durum Değerlendirmesi</button>${it.url?`<a class="btn primary" href="${it.url}" target="_blank" rel="noopener">Drive klasörü ↗</a>`:""}</div></div>
-  ${tiles(c)}${legend}
-  <div class="sec"><div class="grid2">
-   <div class="card pad"><div class="sec-h" style="margin-bottom:10px"><h2 style="font-size:15px">İş akışı</h2></div><div class="flow">${it.flow.map((s,i)=>(i?`<em>→</em>`:"")+`<span>${esc(s)}</span>`).join("")}</div>${it.guide?`<div class="basis" style="margin-top:12px"><span class="pill blue">Rehber</span><span>${esc(it.guide[0])}. ${esc(it.guide[1])}</span>${it.guide[2]?`<a class="guide" href="${it.guide[2]}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">henüz paylaşılmadı</span>`}</div>`:""}</div>
-   <div class="card pad"><div class="sec-h" style="margin-bottom:10px"><h2 style="font-size:15px">Drive yapısı</h2></div>${it.noFolder?`<div class="muted">Data Room'da karşılık gelen klasör henüz açılmadı.</div>`:it.subfolders?`<div class="folders">${it.subfolders.map(s=>`<a class="folder ${s[2]?"empty":""}" href="${s[1]}" target="_blank" rel="noopener">▸ ${esc(s[0])}${s[2]?" · boş":""}</a>`).join("")}</div>`:it.empty?`<div class="muted">Klasör açıldı, henüz doküman yüklenmedi.</div>`:`<div class="muted">Dokümanlar doğrudan klasörde.</div>`}</div>
-  </div></div>
-  ${it.empty||it.noFolder?ghost(`<b>Bu alt başlıkta henüz çıktı yok.</b> İlk adım: ${esc(it.docs[0].t)} (${esc(it.docs[0].owner)}).`):""}
-  <div class="sec"><div class="sec-h"><h2>Dokümanlar</h2><span class="meta">Hizmet planı doküman haritası</span></div><div class="card">${docTable(it)}</div></div>`;
-}
-
-/* =========================================================
-   DURUM DEĞERLENDİRMESİ — veri (Codemag)
-   ========================================================= */
 const ASSESS_TABS=[["A","Strateji ve Business","Kanvas · OKR · Org şeması · RACI"],["B","Finans","Trend · Bütçe · Nakit · Finansman · Bilanço"],["C","Muhasebe","Hesap planı · Mizan · Finansal disiplin"],["D","Operasyonlar","Gelir faaliyetleri · Proje zinciri · Projeler"],["E","Hukuk","DD · Sözleşme · İK · NDA · KVKK · Risk"],["F","İletişim","Toplantı döngüsü · Aksiyonlar · Mailler"]];
+
 const SRC={
  tt1:{t:"Kick-off Toplantı Notları · 04.09.2026",u:U.tt1,k:"doc"}, brief:{t:"Codemag–Juris Brief · Nisan 2026 (müvekkil girdisi)",u:U.brief,k:"doc"}, contract:{t:"Danışmanlık Sözleşmesi · 01.09.2026",u:U.contract,k:"doc"}, plan:{t:"Codemag–Juris Hizmet Planı · 14.10.2026",u:U.plan,k:"doc"}, dpp:{t:"DPP – AB Mevzuatı Bilgi Notu · 27.08.2026",u:U.dpp,k:"doc"}, finlit:{t:"Finansal Okuryazarlık Eğitim Notu · 21.09.2026",u:U.finlit,k:"doc"}, nda:{t:"Juris–Codemag NDA · 07.04.2026",u:U.nda,k:"doc"}, gemini:{t:"15.10.2026 Toplantısı – Gemini notu",u:U.gemini,k:"doc"},
  org:{t:"Hedef Organizasyon Şeması v2 – 21.09 e-postası (Drive'da yok)",k:"beyan"}, hr:{t:"The Hire Factory yazışmaları · 25.09.2026 (Drive'da yok)",k:"beyan"}, mail:{t:"E-posta yazışmaları (Hizmet Planı · Teslimatlar sekmesi)",u:U.plan,k:"beyan"}, beyan:{t:"Soru seti / toplantı beyanı – belge bekleniyor",k:"beyan"}, none:{t:"Henüz doküman yok – iskelet",k:"none"} };
-const basisLine=(src,extra="")=>`<div class="basis"><span class="src ${src.k}">${src.k==="doc"?"Belge":src.k==="beyan"?"Beyan":"Dayanak yok"}</span>${src.u?`<a class="guide" href="${src.u}" target="_blank" rel="noopener">${esc(src.t)} ↗</a>`:`<span>${esc(src.t)}</span>`}${extra}</div>`;
-const docH=(title,fmt,src,status,right="")=>`<div class="doc-h"><div><h2>${title}</h2><div class="basis" style="margin-top:4px"><span class="f">${fmt}</span></div>${basisLine(src)}</div><div class="right"><span class="status ${status}">${STATUS[status]}</span>${right}</div></div>`;
-const entTabs=(opts=CLIENT.short)=>opts.length>1?`<div class="ent-tabs">${opts.map(e=>`<button class="${assessEnt===e?"active":""}" data-ent="${e}">${e}</button>`).join("")}</div>`:"";
-const blk=(cls,no,title,items)=>`<div class="b ${cls}"><h4>${title}<i>${no}</i></h4><ul>${li(items)}</ul></div>`;
-const docbar=(ids)=>{const all=allItems();const out=[];ids.forEach(([itemId,no])=>{const it=all.find(i=>i.id===itemId);if(!it)return;it.docs.forEach((d,i)=>{if(d.no===no&&!out.some(o=>o.t===d.t)){out.push({t:d.t,s:stOf(it,i),no,url:d.url});}});});return `<div class="docbar">${out.map(o=>`<span class="d" title="${esc(o.t)}"><i style="background:${o.s==="done"?"var(--success)":o.s==="review"?"var(--info)":o.s==="progress"?"var(--warn)":o.s==="input"?"var(--red-ink)":"var(--neutral)"}"></i><span class="n">${esc(o.no)}</span>${esc(o.t).slice(0,42)}${o.t.length>42?"…":""}</span>`).join("")}</div>`;};
 
 const BMC={
  Codemag:{kp:["<b>Leasing şirketleri</b> – Türkiye için yerli, KZ/UZ için Almanya merkezli (vendor leasing planı)","<b>CRPT</b> – Rusya Chestny ZNAK akreditasyonu (2021'den beri)","<b>PAII / EDETEK</b> – DPP ortaklık modeli görüşmesi (03.10.2026)","Avrupa distribütör ağı – GmbH üzerinden (plan)","The Hire Factory (İK) · Tolga Polat (Teknokent) · Juris (hukuk & kurumsal yönetim)","Alt yüklenici / komponent tedarikçileri – operasyon sözleşmeleri bekliyor"],
@@ -580,12 +509,10 @@ const BMC={
   cs:["İlaç: Drogsan, Recordati","FMCG: Ülker-Pladis, Evyap, Hayat Kimya, Perfetti Van Melle","Gıda ve tarım üreticileri","Pazarlar: Türkiye · Rusya · Kazakistan · Özbekistan · Azerbaycan"],
   co:["Mühendislik ve saha ekibi (24 kişi) · Ar-Ge","Makine üretimi, komponent, kurulum","Leasing finansman maliyeti (filo modeli) · Teknokent kira / mali sürdürme","Danışmanlıklar: Juris 80.000 TL/ay · The Hire Factory · Tolga Polat"],
   rs:["Proje bazlı satış – yazılım + makine + kurulum (bugünkü ana gelir)","Satış sonrası bakım ve destek (sözleşmeli hâle getirilecek)","SaaS abonelik geliri (ayrı iş modeli – planlanan)","Vendor leasing aylık ödemeleri (makine ~60.000 EUR, 3+2 yıl – planlanan)","<b>2027 ciro hedefi belirlenmedi</b>"]}};
+
 const LEAN={
  Codemag:{pr:["Üreticiler İTS / Chestny ZNAK / DPP yükümlülüklerini parçalı çözümlerle karşılıyor","Makine yatırımı yüksek başlangıç maliyeti istiyor","Teslim sonrası destek sürekliliği ve geliri sözleşmesiz","<b>Alternatifler:</b> global serileştirme sağlayıcıları, hat üreticilerinin kendi modülleri"],so:["Yazılım + makine + entegrasyon tek paket","Vendor leasing: leasing şirketi makineyi alır, müşteri aylık öder","5 yıl bakım + 7/24 destek dahil","Satış sonrası → SaaS aboneliği"],km:["Aktif hat sayısı (128+)","Proje P&L ve proje bazlı nakit akışı","Yinelenen gelir payı (bakım + SaaS)","Tahsilat süresi / ödeme planı sapması","10 faaliyet + 5 finansal KPI – <b>liste belirlenecek</b>"],vp:["Regülasyon uyumunu yatırım yükü olmadan sağlayan <b>tek muhatap</b>","Yerli üretim, Tier-1 referans, çok pazar"],ua:["CRPT akreditasyonu (2021)","128+ hatta saha deneyimi ve Tier-1 referanslar","Kendi makine + yazılım + Vision AI"],ch:["Doğrudan B2B satış · distribütör · GmbH (plan)"],cs:["İlaç ve FMCG üreticileri (TR)","<b>Early adopter:</b> KZ / UZ üreticileri (leasing ile)","DPP yükümlüsü AB ihracatçıları"],co:["Ekip · Ar-Ge · makine üretimi · leasing finansmanı · danışmanlık"],rs:["Proje satışı · bakım/destek · SaaS · leasing ödemeleri"]}};
-function canvas(d,lean=false){ if(lean) return `<div class="bmc lean">${blk("pr","1","Problem",d.pr)}${blk("so","4","Çözüm",d.so)}${blk("km","8","Kilit Metrikler",d.km)}${blk("vp","3","Benzersiz Değer Önerisi",d.vp)}${blk("ua","9","Haksız Avantaj",d.ua)}${blk("ch","5","Kanallar",d.ch)}${blk("cs","2","Müşteri Segmentleri",d.cs)}${blk("co","7","Maliyet Yapısı",d.co)}${blk("rs","6","Gelir Akışları",d.rs)}</div>`;
- return `<div class="bmc">${blk("kp","8","Kilit Ortaklıklar",d.kp)}${blk("ka","7","Kilit Faaliyetler",d.ka)}${blk("kr","6","Kilit Kaynaklar",d.kr)}${blk("vp","2","Değer Önerileri",d.vp)}${blk("cr","4","Müşteri İlişkileri",d.cr)}${blk("ch","3","Kanallar",d.ch)}${blk("cs","1","Müşteri Segmentleri",d.cs)}${blk("co","9","Maliyet Yapısı",d.co)}${blk("rs","5","Gelir Akışları",d.rs)}</div>`;}
 
-/* İş Planı – 5 bölüm × OKR (3–5 KR) · kaynak: Hizmet Planı 'Yıllık Stratejik Hedefler' (S1–S12) + 04.09 kararları */
 const OKR={
  Codemag:[
   {t:"Bütçe",o:"S1–S2: 2027 proje bazlı bütçe, nakit akışı ve ödeme planının kurulması",kr:[["Proje bazlı bütçe + nakit akışı formatı iletildi (Juris)","Ekim 2026",10],["2027 proje bazlı bütçe ve P&L onaya sunuldu","Ekim 2026",20],["Ödeme planı standardı kuruldu (tek tablo)","Ekim 2026",0],["10 faaliyet + 5 finansal KPI matrisi","15 KPI",10],["Aylık yönetim / finans raporu ritmi","aylık",0]]},
@@ -593,19 +520,21 @@ const OKR={
   {t:"Pazarlama Planı",o:"SaaS paketleri ve sektörel konumlandırma; DPP ile yeni pazar",kr:[["SaaS servis paketleri – hedef pazar ve mesajlar","paket tanımı",0],["Serileştirme / DPP iş birlikleri (PAII/EDETEK) değerlendirmesi","karar",15],["Hedef sektörel proje / ürün pazarlaması","plan",0],["Marka koruması – isim ihlali değerlendirmesi","hukuki görüş",10]]},
   {t:"Operasyon ve Üretim",o:"S4 · S8–S10: tek proje sistemi, organizasyon, İK ve Teknokent",kr:[["Tüm projeler ve taskler tek sistemde","program seçimi + kurulum",15],["Hedef organizasyon + görev/yetki matrisi","21.09 şema → matris",45],["6 öncelikli pozisyon işe alımı (The Hire Factory)","3 aylık çalışma",35],["Teknokent başvurusu ve mali sürdürme","kabul teyidi",70],["Ön muhasebe + idari + özlük fonksiyonu kuruldu","muhasebe personeli",20]]},
   {t:"İş Geliştirme",o:"S7 · S11–S12: Asset/leasing, finansman, DPP ortaklığı, uluslararası açılım",kr:[["Asset / vendor leasing iş modeli ve operasyon akışı","Ekim 2026",15],["Vakıf Leasing / katılım finansmanı değerlendirmesi","alternatif raporu",0],["DPP ortaklık modeli kararı (PAII/EDETEK)","görüş + karar",10],["Codemag GmbH fizibilitesi – ayrı mutabakat","teklif",0],["Yatırım turu hazırlığı (kiralama filosu + büyüme)","pitch deck",0]]}]};
-function okrGrid(list){return `<div class="okr">${list.map(o=>`<div class="o"><h4>${o.t}</h4><div class="obj">${o.o}</div>${o.kr.map(k=>`<div class="kr"><span class="m">${k[0]}</span><span class="tgt">${k[1]}</span><div class="bar"><i class="s-done" style="width:${k[2]}%"></i></div></div>`).join("")}</div>`).join("")}</div>`;}
+
 const RACI={roles:["Şirket Sahibi (Serkan H.)","Yönetim / İdari (Özgür G.)","Proje Yönetimi (PM)","Satış & Satış Sonrası","Finans / Ön Muhasebe","İK Danışmanı","Juris"],rows:[["Stratejik plan ve 2027 bütçe onayı","A","R","C","C","C","x","C"],["Teklif ve proje sözleşmesi imzası (olağan)","I","A","R","R","I","x","C"],["Çerçeve / leasing / eşik üstü sözleşme","A","R","C","C","C","x","R"],["Satın alma (PM ile birlikte – 04.09 kararı)","I","A","R","x","C","x","x"],["Proje planı, bütçe ve P&L takibi","I","A","R","C","R","x","C"],["Ödeme planı ve tahsilat","I","A","C","C","R","x","I"],["İşe alım ve görev tanımları","A","R","C","C","I","R","C"],["Proje yönetim programı seçimi","I","A","R","C","C","x","C"],["SaaS / Asset iş modeli kararı","A","R","C","R","C","x","R"],["Marka, fikri mülkiyet ve uyuşmazlık","A","R","I","I","x","x","R"]]};
 
 /* Finans – yıllara sari */
+
 const FIN={ Codemag:{years:["2024","2025","2026E","2027B"],revenue:[null,null,null,null],range:[null,null,null,null],margin:[null,null,null,null],note:"Drive'da bütçe, gelir tablosu veya ciro verisi yok; 2025–2026 bütçeleri kick-off'ta sözlü değerlendirildi. 2027 ciro ve SaaS gelir hedefi belirlenmedi (Hizmet Planı: 'rakam uydurulmadı'). Değerler 2027 proje bazlı bütçe ve 2025 bilanço gelince dolacak."} };
-function barChart(years,vals,ranges,unit){const W=640,H=220,pl=44,pb=34,pt=16,pr=12;const max=Math.max(...vals.filter(v=>v!=null).concat(ranges.filter(Boolean).map(r=>r[1])),10)*1.15;const n=years.length,bw=(W-pl-pr)/n;const y=v=>pt+(H-pt-pb)*(1-v/max);let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Yıllık gelir">`;for(let g=0;g<=4;g++){const v=max*g/4;s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`;}years.forEach((yr,i)=>{const cx=pl+bw*i+bw/2;const r=ranges[i],v=vals[i];if(r){s+=`<rect x="${cx-bw*0.3}" y="${y(r[1])}" width="${bw*0.6}" height="${y(r[0])-y(r[1])}" rx="4" fill="var(--tint-12)"><title>${yr}: aralık ${r[0]}–${r[1]} ${unit}</title></rect>`;}if(v!=null){s+=`<rect x="${cx-bw*0.18}" y="${y(v)}" width="${bw*0.36}" height="${Math.max(0,y(0)-y(v))}" rx="3" fill="var(--navy)"><title>${yr}: ${v} ${unit}</title></rect><text x="${cx}" y="${y(v)-5}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${v}</text>`;}else{s+=`<rect x="${cx-bw*0.18}" y="${pt}" width="${bw*0.36}" height="${H-pt-pb}" rx="3" fill="none" stroke="var(--border-strong)" stroke-dasharray="4 3"><title>${yr}: belge bekleniyor</title></rect><text x="${cx}" y="${(H-pb)/2+8}" text-anchor="middle" style="fill:var(--ink-4)">${r?"karar":"belge"}</text>`;}s+=`<text x="${cx}" y="${H-pb+16}" text-anchor="middle">${yr}</text>`;});s+=`<text x="${pl}" y="${H-4}" style="fill:var(--ink-4)">${unit}</text></svg>`;return s;}
-/* Finansman yapısı – vendor leasing (brief §3) */
+
 const LEASING={steps:[["1","Codemag","Makineyi üretir ve müşteriye sunar"],["2","Leasing Şirketi","Makineyi Codemag'dan satın alır → Codemag peşin bedeli alır"],["3","Leasing Şirketi","Makineyi arka planda müşteriye kiralar"],["4","Müşteri","Aylık ödemeyi yalnızca Codemag'a yapar"],["5","Codemag","Tahsil edilen ödemeyi leasing şirketine aktarır"]],timeline:[["Yıl 0","Kurulum ve devreye alma"],["Yıl 1–3","Zorunlu kiralama dönemi"],["Yıl 4–5","Müşteri opsiyonu – kiraya devam"],["Yıl 5 sonu","Mülkiyet müşteriye devredilir"]],markets:[["Türkiye","Codemag TR","Türk leasing şirketi","EUR / TRY"],["Kazakistan","Codemag GmbH (plan)","Alman leasing şirketi","EUR / USD"],["Özbekistan","Codemag GmbH (plan)","Alman leasing şirketi","EUR / USD"]]};
 
 /* Faaliyetler ve projeler */
+
 const REVACT={ Codemag:[["Proje bazlı serileştirme / track & trace (yazılım + makine + kurulum)",0,"Proje satışı · şartname–teklif–sözleşme zinciri","Ana"],["Satış sonrası bakım ve destek",0,"Hizmet · sözleşmeli hâle getirilecek","Ana – büyüme"],["SaaS abonelik",0,"Yinelenen gelir · ayrı iş modeli (04.09 kararı)","Ana – büyüme"],["Vendor leasing / Asset – makine kiralama",0,"Aylık ödeme · 3+2 yıl · leasing partneri","Fırsat"],["DPP çözümleri – AB ihracatçıları",0,"Yazılım · PAII/EDETEK ortaklık modeli","Fırsat"],["Entegrasyon ve danışmanlık",0,"Proje tamamlayıcısı","Tamamlayıcı"]] };
+
 const VALPROC={ Codemag:["Lead · ihtiyaç analizi","Teknik Şartname","Teklif","Teklif Kabulü","Sözleşme","Maliyet","Proje Planı","Bütçe","Yazılım geliştirme · makine üretimi","Kurulum · devreye alma","Gelir / Gider takibi","P&L","Satış sonrası · SaaS"] };
-const STAGES=["Fikir","Fizibilite","Bütçe","Geliştirme","Lansman","Gelir"];
+
 const PROJECTS=[
  {t:"SaaS gelir modeli – satış sonrası ile entegre",ent:"Codemag",st:1,res:"Satış sonrası ekip · mevcut 128+ hat müşteri tabanı · Juris sözleşme seti",bud:"Belirlenecek",ret:"Yinelenen gelir; proje gelirinden ayrı SaaS hedefi",due:"Ekim 2026 kurgu"},
  {t:"Asset / vendor leasing – makine kiralama modeli",ent:"Codemag",st:1,res:"Leasing partneri (TR yerli / DE) · hukuki şablonlar · filo finansmanı",bud:"Makine ~60.000 EUR / adet (brief)",ret:"Öngörülebilir aylık gelir; müşteri için sıfır başlangıç yatırımı",due:"Ekim 2026 (04.09 kararı)"},
@@ -615,13 +544,13 @@ const PROJECTS=[
  {t:"DPP ortaklığı – PAII / EDETEK",ent:"Codemag",st:1,res:"Avrupa DPP pazar araştırması · AB mevzuat notu (27.08) · Juris görüşü",bud:"—",ret:"AB ihracatçılarına DPP çözümü; yeni pazar",due:"Karar bekliyor"},
  {t:"Codemag GmbH (Almanya) – KZ/UZ sözleşme tarafı",ent:"Kapsam dışı",st:0,res:"Handelsregister · Finanzamt · Alman leasing partnerleri · ayrı Juris mutabakatı",bud:"—",ret:"Avrupa ve BDT operasyon merkezi; GmbH → TR sermaye aktarımı",due:"Brief hedefi Eylül 2026 – gerçekleşmedi"},
  {t:"Yatırım turu – kiralama filosu + büyüme finansmanı",ent:"Kapsam dışı",st:0,res:"Pitch deck · yatırımcı/leasing ortaklığı · BIST Büyüme Pazarı hikâyesi",bud:"—",ret:"Filo stoku; mühendislik ekibi; Vision AI / SaaS; KZ-UZ girişi",due:"Planlanacak"}];
-const stagesEl=s=>`<div class="stages">${STAGES.map((n,i)=>`<span class="${i===s?"on":i<s?"past":""}">${n}</span>`).join("")}</div>`;
 
-/* Hukuk */
 const DD={ Codemag:[["1. Şirket Kayıtları ve Kurumsal Yönetim",["Şirket sözleşmesi (Ltd. Şti.) ve son tadiller","Ortaklar kurulu karar defteri","Pay defteri · ortaklık oranları (Serkan Hacıoğlu – teyit)","Güncel imza sirküleri ve müdür atama kararı","Ticaret sicil gazeteleri (41002-5 · MERSİS 0211070238300018)","Unvan teyidi: 'Yazılım Hizmetleri' vs 'Makina Sanayi'"],"Müvekkil Yönetimi"],["2. Lisanslar, İzinler, Regülasyon",["CRPT (Chestny ZNAK) akreditasyon belgeleri","İTS / ilaç serileştirme uyum belgeleri","Teknokent başvuru ve kabul yazısı","İhracatçı Birliği üyeliği","İSG risk değerlendirmesi ve eğitim kayıtları"],"Müvekkil Yönetimi"],["3. Kredi, Finansman ve Teminatlar",["Banka kredi ve leasing sözleşmeleri","Teminat, kefalet ve ipotek listesi","Vergi borcu yoktur","SGK borcu yoktur","2025 bilanço ve gelir tablosu"],"Mali Müşavir"],["4. Sözleşmeler ve Ticari İlişkiler",["Juris–Codemag NDA","Juris Danışmanlık Sözleşmesi (imzalı nüsha)","Tier-1 müşteri sözleşmeleri (Ülker-Pladis, Evyap, Hayat Kimya, Perfetti, Drogsan, Recordati)","Satış sonrası / bakım sözleşmeleri","Tedarikçi ve alt yüklenici sözleşmeleri","Distribütör / yurt dışı müşteri sözleşmeleri (RU, KZ, UZ, AZ)","The Hire Factory İK hizmet sözleşmesi","Teknokent mali sürdürme sözleşmesi (Tolga Polat)"],"Müvekkil Yönetimi"],["5. Çalışanlar ve İK",["Güncel çalışan listesi ve görev tanımları (24 kişi)","İş sözleşmeleri","SGK sicil ve işe giriş bildirgeleri","Bordro ve fazla mesai kayıtları","Çalışan eser / buluş devir sözleşmeleri (yazılım geliştiriciler)"],"Mali Müşavir + Yönetim"],["7. BT, Veri Koruma, Fikri Mülkiyet",["Codemag marka tescil belgesi / başvurusu (TÜRKPATENT)","Yazılım kaynak kodu sahipliği ve lisans kayıtları","3. taraf yazılım lisansları / açık kaynak listesi","Domain ve bulut altyapı sahipliği","KVKK / VERBİS kaydı ve veri envanteri","Müşteri hat verisi işleme protokolleri"],"Müvekkil Yönetimi"],["8. Sigorta",["İş yeri ve makine sigortaları","Ürün sorumluluk / mesleki sorumluluk sigortası","Nakliyat sigortası (makine sevkiyatı)","Çalışan sağlık / kaza"],"Müvekkil Yönetimi"]] };
+
 const DD_DONE={Codemag:["Juris–Codemag NDA","Juris Danışmanlık Sözleşmesi (imzalı nüsha)"]};
-function ddList(ent){let tot=0,ok=0;const html=DD[ent].map(([g,items,who])=>{const rows=items.map(it=>{tot++;const d=DD_DONE[ent].includes(it);if(d)ok++;return `<li class="${d?"ok":""}"><i></i>${esc(it)}</li>`;}).join("");return `<div class="grp"><h5>${esc(g)}<span>${items.filter(i=>DD_DONE[ent].includes(i)).length}/${items.length}</span></h5><div class="muted" style="margin-bottom:4px">Kimden: ${who}</div><ul>${rows}</ul></div>`;}).join("");return {html:`<div class="check">${html}</div>`,tot,ok};}
+
 const CONTRACTS=[["Standart Proje Paketi – Teklif / Kabul / Sözleşme","Teknik şartname eki, kabul, teslim, ödeme, garanti, fikri mülkiyet","Codemag ↔ müşteri","R1","input"],["Satış Sonrası Bakım ve Destek Sözleşmesi","Bakım kapsamı, SLA, 7/24 destek, ücret, süre","Codemag ↔ müşteri","R2","pending"],["SaaS Abonelik / Lisans Sözleşmesi","Abonelik, kullanım hakkı, veri işleme, süreklilik, fesih","Codemag ↔ müşteri","R2","pending"],["Vendor Leasing – Kiralama Sözleşmesi","Makine finansmanı, 3+2 yıl, temerrüt, mülkiyet devri","Leasing ↔ Codemag","R3","pending"],["Vendor Leasing – Hizmet Sözleşmesi","Makine kullanımı, yazılım lisansı, bakım, 5 yıl, ödeme akışı","Codemag ↔ müşteri","R3","pending"],["Operasyon Sözleşmeleri","Ön muhasebe, satın alma, teknik servis, alt yüklenici / tedarik","Codemag ↔ 3. kişiler","R1","pending"],["İş Sözleşmeleri + Eser/Buluş Devri + Gizlilik","24 çalışan; yazılım geliştiriciler için fikri mülkiyet devri","Codemag ↔ çalışan","R5","pending"],["NDA Seti (TR/EN) – müşteri, distribütör, leasing partneri, tedarikçi","Karşılıklı / tek taraflı gizlilik","Codemag ↔ 3. kişiler","R6","pending"],["Ortaklar Sözleşmesi / Yönetim ve Temsil Düzeni","Pay yapısı, Serkan–Özgür rol ayrımı, yetki eşikleri","Ortaklar ↔ Codemag","R4","input"],["Teknokent Mali Sürdürme Sözleşmesi (inceleme)","Ar-Ge yükümlülükleri, kira, sürdürme bedeli","Codemag ↔ Teknokent","R12","review"],["The Hire Factory İK Hizmet Sözleşmesi (inceleme)","3 aylık İK danışmanlığı, işe alım, gizlilik, KVKK","Codemag ↔ The Hire Factory","R5","review"],["KVKK / Veri İşleme Ekleri","Track & trace verisi, SaaS, yurt dışı aktarım (RU/KZ/UZ)","Codemag ↔ müşteri / tedarikçi","R7","pending"]];
+
 const RISKS=[
  {id:"R1",t:"Projeler standart belge zinciri olmadan yürüyor; teklif–kabul–sözleşme–P&L izlenemiyor",ent:"Codemag",p:4,i:4,ifnot:"Standart Proje Paketi + operasyon sözleşmeleri (E-2) + tek proje sistemi (A.3)",src:SRC.tt1},
  {id:"R2",t:"Satış sonrası hizmetler sözleşmesiz; destek yükümlülüğü ve geliri belirsiz, SaaS modeli yok",ent:"Codemag",p:4,i:3,ifnot:"Satış sonrası / SaaS sözleşme seti + SaaS iş modeli (D.2)",src:SRC.tt1},
@@ -635,9 +564,7 @@ const RISKS=[
  {id:"R10",t:"KZ/UZ sözleşmeleri GmbH kurulmadan yapılırsa geçerlilik, vergi ve döviz uyum riski",ent:"Kapsam dışı",p:2,i:4,ifnot:"GmbH fizibilitesi ve ayrı mutabakat (A.4 / D.2)",src:SRC.brief},
  {id:"R11",t:"Tahsilat süreci sahipsiz: muhasebe personeli yok, ödeme planı yok",ent:"Codemag",p:4,i:3,ifnot:"Muhasebe personeli alımı + ödeme planı formatı (C.1 / B.2)",src:SRC.tt1},
  {id:"R12",t:"Teknokent: Ar-Ge yükümlülükleri ve mali sürdürme sözleşmesi hukuken incelenmedi",ent:"Codemag",p:2,i:3,ifnot:"Sözleşme incelemesi (E-2) + kabul teyidi",src:SRC.mail}];
-function heatmap(){let c="";for(let i=5;i>=1;i--){c+=`<div class="ax">Etki ${i}</div>`;for(let p=1;p<=5;p++){const s=p*i,cls=s>=16?"h5":s>=10?"h4":s>=6?"h3":s>=3?"h2":"h1";c+=`<div class="c ${cls}" title="Olasılık ${p} × Etki ${i}">${RISKS.filter(r=>r.p===p&&r.i===i).map(r=>`<span>${r.id}</span>`).join("")}</div>`;}}c+=`<div class="ax"></div>`+[1,2,3,4,5].map(p=>`<div class="ax">Olasılık ${p}</div>`).join("");return `<div class="heat">${c}</div>`;}
 
-/* İletişim */
 const MEETINGS=[
  {d:"15.10.2026",t:"CODEMAG Toplantısı (15:00–17:00)",who:"Özgür Gömeç, Ferhan Yıldızlı, Gülşah Algın",agenda:["DPP referansları (Gemini özeti)","Gündem tutanağı yok"],delivered:["Toplantı kaydı (Recording) ve Gemini notu Drive'da"],undelivered:["İçerik tutanağı ve aksiyon listesi","Gemini notu anlamlı özet üretmedi"],url:U.gemini,st:"review"},
  {d:"24.09.2026",t:"İK süreç danışmanlığı – The Hire Factory çalışma görüşmesi",who:"Özgür Gömeç, Ceren Pirol, ilgili ekip",agenda:["3 aylık İK iş planı","6 öncelikli pozisyon","Şirket röntgeni"],delivered:["İK Hizmet Sözleşmesi taslağı (25.09, e-posta)"],undelivered:["Tutanak yok; takvim kaydı teyit edilmedi","Sözleşme Drive'a yüklenmedi"],st:"pending"},
@@ -645,16 +572,15 @@ const MEETINGS=[
  {d:"19.08.2026",t:"Juris – CODEMAG Toplantısı (11:00–16:00)",who:"Gülşah Algın, Ferhan Yıldızlı",agenda:["Takvimde kapsam belirtilmemiş"],delivered:["Teklif 23.08'de kabul edildi (80.000 TL/ay)","Sözleşme taslağı 26.08'de gönderildi"],undelivered:["Tutanak yok"],st:"pending"},
  {d:"29.07.2026",t:"CODEMAG & Qervan Toplantısı",who:"Gülşah Algın, Ferhan Yıldızlı",agenda:["Takvim kaydı – saat teyidi gerekli (05:30)"],delivered:[],undelivered:["Tutanak yok"],st:"pending"},
  {d:"06.05.2026",t:"CODEMAG İlk Görüşme",who:"Gülşah Algın, Ferhan Yıldızlı, Özgür Gömeç",agenda:["Tanışma; Nisan brief'i (GmbH, vendor leasing, yatırım)"],delivered:["Hizmet Kapsam Dokümanı (27.04 – görüşme öncesi)"],undelivered:["Tutanak yok"],st:"pending"}];
+
 const ACTIONS=[["Juris","Proje bazlı bütçe formatı ve nakit akışı formatının iletilmesi","Kritik","Finansal şablon","progress"],["Juris","İş Modeli Bilgi Notu ve Soru Setinin iletilmesi","Yüksek","Bilgi notu + form","pending"],["Juris","Ödeme planı formatının iletilmesi","Yüksek","Tek tablo","pending"],["Juris","Finansal Okuryazarlık Eğitim Notunun iletilmesi","Orta","PDF – 21.09 teslim","done"],["Juris","Standart proje paketi formatının incelenmesi ve revizesi","Yüksek","Revize paket","input"],["Juris","İK Soru Seti ve ön Due Diligence hazırlığı","Yüksek","Soru seti + DD listesi","pending"],["Juris","Operasyon sözleşmelerinin hazırlanması","Yüksek","Sözleşme seti","pending"],["Juris + Codemag","10 faaliyet KPI'ı ve 5 finansal KPI'ın belirlenmesi","Kritik","KPI matrisi","progress"],["Juris + Codemag","Vakıf Leasing ve katılım finansmanı alternatiflerinin değerlendirilmesi","Orta","Alternatif raporu","pending"],["Juris + Codemag","Tüm çalışmaların tek sistem altında toplanması; yönetim sunumu (1 ay)","Kritik","Bütünleşik sistem","pending"],["Juris + Codemag","Asset iş modeli ve operasyon yapısının kurgulanması (hedef Ekim 2026)","Yüksek","Asset modeli","progress"],["Codemag + Juris","SaaS gelir modelinin ayrı iş modeli olarak çalışılması; satış sonrası entegrasyonu","Yüksek","SaaS modeli","progress"],["Codemag","Teknopark ön başvurusu","Orta","Başvuru – 13.10: tamamlandı sayılır","progress"],["Codemag","2027 proje bazlı bütçe ve nakit akışının hazırlanması ve Ekim'de onaya sunulması","Kritik","2027 bütçesi","input"],["Codemag","Tüm task ve projelerin görüleceği task sisteminin kurulması","Yüksek","Task panosu","input"],["Codemag","Ödeme planının hazırlanması","Yüksek","Ödeme planı","input"],["Codemag","Mevcut dokümanların iletilmesi","Yüksek","Data Room yüklemesi","input"],["Codemag","Örnek bir projenin uçtan uca dokümantasyonu","Yüksek","Örnek proje paketi","input"],["Codemag","Standart proje paketinin hazırlanması (şartname → P&L)","Kritik","Standart paket","input"],["Codemag","Proje yönetim programı ve sisteminin belirlenmesi","Yüksek","Program kararı","input"],["Codemag","Mevcut ve reorganize organizasyon şemasının hazırlanması","Yüksek","Org şeması – 21.09 v2 iletildi","review"],["Codemag","Operasyon kırılımlarının kadro bazlı hazırlanması; birim/görev/sorumluluk tanımları","Yüksek","Görev matrisi","input"]];
+
 const DECISIONS=[["Muhasebe personeli","Tahsilatı yönetecek muhasebe personeli alınacak; mülakatlara Ferhan Yıldızlı katılacak","done"],["Finans operasyon personeli","Bu aşamada ayrıca alınmayacak","done"],["İdari işler ve özlük","Ön muhasebe fonksiyonu altında; geçişte Özgür Gömeç yürütecek","done"],["Satın alma","PM / Proje Yönetimi yapısıyla birlikte konumlanacak","done"],["Proje yönetim programı","Ortak program kullanılacak – hangi program olduğu belirlenecek","input"],["2027 ciro hedefi","Toplam ciro ve proje geliri hedefi (sayısal hedef yok)","input"],["SaaS gelir hedefi","Proje gelirinden ayrıştırılmış yıllık hedef","input"],["KPI seçimi","10 faaliyet + 5 finansal KPI'ın hangileri olacağı","input"],["Finansman alternatifi","Vakıf Leasing / katılım finansmanı – hangisi, hangi projeler için","input"],["GmbH ve yatırım turu","Ayrı mutabakatla mı, ne zaman","input"]];
+
 const MAILS=[["07.04.2026","Juris (İ. Karakum) → Özgür Gömeç","NDA taslağı – 08.04 imzalı tarama bildirimi","done"],["27.04.2026","Juris (G. Algın) → Özgür Gömeç","Hizmet Kapsam Dokümanı","done"],["04.08.2026","Juris → Özgür Gömeç","Hizmet Teklifi – 23.08 kabul","done"],["26.08 / 11.09.2026","Juris → Codemag","Danışmanlık Sözleşmesi (ilk + unvanı güncel sürüm) – imza teyitsiz","done"],["27.08.2026","Juris (İ. Karakum) → Özgür Gömeç","DPP – AB Mevzuatı Bilgi Notu","done"],["16.09.2026","Juris → Özgür, Ferhan, Murat","Kick-off tutanağı · Drive dosya planı · öncelikli aksiyonlar (3 mail)","done"],["21.09.2026","Juris → Özgür Gömeç","Finansal Okuryazarlık Eğitim Notu","done"],["21.09.2026","Özgür Gömeç → The Hire Factory (Juris CC)","Hedef organizasyon şeması v2 + kadro ihtiyaçları","done"],["25.09.2026","The Hire Factory → Özgür (Juris CC)","İK Süreç Danışmanlığı Sözleşmesi + 3 aylık iş planı","done"],["03.10.2026","Özgür Gömeç → Ferhan, Gülşah, Serkan","PAII/EDETEK ortaklık + Avrupa DPP araştırması – görüş talebi","done"],["06.10.2026","Tolga Polat → Özgür (hukuk CC)","Teknokent mali sürdürme hizmet sözleşmesi","done"],["—","Juris → Codemag","İş Modeli Bilgi Notu + Soru Seti","pending"],["—","Juris → Codemag","Proje bazlı bütçe / nakit akışı / ödeme planı formatları","pending"],["—","Juris → Codemag","İK Soru Seti + DD belge talep listesi + Data Room yükleme yönergesi","pending"],["—","Juris → Özgür Gömeç","Görüş: PAII/EDETEK ortaklık modeli · marka ihlali","pending"],["—","Juris → Codemag","Hatırlatma: standart proje paketi, örnek proje, org şeması Drive'a; sözleşme imza nüshası","pending"]];
 
 /* ---------- assess views ---------- */
-function assessHead(k){const t=ASSESS_TABS.find(x=>x[0]===k);return `<div class="page-h"><div><div class="eyebrow">Durum Değerlendirmesi · ${k}</div><h1>${t[1]}</h1><p>${t[2]}. Her panel dayandığı belgeyi gösterir; belge yoksa <b>beyan</b> veya <b>iskelet</b> olarak işaretlenir.</p></div></div>
- <div class="tabs">${ASSESS_TABS.map(([kk,tt])=>`<button class="tab ${kk===k?"active":""}" data-view="as-${kk}"><span class="k">${kk}</span>${tt}</button>`).join("")}</div>`;}
-function viewAssess(k){return assessHead(k)+({A:assessA,B:assessB,C:assessC,D:assessD,E:assessE,F:assessF}[k])();}
-const sec=(h,meta="")=>`<div class="sec-h" style="margin-top:22px"><h2>${h}</h2>${meta?`<span class="meta">${meta}</span>`:""}</div>`;
-const lbl=t=>`<div class="label" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600">${t}</div>`;
+
 const E0="Codemag";
 
 function assessA(){
@@ -753,26 +679,10 @@ function assessF(){
  <div class="card pad">${MAILS.map(m=>`<div class="mail" style="display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;font-size:12.5px;padding:8px 0;border-top:1px solid var(--divider);align-items:center"><span class="num" style="font-family:var(--font-mono);font-size:11px;color:var(--ink-3)">${m[0]}</span><span><b>${m[1]}</b> · ${m[2]}</span><span class="status ${m[3]}">${m[3]==="done"?"Gönderildi":"Planlı"}</span></div>`).join("")}</div>`;}
 
 /* ---------- Onboard & Learn ---------- */
+
 const ONBOARD=[["Gizlilik sözleşmesi (NDA)","07.04.2026 · imzalı tarama bildirimi",1],["Hizmet Kapsam Dokümanı ve ilk görüşme","27.04 · 06.05.2026",1],["Hizmet teklifi kabulü","04.08 → 23.08.2026 · 80.000 TL/ay",1],["Danışmanlık sözleşmesi yürürlük","01.09.2026 · imzalı nüsha teyitsiz",0],["Kick-off ve 22 aksiyon","04.09 / 09.09.2026 · 16.09 tutanak",1],["Drive Data Room açılışı ve erişim","16.09 dosya planı · 16.10 A–F yapısı",1],["İlk bilgi notları (DPP · Finansal Okuryazarlık)","27.08 · 21.09.2026",1],["İş Modeli soru setleri yanıtlandı","proje · SaaS · Asset",0],["Proje bazlı bütçe formatı ve 2027 bütçesi","Ekim 2026",0],["Bütünleşik yönetim sistemi sunumu","1 aylık hedef (04.09)",0]];
+
 const LEARN=[{no:"18",t:"Dijital Ürün Pasaportu (DPP) – AB Mevzuatı Bilgi Notu",url:U.dpp,st:"shared",for:"E-1 / E-5 / D.2 DPP"},{no:"10",t:"Finansal Okuryazarlık Eğitim Katılım Notu",url:U.finlit,st:"shared",for:"B / C"},{no:"Ç4",t:"Hizmet Kapsam Dokümanı",url:U.kapsam,st:"shared",for:"Onboarding"},{no:"2",t:"İş Modeli Nedir ve Neden Analiz Edilir? – Bilgi Notu",st:"planned",for:"A.1"},{no:"5",t:"İş Planı Nedir ve Neden Analiz Edilir? – Bilgi Notu",st:"planned",for:"A.2"},{no:"7",t:"Proje Bazlı Bütçe ve Nakit Akışı – Yönerge",st:"planned",for:"B.1 / B.2"},{no:"11",t:"Performans İzleme ve KPI/OKR Sistemi – Bilgi Notu",st:"planned",for:"A.5"},{no:"32",t:"Kurumsal Yönetim ve Organizasyon Yapısı – Bilgi Notu",st:"planned",for:"A.3"},{no:"DD",t:"Due Diligence Asgari İnceleme Kılavuzu – Ltd. Şti.",st:"planned",for:"E-1"},{no:"DR",t:"Data Room Veri Yükleme Yönergesi",st:"planned",for:"E-1 / B / C"},{no:"9",t:"Vendor Leasing Hukuki Çerçevesi – Bilgi Notu",st:"planned",for:"A.1 / E-2"},{no:"27",t:"NDA Kullanım Bilgilendirme Dokümanı",st:"planned",for:"E-4"},{no:"A.4.2",t:"Yatırımcı Sunumu (Pitch Deck) Bilgi Notu",st:"planned",for:"A.4"}];
-const LSTAT={applied:["Özümsendi","done"],shared:["Paylaşıldı","review"],planned:["Planlı","pending"]};
-
-function onboardStats(){const obDone=ONBOARD.filter(s=>s[2]).length,obTotal=ONBOARD.length;const lnDone=LEARN.filter(l=>l.st==="applied").length,lnShared=LEARN.filter(l=>l.st==="shared").length,lnTotal=LEARN.length;return {obDone,obTotal,obPct:Math.round(100*obDone/obTotal),lnDone,lnShared,lnTotal,lnPct:Math.round(100*(lnDone+.5*lnShared)/lnTotal)};}
-function viewOnboard(){const ob=onboardStats();const lvl=Math.min(5,Math.round(ob.obPct/20));
- return `<div class="page-h"><div><div class="eyebrow">Onboard &amp; Learn</div><h1>Onboarding</h1><p>Müvekkilin hizmet planına alışma yolculuğu. Adımlar tamamlandıkça gelişim seviyesi yükselir.</p></div></div>
- <div class="tiles"><div class="tile accent"><div class="l">Onboarding</div><div class="v num">${ob.obPct}<small>%</small></div><div style="margin-top:10px">${bar({done:ob.obDone,review:0,progress:0,input:0,total:ob.obTotal})}</div></div><div class="tile"><div class="l">Gelişim seviyesi</div><div class="v num">${lvl}<small>/ 5</small></div><div class="lvl" style="margin-top:10px">${[1,2,3,4,5].map(i=>`<div class="${i<=lvl?"on":""}"></div>`).join("")}</div></div><div class="tile"><div class="l">Tamamlanan adım</div><div class="v num">${ob.obDone}<small>/ ${ob.obTotal}</small></div></div><div class="tile"><div class="l">Rehber özümsenme</div><div class="v num">${ob.lnPct}<small>%</small></div><div class="d">${ob.lnDone} özümsendi · ${ob.lnShared} paylaşıldı</div></div></div>
- ${sec("Adımlar")}<div class="card pad"><div class="steps">${ONBOARD.map((s,i)=>`<div class="s ${s[2]?"ok":(i===ONBOARD.findIndex(x=>!x[2])?"cur":"")}"><b>${i+1}. ${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div></div>
- ${sec("Hizmet başlangıcı dokümanları","Hizmet başlangıcı · Nisan–Eylül 2026")}<div class="card"><div class="tbl-wrap"><table><thead><tr><th>No</th><th>Doküman</th><th>Tarih</th><th>Durum</th></tr></thead><tbody>${CLIENT.startDocs.map(d=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${d[0]}</td><td><b>${d[1]}</b></td><td class="muted">${d[2]}</td><td><span class="status done">Paylaşıldı</span></td></tr>`).join("")}</tbody></table></div></div>
- ${sec("Çalışma kapsamı","Danışmanlık başlıkları / ayrı şartlara bağlı işler")}<div class="grid2"><div class="card pad">${lbl("Danışmanlık çalışma başlıkları (22.10.2025)")}<ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(CLIENT.scopeIn)}</ul></div><div class="card pad">${lbl("Ayrı şartlara bağlı / dış paydaş sorumluluğunda")}<ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(CLIENT.scopeOut)}</ul></div></div>
- ${sec("Kişiler ve roller","Girdi kimden bekleniyor")}<div class="grid2">${Object.entries(CLIENT.contacts).map(([r,n])=>`<div class="card pad"><div style="display:flex;justify-content:space-between;gap:8px"><b>${r}</b><span class="muted">${n}</span></div><div class="muted" style="margin-top:4px">${allItems().reduce((a,it)=>a+it.docs.filter((d,i)=>stOf(it,i)==="input"&&d.owner.includes(r.split(" ")[0])).length,0)} açık girdi</div></div>`).join("")}</div>`;}
-function viewLearn(){const ob=onboardStats();
- return `<div class="page-h"><div><div class="eyebrow">Onboard &amp; Learn</div><h1>Learn – Rehber ve Bilgi Notları</h1><p>Müvekkilin girdisini kolaylaştıran rehber, bilgi notu ve kılavuzlar; paylaşıldıkça ve uygulandıkça gelişim izlenir.</p></div></div>
- <div class="tiles"><div class="tile accent"><div class="l">Özümsenme</div><div class="v num">${ob.lnPct}<small>%</small></div><div style="margin-top:10px">${bar({done:ob.lnDone,review:ob.lnShared,progress:0,input:0,total:ob.lnTotal})}</div></div><div class="tile"><div class="l">Özümsendi</div><div class="v num">${ob.lnDone}</div></div><div class="tile"><div class="l">Paylaşıldı</div><div class="v num">${ob.lnShared}</div></div><div class="tile"><div class="l">Planlı</div><div class="v num">${ob.lnTotal-ob.lnDone-ob.lnShared}</div></div></div>
- ${sec("Rehberler","Her Data Room alt başlığının sayfasında ilgili rehber ayrıca görünür")}<div class="card"><div class="tbl-wrap"><table><thead><tr><th>No</th><th>Rehber / Bilgi Notu</th><th>İlgili bölüm</th><th>Durum</th><th>Drive</th></tr></thead><tbody>${LEARN.map(l=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${l.no}</td><td><b>${l.t}</b></td><td class="muted">${l.for}</td><td><span class="status ${LSTAT[l.st][1]}">${LSTAT[l.st][0]}</span></td><td>${l.url?`<a class="linkbtn" href="${l.url}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}</td></tr>`).join("")}</tbody></table></div></div>`;}
-
-/* ---------- Insights ---------- */
-function hbar(rows,max=100,unit="%"){ return `<div style="display:flex;flex-direction:column;gap:8px">${rows.map(r=>`<div style="display:grid;grid-template-columns:minmax(120px,1fr) 2fr auto;gap:10px;align-items:center;font-size:12.5px"><span style="color:var(--ink-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(r[0])}">${esc(r[0])}</span><div class="bar" style="height:8px"><i style="width:${Math.min(100,100*r[1]/max)}%;background:${r[2]||"var(--navy)"}"></i></div><span class="num" style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2);min-width:48px;text-align:right">${r[3]!=null?r[3]:(Math.round(r[1])+unit)}</span></div>`).join("")}</div>`;}
-function stackRow(label,c){return `<div style="display:grid;grid-template-columns:minmax(110px,1fr) 3fr auto;gap:10px;align-items:center;font-size:12.5px"><span style="color:var(--ink-2)">${label}</span>${bar(c)}<span class="num" style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2)">${c.done}/${c.total}</span></div>`;}
 
 function viewInsights(){
  const items=allItems(), c=stats(items), ob=onboardStats(); const ents=CLIENT.short;
@@ -807,6 +717,131 @@ function viewInsights(){
  </div>`;}
 
 /* ---------- router / nav ---------- */
+
+const STATUS={done:"Tamamlandı",review:"Onay Bekliyor",progress:"Devam Ediyor",input:"Girdi Bekleniyor",pending:"Başlamadı"};
+const CYCLE=["pending","input","progress","review","done"];
+const LS="juris-panel:"+CLIENT.id;
+let overrides={}; try{overrides=JSON.parse(localStorage.getItem(LS)||"{}");}catch(e){overrides={};}
+let current="home", assessTab="A", assessEnt=CLIENT.short[0];
+try{assessTab=localStorage.getItem(LS+":atab")||"A";assessEnt=localStorage.getItem(LS+":aent")||CLIENT.short[0];}catch(e){}
+const openSections=new Set(["A","E"]);
+const allItems=()=>DATAROOM.flatMap(s=>s.items.map(it=>({...it,section:s})));
+const docKey=(it,i)=>it.id+":"+i;
+const stOf=(it,i)=>overrides[docKey(it,i)]||it.docs[i].status;
+function setStatus(it,i,s){overrides[docKey(it,i)]=s;try{localStorage.setItem(LS,JSON.stringify(overrides));}catch(e){}}
+function stats(items){const c={done:0,review:0,progress:0,input:0,pending:0,total:0};items.forEach(it=>it.docs.forEach((d,i)=>{c[stOf(it,i)]++;c.total++;}));c.pct=c.total?Math.round(100*(c.done+.5*(c.review+c.progress))/c.total):0;return c;}
+const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+function bar(c){const w=k=>c.total?(100*c[k]/c.total)+"%":"0%";return `<div class="bar"><i class="s-done" style="width:${w("done")}"></i><i class="s-review" style="width:${w("review")}"></i><i class="s-progress" style="width:${w("progress")}"></i><i class="s-input" style="width:${w("input")}"></i></div>`;}
+const legend=`<div class="legend"><span><i style="background:var(--success)"></i>Tamamlandı</span><span><i style="background:var(--info)"></i>Onay bekliyor</span><span><i style="background:var(--warn)"></i>Devam ediyor</span><span><i style="background:var(--red-ink)"></i>Girdi bekleniyor</span><span><i style="background:var(--neutral)"></i>Başlamadı</span></div>`;
+const li=a=>a.map(x=>`<li>${x}</li>`).join("");
+const ghost=(t,cls="")=>`<div class="note ${cls}"><span>▲</span><div>${t}</div></div>`;
+const shortTitle=t=>t.replace(/^[A-F][.\-]\d\.?\s*/,"");
+
+function tiles(c){return `<div class="tiles">
+  <div class="tile accent"><div class="l">Tamamlanma</div><div class="v num">${c.pct}<small>%</small></div><div style="margin-top:10px">${bar(c)}</div></div>
+  <div class="tile"><div class="l">Toplam doküman</div><div class="v num">${c.total}</div><div class="d">${c.done} tamamlandı</div></div>
+  <div class="tile"><div class="l">Onay bekliyor</div><div class="v num">${c.review}</div><div class="d">müvekkil yönetimi incelemesinde</div></div>
+  <div class="tile"><div class="l">Devam ediyor</div><div class="v num">${c.progress}</div><div class="d">Juris üzerinde</div></div>
+  <div class="tile"><div class="l">Girdi bekleniyor</div><div class="v num">${c.input}</div><div class="d">yönetim / mali müşavir / üretim ekibi</div></div>
+  <div class="tile"><div class="l">Başlamadı</div><div class="v num">${c.pending}</div><div class="d">planlı</div></div></div>`;}
+
+function docTable(it){return `<div class="tbl-wrap"><table><thead><tr><th>Doküman</th><th>Sorumlu</th><th>Durum</th><th>Drive</th></tr></thead><tbody>
+ ${it.docs.map((d,i)=>{const s=stOf(it,i);return `<tr><td class="doc"><span class="no">${esc(d.no)}</span>${esc(d.t)}${d.ent?`<span class="ent">· ${esc(d.ent)}</span>`:""}</td><td class="owner">${esc(d.owner)}</td><td><button class="status ${s}" data-item="${it.id}" data-i="${i}" title="Durumu değiştirmek için tıklayın">${STATUS[s]}</button></td><td>${d.url?`<a class="linkbtn" href="${d.url}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}</td></tr>`;}).join("")}
+ </tbody></table></div>`;}
+function areaCard(it){const c=stats([it]);return `<button class="card area" data-view="${it.id}"><div class="top"><span class="code">${esc(it.id.replace(/(\D)(\d)/,"$1.$2"))}</span><span class="ttl">${esc(shortTitle(it.title))}</span><span class="pct num">${c.pct}%</span></div>${bar(c)}<div class="foot"><span class="fnchip ${it.fn}">${it.fn}</span><span>${c.done}/${c.total} tamamlandı</span>${c.input?`<span>· ${c.input} girdi</span>`:""}${it.noFolder?`<span>· Drive klasörü yok</span>`:""}</div></button>`;}
+
+/* ---------- views ---------- */
+function viewHome(){
+  const items=allItems(), c=stats(items);
+  const fnCards=Object.keys(FUNCTIONS).map(k=>{const its=items.filter(i=>i.fn===k), cc=stats(its);return `<button class="card area" data-view="fn-${k}"><div class="top"><span class="code">${FUNCTIONS[k].k}</span><span class="ttl">${k}</span><span class="pct num">${cc.pct}%</span></div>${bar(cc)}<div class="foot"><span>${its.length} alt başlık</span><span>· ${cc.done}/${cc.total} doküman</span></div></button>`;}).join("");
+  const attention=[]; items.forEach(it=>it.docs.forEach((d,i)=>{const s=stOf(it,i);if(s==="review"||s==="input")attention.push({it,d,s});}));
+  const ob=onboardStats();
+  return `<div class="page-h"><div><div class="eyebrow">Genel Bakış</div><h1>${esc(CLIENT.name)}</h1><p>Hizmet planının dört fonksiyonu, A–F Data Room sırası ve Durum Değerlendirmesi çıktıları tek ekranda. Danışmanlık başlangıcı: ${CLIENT.kickoff}.</p></div>
+   <div class="right"><a class="btn" href="${CLIENT.planSheet}" target="_blank" rel="noopener">${esc(CLIENT.planLabel||"Hizmet Planı")} ↗</a><a class="btn primary" href="${CLIENT.driveRoot}" target="_blank" rel="noopener">Data Room ↗</a></div></div>
+  ${tiles(c)}${legend}
+  <div class="sec"><button class="card area" data-view="insights" style="flex-direction:row;align-items:center;gap:14px"><span class="code">◈</span><span class="ttl">Insights – iş planı metrikleri ve genel durum grafikleri</span><span class="pct">Aç →</span></button></div>
+  <div class="sec"><div class="sec-h"><h2>Dayanak durumu</h2><span class="meta">Panellerin dokümana mı beyana mı dayandığı</span></div><div class="grid3">
+   ${[["doc","Dokümana dayalı","green"],["beyan","Beyana dayalı",  "amber"],["none","Dayanak yok","red"]].map(([k,t,col])=>`<div class="card pad"><div class="row" style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:13.5px">${t}</b><span class="pill ${col}">${BASIS_COUNT[k].length}</span></div><ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(BASIS_COUNT[k])}</ul></div>`).join("")}
+  </div></div>
+  <div class="sec"><div class="sec-h"><h2>Fonksiyonlar</h2></div><div class="grid2">${fnCards}</div></div>
+  <div class="sec"><div class="sec-h"><h2>Durum Değerlendirmesi</h2><span class="meta">Çıktı dokümanları kendi formatında</span></div><div class="grid3">${ASSESS_TABS.map(([k,t,fmt])=>`<button class="card area" data-view="as-${k}"><div class="top"><span class="code">${k}</span><span class="ttl">${t}</span></div><div class="foot"><span>${fmt}</span></div></button>`).join("")}</div></div>
+  <div class="sec"><div class="sec-h"><h2>Data Room</h2><span class="meta">Drive klasör sırası</span></div>
+   ${DATAROOM.filter(s=>!s.virtual).map(s=>`<div style="margin-bottom:14px"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:15px;font-family:var(--font-body);font-weight:600">${esc(s.title)}</h2>${s.url?`<a class="linkbtn" href="${s.url}" target="_blank" rel="noopener">Klasör ↗</a>`:""}</div><div class="grid2">${s.items.map(areaCard).join("")}</div></div>`).join("")}</div>
+  <div class="sec"><div class="sec-h"><h2>Onboard &amp; Learn</h2><span class="meta">Müvekkil gelişim seviyesi</span></div><div class="grid2">
+   <button class="card area" data-view="ob-onboarding"><div class="top"><span class="code">OB</span><span class="ttl">Onboarding</span><span class="pct num">${ob.obPct}%</span></div>${bar({done:ob.obDone,review:0,progress:0,input:0,total:ob.obTotal})}<div class="foot"><span>${ob.obDone}/${ob.obTotal} adım</span></div></button>
+   <button class="card area" data-view="ob-learn"><div class="top"><span class="code">LN</span><span class="ttl">Learn – rehber ve bilgi notları</span><span class="pct num">${ob.lnPct}%</span></div>${bar({done:ob.lnDone,review:ob.lnShared,progress:0,input:0,total:ob.lnTotal})}<div class="foot"><span>${ob.lnDone} özümsendi · ${ob.lnShared} paylaşıldı · ${ob.lnTotal} toplam</span></div></button>
+  </div></div>
+  <div class="sec"><div class="sec-h"><h2>Dikkat gereken kalemler</h2><span class="meta">Onay ve girdi bekleyenler</span></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Doküman</th><th>Alt başlık</th><th>Kimden</th><th>Durum</th></tr></thead><tbody>
+   ${attention.map(a=>`<tr><td class="doc">${esc(a.d.t)}${a.d.ent?`<span class="ent">· ${esc(a.d.ent)}</span>`:""}</td><td><button class="linkbtn" data-view="${a.it.id}">${esc(a.it.title)}</button></td><td class="owner">${esc(a.d.owner)}</td><td><span class="status ${a.s}">${STATUS[a.s]}</span></td></tr>`).join("")}
+  </tbody></table></div></div></div>
+  <div class="sec"><div class="sec-h"><h2>Çalışma ritmi</h2></div><div class="rhythm">${CLIENT.rhythm.map(r=>`<div class="r"><b>${r[0]}</b><span>${r[1]}</span></div>`).join("")}<div class="r"><b>${CLIENT.entities.length}</b><span>Tüzel kişilik${CLIENT.legacy?` · ${CLIENT.legacy.length} eski yapı`:""}</span></div></div></div>`;
+}
+function viewFn(k){
+  const f=FUNCTIONS[k], items=allItems().filter(i=>i.fn===k), c=stats(items); const byArea={}; items.forEach(i=>{(byArea[i.area]=byArea[i.area]||[]).push(i);});
+  return `<div class="page-h"><div><div class="eyebrow">Fonksiyon ${f.k}</div><h1>${k}</h1><p>${esc(f.desc)}</p></div></div>${tiles(c)}${legend}
+  ${Object.keys(byArea).map(a=>`<div class="sec"><div class="sec-h"><h2>${esc(a)}</h2><span class="meta">${byArea[a].length} alt başlık</span></div><div class="grid2">${byArea[a].map(areaCard).join("")}</div></div>`).join("")}
+  <div class="sec"><div class="sec-h"><h2>Tüm dokümanlar</h2><span class="meta">Durum çipine tıklayarak güncelleyin</span></div>
+  ${items.map(it=>`<div class="card" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--divider);flex-wrap:wrap"><button class="linkbtn" data-view="${it.id}" style="font-weight:600;font-size:13.5px;color:var(--ink)">${esc(it.title)}</button><span class="muted num">${stats([it]).pct}%</span>${it.url?`<a class="linkbtn" href="${it.url}" target="_blank" rel="noopener" style="margin-left:auto">Klasör ↗</a>`:`<span class="muted" style="margin-left:auto">Drive klasörü yok</span>`}</div>${docTable(it)}</div>`).join("")}</div>`;
+}
+function viewItem(id){
+  const it=allItems().find(i=>i.id===id); if(!it) return viewHome(); const c=stats([it]);
+  return `<div class="page-h"><div><div class="eyebrow">${esc(it.section.title)} · <span class="fnchip ${it.fn}">${it.fn}</span></div><h1>${esc(it.title)}</h1><p>${esc(it.area)}</p></div>
+   <div class="right"><button class="btn" data-view="as-${it.id[0]}">Durum Değerlendirmesi</button>${it.url?`<a class="btn primary" href="${it.url}" target="_blank" rel="noopener">Drive klasörü ↗</a>`:""}</div></div>
+  ${tiles(c)}${legend}
+  <div class="sec"><div class="grid2">
+   <div class="card pad"><div class="sec-h" style="margin-bottom:10px"><h2 style="font-size:15px">İş akışı</h2></div><div class="flow">${it.flow.map((s,i)=>(i?`<em>→</em>`:"")+`<span>${esc(s)}</span>`).join("")}</div>${it.guide?`<div class="basis" style="margin-top:12px"><span class="pill blue">Rehber</span><span>${esc(it.guide[0])}. ${esc(it.guide[1])}</span>${it.guide[2]?`<a class="guide" href="${it.guide[2]}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">henüz paylaşılmadı</span>`}</div>`:""}</div>
+   <div class="card pad"><div class="sec-h" style="margin-bottom:10px"><h2 style="font-size:15px">Drive yapısı</h2></div>${it.noFolder?`<div class="muted">Data Room'da karşılık gelen klasör henüz açılmadı.</div>`:it.subfolders?`<div class="folders">${it.subfolders.map(s=>`<a class="folder ${s[2]?"empty":""}" href="${s[1]}" target="_blank" rel="noopener">▸ ${esc(s[0])}${s[2]?" · boş":""}</a>`).join("")}</div>`:it.empty?`<div class="muted">Klasör açıldı, henüz doküman yüklenmedi.</div>`:`<div class="muted">Dokümanlar doğrudan klasörde.</div>`}</div>
+  </div></div>
+  ${it.empty||it.noFolder?ghost(`<b>Bu alt başlıkta henüz çıktı yok.</b> İlk adım: ${esc(it.docs[0].t)} (${esc(it.docs[0].owner)}).`):""}
+  <div class="sec"><div class="sec-h"><h2>Dokümanlar</h2><span class="meta">Hizmet planı doküman haritası</span></div><div class="card">${docTable(it)}</div></div>`;
+}
+
+/* =========================================================
+   DURUM DEĞERLENDİRMESİ — ortak yardımcılar (veri müvekkil dosyasında)
+   ========================================================= */
+const basisLine=(src,extra="")=>`<div class="basis"><span class="src ${src.k}">${src.k==="doc"?"Belge":src.k==="beyan"?"Beyan":"Dayanak yok"}</span>${src.u?`<a class="guide" href="${src.u}" target="_blank" rel="noopener">${esc(src.t)} ↗</a>`:`<span>${esc(src.t)}</span>`}${extra}</div>`;
+const docH=(title,fmt,src,status,right="")=>`<div class="doc-h"><div><h2>${title}</h2><div class="basis" style="margin-top:4px"><span class="f">${fmt}</span></div>${basisLine(src)}</div><div class="right"><span class="status ${status}">${STATUS[status]}</span>${right}</div></div>`;
+const entTabs=(opts=CLIENT.short)=>opts.length>1?`<div class="ent-tabs">${opts.map(e=>`<button class="${assessEnt===e?"active":""}" data-ent="${e}">${e}</button>`).join("")}</div>`:"";
+const blk=(cls,no,title,items)=>`<div class="b ${cls}"><h4>${title}<i>${no}</i></h4><ul>${li(items)}</ul></div>`;
+const docbar=(ids)=>{const all=allItems();const out=[];ids.forEach(([itemId,no])=>{const it=all.find(i=>i.id===itemId);if(!it)return;it.docs.forEach((d,i)=>{if(d.no===no&&!out.some(o=>o.t===d.t)){out.push({t:d.t,s:stOf(it,i),no,url:d.url});}});});return `<div class="docbar">${out.map(o=>`<span class="d" title="${esc(o.t)}"><i style="background:${o.s==="done"?"var(--success)":o.s==="review"?"var(--info)":o.s==="progress"?"var(--warn)":o.s==="input"?"var(--red-ink)":"var(--neutral)"}"></i><span class="n">${esc(o.no)}</span>${esc(o.t).slice(0,42)}${o.t.length>42?"…":""}</span>`).join("")}</div>`;};
+function canvas(d,lean=false){ if(lean) return `<div class="bmc lean">${blk("pr","1","Problem",d.pr)}${blk("so","4","Çözüm",d.so)}${blk("km","8","Kilit Metrikler",d.km)}${blk("vp","3","Benzersiz Değer Önerisi",d.vp)}${blk("ua","9","Haksız Avantaj",d.ua)}${blk("ch","5","Kanallar",d.ch)}${blk("cs","2","Müşteri Segmentleri",d.cs)}${blk("co","7","Maliyet Yapısı",d.co)}${blk("rs","6","Gelir Akışları",d.rs)}</div>`;
+ return `<div class="bmc">${blk("kp","8","Kilit Ortaklıklar",d.kp)}${blk("ka","7","Kilit Faaliyetler",d.ka)}${blk("kr","6","Kilit Kaynaklar",d.kr)}${blk("vp","2","Değer Önerileri",d.vp)}${blk("cr","4","Müşteri İlişkileri",d.cr)}${blk("ch","3","Kanallar",d.ch)}${blk("cs","1","Müşteri Segmentleri",d.cs)}${blk("co","9","Maliyet Yapısı",d.co)}${blk("rs","5","Gelir Akışları",d.rs)}</div>`;}
+
+/* İş Planı – 5 bölüm × OKR (3–5 KR) · kaynak: teklif metodolojisi + 08.09 aksiyonları + 08.10 DD talebi · ilerleme = Juris ön değerlendirmesi */
+function okrGrid(list){return `<div class="okr">${list.map(o=>`<div class="o"><h4>${o.t}</h4><div class="obj">${o.o}</div>${o.kr.map(k=>`<div class="kr"><span class="m">${k[0]}</span><span class="tgt">${k[1]}</span><div class="bar"><i class="s-done" style="width:${k[2]}%"></i></div></div>`).join("")}</div>`).join("")}</div>`;}
+function barChart(years,vals,ranges,unit){const W=640,H=220,pl=44,pb=34,pt=16,pr=12;const max=Math.max(...vals.filter(v=>v!=null).concat(ranges.filter(Boolean).map(r=>r[1])),10)*1.15;const n=years.length,bw=(W-pl-pr)/n;const y=v=>pt+(H-pt-pb)*(1-v/max);let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Yıllık gelir">`;for(let g=0;g<=4;g++){const v=max*g/4;s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`;}years.forEach((yr,i)=>{const cx=pl+bw*i+bw/2;const r=ranges[i],v=vals[i];if(r){s+=`<rect x="${cx-bw*0.3}" y="${y(r[1])}" width="${bw*0.6}" height="${y(r[0])-y(r[1])}" rx="4" fill="var(--tint-12)"><title>${yr}: aralık ${r[0]}–${r[1]} ${unit}</title></rect>`;}if(v!=null){s+=`<rect x="${cx-bw*0.18}" y="${y(v)}" width="${bw*0.36}" height="${Math.max(0,y(0)-y(v))}" rx="3" fill="var(--navy)"><title>${yr}: ${v} ${unit}</title></rect><text x="${cx}" y="${y(v)-5}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${v}</text>`;}else{s+=`<rect x="${cx-bw*0.18}" y="${pt}" width="${bw*0.36}" height="${H-pt-pb}" rx="3" fill="none" stroke="var(--border-strong)" stroke-dasharray="4 3"><title>${yr}: belge bekleniyor</title></rect><text x="${cx}" y="${(H-pb)/2+8}" text-anchor="middle" style="fill:var(--ink-4)">${r?"karar":"belge"}</text>`;}s+=`<text x="${cx}" y="${H-pb+16}" text-anchor="middle">${yr}</text>`;});s+=`<text x="${pl}" y="${H-4}" style="fill:var(--ink-4)">${unit}</text></svg>`;return s;}
+const STAGES=["Fikir","Fizibilite","Bütçe","Geliştirme","Lansman","Gelir"];
+const stagesEl=s=>`<div class="stages">${STAGES.map((n,i)=>`<span class="${i===s?"on":i<s?"past":""}">${n}</span>`).join("")}</div>`;
+
+/* Hukuk */
+function ddList(ent){if(!DD[ent])ent=CLIENT.short[0];let tot=0,ok=0;const html=DD[ent].map(([g,items,who])=>{const rows=items.map(it=>{tot++;const d=DD_DONE[ent].includes(it);if(d)ok++;return `<li class="${d?"ok":""}"><i></i>${esc(it)}</li>`;}).join("");return `<div class="grp"><h5>${esc(g)}<span>${items.filter(i=>DD_DONE[ent].includes(i)).length}/${items.length}</span></h5><div class="muted" style="margin-bottom:4px">Kimden: ${who}</div><ul>${rows}</ul></div>`;}).join("");return {html:`<div class="check">${html}</div>`,tot,ok};}
+function ddAll(){return ENTS.reduce((a,e)=>{const r=ddList(e);a.ok+=r.ok;a.tot+=r.tot;return a;},{ok:0,tot:0});}
+function heatmap(){let c="";for(let i=5;i>=1;i--){c+=`<div class="ax">Etki ${i}</div>`;for(let p=1;p<=5;p++){const s=p*i,cls=s>=16?"h5":s>=10?"h4":s>=6?"h3":s>=3?"h2":"h1";c+=`<div class="c ${cls}" title="Olasılık ${p} × Etki ${i}">${RISKS.filter(r=>r.p===p&&r.i===i).map(r=>`<span>${r.id}</span>`).join("")}</div>`;}}c+=`<div class="ax"></div>`+[1,2,3,4,5].map(p=>`<div class="ax">Olasılık ${p}</div>`).join("");return `<div class="heat">${c}</div>`;}
+
+/* İletişim */
+function assessHead(k){const t=ASSESS_TABS.find(x=>x[0]===k);return `<div class="page-h"><div><div class="eyebrow">Durum Değerlendirmesi · ${k}</div><h1>${t[1]}</h1><p>${t[2]}. Her panel dayandığı belgeyi gösterir; belge yoksa <b>beyan</b> veya <b>iskelet</b> olarak işaretlenir.</p></div></div>
+ <div class="tabs">${ASSESS_TABS.map(([kk,tt])=>`<button class="tab ${kk===k?"active":""}" data-view="as-${kk}"><span class="k">${kk}</span>${tt}</button>`).join("")}</div>`;}
+function viewAssess(k){return assessHead(k)+({A:assessA,B:assessB,C:assessC,D:assessD,E:assessE,F:assessF}[k])();}
+const sec=(h,meta="")=>`<div class="sec-h" style="margin-top:22px"><h2>${h}</h2>${meta?`<span class="meta">${meta}</span>`:""}</div>`;
+const lbl=t=>`<div class="label" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600">${t}</div>`;
+const LSTAT={applied:["Özümsendi","done"],shared:["Paylaşıldı","review"],planned:["Planlı","pending"]};
+function onboardStats(){const obDone=ONBOARD.filter(s=>s[2]).length,obTotal=ONBOARD.length;const lnDone=LEARN.filter(l=>l.st==="applied").length,lnShared=LEARN.filter(l=>l.st==="shared").length,lnTotal=LEARN.length;return {obDone,obTotal,obPct:Math.round(100*obDone/obTotal),lnDone,lnShared,lnTotal,lnPct:Math.round(100*(lnDone+.5*lnShared)/lnTotal)};}
+function viewOnboard(){const ob=onboardStats();const lvl=Math.min(5,Math.round(ob.obPct/20));
+ return `<div class="page-h"><div><div class="eyebrow">Onboard &amp; Learn</div><h1>Onboarding</h1><p>Müvekkilin hizmet planına alışma yolculuğu. Adımlar tamamlandıkça gelişim seviyesi yükselir.</p></div></div>
+ <div class="tiles"><div class="tile accent"><div class="l">Onboarding</div><div class="v num">${ob.obPct}<small>%</small></div><div style="margin-top:10px">${bar({done:ob.obDone,review:0,progress:0,input:0,total:ob.obTotal})}</div></div><div class="tile"><div class="l">Gelişim seviyesi</div><div class="v num">${lvl}<small>/ 5</small></div><div class="lvl" style="margin-top:10px">${[1,2,3,4,5].map(i=>`<div class="${i<=lvl?"on":""}"></div>`).join("")}</div></div><div class="tile"><div class="l">Tamamlanan adım</div><div class="v num">${ob.obDone}<small>/ ${ob.obTotal}</small></div></div><div class="tile"><div class="l">Rehber özümsenme</div><div class="v num">${ob.lnPct}<small>%</small></div><div class="d">${ob.lnDone} özümsendi · ${ob.lnShared} paylaşıldı</div></div></div>
+ ${sec("Adımlar")}<div class="card pad"><div class="steps">${ONBOARD.map((s,i)=>`<div class="s ${s[2]?"ok":(i===ONBOARD.findIndex(x=>!x[2])?"cur":"")}"><b>${i+1}. ${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div></div>
+ ${sec("Hizmet başlangıcı dokümanları",CLIENT.startLabel||"Hizmet başlangıcı")}<div class="card"><div class="tbl-wrap"><table><thead><tr><th>No</th><th>Doküman</th><th>Tarih</th><th>Durum</th></tr></thead><tbody>${CLIENT.startDocs.map(d=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${d[0]}</td><td><b>${d[1]}</b></td><td class="muted">${d[2]}</td><td><span class="status done">Paylaşıldı</span></td></tr>`).join("")}</tbody></table></div></div>
+ ${sec("Çalışma kapsamı","Danışmanlık başlıkları / ayrı şartlara bağlı işler")}<div class="grid2"><div class="card pad">${lbl("Danışmanlık çalışma başlıkları (teklif Mart 2026 · sözleşme 01.04.2026)")}<ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(CLIENT.scopeIn)}</ul></div><div class="card pad">${lbl("Ayrı şartlara bağlı / dış paydaş sorumluluğunda")}<ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(CLIENT.scopeOut)}</ul></div></div>
+ ${sec("Kişiler ve roller","Girdi kimden bekleniyor")}<div class="grid2">${Object.entries(CLIENT.contacts).map(([r,n])=>`<div class="card pad"><div style="display:flex;justify-content:space-between;gap:8px"><b>${r}</b><span class="muted">${n}</span></div><div class="muted" style="margin-top:4px">${allItems().reduce((a,it)=>a+it.docs.filter((d,i)=>stOf(it,i)==="input"&&d.owner.includes(r.split(" ")[0])).length,0)} açık girdi</div></div>`).join("")}</div>`;}
+function viewLearn(){const ob=onboardStats();
+ return `<div class="page-h"><div><div class="eyebrow">Onboard &amp; Learn</div><h1>Learn – Rehber ve Bilgi Notları</h1><p>Müvekkilin girdisini kolaylaştıran rehber, bilgi notu ve kılavuzlar; paylaşıldıkça ve uygulandıkça gelişim izlenir.</p></div></div>
+ <div class="tiles"><div class="tile accent"><div class="l">Özümsenme</div><div class="v num">${ob.lnPct}<small>%</small></div><div style="margin-top:10px">${bar({done:ob.lnDone,review:ob.lnShared,progress:0,input:0,total:ob.lnTotal})}</div></div><div class="tile"><div class="l">Özümsendi</div><div class="v num">${ob.lnDone}</div></div><div class="tile"><div class="l">Paylaşıldı</div><div class="v num">${ob.lnShared}</div></div><div class="tile"><div class="l">Planlı</div><div class="v num">${ob.lnTotal-ob.lnDone-ob.lnShared}</div></div></div>
+ ${sec("Rehberler","Her Data Room alt başlığının sayfasında ilgili rehber ayrıca görünür")}<div class="card"><div class="tbl-wrap"><table><thead><tr><th>No</th><th>Rehber / Bilgi Notu</th><th>İlgili bölüm</th><th>Durum</th><th>Drive</th></tr></thead><tbody>${LEARN.map(l=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${l.no}</td><td><b>${l.t}</b></td><td class="muted">${l.for}</td><td><span class="status ${LSTAT[l.st][1]}">${LSTAT[l.st][0]}</span></td><td>${l.url?`<a class="linkbtn" href="${l.url}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}</td></tr>`).join("")}</tbody></table></div></div>`;}
+
+/* ---------- Insights ---------- */
+function hbar(rows,max=100,unit="%"){ return `<div style="display:flex;flex-direction:column;gap:8px">${rows.map(r=>`<div style="display:grid;grid-template-columns:minmax(120px,1fr) 2fr auto;gap:10px;align-items:center;font-size:12.5px"><span style="color:var(--ink-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(r[0])}">${esc(r[0])}</span><div class="bar" style="height:8px"><i style="width:${Math.min(100,100*r[1]/max)}%;background:${r[2]||"var(--navy)"}"></i></div><span class="num" style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2);min-width:48px;text-align:right">${r[3]!=null?r[3]:(Math.round(r[1])+unit)}</span></div>`).join("")}</div>`;}
+function stackRow(label,c){return `<div style="display:grid;grid-template-columns:minmax(110px,1fr) 3fr auto;gap:10px;align-items:center;font-size:12.5px"><span style="color:var(--ink-2)">${label}</span>${bar(c)}<span class="num" style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2)">${c.done}/${c.total}</span></div>`;}
+
 function crumbFor(v){const n=`<b>${esc(CLIENT.name)}</b>`;if(v==="home")return n+" · Genel Bakış";if(v==="insights")return n+" · Genel Bakış · Insights";if(v.startsWith("fn-"))return n+" · Fonksiyonlar · "+v.slice(3);if(v.startsWith("as-"))return n+" · Durum Değerlendirmesi · "+v.slice(3);if(v==="ob-onboarding")return n+" · Onboard &amp; Learn · Onboarding";if(v==="ob-learn")return n+" · Onboard &amp; Learn · Learn";const it=allItems().find(i=>i.id===v);return it?n+` · Data Room · ${esc(it.section.title)} · ${esc(it.title)}`:n;}
 function render(){const v=current,el=document.getElementById("view");
  el.innerHTML=v==="home"?viewHome():v.startsWith("fn-")?viewFn(v.slice(3)):v.startsWith("as-")?viewAssess(v.slice(3)):v==="insights"?viewInsights():v==="ob-onboarding"?viewOnboard():v==="ob-learn"?viewLearn():viewItem(v);
@@ -837,4 +872,5 @@ else if(/^as-[A-F]$/.test(h)||h==="home"||h==="insights"||h==="ob-onboarding"||h
 render();
 </script>
 
+</body></html>
 </body></html>
