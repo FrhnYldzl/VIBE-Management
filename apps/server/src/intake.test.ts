@@ -15,7 +15,10 @@ const tree: Record<string, ReturnType<typeof F | typeof D>[]> = {
   b: [F("b1", "B.1. Bütçe")], b1: [],
   e: [F("e1", "E-1 DD")], e1: [D("f3", "Esas Sözleşme.pdf")],
 };
-const fakeDrive: Drive = { async list(id) { if (!(id in tree)) throw new Error(`404 ${id}`); return tree[id]!; } };
+const fakeDrive: Drive = {
+  async list(id) { if (!(id in tree)) return []; return tree[id]!; }, // gerçek Drive: erişilemeyen klasörde boş liste
+  async get(id) { if (id === "FILE_NOT_FOLDER1") return { id, name: "Hizmet Teklifi.pdf", folder: false }; if (!(id in tree)) throw new Error(`404 ${id}`); return { id, name: id, folder: true }; },
+};
 
 const store = openStore(":memory:");
 const panelsDir = mkdtempSync(join(tmpdir(), "vibe-panels-"));
@@ -56,7 +59,12 @@ describe("intake-lite", () => {
     expect((await app.inject({ method: "POST", url: "/api/intake", payload: { name: "X Y", driveRoot: "https://example.com/x" } })).statusCode).toBe(400);
     expect((await app.inject({ method: "POST", url: "/api/intake", payload: { name: "Onscala", driveRoot: "https://drive.google.com/drive/folders/ROOTFOLDER12345" } })).statusCode).toBe(400);
     const nf = await app.inject({ method: "POST", url: "/api/intake", payload: { name: "Yok Şirketi", driveRoot: "https://drive.google.com/drive/folders/NOTSHARED12345" } });
-    expect(nf.statusCode).toBe(502); expect(nf.json().hata).toContain("paylaşıldı mı");
+    expect(nf.statusCode).toBe(502); expect(nf.json().hata).toContain("paylaşılmamış");
+    const nfold = await app.inject({ method: "POST", url: "/api/intake", payload: { name: "Dosya Linki", driveRoot: "https://drive.google.com/drive/folders/FILE_NOT_FOLDER1" } });
+    expect(nfold.statusCode).toBe(400); expect(nfold.json().hata).toContain("klasör değil");
+    tree.EMPTYROOT1234567 = [D("z", "tek dosya.pdf")];
+    const empty = await app.inject({ method: "POST", url: "/api/intake", payload: { name: "Boş Kök", driveRoot: "https://drive.google.com/drive/folders/EMPTYROOT1234567" } });
+    expect(empty.statusCode).toBe(400); expect(empty.json().hata).toContain("alt klasör yok");
     const noDrive = buildApp({ auth, store: openStore(":memory:"), panelsDir: mkdtempSync(join(tmpdir(), "vibe-nd-")), drive: null });
     expect((await noDrive.inject("/api/intake/status")).json().hazir).toBe(false);
     expect((await noDrive.inject({ method: "POST", url: "/api/intake", payload: { name: "X Y", driveRoot: "https://drive.google.com/drive/folders/ROOTFOLDER12345" } })).statusCode).toBe(503);

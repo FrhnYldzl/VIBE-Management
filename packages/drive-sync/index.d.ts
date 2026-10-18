@@ -1,5 +1,5 @@
 export interface DriveFile { id: string; name: string; mime: string; folder: boolean; modified: string; link: string; size: number | null }
-export interface DriveClient { list(folderId: string): Promise<DriveFile[]> }
+export interface DriveClient { list(folderId: string): Promise<DriveFile[]>; get(fileId: string): Promise<{ id: string; name: string; mime: string; folder: boolean; link: string }> }
 export interface ServiceAccount { client_email: string; private_key: string; [k: string]: unknown }
 export function serviceAccountFromEnv(env?: NodeJS.ProcessEnv): ServiceAccount | null;
 export function getAccessToken(sa: ServiceAccount, fetchImpl?: typeof fetch): Promise<string>;

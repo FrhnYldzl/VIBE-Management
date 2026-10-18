@@ -58,7 +58,14 @@ export function makeDriveClient(token, fetchImpl = fetch) {
     } while (pageToken);
     return files;
   }
-  return { list };
+  /** Klasör/dosya meta verisi; erişim yoksa (paylaşılmamış) 404 fırlatır */
+  async function get(fileId) {
+    const res = await fetchImpl(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?fields=id,name,mimeType,webViewLink&supportsAllDrives=true`, { headers: { authorization: `Bearer ${token}` } });
+    if (!res.ok) { const t = await res.text(); throw new Error(`Drive ${res.status} (${fileId}): ${t.slice(0, 200)}`); }
+    const f = await res.json();
+    return { id: f.id, name: f.name, mime: f.mimeType, folder: f.mimeType === FOLDER, link: f.webViewLink };
+  }
+  return { list, get };
 }
 
 /* ---------- müvekkil verisi (.data.js) ---------- */

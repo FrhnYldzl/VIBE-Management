@@ -1145,9 +1145,27 @@ function md(s){
 }
 const AV=`<svg width="15" height="15" viewBox="0 0 200 200" aria-hidden="true"><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#E5574F"/></svg>`;
 const ERR={not_granted:"Bu sayfanın Claude kullanmasına izin verilmedi. İzin verildiğinde şablonlar burada çalışır.",sampling_disabled:"Bu hesapta Claude kullanılamıyor.",rate_limited:"Kısa sürede çok istek gitti veya kullanım sınırına ulaşıldı. Biraz sonra yeniden deneyin.",session_expired:"Oturum süresi doldu; yeniden giriş yapın.",prompt_too_large:"Bağlam çok büyük. Kaynak sayısını azaltın.",refused:"Claude bu isteği yanıtlamadı; isteği farklı ifade edin.",empty_completion:"Yanıt boş döndü; isteği sadeleştirip tekrar deneyin.",upstream_error:"Bağlantı kesildi. Tekrar deneyin."};
+/* Intake-lite kısayolu: istemde Drive klasör linki varsa Claude'a sormak yerine sunucu taraması önerilir (Claude Drive'ı okuyamaz) */
+const DRIVE_FOLDER_RX=/https?:\/\/drive\.google\.com\/drive\/(?:u\/\d+\/)?folders\/[A-Za-z0-9_-]{10,}/;
+async function intakeFromPrompt(q){
+  const link=(q.match(DRIVE_FOLDER_RX)||[])[0]; if(!link) return false;
+  const ok=confirm("Drive klasör linki algılandı.\n\nTamam → Intake-lite: sunucu Data Room'u tarar, Juris standardında panel üretir ve Kurumsal Yönetim Panelleri'ne ekler.\nİptal → metni Claude'a normal soru olarak gönder (Claude Drive'ı okuyamaz).");
+  if(!ok) return false;
+  const guess=q.replace(DRIVE_FOLDER_RX,"").replace(/\b(şirketinin|için|kurumsal|yönetim|panel\w*|html|dosya\w*|üret\w*|oluştur\w*)\b/gi,"").replace(/\s+/g," ").trim().slice(0,60);
+  const name=prompt("Müvekkil / şirket adı (panelde görünecek):",guess); if(!name) return true;
+  $("#vnote").textContent="Drive taranıyor ve panel üretiliyor… (10–60 sn)";
+  try{
+    const r=await fetch("/api/intake",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({name:name.trim(),driveRoot:link})});
+    const j=await r.json();
+    if(!r.ok){ $("#vnote").textContent="Panel üretilemedi: "+(j.hata||r.status); return true; }
+    $("#vq").value=""; await loadDynamicPanels(); $("#vnote").textContent=`${j.name} paneli üretildi · ${j.files} dosya / ${j.folders} alt klasör.`; go("p-"+j.slug);
+  }catch(e){ $("#vnote").textContent="Bağlantı hatası: "+e.message; }
+  return true;
+}
 async function run(){
   if(running){ running.abort(); return; }
   const q=$("#vq").value.trim(); if(!q){ $("#vq").focus(); return; }
+  if(!atts.length && await intakeFromPrompt(q)) return;
   const sample=await getSample();
   let s=sessions.find(x=>x.id===curSess); if(!s||s.example){ s=newSession(q.replace(/\s+/g," ").slice(0,48)+(q.length>48?"…":"")); }
   else if(!s.msgs.length){ s.title=q.replace(/\s+/g," ").slice(0,48)+(q.length>48?"…":""); s.scope=scope; s.alan=alan; }

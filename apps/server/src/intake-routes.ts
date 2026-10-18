@@ -16,7 +16,11 @@ type Scan = { id: string; title: string; url: string; items: { id: string; title
 const kit = require(join(KIT, "kit.js")) as { buildFile(data: string, out: string, title?: string): string; smokeFile(file: string): Smoke };
 const intake = require(join(KIT, "intake.js")) as { generateDataJs(spec: unknown): string; scanRoot(drive: Drive, rootId: string): Promise<Scan>; slugify(s: string): string };
 
-export interface Drive { list(folderId: string): Promise<{ id: string; name: string; folder: boolean; link?: string; modified?: string }[]> }
+export interface Drive {
+  list(folderId: string): Promise<{ id: string; name: string; folder: boolean; link?: string; modified?: string }[]>;
+  /** meta veri; paylaşılmamış klasörde fırlatır (isteğe bağlı — testlerdeki sahte sürücü vermeyebilir) */
+  get?(fileId: string): Promise<{ id: string; name: string; folder: boolean }>;
+}
 /** Anahtar bozuksa hata metni (servis düşmez; health ve A3'te gösterilir) */
 export let driveConfigError: string | null = null;
 /** Varsayılan Drive istemcisi: GOOGLE_SERVICE_ACCOUNT_JSON → JWT → erişim belirteci (50 dk önbellek) */
@@ -71,9 +75,18 @@ export function registerIntake(app: FastifyInstance, store: Store, panelsDir: st
     const entities = input.entities?.length ? input.entities : [input.name];
     const scannedAt = new Date().toISOString();
     const drive = await getDrive();
+    // Drive 'in parents' sorgusu erişilemeyen klasörde hata yerine boş liste döndürebilir → önce meta veriyi iste
+    const sa = serviceAccountEmail();
+    if (drive.get) {
+      let meta: { folder: boolean; name: string };
+      try { meta = await drive.get(rootId); }
+      catch { throw Object.assign(new Error(`Klasör görünmüyor: ${sa ?? "service account"} ile paylaşılmamış (Drive → Paylaş → "Görüntüleyen") ya da link yanlış.`), { statusCode: 502 }); }
+      if (!meta.folder) throw Object.assign(new Error(`Link bir klasör değil (“${meta.name}”). A–F bölümlerini içeren kök klasörün linki gerekir.`), { statusCode: 400 });
+    }
     let sections: Scan;
     try { sections = await intake.scanRoot(drive, rootId); }
     catch (e) { throw Object.assign(new Error(`Drive taraması başarısız: ${(e as Error).message}. Klasör service account ile paylaşıldı mı?`), { statusCode: 502 }); }
+    if (!sections.length) throw Object.assign(new Error(`Kök klasörde alt klasör yok. Data Room A–F bölüm klasörlerini içeren klasörün linkini verin (ya da klasör ${sa ?? "service account"} ile paylaşılmamış).`), { statusCode: 400 });
     const files = sections.reduce((a, s) => a + s.items.reduce((b, it) => b + it.files.length, 0), 0);
     const folders = sections.reduce((a, s) => a + s.items.length, 0);
     const js = intake.generateDataJs({ client: { id: slug, name: input.name, short: [short], entities, driveRoot: input.driveRoot, kickoff: input.kickoff }, sections, scannedAt });
