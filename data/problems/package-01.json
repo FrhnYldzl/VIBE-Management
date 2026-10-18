@@ -1,0 +1,1166 @@
+{
+  "paket": 1,
+  "ad": "Yatay Çekirdek — neredeyse her işletmede görülen problemler",
+  "surum": "v2",
+  "not": "cozum_adaylari alanları DOĞRULANMAMIŞ tarama tohumudur. Mr. F katalog taraması teyit edecek.",
+  "problemler": [
+    {
+      "id": "marka-ip-tescil-izleme",
+      "ad": "Marka ve fikri mülkiyet tescili, izleme, ihlal takibi",
+      "ozet": "İşletme markasını tescil ettirmemiş ya da tescilli ama benzer başvuruları, süre sonlarını ve pazaryeri taklitlerini takip edemiyor.",
+      "musteri_dili": [
+        "marka tescili nasıl yapılır",
+        "markam taklit ediliyor ne yapmalıyım",
+        "marka tescil ücreti 2026",
+        "Trendyol'da sahte ürün şikayeti"
+      ],
+      "fonksiyon": "hukuk",
+      "yayilim": "yatay",
+      "sektorler": [
+        "e-ticaret-perakende",
+        "kozmetik-kisisel-bakim",
+        "gida-icecek",
+        "teknoloji-yazilim",
+        "tekstil-hazir-giyim"
+      ],
+      "tetikleyici": "Pazaryerinde taklit ürün görülmesi, yatırım/ortaklık due diligence'ı, ihracata başlama, benzer marka başvurusunun bültende çıkması",
+      "bugun_nasil_cozuluyor": "Patent vekili ile yıllık anlaşma; takip büyük ölçüde vekilin insiyatifinde, işletmenin görünürlüğü yok",
+      "alici_persona": "Kurucu / pazarlama direktörü / hukuk müşaviri",
+      "odeme_istekliligi": "Tescil başına 3.000-15.000 ₺; izleme aboneliği 500-3.000 ₺/ay",
+      "tr_ozgunluk_notu": "TÜRKPATENT, Nice sınıfları, Viyana şekil kodları, resmi bülten takibi, itiraz süreleri — global araçlar kapsamıyor",
+      "cozum_adaylari": {
+        "global": [
+          "Corsearch",
+          "Markify",
+          "TrademarkNow"
+        ],
+        "turkiye": [
+          "Marqby",
+          "Tescil Radar",
+          "patent vekili büroları"
+        ]
+      },
+      "kanit_metrigi": [
+        "benzerlik tespitinde isabet oranı",
+        "bülten taramasında kaçırılan başvuru sayısı",
+        "vekil sürecine kıyasla süre/maliyet farkı"
+      ],
+      "veri_ihtiyaci": "200 gerçek marka başvurusu + itiraz sonucu etiketli",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 4,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 5,
+        "inference_yogunlugu": 3,
+        "gecis_maliyeti": 5,
+        "cozum_bollugu": 4,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 2,
+        "mevzuat_bagimliligi": 5,
+        "rekabet_yogunlugu": 5,
+        "mevsimsellik": 1,
+        "satis_dongusu": 2
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "sozlesme-inceleme-risk",
+      "ad": "Sözleşme okuma, risk taraması ve standart metin hazırlama",
+      "ozet": "Gelen tedarikçi/müşteri sözleşmeleri hukukçu darboğazında bekliyor; riskli maddeler gözden kaçıyor.",
+      "musteri_dili": [
+        "sözleşme incelemesi",
+        "tedarikçi sözleşmesi riskli maddeler",
+        "NDA şablonu",
+        "sözleşmeyi avukata vermeden nasıl kontrol ederim"
+      ],
+      "fonksiyon": "hukuk",
+      "yayilim": "yatay",
+      "sektorler": [
+        "teknoloji-yazilim",
+        "profesyonel-hizmetler",
+        "uretim-imalat",
+        "insaat-emlak",
+        "lojistik-tasimacilik"
+      ],
+      "tetikleyici": "Yeni tedarikçi/müşteri, ihale, yatırım turu, uluslararası anlaşma",
+      "bugun_nasil_cozuluyor": "Dış hukuk bürosuna saatlik gönderim veya hiç okumadan imza",
+      "alici_persona": "Genel müdür / satın alma müdürü / iç hukuk",
+      "odeme_istekliligi": "Sözleşme başına 1.500-8.000 ₺ hukuk ücreti; yazılım için 2.000-15.000 ₺/ay",
+      "tr_ozgunluk_notu": "TBK/TTK hükümleri, damga vergisi, tahkim/yetkili mahkeme, Türkçe hukuk dili",
+      "cozum_adaylari": {
+        "global": [
+          "Ironclad",
+          "LegalOn",
+          "Luminance",
+          "Harvey"
+        ],
+        "turkiye": [
+          "hukuk büroları",
+          "Lexpera (içtihat)"
+        ]
+      },
+      "kanit_metrigi": [
+        "riskli madde yakalama oranı (avukat referansına göre)",
+        "yanlış alarm oranı",
+        "inceleme süresi"
+      ],
+      "veri_ihtiyaci": "150 gerçek Türkçe sözleşme + avukat işaretli riskli maddeler",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 4,
+        "ai_uygunlugu": 5,
+        "tr_surtunmesi": 4,
+        "inference_yogunlugu": 4,
+        "gecis_maliyeti": 3,
+        "cozum_bollugu": 4,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 3,
+        "mevzuat_bagimliligi": 4,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 1,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "kvkk-uyum-veri-envanteri",
+      "ad": "KVKK uyumu, veri envanteri ve aydınlatma metinleri",
+      "ozet": "İşletme hangi kişisel veriyi nerede tuttuğunu bilmiyor; VERBİS, aydınlatma ve açık rıza metinleri eksik ya da kopyala-yapıştır.",
+      "musteri_dili": [
+        "KVKK uyum süreci",
+        "aydınlatma metni örneği",
+        "VERBİS kaydı",
+        "kişisel veri envanteri nasıl hazırlanır",
+        "KVKK cezası"
+      ],
+      "fonksiyon": "hukuk",
+      "yayilim": "yatay",
+      "sektorler": [
+        "e-ticaret-perakende",
+        "saglik-medikal",
+        "bankacilik-finans-sigorta",
+        "profesyonel-hizmetler",
+        "egitim"
+      ],
+      "tetikleyici": "Kurul denetimi/şikayet, müşteri veri talebi, yeni sistem kurulumu, kurumsal müşterinin uyum sorması",
+      "bugun_nasil_cozuluyor": "Danışmana proje bazlı ihale; bir kez yapılıp güncellenmeyen Excel envanteri",
+      "alici_persona": "Bilgi işlem müdürü / hukuk / genel müdür",
+      "odeme_istekliligi": "Uyum projesi 40.000-250.000 ₺; sürekli izleme 3.000-20.000 ₺/ay",
+      "tr_ozgunluk_notu": "Tamamen yerel: KVKK, VERBİS, Kurul kararları, yurt dışına aktarım kuralları — global GDPR araçları birebir uymuyor",
+      "cozum_adaylari": {
+        "global": [
+          "OneTrust",
+          "Securiti",
+          "TrustArc"
+        ],
+        "turkiye": [
+          "KVKK danışmanlık büroları",
+          "yerel GRC yazılımları"
+        ]
+      },
+      "kanit_metrigi": [
+        "envanterde tespit edilen veri akışı sayısı (manuel referansa göre)",
+        "eksik/hatalı aydınlatma metni tespiti",
+        "hazırlık süresi"
+      ],
+      "veri_ihtiyaci": "50 gerçek aydınlatma metni + Kurul karar özetleri",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 5,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 5,
+        "inference_yogunlugu": 3,
+        "gecis_maliyeti": 3,
+        "cozum_bollugu": 3,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 4,
+        "mevzuat_bagimliligi": 5,
+        "rekabet_yogunlugu": 5,
+        "mevsimsellik": 2,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "gelen-fatura-muhasebelestirme",
+      "ad": "Gelen fatura → muhasebe fişi otomasyonu",
+      "ozet": "E-fatura/e-arşiv ve kağıt faturaların doğru hesaba kodlanması hâlâ elle yapılıyor; ay sonu darboğazı.",
+      "musteri_dili": [
+        "fatura muhasebeleştirme otomasyonu",
+        "e-fatura muhasebe entegrasyonu",
+        "fiş kesme otomasyonu",
+        "muhasebe programı yapay zeka"
+      ],
+      "fonksiyon": "finans-muhasebe",
+      "yayilim": "yatay",
+      "sektorler": [
+        "profesyonel-hizmetler",
+        "e-ticaret-perakende",
+        "uretim-imalat",
+        "lojistik-tasimacilik",
+        "insaat-emlak"
+      ],
+      "tetikleyici": "Ay/dönem sonu kapanış, mali müşavirin iş yükü, hatalı KDV indirimi",
+      "bugun_nasil_cozuluyor": "Mali müşavir personeli tek tek fiş kesiyor; kısmi entegrasyonlar sadece format aktarıyor, hesap kodlamayı insan yapıyor",
+      "alici_persona": "Mali müşavir / muhasebe müdürü",
+      "odeme_istekliligi": "Mali müşavir ofisi için 5.000-40.000 ₺/ay; işletme için 2.000-15.000 ₺/ay",
+      "tr_ozgunluk_notu": "GİB e-fatura/e-arşiv formatları, tek düzen hesap planı, KDV tevkifatı, Logo/Paraşüt/Netsis/Mikro entegrasyonu — global çözümler hiçbirini bilmiyor",
+      "cozum_adaylari": {
+        "global": [
+          "Vic.ai",
+          "Ramp",
+          "Dext"
+        ],
+        "turkiye": [
+          "Paraşüt",
+          "Logo",
+          "Netsis",
+          "Mikro",
+          "Uyumsoft",
+          "Dia"
+        ]
+      },
+      "kanit_metrigi": [
+        "hesap kodu isabet oranı",
+        "insan müdahalesi gereken fatura yüzdesi",
+        "fatura başına saniye ve maliyet"
+      ],
+      "veri_ihtiyaci": "3.000 gerçek e-fatura + doğru hesap kodu etiketi",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 5,
+        "ai_uygunlugu": 5,
+        "tr_surtunmesi": 5,
+        "inference_yogunlugu": 5,
+        "gecis_maliyeti": 4,
+        "cozum_bollugu": 3,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 4,
+        "mevzuat_bagimliligi": 5,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 3,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "tesvik-hibe-basvuru",
+      "ad": "Teşvik, hibe ve destek başvurusu bulma ve hazırlama",
+      "ozet": "İşletme hak ettiği KOSGEB/TÜBİTAK/kalkınma ajansı desteklerinden haberdar değil; başvuru dosyası hazırlamak ağır.",
+      "musteri_dili": [
+        "KOSGEB desteği nasıl alınır",
+        "TÜBİTAK 1507 başvuru",
+        "hibe destekleri 2026",
+        "ihracat teşviki"
+      ],
+      "fonksiyon": "finans-muhasebe",
+      "yayilim": "yatay",
+      "sektorler": [
+        "uretim-imalat",
+        "teknoloji-yazilim",
+        "tarim-hayvancilik",
+        "gida-icecek",
+        "tekstil-hazir-giyim"
+      ],
+      "tetikleyici": "Yatırım kararı, nakit sıkışıklığı, çağrı dönemi açılması, Ar-Ge merkezi kurulumu",
+      "bugun_nasil_cozuluyor": "Komisyonlu danışmanlar (%10-20 başarı primi) veya hiç başvurmama",
+      "alici_persona": "Kurucu / mali işler müdürü / Ar-Ge müdürü",
+      "odeme_istekliligi": "Danışmanlık: destek tutarının %10-20'si; yazılım için 1.500-10.000 ₺/ay",
+      "tr_ozgunluk_notu": "Tamamen yerel: KOSGEB, TÜBİTAK, KKYDP, kalkınma ajansları, Ticaret Bakanlığı; çağrı takvimleri dağınık ve sürekli değişiyor",
+      "cozum_adaylari": {
+        "global": [
+          "—"
+        ],
+        "turkiye": [
+          "teşvik danışmanlık firmaları",
+          "KOSGEB/TÜBİTAK portalları"
+        ]
+      },
+      "kanit_metrigi": [
+        "uygun destek eşleştirme isabeti",
+        "başvuru dosyası hazırlama süresi",
+        "kabul oranı"
+      ],
+      "veri_ihtiyaci": "Tüm aktif çağrı metinleri + 100 kabul/ret örneği",
+      "skorlar": {
+        "hacim": 4,
+        "aci": 4,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 5,
+        "inference_yogunlugu": 4,
+        "gecis_maliyeti": 2,
+        "cozum_bollugu": 2,
+        "odeme_gucu": 3,
+        "kurulum_karmasikligi": 3,
+        "mevzuat_bagimliligi": 5,
+        "rekabet_yogunlugu": 4,
+        "mevsimsellik": 5,
+        "satis_dongusu": 2
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "musteri-destek-otomasyonu",
+      "ad": "Müşteri destek yanıtlarının otomasyonu",
+      "ozet": "Tekrarlayan sorular ekibi boğuyor; yanıt süresi uzun, mesai dışı kapsama yok.",
+      "musteri_dili": [
+        "müşteri hizmetleri chatbot",
+        "canlı destek otomasyonu",
+        "WhatsApp destek botu",
+        "çağrı merkezi yapay zeka"
+      ],
+      "fonksiyon": "musteri",
+      "yayilim": "yatay",
+      "sektorler": [
+        "e-ticaret-perakende",
+        "bankacilik-finans-sigorta",
+        "turizm-otelcilik",
+        "teknoloji-yazilim",
+        "lojistik-tasimacilik"
+      ],
+      "tetikleyici": "Kampanya dönemi talep patlaması, düşük memnuniyet skoru, personel maliyeti",
+      "bugun_nasil_cozuluyor": "Kural tabanlı eski chatbot + insan ekip; bot çoğu zaman devre dışı bırakılıyor",
+      "alici_persona": "Müşteri deneyimi müdürü / operasyon direktörü",
+      "odeme_istekliligi": "3.000-50.000 ₺/ay, hacme bağlı",
+      "tr_ozgunluk_notu": "Türkçe anlama kalitesi belirleyici; WhatsApp Business yoğun kullanım; Trendyol/HB mesaj kanalları",
+      "cozum_adaylari": {
+        "global": [
+          "Intercom",
+          "Zendesk AI",
+          "Freshdesk"
+        ],
+        "turkiye": [
+          "Desk360",
+          "JetLink",
+          "Infoset",
+          "Sestek"
+        ]
+      },
+      "kanit_metrigi": [
+        "ilk temasta çözüm oranı",
+        "insana devretme oranı",
+        "konuşma başı maliyet",
+        "Türkçe yanıt kalite skoru"
+      ],
+      "veri_ihtiyaci": "5.000 gerçek Türkçe destek konuşması + çözüm etiketi",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 4,
+        "ai_uygunlugu": 5,
+        "tr_surtunmesi": 3,
+        "inference_yogunlugu": 5,
+        "gecis_maliyeti": 4,
+        "cozum_bollugu": 5,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 4,
+        "mevzuat_bagimliligi": 1,
+        "rekabet_yogunlugu": 5,
+        "mevsimsellik": 3,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "cv-eleme-on-mulakat",
+      "ad": "CV eleme ve ön mülakat",
+      "ozet": "Tek ilana yüzlerce başvuru geliyor; eleme öznel ve yavaş, iyi adaylar kaçıyor.",
+      "musteri_dili": [
+        "cv eleme yazılımı",
+        "işe alım yapay zeka",
+        "aday havuzu tarama",
+        "ön mülakat otomasyonu"
+      ],
+      "fonksiyon": "ik",
+      "yayilim": "yatay",
+      "sektorler": [
+        "teknoloji-yazilim",
+        "e-ticaret-perakende",
+        "uretim-imalat",
+        "turizm-otelcilik",
+        "profesyonel-hizmetler"
+      ],
+      "tetikleyici": "Yoğun işe alım dönemi, yüksek devir hızı, sezonluk personel",
+      "bugun_nasil_cozuluyor": "İK uzmanı Excel + kariyer portalı filtreleri ile elle tarıyor",
+      "alici_persona": "İK müdürü / işe alım uzmanı",
+      "odeme_istekliligi": "2.000-20.000 ₺/ay",
+      "tr_ozgunluk_notu": "Türkçe CV formatları, askerlik/İŞKUR alanları, yerel kariyer portalları",
+      "cozum_adaylari": {
+        "global": [
+          "HireVue",
+          "Greenhouse",
+          "Metaview"
+        ],
+        "turkiye": [
+          "Kariyer.net araçları",
+          "yerel İK yazılımları"
+        ]
+      },
+      "kanit_metrigi": [
+        "işe alım uzmanı kararıyla örtüşme oranı",
+        "önyargı testi sonuçları",
+        "aday başına eleme süresi"
+      ],
+      "veri_ihtiyaci": "1.000 Türkçe CV + işe alım kararı etiketi",
+      "skorlar": {
+        "hacim": 4,
+        "aci": 3,
+        "ai_uygunlugu": 5,
+        "tr_surtunmesi": 3,
+        "inference_yogunlugu": 4,
+        "gecis_maliyeti": 2,
+        "cozum_bollugu": 4,
+        "odeme_gucu": 3,
+        "kurulum_karmasikligi": 2,
+        "mevzuat_bagimliligi": 2,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 3,
+        "satis_dongusu": 2
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "bordro-sgk-mevzuat",
+      "ad": "Bordro, SGK ve iş mevzuatı takibi",
+      "ozet": "Sürekli değişen mevzuat, teşvik hesapları ve bildirge süreleri takip edilemiyor; hata cezaya dönüyor.",
+      "musteri_dili": [
+        "bordro programı",
+        "SGK teşvik hesaplama",
+        "kıdem tazminatı hesaplama",
+        "iş mevzuatı güncel değişiklik"
+      ],
+      "fonksiyon": "ik",
+      "yayilim": "yatay",
+      "sektorler": [
+        "uretim-imalat",
+        "turizm-otelcilik",
+        "insaat-emlak",
+        "e-ticaret-perakende",
+        "profesyonel-hizmetler"
+      ],
+      "tetikleyici": "Asgari ücret güncellemesi, mevzuat değişikliği, SGK denetimi, işten çıkış",
+      "bugun_nasil_cozuluyor": "Bordro yazılımı + mali müşavir; mevzuat takibi bültenlerle manuel",
+      "alici_persona": "İK/bordro sorumlusu / mali müşavir",
+      "odeme_istekliligi": "Personel başı 30-150 ₺/ay veya 3.000-30.000 ₺/ay paket",
+      "tr_ozgunluk_notu": "Tamamen yerel: 4857, SGK bildirgeleri, teşvik kodları, asgari ücret desteği — global bordro çözümleri kullanılamaz",
+      "cozum_adaylari": {
+        "global": [
+          "—"
+        ],
+        "turkiye": [
+          "Logo",
+          "Netsis",
+          "Zirve",
+          "Mikro",
+          "Kolay İK",
+          "BordroPlus"
+        ]
+      },
+      "kanit_metrigi": [
+        "mevzuat değişikliğini yakalama gecikmesi",
+        "hesaplama hata oranı",
+        "bildirge hazırlama süresi"
+      ],
+      "veri_ihtiyaci": "Mevzuat değişiklik arşivi + 200 bordro senaryosu",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 4,
+        "ai_uygunlugu": 3,
+        "tr_surtunmesi": 5,
+        "inference_yogunlugu": 2,
+        "gecis_maliyeti": 5,
+        "cozum_bollugu": 3,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 4,
+        "mevzuat_bagimliligi": 5,
+        "rekabet_yogunlugu": 4,
+        "mevsimsellik": 3,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "tedarikci-teklif-karsilastirma",
+      "ad": "Tedarikçi teklif toplama ve karşılaştırma",
+      "ozet": "Farklı formatlarda gelen teklifler elle Excel'e giriliyor; kıyas hatalı ve yavaş.",
+      "musteri_dili": [
+        "teklif karşılaştırma",
+        "satın alma yazılımı",
+        "tedarikçi değerlendirme",
+        "RFQ süreci"
+      ],
+      "fonksiyon": "tedarik",
+      "yayilim": "yatay",
+      "sektorler": [
+        "uretim-imalat",
+        "insaat-emlak",
+        "e-ticaret-perakende",
+        "lojistik-tasimacilik",
+        "saglik-medikal"
+      ],
+      "tetikleyici": "Yeni yatırım, maliyet baskısı, tedarikçi değişimi, ihale",
+      "bugun_nasil_cozuluyor": "PDF/e-posta teklifleri elle Excel'e aktarılıyor",
+      "alici_persona": "Satın alma müdürü",
+      "odeme_istekliligi": "3.000-25.000 ₺/ay",
+      "tr_ozgunluk_notu": "Türkçe teklif formatları, KDV/vade/kur farkı hesabı, EKAP ihale süreçleri",
+      "cozum_adaylari": {
+        "global": [
+          "Coupa",
+          "SAP Ariba"
+        ],
+        "turkiye": [
+          "yerel ERP satın alma modülleri"
+        ]
+      },
+      "kanit_metrigi": [
+        "teklif kalemlerini doğru çıkarma oranı",
+        "karşılaştırma hazırlama süresi",
+        "tespit edilen tasarruf"
+      ],
+      "veri_ihtiyaci": "300 gerçek Türkçe teklif belgesi",
+      "skorlar": {
+        "hacim": 4,
+        "aci": 3,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 3,
+        "inference_yogunlugu": 3,
+        "gecis_maliyeti": 2,
+        "cozum_bollugu": 2,
+        "odeme_gucu": 3,
+        "kurulum_karmasikligi": 3,
+        "mevzuat_bagimliligi": 2,
+        "rekabet_yogunlugu": 2,
+        "mevsimsellik": 2,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "ihracat-gumruk-dokumantasyon",
+      "ad": "İhracat, gümrük ve mevzuat dokümantasyonu",
+      "ozet": "Ülke bazlı belge, sertifika ve mevzuat gereklilikleri karmaşık; eksik belge sevkiyatı durduruyor.",
+      "musteri_dili": [
+        "ihracat belgeleri nelerdir",
+        "gümrük beyannamesi hazırlama",
+        "ATR EUR.1 farkı",
+        "ülke bazlı ihracat mevzuatı"
+      ],
+      "fonksiyon": "operasyon",
+      "yayilim": "secili",
+      "sektorler": [
+        "gida-icecek",
+        "tekstil-hazir-giyim",
+        "uretim-imalat",
+        "kozmetik-kisisel-bakim",
+        "otomotiv"
+      ],
+      "tetikleyici": "İlk ihracat, yeni pazar, sevkiyatın gümrükte takılması, e-ihracat başlangıcı",
+      "bugun_nasil_cozuluyor": "Gümrük müşaviri + deneme yanılma; bilgi dağınık ve güncelliği belirsiz",
+      "alici_persona": "Dış ticaret sorumlusu / ihracat müdürü",
+      "odeme_istekliligi": "Sevkiyat başına müşavirlik 2.000-10.000 ₺; yazılım 3.000-20.000 ₺/ay",
+      "tr_ozgunluk_notu": "Ticaret Bakanlığı mevzuatı, ATR/EUR.1, menşe şahadetnamesi, e-ihracat destekleri, GTİP kodları",
+      "cozum_adaylari": {
+        "global": [
+          "Flexport",
+          "Zonos"
+        ],
+        "turkiye": [
+          "gümrük müşavirlik firmaları",
+          "dış ticaret yazılımları"
+        ]
+      },
+      "kanit_metrigi": [
+        "GTİP kodu isabeti",
+        "eksik belge tespit oranı",
+        "gümrükte takılma sayısındaki değişim"
+      ],
+      "veri_ihtiyaci": "Mevzuat metinleri + 200 gerçek sevkiyat dosyası",
+      "skorlar": {
+        "hacim": 3,
+        "aci": 5,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 5,
+        "inference_yogunlugu": 3,
+        "gecis_maliyeti": 3,
+        "cozum_bollugu": 2,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 4,
+        "mevzuat_bagimliligi": 5,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 3,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "turkce-icerik-uretimi",
+      "ad": "Türkçe pazarlama ve ürün içeriği üretimi",
+      "ozet": "Ürün açıklaması, blog, sosyal medya, e-posta içeriği ölçekte üretilemiyor; AI çıktısı Türkçede yapay duruyor.",
+      "musteri_dili": [
+        "ürün açıklaması yazma",
+        "yapay zeka ile içerik üretimi Türkçe",
+        "toplu ürün açıklaması",
+        "sosyal medya içerik planı"
+      ],
+      "fonksiyon": "pazarlama",
+      "yayilim": "yatay",
+      "sektorler": [
+        "e-ticaret-perakende",
+        "kozmetik-kisisel-bakim",
+        "gida-icecek",
+        "turizm-otelcilik",
+        "tekstil-hazir-giyim"
+      ],
+      "tetikleyici": "Katalog büyümesi, yeni pazaryeri, düşük dönüşüm, ajans maliyeti",
+      "bugun_nasil_cozuluyor": "Freelancer/ajans veya çevrilmiş jenerik AI çıktısı",
+      "alici_persona": "Pazarlama müdürü / e-ticaret müdürü",
+      "odeme_istekliligi": "2.000-30.000 ₺/ay veya içerik başına 20-200 ₺",
+      "tr_ozgunluk_notu": "Türkçe akıcılık ve marka tonu; pazaryeri içerik kuralları; Türkçe SEO anahtar kelime yapısı",
+      "cozum_adaylari": {
+        "global": [
+          "Jasper",
+          "Copy.ai",
+          "Writesonic"
+        ],
+        "turkiye": [
+          "yerel içerik ajansları",
+          "pazaryeri araçları"
+        ]
+      },
+      "kanit_metrigi": [
+        "insan editör kabul oranı",
+        "içerik başına maliyet",
+        "dönüşüm oranı A/B farkı",
+        "Türkçe akıcılık skoru"
+      ],
+      "veri_ihtiyaci": "2.000 ürün + insan yazımı referans açıklama",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 3,
+        "ai_uygunlugu": 5,
+        "tr_surtunmesi": 4,
+        "inference_yogunlugu": 5,
+        "gecis_maliyeti": 1,
+        "cozum_bollugu": 5,
+        "odeme_gucu": 3,
+        "kurulum_karmasikligi": 2,
+        "mevzuat_bagimliligi": 1,
+        "rekabet_yogunlugu": 5,
+        "mevsimsellik": 3,
+        "satis_dongusu": 1
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "arama-gorunurlugu-seo-geo",
+      "ad": "Arama görünürlüğü: SEO + AI aramada (GEO) bulunabilirlik",
+      "ozet": "Trafik düşüyor; müşteriler artık Google yerine AI asistanlara soruyor ve marka o yanıtlarda geçmiyor.",
+      "musteri_dili": [
+        "SEO danışmanlığı",
+        "ChatGPT'de markam çıkmıyor",
+        "GEO nedir",
+        "yapay zeka aramada görünürlük"
+      ],
+      "fonksiyon": "pazarlama",
+      "yayilim": "yatay",
+      "sektorler": [
+        "e-ticaret-perakende",
+        "teknoloji-yazilim",
+        "turizm-otelcilik",
+        "saglik-medikal",
+        "profesyonel-hizmetler"
+      ],
+      "tetikleyici": "Organik trafik düşüşü, rakibin AI yanıtlarında çıkması, reklam maliyetinin artması",
+      "bugun_nasil_cozuluyor": "Klasik SEO ajansı; AI arama tarafı çoğunlukla ölçülmüyor bile",
+      "alici_persona": "Pazarlama direktörü / kurucu",
+      "odeme_istekliligi": "10.000-80.000 ₺/ay ajans; yazılım 3.000-25.000 ₺/ay",
+      "tr_ozgunluk_notu": "Türkçe arama davranışı, yerel rakip seti, Türkçe AI yanıt kalitesi",
+      "cozum_adaylari": {
+        "global": [
+          "Semrush",
+          "Ahrefs",
+          "Profound",
+          "Peec AI"
+        ],
+        "turkiye": [
+          "SEO/GEO ajansları"
+        ]
+      },
+      "kanit_metrigi": [
+        "AI asistan yanıtlarında marka anılma oranı",
+        "kaynak gösterilme sayısı",
+        "organik trafik değişimi"
+      ],
+      "veri_ihtiyaci": "500 Türkçe sorgu × 4 AI asistan yanıt taraması",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 4,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 4,
+        "inference_yogunlugu": 4,
+        "gecis_maliyeti": 2,
+        "cozum_bollugu": 5,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 3,
+        "mevzuat_bagimliligi": 1,
+        "rekabet_yogunlugu": 5,
+        "mevsimsellik": 2,
+        "satis_dongusu": 2
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "toplanti-ozet-aksiyon",
+      "ad": "Toplantı kaydı → özet ve aksiyon takibi",
+      "ozet": "Toplantılarda konuşulanlar kaybediliyor; kararlar ve sorumlular takip edilmiyor.",
+      "musteri_dili": [
+        "toplantı özeti yapay zeka",
+        "toplantı notu otomatik",
+        "Türkçe transkripsiyon"
+      ],
+      "fonksiyon": "yonetim",
+      "yayilim": "yatay",
+      "sektorler": [
+        "teknoloji-yazilim",
+        "profesyonel-hizmetler",
+        "bankacilik-finans-sigorta",
+        "insaat-emlak",
+        "egitim"
+      ],
+      "tetikleyici": "Uzaktan çalışma, çok paydaşlı projeler, müşteri görüşme kayıtları",
+      "bugun_nasil_cozuluyor": "Elle not, çoğu zaman hiç not alınmıyor",
+      "alici_persona": "Yönetici / proje müdürü",
+      "odeme_istekliligi": "Kullanıcı başı 150-800 ₺/ay",
+      "tr_ozgunluk_notu": "Türkçe konuşma tanıma kalitesi, ağız/aksan, İngilizce-Türkçe karışık konuşma",
+      "cozum_adaylari": {
+        "global": [
+          "Otter",
+          "Fireflies",
+          "Fathom",
+          "Granola"
+        ],
+        "turkiye": [
+          "Sestek",
+          "yerel transkripsiyon servisleri"
+        ]
+      },
+      "kanit_metrigi": [
+        "Türkçe kelime hata oranı (WER)",
+        "aksiyon maddesi yakalama oranı",
+        "dakika başı maliyet"
+      ],
+      "veri_ihtiyaci": "50 saat Türkçe toplantı kaydı + insan transkript",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 3,
+        "ai_uygunlugu": 5,
+        "tr_surtunmesi": 3,
+        "inference_yogunlugu": 4,
+        "gecis_maliyeti": 1,
+        "cozum_bollugu": 5,
+        "odeme_gucu": 3,
+        "kurulum_karmasikligi": 1,
+        "mevzuat_bagimliligi": 1,
+        "rekabet_yogunlugu": 4,
+        "mevsimsellik": 1,
+        "satis_dongusu": 1
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "tahsilat-alacak-riski",
+      "ad": "Tahsilat takibi ve alacak riski yönetimi",
+      "ozet": "Vadesi geçen alacaklar birikiyor; hangi müşterinin ödemeyeceği önceden bilinmiyor.",
+      "musteri_dili": [
+        "tahsilat takibi",
+        "alacak yönetimi programı",
+        "müşteri risk analizi",
+        "çek senet takibi"
+      ],
+      "fonksiyon": "finans-muhasebe",
+      "yayilim": "yatay",
+      "sektorler": [
+        "uretim-imalat",
+        "insaat-emlak",
+        "lojistik-tasimacilik",
+        "gida-icecek",
+        "tekstil-hazir-giyim"
+      ],
+      "tetikleyici": "Nakit sıkışıklığı, karşılıksız çek, büyük müşterinin ödememesi",
+      "bugun_nasil_cozuluyor": "Excel takibi + telefonla arama; risk değerlendirmesi sezgisel",
+      "alici_persona": "Mali işler müdürü / finans direktörü",
+      "odeme_istekliligi": "3.000-30.000 ₺/ay",
+      "tr_ozgunluk_notu": "Çek/senet kültürü, Findeks/KKB verisi, icra takibi süreçleri, vadeli satış normu",
+      "cozum_adaylari": {
+        "global": [
+          "HighRadius",
+          "Upflow"
+        ],
+        "turkiye": [
+          "Findeks",
+          "yerel ERP finans modülleri"
+        ]
+      },
+      "kanit_metrigi": [
+        "gecikme tahmini isabet oranı",
+        "ortalama tahsilat süresi değişimi",
+        "şüpheli alacak oranı"
+      ],
+      "veri_ihtiyaci": "2 yıllık gerçek tahsilat geçmişi (anonim)",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 5,
+        "ai_uygunlugu": 3,
+        "tr_surtunmesi": 4,
+        "inference_yogunlugu": 2,
+        "gecis_maliyeti": 4,
+        "cozum_bollugu": 3,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 4,
+        "mevzuat_bagimliligi": 3,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 2,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "rakip-fiyat-pazar-izleme",
+      "ad": "Rakip fiyat ve pazar izleme",
+      "ozet": "Pazaryerlerinde fiyatlar saatlik değişiyor; manuel takip imkânsız, kâr marjı eriyor.",
+      "musteri_dili": [
+        "rakip fiyat takibi",
+        "Trendyol fiyat izleme",
+        "dinamik fiyatlandırma",
+        "buybox kazanma"
+      ],
+      "fonksiyon": "satis",
+      "yayilim": "secili",
+      "sektorler": [
+        "e-ticaret-perakende",
+        "kozmetik-kisisel-bakim",
+        "otomotiv",
+        "teknoloji-yazilim",
+        "gida-icecek"
+      ],
+      "tetikleyici": "Kampanya dönemleri, marj düşüşü, yeni rakip girişi",
+      "bugun_nasil_cozuluyor": "Elle site gezme veya basit scraper; çoğu satıcıda hiç yok",
+      "alici_persona": "E-ticaret müdürü / kategori yöneticisi",
+      "odeme_istekliligi": "2.000-25.000 ₺/ay",
+      "tr_ozgunluk_notu": "Trendyol, Hepsiburada, N11, Çiçeksepeti yapıları; ürün eşleştirmede Türkçe başlık karmaşası",
+      "cozum_adaylari": {
+        "global": [
+          "Prisync",
+          "Price2Spy",
+          "Competera"
+        ],
+        "turkiye": [
+          "yerel pazaryeri yönetim araçları"
+        ]
+      },
+      "kanit_metrigi": [
+        "ürün eşleştirme isabeti",
+        "fiyat değişimi yakalama gecikmesi",
+        "marj etkisi"
+      ],
+      "veri_ihtiyaci": "5.000 ürün eşleşmesi + insan doğrulaması",
+      "skorlar": {
+        "hacim": 4,
+        "aci": 4,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 4,
+        "inference_yogunlugu": 4,
+        "gecis_maliyeti": 2,
+        "cozum_bollugu": 4,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 3,
+        "mevzuat_bagimliligi": 1,
+        "rekabet_yogunlugu": 4,
+        "mevsimsellik": 4,
+        "satis_dongusu": 2
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "kurumsal-bilgi-arama",
+      "ad": "Kurumsal bilgi arama — dokümanlar içinde cevap bulma",
+      "ozet": "Prosedürler, teklifler, sözleşmeler, e-postalar dağınık; çalışan bilgiyi bulamıyor, aynı sorular tekrar soruluyor.",
+      "musteri_dili": [
+        "kurum içi arama",
+        "şirket dokümanlarında arama",
+        "kurumsal chatbot",
+        "bilgi bankası"
+      ],
+      "fonksiyon": "veri-bt",
+      "yayilim": "yatay",
+      "sektorler": [
+        "profesyonel-hizmetler",
+        "teknoloji-yazilim",
+        "uretim-imalat",
+        "bankacilik-finans-sigorta",
+        "saglik-medikal"
+      ],
+      "tetikleyici": "Personel devri, denetim, uzaktan çalışma, yeni çalışan uyumu",
+      "bugun_nasil_cozuluyor": "Paylaşımlı klasör + kıdemliye sormak",
+      "alici_persona": "Bilgi işlem müdürü / operasyon direktörü",
+      "odeme_istekliligi": "10.000-100.000 ₺/ay veya kurulum projesi 100.000-500.000 ₺",
+      "tr_ozgunluk_notu": "Türkçe belge arama kalitesi, taranmış PDF/OCR, KVKK gereği veri yerelliği talebi",
+      "cozum_adaylari": {
+        "global": [
+          "Glean",
+          "Danswer",
+          "Microsoft Copilot"
+        ],
+        "turkiye": [
+          "yerel entegratörler"
+        ]
+      },
+      "kanit_metrigi": [
+        "doğru cevap oranı",
+        "kaynak gösterme doğruluğu",
+        "arama süresi tasarrufu"
+      ],
+      "veri_ihtiyaci": "1.000 kurumsal Türkçe belge + 200 soru-cevap referansı",
+      "skorlar": {
+        "hacim": 4,
+        "aci": 4,
+        "ai_uygunlugu": 5,
+        "tr_surtunmesi": 4,
+        "inference_yogunlugu": 5,
+        "gecis_maliyeti": 3,
+        "cozum_bollugu": 4,
+        "odeme_gucu": 4,
+        "kurulum_karmasikligi": 5,
+        "mevzuat_bagimliligi": 2,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 1,
+        "satis_dongusu": 4
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "satis-teklifi-hazirlama",
+      "ad": "Satış teklifi ve proposal hazırlama",
+      "ozet": "Her teklif sıfırdan yazılıyor; satışçı zamanının önemli kısmı doküman üretmekle geçiyor.",
+      "musteri_dili": [
+        "teklif hazırlama programı",
+        "proposal şablonu",
+        "fiyat teklifi otomasyonu"
+      ],
+      "fonksiyon": "satis",
+      "yayilim": "yatay",
+      "sektorler": [
+        "teknoloji-yazilim",
+        "profesyonel-hizmetler",
+        "uretim-imalat",
+        "insaat-emlak",
+        "lojistik-tasimacilik"
+      ],
+      "tetikleyici": "Satış ekibinin büyümesi, uzun teklif döngüsü, tutarsız fiyatlandırma",
+      "bugun_nasil_cozuluyor": "Word şablonu kopyala-yapıştır",
+      "alici_persona": "Satış müdürü",
+      "odeme_istekliligi": "Kullanıcı başı 200-1.500 ₺/ay",
+      "tr_ozgunluk_notu": "Türkçe ticari dil, KDV/vade/kur maddeleri, e-imza entegrasyonu",
+      "cozum_adaylari": {
+        "global": [
+          "PandaDoc",
+          "Qwilr",
+          "Proposify"
+        ],
+        "turkiye": [
+          "yerel CRM teklif modülleri"
+        ]
+      },
+      "kanit_metrigi": [
+        "teklif hazırlama süresi",
+        "kazanma oranı değişimi",
+        "fiyat tutarlılığı"
+      ],
+      "veri_ihtiyaci": "300 gerçek teklif + kazandı/kaybetti etiketi",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 3,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 3,
+        "inference_yogunlugu": 3,
+        "gecis_maliyeti": 2,
+        "cozum_bollugu": 3,
+        "odeme_gucu": 3,
+        "kurulum_karmasikligi": 3,
+        "mevzuat_bagimliligi": 1,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 1,
+        "satis_dongusu": 2
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "egitim-onboarding-icerigi",
+      "ad": "Eğitim ve işe uyum (onboarding) içeriği üretimi",
+      "ozet": "Yeni çalışan eğitimi kıdemlinin zamanını yiyor; içerik güncellenmiyor, standart yok.",
+      "musteri_dili": [
+        "oryantasyon eğitimi hazırlama",
+        "e-learning içerik üretimi",
+        "şirket içi eğitim yapay zeka"
+      ],
+      "fonksiyon": "ik",
+      "yayilim": "yatay",
+      "sektorler": [
+        "turizm-otelcilik",
+        "e-ticaret-perakende",
+        "uretim-imalat",
+        "saglik-medikal",
+        "egitim"
+      ],
+      "tetikleyici": "Yüksek personel devri, sezonluk işe alım, yeni sistem geçişi",
+      "bugun_nasil_cozuluyor": "Kıdemli çalışan yanında yetiştirme + eski PowerPoint",
+      "alici_persona": "İK / eğitim müdürü",
+      "odeme_istekliligi": "3.000-30.000 ₺/ay",
+      "tr_ozgunluk_notu": "Türkçe içerik ve seslendirme kalitesi; İSG mevzuatı zorunlu eğitimleri",
+      "cozum_adaylari": {
+        "global": [
+          "Synthesia",
+          "Articulate",
+          "Sana"
+        ],
+        "turkiye": [
+          "yerel LMS sağlayıcıları"
+        ]
+      },
+      "kanit_metrigi": [
+        "içerik üretim süresi",
+        "eğitim tamamlama oranı",
+        "yetkinlik testi sonuçları"
+      ],
+      "veri_ihtiyaci": "50 mevcut eğitim dokümanı",
+      "skorlar": {
+        "hacim": 4,
+        "aci": 3,
+        "ai_uygunlugu": 5,
+        "tr_surtunmesi": 3,
+        "inference_yogunlugu": 4,
+        "gecis_maliyeti": 2,
+        "cozum_bollugu": 4,
+        "odeme_gucu": 3,
+        "kurulum_karmasikligi": 2,
+        "mevzuat_bagimliligi": 2,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 3,
+        "satis_dongusu": 2
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "kalite-denetim-belge-yonetimi",
+      "ad": "Kalite, denetim ve belge yönetimi (ISO vb.)",
+      "ozet": "Sertifikasyon dokümantasyonu denetimden denetime hazırlanıyor; süreç kâğıt üzerinde kalıyor.",
+      "musteri_dili": [
+        "ISO 9001 dokümantasyon",
+        "kalite yönetim sistemi yazılım",
+        "denetime hazırlık",
+        "HACCP belgelendirme"
+      ],
+      "fonksiyon": "operasyon",
+      "yayilim": "secili",
+      "sektorler": [
+        "uretim-imalat",
+        "gida-icecek",
+        "saglik-medikal",
+        "insaat-emlak",
+        "kozmetik-kisisel-bakim"
+      ],
+      "tetikleyici": "Belgelendirme denetimi, müşteri denetimi, ihracat şartı, mevzuat değişikliği",
+      "bugun_nasil_cozuluyor": "Kalite danışmanı + Excel/Word klasörleri",
+      "alici_persona": "Kalite müdürü / fabrika müdürü",
+      "odeme_istekliligi": "Danışmanlık 30.000-150.000 ₺/proje; yazılım 3.000-25.000 ₺/ay",
+      "tr_ozgunluk_notu": "TSE/TÜRKAK akreditasyonu, Tarım/Sağlık Bakanlığı gereklilikleri, Türkçe prosedür dili",
+      "cozum_adaylari": {
+        "global": [
+          "Greenlight Guru",
+          "MasterControl"
+        ],
+        "turkiye": [
+          "kalite danışmanlık firmaları",
+          "yerel QDMS yazılımları"
+        ]
+      },
+      "kanit_metrigi": [
+        "denetim bulgusu sayısı",
+        "doküman hazırlama süresi",
+        "uygunsuzluk tekrar oranı"
+      ],
+      "veri_ihtiyaci": "100 prosedür/talimat örneği + denetim bulgu kayıtları",
+      "skorlar": {
+        "hacim": 3,
+        "aci": 4,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 4,
+        "inference_yogunlugu": 3,
+        "gecis_maliyeti": 4,
+        "cozum_bollugu": 2,
+        "odeme_gucu": 3,
+        "kurulum_karmasikligi": 4,
+        "mevzuat_bagimliligi": 5,
+        "rekabet_yogunlugu": 3,
+        "mevsimsellik": 3,
+        "satis_dongusu": 3
+      },
+      "durum": "taslak"
+    },
+    {
+      "id": "eposta-iletisim-onceliklendirme",
+      "ad": "E-posta ve iletişim önceliklendirme",
+      "ozet": "Gelen kutusu taşıyor; önemli müşteri talebi yığın içinde kayboluyor.",
+      "musteri_dili": [
+        "e-posta yönetimi yapay zeka",
+        "gelen kutusu otomasyonu",
+        "e-posta önceliklendirme"
+      ],
+      "fonksiyon": "operasyon",
+      "yayilim": "yatay",
+      "sektorler": [
+        "profesyonel-hizmetler",
+        "e-ticaret-perakende",
+        "lojistik-tasimacilik",
+        "teknoloji-yazilim",
+        "turizm-otelcilik"
+      ],
+      "tetikleyici": "Ekip büyümesi, kaçırılan talep, yanıt süresi şikayeti",
+      "bugun_nasil_cozuluyor": "Manuel klasör/etiket kuralları",
+      "alici_persona": "Operasyon müdürü / yönetici asistanı",
+      "odeme_istekliligi": "Kullanıcı başı 100-600 ₺/ay",
+      "tr_ozgunluk_notu": "Türkçe niyet tespiti; düşük ayrışma — global araçlar büyük ölçüde yeterli",
+      "cozum_adaylari": {
+        "global": [
+          "Superhuman",
+          "Shortwave",
+          "Missive"
+        ],
+        "turkiye": [
+          "—"
+        ]
+      },
+      "kanit_metrigi": [
+        "öncelik sınıflama isabeti",
+        "kaçırılan kritik e-posta sayısı",
+        "yanıt süresi"
+      ],
+      "veri_ihtiyaci": "5.000 etiketli Türkçe e-posta",
+      "skorlar": {
+        "hacim": 5,
+        "aci": 2,
+        "ai_uygunlugu": 4,
+        "tr_surtunmesi": 2,
+        "inference_yogunlugu": 3,
+        "gecis_maliyeti": 1,
+        "cozum_bollugu": 5,
+        "odeme_gucu": 2,
+        "kurulum_karmasikligi": 1,
+        "mevzuat_bagimliligi": 1,
+        "rekabet_yogunlugu": 4,
+        "mevsimsellik": 1,
+        "satis_dongusu": 1
+      },
+      "durum": "taslak"
+    }
+  ]
+}

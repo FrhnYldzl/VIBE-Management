@@ -1,0 +1,27 @@
+{
+  "name": "vibe-management",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mr. F ve Problem Pazaryeri — operatör konsolu ve platform",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c yellow,cyan \"npm run dev -w @vibe/api\" \"npm run dev -w @vibe/web\"",
+    "build": "npm run build -w @vibe/web",
+    "start": "npm run start -w @vibe/api",
+    "typecheck": "tsc -p packages/core && tsc -p apps/api && tsc -p apps/web",
+    "test": "vitest run",
+    "score": "python scripts/score.py"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5"
+  }
+}

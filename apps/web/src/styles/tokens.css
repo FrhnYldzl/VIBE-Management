@@ -1,0 +1,89 @@
+/*
+ * VIBE tasarım token'ları — tek kaynak.
+ * Temel palet kurucu dokümandan (docs/kurucu-dokuman.html) birebir alınmıştır.
+ * Sayfa/bileşen CSS'inde ham hex kullanılmaz; yeni renk gerekiyorsa önce buraya eklenir.
+ */
+:root {
+  /* zemin ve yüzeyler */
+  --ground: #F3F4F7;
+  --surface: #FFFFFF;
+  --surface-2: #EBEDF1;
+  --surface-hover: #F7F8FA;
+  --sidebar: #ECEEF2;
+
+  /* metin */
+  --ink: #151A22;
+  --ink-soft: #3D4553;
+  --muted: #626C7D;
+
+  /* çizgiler */
+  --border: #D9DDE5;
+  --border-2: #C3C9D4;
+
+  /* marka: brass = vurgu / aksiyon, verdi = olumlu / kanıt, danger = risk */
+  --brass: #8F5C11;
+  --brass-bg: #F5EAD7;
+  --brass-ink: #FFFFFF;
+  --verdi: #17595B;
+  --verdi-bg: #DDEBEA;
+  --danger: #8C2F27;
+  --danger-bg: #F6E1DE;
+
+  /* tipografi */
+  --font-ui: Archivo, "Helvetica Neue", Arial, sans-serif;
+  --font-prose: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* ölçek */
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow-pop: 0 12px 32px -8px rgb(21 26 34 / 0.22), 0 0 0 1px var(--border);
+  --sidebar-w: 248px;
+  --topbar-h: 52px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0E1218;
+    --surface: #161B23;
+    --surface-2: #1D232D;
+    --surface-hover: #1A2029;
+    --sidebar: #11161D;
+    --ink: #E5E9F0;
+    --ink-soft: #BCC4D1;
+    --muted: #8B95A6;
+    --border: #262D39;
+    --border-2: #3A4351;
+    --brass: #D8A354;
+    --brass-bg: #2B2114;
+    --brass-ink: #151A22;
+    --verdi: #5FAEB0;
+    --verdi-bg: #10262A;
+    --danger: #D9776C;
+    --danger-bg: #2E1714;
+    --shadow-pop: 0 16px 40px -8px rgb(0 0 0 / 0.6), 0 0 0 1px var(--border-2);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #0E1218;
+  --surface: #161B23;
+  --surface-2: #1D232D;
+  --surface-hover: #1A2029;
+  --sidebar: #11161D;
+  --ink: #E5E9F0;
+  --ink-soft: #BCC4D1;
+  --muted: #8B95A6;
+  --border: #262D39;
+  --border-2: #3A4351;
+  --brass: #D8A354;
+  --brass-bg: #2B2114;
+  --brass-ink: #151A22;
+  --verdi: #5FAEB0;
+  --verdi-bg: #10262A;
+  --danger: #D9776C;
+  --danger-bg: #2E1714;
+  --shadow-pop: 0 16px 40px -8px rgb(0 0 0 / 0.6), 0 0 0 1px var(--border-2);
+}

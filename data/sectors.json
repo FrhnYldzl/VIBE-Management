@@ -1,0 +1,21 @@
+{
+  "surum": "v1",
+  "not": "Sektor bir filtre/facet'tir, birincil anahtar degildir. Lansman icin 5 sektor isaretli.",
+  "sektorler": [
+    { "id": "e-ticaret-perakende", "ad": "E-Ticaret ve Perakende", "lansman": true, "not": "En yuksek veri yogunlugu, olculebilir ROI, odeme gucu var" },
+    { "id": "gida-icecek", "ad": "Gida ve Icecek", "lansman": true, "not": "Tarim Bakanligi mevzuati, etiket/tagshiye, ihracat sertifikalari" },
+    { "id": "kozmetik-kisisel-bakim", "ad": "Kozmetik ve Kisisel Bakim", "lansman": true, "not": "Saglik Bakanligi bildirimi, iddia mevzuati, marka yogunlugu" },
+    { "id": "teknoloji-yazilim", "ad": "Teknoloji ve Yazilim", "lansman": true, "not": "AI'i en hizli benimseyen; referans musteri kaynagi" },
+    { "id": "profesyonel-hizmetler", "ad": "Profesyonel Hizmetler (hukuk, muhasebe, danismanlik)", "lansman": true, "not": "Hem musteri hem kanal: kendi musterilerine tasir" },
+    { "id": "bankacilik-finans-sigorta", "ad": "Bankacilik, Finans, Sigorta", "lansman": false, "not": "BDDK/SPK, uzun satis dongusu, yuksek butce" },
+    { "id": "saglik-medikal", "ad": "Saglik ve Medikal", "lansman": false, "not": "Ozel nitelikli kisisel veri, KVKK agir" },
+    { "id": "uretim-imalat", "ad": "Uretim ve Imalat", "lansman": false },
+    { "id": "lojistik-tasimacilik", "ad": "Lojistik ve Tasimacilik", "lansman": false },
+    { "id": "insaat-emlak", "ad": "Insaat ve Gayrimenkul", "lansman": false },
+    { "id": "turizm-otelcilik", "ad": "Turizm ve Otelcilik", "lansman": false },
+    { "id": "tekstil-hazir-giyim", "ad": "Tekstil ve Hazir Giyim", "lansman": false },
+    { "id": "otomotiv", "ad": "Otomotiv ve Yedek Parca", "lansman": false },
+    { "id": "egitim", "ad": "Egitim", "lansman": false },
+    { "id": "tarim-hayvancilik", "ad": "Tarim ve Hayvancilik", "lansman": false }
+  ]
+}

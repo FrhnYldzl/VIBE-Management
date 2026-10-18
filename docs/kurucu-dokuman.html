@@ -1,0 +1,846 @@
+<title>Mr. F ve Problem Pazaryeri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --ground:   #F3F4F7;
+    --surface:  #FFFFFF;
+    --surface-2:#EBEDF1;
+    --ink:      #151A22;
+    --ink-soft: #3D4553;
+    --muted:    #626C7D;
+    --border:   #D9DDE5;
+    --border-2: #C3C9D4;
+    --brass:    #8F5C11;
+    --brass-bg: #F5EAD7;
+    --verdi:    #17595B;
+    --verdi-bg: #DDEBEA;
+    --danger:   #8C2F27;
+
+    --spine: 70ch;
+    --wide: 1080px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #0E1218;
+      --surface:  #161B23;
+      --surface-2:#1D232D;
+      --ink:      #E5E9F0;
+      --ink-soft: #BCC4D1;
+      --muted:    #8B95A6;
+      --border:   #262D39;
+      --border-2: #3A4351;
+      --brass:    #D8A354;
+      --brass-bg: #2B2114;
+      --verdi:    #5FAEB0;
+      --verdi-bg: #10262A;
+      --danger:   #D9776C;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:   #0E1218;
+    --surface:  #161B23;
+    --surface-2:#1D232D;
+    --ink:      #E5E9F0;
+    --ink-soft: #BCC4D1;
+    --muted:    #8B95A6;
+    --border:   #262D39;
+    --border-2: #3A4351;
+    --brass:    #D8A354;
+    --brass-bg: #2B2114;
+    --verdi:    #5FAEB0;
+    --verdi-bg: #10262A;
+    --danger:   #D9776C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0 24px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .spine { max-width: var(--spine); margin-inline: auto; }
+  .wide  { max-width: var(--wide);  margin-inline: auto; }
+
+  h1, h2, h3, .label, .fig-num, th, .pill, .num {
+    font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  /* ---- masthead ---- */
+  header.mast {
+    max-width: var(--wide);
+    margin: 0 auto 64px;
+    padding-top: 72px;
+    border-bottom: 1px solid var(--border-2);
+    padding-bottom: 32px;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin: 0 0 20px;
+  }
+  h1 {
+    font-size: clamp(38px, 6vw, 62px);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  .standfirst {
+    font-size: clamp(18px, 2.2vw, 21px);
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0;
+  }
+  .mast-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    margin-top: 28px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  /* ---- sections ---- */
+  section { margin-bottom: 72px; }
+  h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 28px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 40px 0 12px;
+    text-wrap: balance;
+  }
+  h3:first-of-type { margin-top: 0; }
+  p { margin: 0 0 18px; }
+  strong { font-weight: 600; }
+  em { font-style: italic; color: var(--ink-soft); }
+
+  .lede {
+    font-size: 19px;
+    color: var(--ink-soft);
+  }
+
+  ul, ol { margin: 0 0 18px; padding-left: 22px; }
+  li { margin-bottom: 8px; }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* ---- tables ---- */
+  .table-wrap { overflow-x: auto; margin: 0 0 24px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Archivo, sans-serif;
+    font-size: 14.5px;
+    background: var(--surface);
+  }
+  th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 14px;
+    border-bottom: 1.5px solid var(--border-2);
+    white-space: nowrap;
+  }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.num, th.num {
+    font-family: "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .t-brass { color: var(--brass); font-weight: 600; }
+  .t-muted { color: var(--muted); }
+
+  /* ---- layer stack: numbering is real (dependency order) ---- */
+  .layers { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .layer {
+    display: grid;
+    grid-template-columns: 54px 200px 1fr;
+    gap: 16px;
+    background: var(--surface);
+    padding: 14px 16px;
+    align-items: baseline;
+  }
+  .layer .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--brass);
+    font-weight: 500;
+  }
+  .layer .nm { font-family: Archivo, sans-serif; font-weight: 600; font-size: 15px; }
+  .layer .ds { font-size: 15px; color: var(--ink-soft); font-family: "Source Serif 4", serif; }
+  @media (max-width: 660px) {
+    .layer { grid-template-columns: 40px 1fr; gap: 6px 12px; }
+    .layer .ds { grid-column: 2; }
+  }
+
+  /* ---- callouts ---- */
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--brass);
+    padding: 18px 22px;
+    margin: 0 0 24px;
+    font-size: 16.5px;
+  }
+  .note p:last-child { margin-bottom: 0; }
+  .note .label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .note.stop { border-left-color: var(--danger); }
+  .note.stop .label { color: var(--danger); }
+
+  .formula {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13.5px;
+    line-height: 1.9;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    overflow-x: auto;
+    margin: 0 0 24px;
+    white-space: pre;
+    color: var(--ink-soft);
+  }
+
+  /* ---- decision trail ---- */
+  .trail { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--brass);
+    padding-top: 4px;
+  }
+  .step h4 {
+    font-family: Archivo, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .step p { margin: 0 0 8px; font-size: 16px; }
+  .step p:last-child { margin-bottom: 0; }
+  .rejected {
+    font-size: 14.5px;
+    color: var(--muted);
+    font-family: Archivo, sans-serif;
+  }
+  .rejected b { color: var(--danger); font-weight: 600; }
+
+  /* ---- figures ---- */
+  figure {
+    margin: 32px 0 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 24px 20px;
+  }
+  figure svg { display: block; width: 100%; max-width: 100%; height: auto; color: var(--ink-soft); }
+  figcaption {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 14.5px;
+    color: var(--muted);
+    font-family: Archivo, sans-serif;
+    line-height: 1.5;
+  }
+  .fig-num { color: var(--brass); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 11.5px; }
+
+  .svg-box { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+  .svg-box-2 { fill: var(--surface-2); stroke: currentColor; stroke-width: 1.2; }
+  .svg-box-brass { fill: var(--brass-bg); stroke: var(--brass); stroke-width: 1.4; }
+  .svg-t { font-family: Archivo, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+  .svg-s { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; fill: var(--muted); }
+  .svg-l { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; fill: var(--muted); }
+  .svg-l-brass { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; fill: var(--brass); }
+  .svg-line { stroke: currentColor; stroke-width: 1.2; fill: none; }
+  .svg-line-brass { stroke: var(--brass); stroke-width: 1.6; fill: none; }
+  .svg-line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 5 4; }
+
+  /* ---- phases ---- */
+  .phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .phase { background: var(--surface); padding: 20px; }
+  .phase .num { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--brass); letter-spacing: 0.1em; }
+  .phase h4 { font-family: Archivo, sans-serif; font-size: 17px; font-weight: 600; margin: 6px 0 4px; }
+  .phase .when { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--muted); margin-bottom: 12px; }
+  .phase p { font-size: 15px; margin: 0 0 10px; }
+  .phase .rev { font-family: Archivo, sans-serif; font-size: 13.5px; color: var(--verdi); font-weight: 600; }
+
+  /* ---- status ---- */
+  .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 28px; }
+  .stat { background: var(--surface); padding: 18px 20px; }
+  .stat .k { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .stat .v { font-family: Archivo, sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .stat .v small { font-size: 15px; font-weight: 500; color: var(--muted); }
+
+  hr.rule { border: none; border-top: 1px solid var(--border-2); margin: 0 0 64px; }
+
+  footer {
+    max-width: var(--wide);
+    margin: 80px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-2);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  a { color: var(--brass); text-underline-offset: 3px; }
+  a:focus-visible, :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<header class="mast">
+  <p class="eyebrow">Kurucu Doküman · v1</p>
+  <h1>Mr. F ve Problem Pazaryeri</h1>
+  <p class="standfirst">
+    Sektörlerin ortak problemlerini raflayan, çözümleri kanıtla karşılaştıran ve kendi ürünlerini
+    talep verisiyle seçen bir pazaryeri — altında, her işi her ay biraz daha ucuza yapan bir motor.
+  </p>
+  <div class="mast-meta">
+    <span>24 Ağustos 2026</span>
+    <span>Durum: veri seti inşası — 40/120 problem</span>
+    <span>İlk dikey: e-ticaret ve e-ihracat</span>
+  </div>
+</header>
+
+<main>
+
+<section class="spine">
+  <h2>Tez</h2>
+  <p class="lede">
+    Türkiye'de yüzlerce işletme aynı problemleri yaşıyor: fatura elle muhasebeleşiyor, sözleşme
+    okunmadan imzalanıyor, KVKK envanteri bir kez yapılıp unutuluyor, pazaryeri cezası nereden
+    geldiği anlaşılmadan kesiliyor. Bu problemlerin çözümü var — ama <em>hangi çözümün gerçekten
+    işe yaradığını, ne kaliteyle ve kaça çalıştığını</em> söyleyen kimse yok.
+  </p>
+  <p>
+    Kuracağımız şey bir araç listesi değil. Birincil anahtarı <strong>problem</strong> olan,
+    sektörü yalnızca bir filtre olarak kullanan, her çözümü ölçülmüş kanıtla sunan ve alıcıyı
+    çözüme kadar götüren bir pazaryeri. Katalog giriş bileti; kalıcı olan ise kanıt katmanı,
+    uygulama hizmeti ve bunların ürettiği talep verisi.
+  </p>
+  <p>
+    Bu yapının altında <strong>Mr. F</strong> çalışır: 120 problem × 15 sektörlük matrisi tarayan,
+    Türkçe iş görevlerinde model performansını ölçen, içeriği üreten ve her ay güncelleyen motor.
+    Rakip için elle imkânsız olan hacim, motorla haftalık rutine dönüşür.
+  </p>
+</section>
+
+<hr class="rule">
+
+<section class="spine">
+  <h2>Karar izi — buraya nasıl geldik</h2>
+  <p>Bu bölüm, mimarinin neden bu şekilde olduğunu açıklar. Her karar, elenen bir alternatifle birlikte kayıtlıdır.</p>
+
+  <div class="trail">
+    <div class="step">
+      <span class="num">01</span>
+      <div>
+        <h4>Motor satılmayacak, silah olarak kullanılacak</h4>
+        <p>
+          Maliyet optimizasyonu, model yönlendirme, damıtma — bu katmanların her birinin
+          kurulmuş ve yatırım almış bir şirketi var (Helicone, OpenRouter, OpenPipe, Portkey…).
+          Solo bir kurucunun bu kategoride kazanma ihtimali yok.
+        </p>
+        <p class="rejected"><b>Elenen:</b> Mr. F'i altyapı ürünü olarak paketleyip satmak.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="num">02</span>
+      <div>
+        <h4>Motor, yalnızca birim ekonominin kırıldığı yerde silahtır</h4>
+        <p>
+          Normal B2B SaaS'ta inference maliyeti gelirin %2-5'idir; 10x ucuzlatmak işin kaderini
+          değiştirmez. Motor ancak yüksek hacimli, birim başına düşük gelirli işlerde belirleyici
+          olur: toplu işleme, içerik hatları, uzun koşan ajanlar, fiyat-hassas pazarlar.
+        </p>
+        <p class="rejected"><b>Elenen:</b> "AI ile her işi yaparız" konumlanması.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="num">03</span>
+      <div>
+        <h4>Dil Türkçe — moat yerelde</h4>
+        <p>
+          İngilizce pazar 50-100x büyük, ama orada dağıtımımız sıfır ve ayrışmamız yok.
+          Türkiye'de ise moat somut: KVKK, TR ödeme/fatura gerçeği, Türkçe kalite ve yerel
+          entegrasyonlar. İngilizce, ileride yalnızca özgün araştırma ve dolar bazlı hizmet için
+          kullanılacak — dizin için asla.
+        </p>
+        <p class="rejected"><b>Elenen:</b> İngilizce global AI dizini kurmak.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="num">04</span>
+      <div>
+        <h4>Dizin değil, kanıt katmanı</h4>
+        <p>
+          Türkiye'de en az 8 AI aracı dizini var; en büyüğü 800+ araç listeliyor. Hepsi global
+          dizinlerin çevrilmiş, sığ kopyaları. 9. dizin olmayacağız. Akademik Türkçe benchmark'lar
+          da mevcut (Cetvel, TurkBench, TurkishMMLU) — ama onlar dil ve kültür bilgisini ölçüyor,
+          <strong>iş görevini ve maliyeti ölçen kimse yok.</strong> Boşluk tam orada.
+        </p>
+        <p class="rejected"><b>Elenen:</b> Araç listeleyen Türkçe dizin.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="num">05</span>
+      <div>
+        <h4>Birim ürün değil, problem — sektör yalnızca filtre</h4>
+        <p>
+          Marka tescili kozmetikte, gıdada, teknolojide aynı problemdir; sektör sadece nüansı
+          değiştirir. Bu yüzden birincil anahtar problem, ikincil filtre sektördür. Bu eksen
+          matrisi doğurur: <strong>120 problem × 15 sektör</strong>. 60 problem sayfasını rakip elle
+          yazabilir; 720 sektöre özgü ve aylık güncel sayfayı yazamaz.
+        </p>
+        <p class="rejected"><b>Elenen:</b> Sektör bazlı dikey lansman (yalnız e-ticaret).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wide">
+  <h2>Konumlanma — Amazon eşlemesi</h2>
+  <div class="spine">
+    <p>
+      Amazon'u kazandıran katalog değildi; katalog kopyalanabilirdi. Kazandıran dört katmandı ve
+      dördünün de bizde karşılığı var. Moat listelemede değil, <strong>kanıt + uygulama</strong>
+      ikilisinde.
+    </p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Amazon</th><th>Bizim karşılığımız</th><th>Ne yapar</th><th>Kopyalanabilirlik</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Kategori rafı</td>
+          <td><strong>Problem rafı</strong></td>
+          <td>Alıcının derdiyle aradığı birim; ürün sayfası bunun yan ürünü</td>
+          <td class="t-muted">Kolay</td>
+        </tr>
+        <tr>
+          <td>Yorum ve puan</td>
+          <td><strong>Kanıt katmanı</strong></td>
+          <td>Ölçülmüş maliyet, kalite, süre — iddia değil veri</td>
+          <td class="t-brass">Zor — motor ister</td>
+        </tr>
+        <tr>
+          <td>Fulfillment (FBA)</td>
+          <td><strong>"Biz kuralım"</strong></td>
+          <td>Kurulum ve entegrasyon; hem gelir hem sonuç verisi</td>
+          <td class="t-brass">Zor — ekip ister</td>
+        </tr>
+        <tr>
+          <td>Amazon Basics</td>
+          <td><strong>Kendi ürünlerimiz</strong></td>
+          <td>Talep verisiyle seçilmiş, dar, TR'ye özgü ürünler</td>
+          <td class="t-brass">Ancak ilk üçü varsa</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wide">
+  <h2>Sistem mimarisi</h2>
+
+  <div class="spine">
+    <h3>Bütünün işleyişi</h3>
+    <p>
+      Sistem iki yarımdan oluşur: içeriği ve kanıtı üreten <strong>motor</strong>, bunları yayınlayıp
+      talebi yakalayan <strong>platform</strong>. Aralarındaki döngü, private-label kararının
+      tahminle değil veriyle verilmesini sağlar.
+    </p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 720 660" role="img" aria-label="Problem matrisinden başlayıp Mr. F motoru, platform ve alıcıdan geçen; affiliate çıkışında sonuç verisinin kaybolduğu, hizmet çıkışında geri döndüğü ve talep sinyalinin private-label kararını besleyerek motora dönen akış şeması">
+      <defs>
+        <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+        <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--brass)"/>
+        </marker>
+        <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
+        </marker>
+      </defs>
+
+      <rect class="svg-box-2" x="250" y="24" width="220" height="56"/>
+      <text class="svg-t" x="360" y="47" text-anchor="middle">Problem × Sektör Matrisi</text>
+      <text class="svg-s" x="360" y="65" text-anchor="middle">120 problem × 15 sektör</text>
+
+      <line class="svg-line" x1="360" y1="80" x2="360" y2="116" marker-end="url(#a1)"/>
+      <text class="svg-l" x="370" y="102">besler</text>
+
+      <rect class="svg-box-brass" x="200" y="120" width="320" height="68"/>
+      <text class="svg-t" x="360" y="146" text-anchor="middle">Mr. F Motoru</text>
+      <text class="svg-s" x="360" y="166" text-anchor="middle">tarar · ölçer · içerik üretir · aylık günceller</text>
+
+      <line class="svg-line" x1="360" y1="188" x2="360" y2="228" marker-end="url(#a1)"/>
+      <text class="svg-l" x="370" y="212">kanıtlı sayfa</text>
+
+      <rect class="svg-box" x="250" y="232" width="220" height="56"/>
+      <text class="svg-t" x="360" y="255" text-anchor="middle">Platform</text>
+      <text class="svg-s" x="360" y="273" text-anchor="middle">problem rafı + kanıt katmanı</text>
+
+      <line class="svg-line" x1="360" y1="288" x2="360" y2="328" marker-end="url(#a1)"/>
+      <text class="svg-l" x="370" y="312">yayınlar</text>
+
+      <rect class="svg-box" x="285" y="332" width="150" height="50"/>
+      <text class="svg-t" x="360" y="362" text-anchor="middle">Alıcı</text>
+
+      <line class="svg-line" x1="360" y1="382" x2="360" y2="400"/>
+      <circle cx="360" cy="400" r="3" fill="currentColor"/>
+
+      <path class="svg-line-dash" d="M360,400 L160,400 L160,434" marker-end="url(#a3)"/>
+      <text class="svg-l" x="250" y="392" text-anchor="middle">tıklar</text>
+
+      <path class="svg-line-brass" d="M360,400 L560,400 L560,434" marker-end="url(#a2)"/>
+      <text class="svg-l-brass" x="470" y="392" text-anchor="middle">kurulum ister</text>
+
+      <line class="svg-line" x1="360" y1="400" x2="360" y2="532" marker-end="url(#a1)"/>
+      <text class="svg-l" x="370" y="470">arama · boş sonuç</text>
+
+      <rect x="60" y="438" width="200" height="58" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+      <text class="svg-t" x="160" y="462" text-anchor="middle">Affiliate tıklaması</text>
+      <text class="svg-s" x="160" y="480" text-anchor="middle">gelir: küçük</text>
+
+      <rect class="svg-box-brass" x="460" y="438" width="200" height="58"/>
+      <text class="svg-t" x="560" y="462" text-anchor="middle">Hizmet: biz kuralım</text>
+      <text class="svg-s" x="560" y="480" text-anchor="middle">gelir: büyük</text>
+
+      <path class="svg-line-dash" d="M160,496 L160,562 L166,562"/>
+      <line x1="152" y1="522" x2="168" y2="536" stroke="var(--danger)" stroke-width="1.6"/>
+      <line x1="168" y1="522" x2="152" y2="536" stroke="var(--danger)" stroke-width="1.6"/>
+      <text class="svg-l" x="176" y="516">sonuç verisi dönmez</text>
+
+      <path class="svg-line-brass" d="M560,496 L560,562 L554,562" marker-end="url(#a2)"/>
+      <text class="svg-l-brass" x="552" y="524" text-anchor="end">sonuç verisi</text>
+
+      <rect class="svg-box" x="170" y="532" width="380" height="62"/>
+      <text class="svg-t" x="360" y="558" text-anchor="middle">Talep sinyali logu</text>
+      <text class="svg-s" x="360" y="576" text-anchor="middle">arama · boş sonuç · konfigüratör · kurulum sonucu</text>
+
+      <path class="svg-line-brass" d="M360,594 L360,626 L22,626 L22,154 L194,154" marker-end="url(#a2)"/>
+      <text class="svg-l-brass" x="192" y="618" text-anchor="middle">private-label kararı → yeni ürün iş yükü</text>
+    </svg>
+    <figcaption>
+      <span class="fig-num">Şekil 1</span> — Affiliate gelir getirir ama alıcıyı siteden çıkardığı için
+      sonuç verisi geri dönmez; hizmet katmanı hem daha büyük geliri hem de veriyi geri getirir.
+      Private-label kararı yalnızca bu geri dönen veriyle verilir — skorla değil.
+    </figcaption>
+  </figure>
+
+  <div class="spine">
+    <h3>Mr. F motoru — yedi katman</h3>
+    <p>
+      Katmanlar bağımlılık sırasına göre numaralıdır: her katman kendinden öncekinin ürettiği
+      veriye dayanır. Katman 0 olmadan hiçbiri ölçülemez.
+    </p>
+  </div>
+
+  <div class="layers">
+    <div class="layer"><span class="num">0</span><span class="nm">Ledger</span><span class="ds">Her çağrının token, maliyet, gecikme ve başarı kaydı. Tek doğruluk kaynağı.</span></div>
+    <div class="layer"><span class="num">1</span><span class="nm">Registry</span><span class="ds">HuggingFace, GitHub, provider ve router kataloğu; yetenek ve fiyat indeksi.</span></div>
+    <div class="layer"><span class="num">2</span><span class="nm">Router</span><span class="ds">Görev → en ucuz yeterli model. Cascade: küçükle dene, yetmezse büyüğe eskale et.</span></div>
+    <div class="layer"><span class="num">3</span><span class="nm">Data Foundry</span><span class="ds">Kendi trafiğinden veri damıtma: her başarılı büyük-model çıktısı bir eğitim örneği.</span></div>
+    <div class="layer"><span class="num">4</span><span class="nm">Forge</span><span class="ds">Damıtılmış veriyle LoRA/SFT — göreve özel küçük uzman modeller.</span></div>
+    <div class="layer"><span class="num">5</span><span class="nm">Skill Fabric</span><span class="ds">Tekrar eden çözümü prompt'tan çıkarıp versiyonlu, yeniden kullanılabilir skill'e çevirme.</span></div>
+    <div class="layer"><span class="num">6</span><span class="nm">Praetorium</span><span class="ds">Vizyon/misyon → hedef ayrıştırma → bütçeli ajan sevk-idaresi.</span></div>
+  </div>
+
+  <div class="spine">
+    <p style="margin-top:24px">
+      Katman 0 → 3 → 4 döngüsü, "ücretsizliğe doğru evrilme" iddiasının mekanizmasıdır. Sihir yok:
+      pahalı model öğretmen olarak kullanılır, çıktısı saklanır, ondan küçük model eğitilir, aynı
+      görev tekrar geldiğinde ücretsiz yerel modele düşer.
+    </p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 660 270" role="img" aria-label="Bir görevin ilk çağrıda pahalı modele gittiğini, çıktının ledger'a kaydedildiğini, eşik aşılınca damıtmayla küçük model eğitildiğini ve aynı görevin sonraki tekrarlarında neredeyse ücretsiz çalıştığını gösteren döngü">
+      <rect class="svg-box-2" x="20" y="170" width="150" height="60"/>
+      <text class="svg-t" x="95" y="196" text-anchor="middle">Görev</text>
+      <text class="svg-s" x="95" y="214" text-anchor="middle">tekrar eden iş</text>
+
+      <line class="svg-line" x1="95" y1="170" x2="95" y2="114" marker-end="url(#a1)"/>
+      <text class="svg-l" x="105" y="146">ilk çağrı</text>
+
+      <rect class="svg-box" x="20" y="54" width="150" height="60"/>
+      <text class="svg-t" x="95" y="80" text-anchor="middle">Pahalı model</text>
+      <text class="svg-s" x="95" y="98" text-anchor="middle">öğretmen</text>
+
+      <line class="svg-line" x1="170" y1="84" x2="246" y2="84" marker-end="url(#a1)"/>
+      <text class="svg-l" x="208" y="74" text-anchor="middle">çıktı kaydedilir</text>
+
+      <rect class="svg-box" x="250" y="54" width="150" height="60"/>
+      <text class="svg-t" x="325" y="80" text-anchor="middle">Ledger</text>
+      <text class="svg-s" x="325" y="98" text-anchor="middle">her çağrı ölçülü</text>
+
+      <line class="svg-line" x1="400" y1="84" x2="476" y2="84" marker-end="url(#a1)"/>
+      <text class="svg-l" x="438" y="74" text-anchor="middle">eşik aşılınca</text>
+
+      <rect class="svg-box" x="480" y="54" width="150" height="60"/>
+      <text class="svg-t" x="555" y="80" text-anchor="middle">Damıtma</text>
+      <text class="svg-s" x="555" y="98" text-anchor="middle">LoRA / SFT</text>
+
+      <line class="svg-line-brass" x1="555" y1="114" x2="555" y2="166" marker-end="url(#a2)"/>
+      <text class="svg-l-brass" x="565" y="144">eğitir</text>
+
+      <rect class="svg-box-brass" x="480" y="170" width="150" height="60"/>
+      <text class="svg-t" x="555" y="196" text-anchor="middle">Küçük yerel model</text>
+      <text class="svg-s" x="555" y="214" text-anchor="middle">marjinal maliyet ≈ 0</text>
+
+      <line class="svg-line-brass" x1="480" y1="200" x2="174" y2="200" marker-end="url(#a2)"/>
+      <text class="svg-l-brass" x="327" y="190" text-anchor="middle">aynı görev artık neredeyse ücretsiz</text>
+    </svg>
+    <figcaption>
+      <span class="fig-num">Şekil 2</span> — Her tekrar eden görev bir kez pahalıdır, sonra bedavaya
+      yakınsar. Sistem kullanıldıkça ucuzlar; "büyüyerek scale etme" ifadesinin somut karşılığı budur.
+    </figcaption>
+  </figure>
+
+  <div class="spine">
+    <h3>Veri modeli</h3>
+    <p>
+      Veri setinin birincil anahtarı problemdir. Sektör bir facet'tir, ayrı kayıt değil — aynı problem
+      N sektörde farklı nüansla görünerek sayfa matrisini üretir.
+    </p>
+    <div class="formula">Sektör → Problem → Çözüm adayları → Kanıt → Uygulama yolu → Sonuç
+                ↑            ↑           ↑            ↑
+             filtre      birincil     Mr. F       Mr. F ölçer
+                         anahtar      tarar</div>
+    <p>
+      Her problem kaydı üç blok taşır: <strong>kimlik</strong> (id, ad, müşteri dili, fonksiyon,
+      sektörler), <strong>bağlam</strong> (tetikleyici, bugün nasıl çözülüyor, alıcı persona, ödeme
+      istekliliği, TR özgünlük notu) ve <strong>karar girdileri</strong> (13 temel skor + kanıt metriği).
+      Ölçülemeyen problem sayfası yayınlanmaz — kanıt metriği zorunlu alandır.
+    </p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wide">
+  <h2>Karar kuralları</h2>
+
+  <div class="spine">
+    <p>
+      Skorlar 1-5 arası tamsayıdır ve dört türetilmiş karar skoru üretir. Eşikler mutlak değil,
+      <strong>göreli (P75 — üst çeyrek)</strong>; veri seti büyüdükçe eşik kendini yeniden ayarlar.
+      Sabit eşik denendi ve ayrıştırmadı: 20 problemin 16'sı geçiyordu.
+    </p>
+    <div class="formula">icerik_onceligi = 0.40·hacim + 0.30·aci + 0.30·tr_surtunmesi
+affiliate_skoru = 0.35·hacim + 0.35·cozum_bollugu + 0.30·odeme_gucu
+hizmet_skoru    = 0.30·aci + 0.30·odeme_gucu + 0.25·kurulum_karmasikligi
+                + 0.15·(6−satis_dongusu)
+private_label   = 0.22·hacim + 0.22·tr_surtunmesi + 0.18·inference_yogunlugu
+                + 0.13·(6−gecis_maliyeti) + 0.13·(6−cozum_bollugu)
+                + 0.12·(6−rekabet_yogunlugu)
+risk_skoru      = 0.40·mevzuat_bagimliligi + 0.30·mevsimsellik + 0.30·satis_dongusu</div>
+
+    <h3>Kendi-ürün filtresi</h3>
+    <p>Bir problem ancak dört koşulu birden sağlarsa private-label adayıdır:</p>
+    <ol>
+      <li><strong>Hacim</strong> — katalogda çok aranıyor, çok tıklanıyor</li>
+      <li><strong>Sürtünme</strong> — TR ödeme yok / entegrasyon yok / Türkçe kötü / KVKK sorunlu</li>
+      <li><strong>Inference-ağır ekonomi</strong> — motorun maliyet avantajı işe yarıyor</li>
+      <li><strong>Düşük geçiş maliyeti</strong> — kullanıcı kolay taşınır</li>
+    </ol>
+
+    <div class="note">
+      <span class="label">Disiplin</span>
+      <p>
+        Skor <em>adayı belirler</em>; geliştirme kararını <em>canlı talep verisi onaylar</em>.
+        En görünür problem çoğu zaman en kötü ürün fırsatıdır — marka tescili içerik ve affiliate
+        sıralamasında üst sıralardayken private-label listesine giremedi (geçiş maliyeti 5,
+        çözüm bolluğu 4, TÜRKPATENT kendi AI'ını devreye almış durumda). Filtre çalışıyor.
+      </p>
+    </div>
+
+    <h3>Açık metodolojik sorun</h3>
+    <p>
+      Risk formülü şu anda iki güçlü adayı tartışmalı biçimde eliyor. Sebep:
+      <strong>mevzuata bağımlılık ile mevzuatın oynaklığı aynı şey değil.</strong> GİB'in e-fatura
+      formatı yarın kalkmaz — bu bağımlılık moat'tır, global oyuncuyu dışarıda tutar. Asıl risk
+      mevzuatın sık değişmesidir. Önerilen düzeltme:
+    </p>
+    <div class="formula">risk = 0.50·mevzuat_oynakligi + 0.30·satis_dongusu + 0.20·mevsimsellik</div>
+    <p class="t-muted" style="font-size:15px">
+      <code>mevzuat_bagimliligi</code> risk formülünden çıkar (moat tarafında kalır),
+      yeni <code>mevzuat_oynakligi</code> sütunu eklenir. 3. pakette uygulanacak, 1-2 geriye dönük doldurulacak.
+    </p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wide">
+  <h2>Ekonomik model</h2>
+  <div class="spine">
+    <p>
+      Üç faz sıralı değil, üst üste binerek ilerler. Tek katı kural: <strong>talep sinyali
+      toplamadan Faz 3'e geçilmez</strong> — aksi halde katalog sahibi olarak ürün kumarı oynanmış olur.
+    </p>
+  </div>
+
+  <div class="phases">
+    <div class="phase">
+      <span class="num">FAZ 1</span>
+      <h4>Katalog + sinyal</h4>
+      <p class="when">0–6 ay</p>
+      <p>E-ticaret dikeyinde 40-60 problem, kanıtlı. Affiliate, konfigüratör, talep logu. Sayfaların altında "biz kuralım" butonu.</p>
+      <p class="rev">Affiliate $300–1.500/ay · Atölye ₺30–100k</p>
+    </div>
+    <div class="phase">
+      <span class="num">FAZ 2</span>
+      <h4>Hizmet katmanı</h4>
+      <p class="when">3–9 ay</p>
+      <p>Kurulum ve entegrasyon işleri. Her proje bir skill'e dönüşür; ikinci müşteride maliyet yarıya iner. Sonuç verisi burada toplanır.</p>
+      <p class="rev">Proje ₺150–500k · asıl nakit</p>
+    </div>
+    <div class="phase">
+      <span class="num">FAZ 3</span>
+      <h4>Kendi ürünlerimiz</h4>
+      <p class="when">9–18 ay</p>
+      <p>Dört filtreyi geçen ve talep verisiyle doğrulanan 1-2 dar ürün. TR'ye özgü, ₺ fiyatlı — bu fiyat noktası ancak damıtılmış modellerle kârlıdır.</p>
+      <p class="rev">MRR başlar</p>
+    </div>
+  </div>
+
+  <div class="spine">
+    <div class="note stop">
+      <span class="label">Beklenti yönetimi</span>
+      <p>
+        İlk yılda hayatı değiştiren bir gelir olasılığı düşüktür. Yüksek olasılıklı sonuç: ayda birkaç
+        bin dolar nakit, 40-60 skill'lik bir kütüphane, 3-5 denenmiş ürün ve neyin çalışıp neyin
+        çalışmadığını gösteren bir veri seti. Asıl kaldıraç ikinci yıl başlar — çünkü o noktada yeni
+        ürün denemenin maliyeti neredeyse sıfırdır.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="spine">
+  <h2>Sınırlar — teknik olarak mümkün, ama yapmayacağız</h2>
+  <ul>
+    <li><strong>Sınırsız otonom harcama.</strong> Ajan bütçesi hard-limit olacak, "akıllı" limit değil. Bir sonsuz döngü bir gecede krediyi yakar.</li>
+    <li><strong>Sınırsız self-modification.</strong> Ajan skill yazar, çekirdeğe dokunmaz; PR açar, merge etmez.</li>
+    <li><strong>Lisanssız veri ile eğitim.</strong> Baştan lisans metadatası tutulur; aksi halde yayınlanamayan bir model kalır elde.</li>
+    <li><strong>Onaysız dış yayın.</strong> Yayın, mesaj, deploy — hepsi kuyrukta bekler.</li>
+    <li><strong>Free-tier farming.</strong> Kalıcı ucuzluk damıtmadan gelir, hesap açmaktan değil. İlk ban dalgasında çöken bir sistem kurulmaz.</li>
+    <li><strong>Doğrulanmamış çözüm adı yayınlamak.</strong> Katalogdaki her ürün, dört sütun (KVKK, TR ödeme/fatura, Türkçe performans, TR entegrasyon) doldurulmadan yayına çıkmaz.</li>
+  </ul>
+</section>
+
+<hr class="rule">
+
+<section class="wide">
+  <h2>Mevcut durum</h2>
+  <div class="status-grid">
+    <div class="stat"><div class="k">Problem veri seti</div><div class="v">40<small> / 120</small></div></div>
+    <div class="stat"><div class="k">Temel skor sütunu</div><div class="v">13</div></div>
+    <div class="stat"><div class="k">Sektör</div><div class="v">15<small> · 5 lansman</small></div></div>
+    <div class="stat"><div class="k">Private-label adayı</div><div class="v">7</div></div>
+  </div>
+
+  <div class="spine">
+    <h3>Kurulan dosyalar</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dosya</th><th>İçerik</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">data/schema.md</td><td>13 temel skor, 5 türetilen skor, P75 eşik kuralı</td></tr>
+          <tr><td class="mono">data/sectors.json</td><td>15 sektör, 5'i lansman işaretli</td></tr>
+          <tr><td class="mono">data/problems/package-01.json</td><td>Yatay çekirdek — 20 problem</td></tr>
+          <tr><td class="mono">data/problems/package-02.json</td><td>E-ticaret ve e-ihracat — 20 problem</td></tr>
+          <tr><td class="mono">scripts/score.py</td><td>Skor hesabı, CSV ve sıralama üretimi</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Sıradaki adımlar</h3>
+    <ol>
+      <li><strong>Paket 3-6</strong> — finans/hukuk/uyum, operasyon/üretim/lojistik, satış/pazarlama/veri, sektöre özgü nişler. Toplam 120.</li>
+      <li><strong>Risk formülü düzeltmesi</strong> — <code>mevzuat_oynakligi</code> sütunu, 1-2 geriye dönük doldurma.</li>
+      <li><strong>Skorların doğrulanması</strong> — <code>hacim</code> ve <code>odeme_gucu</code> gerçek arama hacmi verisiyle test edilir. Bu yapılmadan veri seti, gerekçelendirilmiş bir tahmin listesidir.</li>
+      <li><strong>Türkçe iş-görevi eval seti v1</strong> — görev başına 100-300 gerçek örnek, kabul kriteri, insan referansı.</li>
+      <li><strong>Mr. F MVP-0</strong> — ledger + router + eval koşucusu; ilk kanıt raporu.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Mr. F ve Problem Pazaryeri · Kurucu Doküman v1 · 24 Ağustos 2026 · Veri seti 40/120
+</footer>

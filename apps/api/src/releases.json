@@ -1,0 +1,26 @@
+{
+  "surumler": [
+    {
+      "surum": "0.1.0",
+      "tarih": "2026-10-18",
+      "faz": "A — Operatör konsolu",
+      "baslik": "Temel",
+      "durum": "yapimda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "Monorepo: @vibe/core (skor motoru), @vibe/api (Fastify + SQLite), @vibe/web (React + Vite)" },
+        { "tur": "yeni", "metin": "Tasarım token'ları: kurucu doküman dili (brass/verdi, Archivo · Source Serif · Plex Mono), açık + koyu tema" },
+        { "tur": "yeni", "metin": "Problem Rafı: liste ve pano görünümü, sektör/fonksiyon/durum filtreleri, skor sıralaması" },
+        { "tur": "yeni", "metin": "Problem sayfası: bağlam, müşteri dili, 13 temel skor, P75 eşikli türetilen skorlar, çözüm adayları" },
+        { "tur": "yeni", "metin": "Karar Panosu: P75 eşikleri, dört fırsat sıralaması, private-label adayları" },
+        { "tur": "yeni", "metin": "Talep sinyali logu: arama, boş sonuç, görüntüleme, 'biz kuralım'" },
+        { "tur": "yeni", "metin": "Uygulama içi geri bildirim + triage; ⌘K komut paleti" },
+        { "tur": "test", "metin": "TS skor motoru score.py çıktısıyla parite testi" }
+      ]
+    }
+  ],
+  "planli": [
+    { "surum": "0.2.0", "baslik": "Veri editörü", "ozet": "Problem oluştur/düzenle, paket 3-6, mevzuat_oynakligi + yeni risk formülü" },
+    { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
+    { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
+  ]
+}
