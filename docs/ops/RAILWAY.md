@@ -46,7 +46,10 @@ npm run auth:hash -- "<Ferhan parolası>"
 npm run auth:hash -- "<Gülşah parolası>"
 ```
 
-Her `auth:hash` çıktısının ilk satırı `scrypt$...` hash'idir → `PASSWORD_USERS=f.yildizli@jurishukuk.com:scrypt$...,gulsah@jurishukuk.com:scrypt$...`
+Her `auth:hash` çıktısının ilk satırı `scrypt~...~...` hash'idir → `PASSWORD_USERS=f.yildizli@jurishukuk.com:scrypt~...,gulsah@jurishukuk.com:scrypt~...`
+(`~` ayraç: Raw Editor `$` işaretini bozuyordu.) **Kullanıcılar veritabanında yaşar**; `PASSWORD_USERS` yalnız ilk tohumdur — kullanıcı
+DB'de varsa env değeri yok sayılır. Parola değiştirme: giriş → `/hesap`. Unutulan parola: Admin → Kullanıcılar → "Parola sıfırla".
+Anthropic anahtarı değişken adı: `VIBE_MANAGEMENT` (alt çizgi) ya da `ANTHROPIC_API_KEY`.
 
 ## 4. Alan adı
 Servis → **Settings → Networking → Generate Domain** (örn. `vibe-management.up.railway.app`). Özel alan adı: `vibe.jurishukuk.com` → CNAME.

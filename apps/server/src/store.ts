@@ -22,7 +22,18 @@ export function openStore(path: string) {
       key TEXT PRIMARY KEY, json TEXT NOT NULL,
       updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
     );
+    -- kullanıcılar: e-posta + scrypt parola; PASSWORD_USERS yalnız ilk tohum, sonrası uygulamadan değiştirilir
+    CREATE TABLE IF NOT EXISTS users (
+      email TEXT PRIMARY KEY, name TEXT NOT NULL, hash TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      password_changed_at TEXT, last_login_at TEXT
+    );
   `);
+  const qUser = db.prepare("SELECT email, name, hash, created_at, password_changed_at, last_login_at FROM users WHERE email = ?");
+  const qUsers = db.prepare("SELECT email, name, created_at, password_changed_at, last_login_at FROM users ORDER BY email");
+  const iUser = db.prepare("INSERT OR IGNORE INTO users (email, name, hash) VALUES (?, ?, ?)");
+  const uHash = db.prepare("UPDATE users SET hash = ?, password_changed_at = strftime('%Y-%m-%dT%H:%M:%fZ','now') WHERE email = ?");
+  const uLogin = db.prepare("UPDATE users SET last_login_at = strftime('%Y-%m-%dT%H:%M:%fZ','now') WHERE email = ?");
   const qStatus = db.prepare("SELECT key, status, updated_by, updated_at FROM panel_status WHERE client = ?");
   const uStatus = db.prepare(`INSERT INTO panel_status (client, key, status, updated_by) VALUES (?, ?, ?, ?)
     ON CONFLICT(client, key) DO UPDATE SET status = excluded.status, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
@@ -42,6 +53,13 @@ export function openStore(path: string) {
       return r ? { value: JSON.parse(r.json) as T, updated_by: r.updated_by, updated_at: r.updated_at } : null;
     },
     setVibeState(key: string, value: unknown, by: string) { uState.run(key, JSON.stringify(value), by); },
+    /* ---- kullanıcılar ---- */
+    getUser: (email: string) => qUser.get(email.toLowerCase()) as { email: string; name: string; hash: string; created_at: string; password_changed_at: string | null; last_login_at: string | null } | undefined,
+    listUsers: () => qUsers.all() as unknown as { email: string; name: string; created_at: string; password_changed_at: string | null; last_login_at: string | null }[],
+    /** Var olanı ezmez (tohumlama için) → eklendi mi? */
+    addUserIfMissing(email: string, name: string, hash: string): boolean { return iUser.run(email.toLowerCase(), name, hash).changes > 0; },
+    setUserHash(email: string, hash: string): boolean { return uHash.run(hash, email.toLowerCase()).changes > 0; },
+    touchLogin(email: string) { uLogin.run(email.toLowerCase()); },
     stats() {
       const p = db.prepare("SELECT COUNT(*) AS n, COUNT(DISTINCT client) AS c FROM panel_status").get() as { n: number; c: number };
       const v = db.prepare("SELECT key, length(json) AS bytes, updated_at FROM vibe_state").all() as { key: string; bytes: number; updated_at: string }[];

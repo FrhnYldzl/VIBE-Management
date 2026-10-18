@@ -3,6 +3,15 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.4.3] — 2026-10-18 · Kullanıcılar veritabanında, hesap sayfası, Railway canlı
+
+### Eklendi
+- `users` tablosu (SQLite): `PASSWORD_USERS` yalnız ilk tohum; DB'deki kullanıcı env'i ezer. `/hesap` sayfası (parola değiştir),
+  girişte **Beni hatırla** (30 gün / 12 saat), Admin → Kullanıcılar: DB listesi, **Parola sıfırla**, **Kullanıcı ekle** (`/api/users`).
+- Parola hash ayracı `~` (Railway Raw Editor `$` işaretini bozuyordu); eski `$` biçimi de kabul edilir; `seedHashOk` teşhisi.
+- Anthropic anahtarı için `VIBE_MANAGEMENT` takma adı; health'te ortam teşhisi (ad/adet, değer yok) ve çalışan commit.
+- Railway: tek servis (`@vibe/server`), Volume `/data`, Variables; `railway.json` buildCommand kaldırıldı (Nixpacks EBUSY).
+
 ## [0.4.2] — 2026-10-18 · Paylaşımlı durum (SQLite + Railway Volume)
 
 ### Eklendi

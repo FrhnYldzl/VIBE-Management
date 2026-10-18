@@ -27,7 +27,7 @@
         { "v": "0.4.0", "ad": "Tek Fastify servis + Railway config + admin iskeleti (Yol Haritası)", "durum": "done", "alan": "Altyapı", "kabul": "npm start tek portta landing/app/admin/api" },
         { "v": "0.4.1", "ad": "Kimlik: e-posta + parola (ana yol), GitHub OAuth yalnız geliştirici, imzalı oturum çerezi", "durum": "done", "alan": "Güvenlik", "kabul": "İki e-posta kullanıcısı giriş yapıyor; başkası 401" },
         { "v": "0.4.2", "ad": "Paylaşımlı durum: durum çipleri + Vibe oturumları DB'ye (SQLite + Railway Volume)", "durum": "done", "alan": "Altyapı", "kabul": "İki cihazda aynı durum" },
-        { "v": "0.4.3", "ad": "Railway canlı: Variables + Volume etkin, kimlik açık, db volume; api/web servisleri silindi", "durum": "progress", "alan": "Yayın", "kabul": "health: kimlik açık · db volume; /app oturum ister" },
+        { "v": "0.4.3", "ad": "Railway canlı (tek servis, Volume, Variables); kullanıcılar DB'de, /hesap parola değiştir, beni hatırla, admin parola sıfırla", "durum": "progress", "alan": "Yayın", "kabul": "Canlıda iki kullanıcı e-posta ile giriyor; health: kimlik açık · db volume · vibe açık" },
         { "v": "0.5.0", "ad": "Landing'deki kurucu yol haritası ürüne işlendi (North Star, paketler, kapsam) — admin Yol Haritası", "durum": "progress", "alan": "Ürün" },
         { "v": "0.5.1", "ad": "Veri doğruluğu turu: veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil", "durum": "next", "alan": "Veri", "kabul": "Checklist %100" },
         { "v": "0.6.0", "ad": "Vibe üretim: API key, model kademeleri, token tavanı + sayaç; 13 şablon gözden geçirme", "durum": "planned", "alan": "Vibe", "kabul": "Vibe canlı, maliyet admin'de görünür" },

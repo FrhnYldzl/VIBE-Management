@@ -50,12 +50,13 @@ form .btn{margin-top:14px}.err{margin:0 0 12px;padding:10px 12px;border-radius:v
         <input type="hidden" name="next" value="{{NEXT}}">
         <label for="e">E-posta</label><input id="e" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="ad@jurishukuk.com">
         <label for="p">Parola</label><input id="p" name="password" type="password" autocomplete="current-password" required>
+        <label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink-2);margin-top:12px;font-weight:500"><input type="checkbox" name="remember" value="1" checked style="width:16px;height:16px;margin:0">Beni hatırla (30 gün)</label>
         <button class="btn primary" type="submit">Giriş</button>
       </form>
     </div>
     {{NOPASS}}
     {{GITHUB}}
-    <div class="allow">Geliştirici GitHub hesabı: <code>{{ALLOW}}</code></div>
+    <div class="allow">Parolanızı unuttuysanız diğer kullanıcı Admin → Kullanıcılar'dan sıfırlayabilir. Geliştirici GitHub hesabı: <code>{{ALLOW}}</code></div>
   </div>
 </main>
 </body>

@@ -34,8 +34,10 @@ export function configFromEnv(env = process.env): AuthConfig {
 const b64u = (b: Buffer | string) => Buffer.from(b).toString("base64url");
 const sign = (data: string, secret: string) => createHmac("sha256", secret).update(data).digest("base64url");
 
-export function createSession(cfg: AuthConfig, s: Omit<Session, "exp">): string {
-  const payload = b64u(JSON.stringify({ ...s, exp: Math.floor(Date.now() / 1000) + MAX_AGE_S } satisfies Session));
+const SHORT_AGE_S = 12 * 3600; // "beni hatırla" işaretli değilse: 12 saat, tarayıcı oturumu çerezi
+
+export function createSession(cfg: AuthConfig, s: Omit<Session, "exp">, remember = true): string {
+  const payload = b64u(JSON.stringify({ ...s, exp: Math.floor(Date.now() / 1000) + (remember ? MAX_AGE_S : SHORT_AGE_S) } satisfies Session));
   return `${payload}.${sign(payload, cfg.secret)}`;
 }
 
@@ -51,8 +53,16 @@ export function readSession(cfg: AuthConfig, token: string | undefined): Session
   } catch { return null; }
 }
 
-export function sessionCookie(token: string, secure: boolean): string {
-  return `${COOKIE}=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${MAX_AGE_S}${secure ? "; Secure" : ""}`;
+export function sessionCookie(token: string, secure: boolean, remember = true): string {
+  return `${COOKIE}=${token}; Path=/; HttpOnly; SameSite=Lax${remember ? `; Max-Age=${MAX_AGE_S}` : ""}${secure ? "; Secure" : ""}`;
+}
+
+/** Güçlü başlangıç parolası: 3 kelime + 2 rakam, yazması kolay */
+export function generatePassword(): string {
+  const W = ["kule", "liman", "sedir", "defne", "kaya", "ruzgar", "nehir", "zeytin", "bulut", "cinar", "mavi", "kehribar", "orman", "yelken", "safak", "gunes"];
+  const pick = () => W[randomBytes(1)[0]! % W.length]!;
+  const cap = (w: string) => w[0]!.toUpperCase() + w.slice(1);
+  return `${cap(pick())}-${pick()}-${cap(pick())}-${(randomBytes(1)[0]! % 90) + 10}`;
 }
 export const clearCookie = (secure: boolean) => `${COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${secure ? "; Secure" : ""}`;
 

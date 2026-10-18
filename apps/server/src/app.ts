@@ -21,13 +21,13 @@ import { openStore, type Store } from "./store.ts";
 export function buildApp({ logger = false, auth = configFromEnv(), store }: { logger?: boolean; auth?: AuthConfig; store?: Store } = {}) {
   const app = Fastify({ logger, trustProxy: true }); // Railway proxy → x-forwarded-proto ile https algısı
   const json = <T>(name: string) => JSON.parse(readFileSync(join(DATA_DIR, name), "utf-8")) as T;
-  // Paylaşımlı durum: DATA_PATH (Railway Volume, örn. /data/vibe.db) · yerelde var/vibe.db
+  // Paylaşımlı durum + kullanıcılar: DATA_PATH (Railway Volume, örn. /data/vibe.db) · yerelde var/vibe.db
   const db = store ?? openStore(process.env.DATA_PATH ?? join(ROOT, "var", "vibe.db"));
   app.addHook("onClose", async () => { if (!store) db.close(); });
   if (auth.disabled) app.log.warn("KİMLİK KAPALI: hiçbir giriş yöntemi tanımlı değil (geliştirme modu). Production'da SESSION_SECRET + GITHUB_* / PASSWORD_USERS zorunlu.");
   if (!auth.disabled && !auth.secret) throw new Error("SESSION_SECRET tanımlı değil");
   app.addContentTypeParser("application/x-www-form-urlencoded", { parseAs: "string" }, (_req, body, done) => done(null, Object.fromEntries(new URLSearchParams(body as string))));
-  registerAuth(app, auth);
+  registerAuth(app, auth, db);
 
   app.setErrorHandler((err, _req, reply) => {
     if (err instanceof z.ZodError) return reply.status(400).send({ hata: "Geçersiz istek", ayrinti: err.issues });
@@ -44,6 +44,7 @@ export function buildApp({ logger = false, auth = configFromEnv(), store }: { lo
       NODE_ENV: process.env.NODE_ENV ?? null,
       SESSION_SECRET: Boolean(process.env.SESSION_SECRET),
       PASSWORD_USERS: Object.keys(auth.passwordUsers).length,
+      kullaniciDB: db.listUsers().length,
       GITHUB: Boolean(auth.github),
       DATA_PATH: process.env.DATA_PATH ?? null,
       ANTHROPIC_API_KEY: Boolean(process.env.ANTHROPIC_API_KEY),
