@@ -38,7 +38,7 @@ function SectorCard({ s }: { s: SektorRow }) {
         {s.lansman && <span className="badge brass">Lansman</span>}
       </div>
       <div><span className="n">{s.problemSayisi}</span> <span className="muted">problem</span></div>
-      {s.not && <p className="muted" style={{ margin: 0, fontSize: 13, fontFamily: "var(--font-prose)" }}>{s.not}</p>}
+      {s.not && <p className="muted" style={{ margin: 0, fontSize: 13}}>{s.not}</p>}
     </article>
   );
 }

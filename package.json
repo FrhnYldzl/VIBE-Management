@@ -1,6 +1,6 @@
 {
   "name": "vibe-management",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Mr. F ve Problem Pazaryeri — operatör konsolu ve platform",
   "workspaces": [

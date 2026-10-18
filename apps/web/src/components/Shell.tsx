@@ -53,29 +53,37 @@ export function Shell({ children }: { children: ReactNode }) {
     <div className={`shell${navOpen ? " nav-open" : ""}`}>
       <aside className="sidebar" aria-label="Ana menü">
         <div className="ws">
-          <div className="ws-logo" aria-hidden>F</div>
+          <div className="ws-logo" aria-hidden>V</div>
           <div>
-            <div className="ws-name">VIBE · Mr. F</div>
-            <div className="ws-sub">OPERATÖR KONSOLU</div>
+            <div className="ws-name">VIBE</div>
+            <div className="ws-sub">Management · Mr. F</div>
+          </div>
+        </div>
+        <div className="client">
+          <div className="lbl">Program</div>
+          <div className="cname">Problem Pazaryeri · Faz A</div>
+          <div className="ents">
+            <span className="ent">Operatör konsolu</span>
+            <span className="ent">{meta?.problemSayisi ?? "–"}/{meta?.hedefProblem ?? 120} problem</span>
+            <span className="ent">v{meta?.surum ?? "…"}</span>
           </div>
         </div>
         {sections.map((sec) => (
-          <nav key={sec}>
-            <div className="nav-section">{sec}</div>
+          <nav key={sec} className="nav-section">
+            <div className="h">{sec}</div>
             {NAV.filter((n) => n.section === sec).map((n) => (
               <NavLink key={n.to} to={n.to} end={n.to === "/"} className={({ isActive }) => `nav-item${isActive ? " active" : ""}`}>
-                <n.icon size={16} strokeWidth={1.8} />
-                {n.label}
+                <span className="k">{n.k}</span>
+                <span className="t">{n.label}</span>
                 {n.to === "/raf" && meta && <span className="count">{meta.problemSayisi}</span>}
               </NavLink>
             ))}
           </nav>
         ))}
         <div className="sidebar-foot">
-          <div className="phase-mini"><b>Faz A</b> · Operatör konsolu</div>
-          <div className="phase-mini">Veri seti <b className="mono">{meta?.problemSayisi ?? "–"}/{meta?.hedefProblem ?? 120}</b></div>
+          <div>Veri seti ilerlemesi <b className="mono">%{pct}</b></div>
           <div className="progress" aria-label={`Veri seti %${pct}`}><span style={{ width: `${pct}%` }} /></div>
-          <div className="phase-mini mono">v{meta?.surum ?? "…"}</div>
+          <div>Kaynak: <b>data/</b> (problem seti) · SQLite (sinyal, geri bildirim). Her skorun yanında P75 eşiği gösterilir; doğrulanmamış çözüm adı yayına çıkmaz.</div>
         </div>
       </aside>
 
@@ -83,7 +91,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <header className="topbar">
           <button className="icon-btn menu-btn" onClick={() => setNavOpen(true)} aria-label="Menüyü aç"><Menu size={18} /></button>
           <div className="crumbs">
-            <span>Mr. F</span><span>/</span><b>{current?.label ?? "—"}</b>
+            <span>VIBE ·</span><b>{current?.label ?? "—"}</b>
           </div>
           <div className="topbar-spacer" />
           <button className="search-trigger" onClick={() => setPaletteOpen(true)} aria-label="Ara ve git">

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { api, useMeta } from "../api.ts";
-import { ErrorNote, PageHead, ScoreBar, SectionLabel, Skeleton } from "../components/ui.tsx";
+import { ErrorNote, Note, PageHead, ScoreBar, SectionLabel, Skeleton } from "../components/ui.tsx";
 
 const FAZLAR = [
   { num: "FAZ A · v0.1–0.4", ad: "Operatör konsolu", when: "şimdi", text: "Veri, skor, talep sinyali ve kanıt katmanını biz yönetiyoruz. Mr. F MVP-0 burada doğar.", rev: "Altyapı · iş fazı 1'i taşır", current: true },
@@ -21,17 +21,16 @@ export function Overview() {
   return (
     <div className="page">
       <PageHead
-        hero
         eyebrow={`Operatör Konsolu · v${m?.surum ?? "…"}`}
         title="Mr. F ve Problem Pazaryeri"
-        standfirst="Sektörlerin ortak problemlerini raflayan, çözümleri kanıtla karşılaştıran ve kendi ürünlerini talep verisiyle seçen bir pazaryeri — altında, her işi her ay biraz daha ucuza yapan bir motor."
-        actions={<Link to="/raf" className="btn primary lg">Problem Rafı <ArrowRight size={16} /></Link>}
+        standfirst={<>Sektörlerin ortak problemlerini raflayan, çözümleri <b>kanıtla</b> karşılaştıran ve kendi ürünlerini <b>talep verisiyle</b> seçen bir pazaryeri — altında, her işi her ay biraz daha ucuza yapan bir motor.</>}
+        actions={<><Link to="/karar" className="btn">Karar Panosu</Link><Link to="/raf" className="btn primary">Problem Rafı <ArrowRight size={14} /></Link></>}
       />
 
       {meta.isError && <ErrorNote error={meta.error} />}
 
       <div className="stat-grid">
-        <div className="stat">
+        <div className="stat accent">
           <div className="k">Problem veri seti</div>
           <div className="v">{m ? m.problemSayisi : "–"}<small> / {m?.hedefProblem ?? 120}</small></div>
           <div className="progress"><span style={{ width: `${m ? (m.problemSayisi / m.hedefProblem) * 100 : 0}%` }} /></div>
@@ -94,14 +93,12 @@ export function Overview() {
 
       <SectionLabel>Disiplin</SectionLabel>
       <div className="grid-2">
-        <div className="note">
-          <span className="label">Skor adayı belirler</span>
+        <Note label="Skor adayı belirler">
           Geliştirme kararını canlı talep verisi onaylar. En görünür problem çoğu zaman en kötü ürün fırsatıdır.
-        </div>
-        <div className="note stop">
-          <span className="label">Katı kural</span>
+        </Note>
+        <Note tone="stop" label="Katı kural">
           Talep sinyali toplanmadan Faz C'ye geçilmez. Her arama ve boş sonuç bu konsolda kayda girer.
-        </div>
+        </Note>
       </div>
     </div>
   );

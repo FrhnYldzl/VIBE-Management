@@ -3,6 +3,7 @@ import { MessageSquarePlus, Star, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { api } from "../api.ts";
+import { Note } from "./ui.tsx";
 
 const TURLER = [
   { id: "istek", label: "İstek" },
@@ -59,7 +60,7 @@ export function FeedbackWidget() {
             </div>
             <span className="muted mono" style={{ fontSize: 11 }}>{loc.pathname}</span>
           </div>
-          {send.isError && <div className="note stop">{(send.error as Error).message}</div>}
+          {send.isError && <Note tone="stop">{(send.error as Error).message}</Note>}
           <button className="btn primary" disabled={mesaj.trim().length < 3 || send.isPending}>
             {send.isPending ? "Gönderiliyor…" : "Gönder"}
           </button>

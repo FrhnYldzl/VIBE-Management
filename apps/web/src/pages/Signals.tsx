@@ -61,7 +61,7 @@ export function SignalsPage() {
                         <tr key={r.problem_id}>
                           <td><Link to={`/raf/${r.problem_id}`} className="cell-title">{ad(r.problem_id)}</Link></td>
                           <td className="num">{r.goruntuleme}</td>
-                          <td className="num" style={r.biz_kuralim ? { color: "var(--brass)", fontWeight: 600 } : undefined}>{r.biz_kuralim}</td>
+                          <td className="num" style={r.biz_kuralim ? { color: "var(--red-ink)", fontWeight: 600 } : undefined}>{r.biz_kuralim}</td>
                         </tr>
                       ))}
                     </tbody>

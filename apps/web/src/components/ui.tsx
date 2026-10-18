@@ -5,17 +5,17 @@ import type { ReactNode } from "react";
 export function PageHead({ eyebrow, title, standfirst, actions, hero }: {
   eyebrow?: string; title: string; standfirst?: ReactNode; actions?: ReactNode; hero?: boolean;
 }) {
+  // Juris page-h dizilimi: sol blok (eyebrow + h1 + p), sağda aksiyonlar
   return (
     <header className="page-head">
       <div className="page-head-row">
         <div>
           {eyebrow && <p className="eyebrow">{eyebrow}</p>}
           <h1 className={`page-title${hero ? " hero-title" : ""}`}>{title}</h1>
+          {standfirst && <p className="standfirst">{standfirst}</p>}
         </div>
-        {actions && !hero && <div style={{ display: "flex", gap: 8 }}>{actions}</div>}
+        {actions && <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>{actions}</div>}
       </div>
-      {standfirst && <p className="standfirst">{standfirst}</p>}
-      {actions && hero && <div style={{ display: "flex", gap: 8, marginTop: 20 }}>{actions}</div>}
     </header>
   );
 }
@@ -86,12 +86,24 @@ export function LoadingRows({ n = 6 }: { n?: number }) {
   );
 }
 
+/** Juris not kutusu: ▲ işareti + etiket + metin. tone: warn (varsayılan) · stop · ok · info */
+export function Note({ label, tone = "", children }: { label?: string; tone?: "" | "stop" | "ok" | "info"; children: ReactNode }) {
+  return (
+    <div className={`note ${tone}`}>
+      <span aria-hidden>▲</span>
+      <div>
+        {label && <span className="label">{label}</span>}
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export function ErrorNote({ error }: { error: unknown }) {
   return (
-    <div className="note stop">
-      <span className="label">Bağlantı hatası</span>
+    <Note tone="stop" label="Bağlantı hatası">
       {error instanceof Error ? error.message : "Bilinmeyen hata"} — API çalışıyor mu? (<code>npm run dev</code>)
-    </div>
+    </Note>
   );
 }
 

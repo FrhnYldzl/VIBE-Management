@@ -21,6 +21,9 @@ yönetemezsek alıcıya gösterecek kanıtımız olmaz.
 
 ## Kuzey yıldızları
 
+**Görsel standart ve dizilim (bağlayıcı):** Juris Kurumsal Yönetim Paneli / MTFG Portföy Paneli
+(`VIBE Management/Saas UI Dashboards`). Aşağıdakiler bu standardın *içinde* ilham kaynağıdır, onu değiştirmez.
+
 | Eksen | Referans | Ne alıyoruz |
 |---|---|---|
 | Vibe | **Claude** | Sakin, sıcak, okunaklı; serif + sans dengesi; içerik önce, krom sonra; tek birincil aksiyon |
@@ -33,8 +36,8 @@ yönetemezsek alıcıya gösterecek kanıtımız olmaz.
 ## Tasarım ilkeleri (bozulmaz)
 
 1. **Kanıt önce.** Skor, eşik ve kaynak her zaman görünür. Doğrulanmamış veri açıkça etiketlenir.
-2. **Tek token seti.** Renk/tipografi yalnız `apps/web/src/styles/tokens.css` üzerinden; sayfa içinde ham hex yok.
-3. **Açık + koyu tema eşit.** Koyu tema Higgsfield ciddiyetinde, açık tema Claude sıcaklığında.
+2. **Tek token seti.** Juris kimliği (lacivert/kırmızı, Playfair · Inter · JetBrains Mono) yalnız `apps/web/src/styles/tokens.css` üzerinden; sayfa içinde ham hex yok.
+3. **Açık + koyu tema eşit.** Panellerdeki koyu tema (gece lacivert + fildişi) birebir.
 4. **Yoğun ama sakin.** Tablo yoğunluğu GitHub, nefes Claude.
 5. **Klavye birinci sınıf.** ⌘K, `/` arama, ok tuşları.
 6. **Türkçe birinci dil.** Arayüz metni Türkçe; kod ve alan adları şemadaki gibi.

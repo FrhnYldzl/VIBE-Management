@@ -140,7 +140,7 @@ function ListView({ items, sirala, esik, onOpen }: { items: ScoredProblem[]; sir
           <tr>
             <th>#</th>
             <th>Problem</th>
-            {cols.map((c) => <th key={c} style={c === sirala ? { color: "var(--brass)" } : undefined}>{SKOR_ETIKETLERI[c]}</th>)}
+            {cols.map((c) => <th key={c} style={c === sirala ? { color: "var(--red-ink)" } : undefined}>{SKOR_ETIKETLERI[c]}</th>)}
             <th>Risk</th>
             <th>Durum</th>
           </tr>

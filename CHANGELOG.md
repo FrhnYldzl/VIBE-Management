@@ -3,6 +3,14 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.1.1] — 2026-10-18 · Faz A · Juris görsel standardı
+
+### Değişti
+- Tasarım sistemi **Juris Kurumsal Kimlik** standardına taşındı (kurucu geri bildirimi): lacivert #0A2240 / kırmızı #BC2F2C,
+  Playfair Display · Inter · JetBrains Mono; panellerle birebir token seti ve dizilim (lacivert ray + program kutusu + kodlu nav,
+  page-h, tile, pill, not kutusu)
+- `Note` bileşeni (▲ + etiket + metin), nav kalemlerine mono kod (00–05), Genel Bakış'ta vurgulu tile
+
 ## [0.1.0] — 2026-10-18 · Faz A · Temel
 
 ### Eklendi

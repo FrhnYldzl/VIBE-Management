@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BASE_SKORLAR, SKOR_ETIKETLERI, TURETILEN_SKORLAR } from "@vibe/core";
 import { api, useSectors } from "../api.ts";
-import { AdayBadge, DurumBadge, Empty, ErrorNote, FonksiyonBadge, LoadingRows, Pips, ScoreBar, SectionLabel } from "../components/ui.tsx";
+import { AdayBadge, DurumBadge, Empty, ErrorNote, FonksiyonBadge, LoadingRows, Note, Pips, ScoreBar, SectionLabel } from "../components/ui.tsx";
 
 // Yüksek değerin kötü olduğu temel skorlar (şema notları)
 const TERS_IPUCU: Partial<Record<string, string>> = {
@@ -79,9 +79,10 @@ export function ProblemDetailPage() {
           </div>
 
           <SectionLabel>Çözüm adayları</SectionLabel>
-          <div className="note" style={{ marginBottom: 12 }}>
-            <span className="label">Doğrulanmamış · v0 tarama tohumu</span>
-            Mr. F katalog taraması teyit edene ve dört sütun (KVKK, TR ödeme/fatura, Türkçe performans, TR entegrasyon) dolana kadar bu adlar yayın yüzeyine çıkmaz.
+          <div style={{ marginBottom: 12 }}>
+            <Note label="Doğrulanmamış · v0 tarama tohumu">
+              Mr. F katalog taraması teyit edene ve dört sütun (KVKK, TR ödeme/fatura, Türkçe performans, TR entegrasyon) dolana kadar bu adlar yayın yüzeyine çıkmaz.
+            </Note>
           </div>
           <div className="grid-2">
             <div className="card card-pad"><h3 className="card-title" style={{ marginBottom: 10 }}>Türkiye</h3><div className="chips">{p.cozum_adaylari.turkiye.map((c) => <span key={c} className="chip">{c}</span>)}</div></div>

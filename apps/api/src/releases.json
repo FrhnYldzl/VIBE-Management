@@ -1,11 +1,22 @@
 {
   "surumler": [
     {
+      "surum": "0.1.1",
+      "tarih": "2026-10-18",
+      "faz": "A — Operatör konsolu",
+      "baslik": "Juris görsel standardı",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "iyilestirme", "metin": "Tasarım sistemi Juris Kurumsal Kimlik'e taşındı: lacivert/kırmızı, Playfair · Inter · JetBrains Mono, panellerle aynı dizilim" },
+        { "tur": "iyilestirme", "metin": "Not bileşeni, kodlu nav, vurgulu tile; açık/koyu/mobil doğrulandı" }
+      ]
+    },
+    {
       "surum": "0.1.0",
       "tarih": "2026-10-18",
       "faz": "A — Operatör konsolu",
       "baslik": "Temel",
-      "durum": "yapimda",
+      "durum": "yayinda",
       "degisiklikler": [
         { "tur": "yeni", "metin": "Monorepo: @vibe/core (skor motoru), @vibe/api (Fastify + SQLite), @vibe/web (React + Vite)" },
         { "tur": "yeni", "metin": "Tasarım token'ları: kurucu doküman dili (brass/verdi, Archivo · Source Serif · Plex Mono), açık + koyu tema" },

@@ -47,4 +47,4 @@ npm test
 
 ## Sürüm
 
-Güncel: **v0.1.0** (Faz A — operatör konsolu temeli). Ayrıntı: [CHANGELOG.md](CHANGELOG.md).
+Güncel: **v0.1.1** (Faz A — operatör konsolu temeli, Juris görsel standardı). Ayrıntı: [CHANGELOG.md](CHANGELOG.md).

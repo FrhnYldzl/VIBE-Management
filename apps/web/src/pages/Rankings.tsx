@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { SKOR_ETIKETLERI, TURETILEN_SKORLAR } from "@vibe/core";
 import { api, type Rankings } from "../api.ts";
-import { ErrorNote, LoadingRows, PageHead, ScoreBar, SectionLabel } from "../components/ui.tsx";
+import { ErrorNote, LoadingRows, Note, PageHead, ScoreBar, SectionLabel } from "../components/ui.tsx";
 
 const LISTELER: { key: keyof Rankings["listeler"]; baslik: string; karar: string }[] = [
   { key: "icerik_onceligi", baslik: "İçerik önceliği", karar: "ilk dalga içerik" },
@@ -61,9 +61,8 @@ export function RankingsPage() {
               </tbody>
             </table>
           </div>
-          <div className="note" style={{ marginTop: 12 }}>
-            <span className="label">Aday ≠ karar</span>
-            Geliştirme kararı için canlı talep sinyali (arama / boş sonuç logu) şart. Bkz. Talep Sinyalleri.
+          <div style={{ marginTop: 12 }}>
+            <Note label="Aday ≠ karar">Geliştirme kararı için canlı talep sinyali (arama / boş sonuç logu) şart. Bkz. Talep Sinyalleri.</Note>
           </div>
 
           <div className="grid-2" style={{ marginTop: 8 }}>
@@ -88,10 +87,11 @@ export function RankingsPage() {
           </div>
 
           <SectionLabel aside="data/schema.md · bölüm 5">Formüller</SectionLabel>
-          <pre className="card card-pad mono" style={{ margin: 0, overflowX: "auto", fontSize: 12.5, lineHeight: 1.9, color: "var(--ink-soft)" }}>{FORMUL}</pre>
-          <div className="note stop" style={{ marginTop: 12 }}>
-            <span className="label">Açık metodolojik sorun · v0.2</span>
-            Mevzuata bağımlılık ile mevzuatın oynaklığı aynı şey değil. Önerilen: <code className="mono">risk = 0.50·mevzuat_oynakligi + 0.30·satis_dongusu + 0.20·mevsimsellik</code>
+          <pre className="card card-pad mono" style={{ margin: 0, overflowX: "auto", fontSize: 12.5, lineHeight: 1.9, color: "var(--ink-2)" }}>{FORMUL}</pre>
+          <div style={{ marginTop: 12 }}>
+            <Note tone="stop" label="Açık metodolojik sorun · v0.2">
+              Mevzuata bağımlılık ile mevzuatın oynaklığı aynı şey değil. Önerilen: <code className="mono">risk = 0.50·mevzuat_oynakligi + 0.30·satis_dongusu + 0.20·mevsimsellik</code>
+            </Note>
           </div>
         </>
       )}
