@@ -552,6 +552,30 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
     <div class="acts"><button type="button" class="btn" id="pgCancel">Vazgeç</button><button type="submit" class="btn primary">Programı oluştur</button></div>
   </form>
 </div>
+<div class="imodal" id="designModal" hidden>
+  <form class="box" id="designBox" style="width:min(860px,100%);max-height:92vh;overflow:auto">
+    <h2>Eğitim tasarla · Claude</h2>
+    <p class="sub">Konu + hedef kitle + Juris hizmetleri → Claude her modül için <b>teorik/akademik çerçeve</b> (kavram, mevzuat dayanağı, literatür), <b>uygulama karşılığı</b> (atölye, kontrol listesi, çıktı) ve <b>hizmet–panel eşlemesi</b> üretir. Önizleyip programa dönüştürürsünüz; her oturumdan Claude Design brief'i alınır.</p>
+    <label>Konu / tema<input name="konu" required placeholder="Örn. Aile şirketlerinde kurumsallaşma ve pay devri · KOBİ'ler için sözleşme yönetimi · Yatırım hazırlığı"></label>
+    <div class="row3"><label>Hedef kitle<select name="kitle" id="dsKitle"></select></label><label>Düzey<select name="duzey"><option>Başlangıç</option><option selected>Orta</option><option>İleri</option><option>Karma</option></select></label><label>Ton<select name="ton"><option selected>Akademik + uygulamacı (dengeli)</option><option>Uygulamacı (atölye ağırlıklı)</option><option>Akademik (kavramsal derinlik)</option></select></label></div>
+    <div class="row3"><label>Oturum (modül) sayısı<select name="oturum"><option>3</option><option>4</option><option selected>6</option><option>8</option></select></label><label>Ders / oturum<select name="ders"><option>2</option><option selected>3</option><option>4</option></select></label><label>Oturum aralığı<select name="aralik"><option value="14">2 haftada bir</option><option value="7">Haftalık</option><option value="28">Aylık</option></select></label></div>
+    <label>Vurgulanacak Juris hizmetleri</label><div class="chk" id="dsHiz"></div>
+    <div class="row3"><label>Kurum / ev sahibi<input name="kurum" placeholder="Örn. Ankara Teknopark"></label><label>Yer<input name="yer" placeholder="Salon"></label><label>Başlangıç tarihi<input name="baslangic" type="date" required></label></div>
+    <div class="row"><label>Varsayılan eğitmen<select name="egitmen" id="dsEg"></select></label><label>Koordinatör<select name="koord" id="dsKo"></select></label></div>
+    <label>Kurucu notu (isteğe bağlı)<input name="not" placeholder="Örn. 3. modülde pay sahipleri sözleşmesi vakası olsun; misafir olarak melek yatırımcı"></label>
+    <div class="out" id="dsOut"></div>
+    <div id="dsPreview"></div>
+    <div class="acts"><button type="button" class="btn" id="dsCancel">Kapat</button><button type="button" class="btn primary" id="dsSave" hidden>Programı kaydet</button><button type="button" class="btn primary" id="dsGo">Tasarla</button></div>
+  </form>
+</div>
+<div class="imodal" id="briefModal" hidden>
+  <div class="box" style="width:min(820px,100%)">
+    <h2 id="brTitle">Design brief</h2>
+    <p class="sub">Claude Design'a (ya da Vibe'a) yapıştırın: Juris görsel standardı + slayt iskeleti + içerik. Dönen slaytı oturuma "Doküman ekle" ile bağlayın.</p>
+    <textarea id="brText" readonly style="width:100%;height:46vh;font-family:var(--font-mono);font-size:12px;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);white-space:pre;overflow:auto"></textarea>
+    <div class="acts"><button type="button" class="btn" id="brClose">Kapat</button><button type="button" class="btn" id="brLib">Kütüphaneye kaydet</button><button type="button" class="btn" id="brDl">İndir (.md)</button><button type="button" class="btn primary" id="brCopy">Kopyala</button></div>
+  </div>
+</div>
 
 <main class="main" id="main">
   <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button><div class="crumb" id="crumb"></div><div class="spacer"></div><div class="date" id="today"></div></div>
@@ -813,7 +837,7 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
 
   <!-- 11 EĞİTİM -->
   <section class="view" id="v-egitim">
-    <div class="page-h"><div><div class="eyebrow">11 · Eğitim</div><h1>Eğitim Programları</h1><p>Verdiğimiz hizmetlere paralel eğitimler: her oturum paneldeki bir fonksiyona ve konuya bağlanır. Eğitim aynı zamanda <b>network</b> kanalıdır — katılımcılar ve misafir yatırımcılar funnel'a girer.</p></div><div class="right"><button class="btn primary" id="newProg">＋ Yeni program</button></div></div>
+    <div class="page-h"><div><div class="eyebrow">11 · Eğitim</div><h1>Eğitim Programları</h1><p>Verdiğimiz hizmetlere paralel eğitimler: her oturum paneldeki bir fonksiyona ve konuya bağlanır. Eğitim aynı zamanda <b>network</b> kanalıdır — katılımcılar ve misafir yatırımcılar funnel'a girer.</p></div><div class="right"><button class="btn" id="newProg">＋ Katalogdan program</button><button class="btn primary" id="newDesign">✦ Eğitim tasarla · Claude</button></div></div>
     <div class="eg-tabs" id="egTabs"></div>
     <div id="egitimBody"></div>
   </section>
@@ -975,18 +999,148 @@ const egPrograms=()=>EGITIM.programlar.concat(egitimState.filter(x=>x.k==="prog"
 const egP=()=>egPrograms().find(p=>p.id===egCur)||egPrograms()[0];
 const egSlug=s=>String(s).toLowerCase().replace(/[ığüşöçİ]/g,c=>({ı:"i",ğ:"g",ü:"u",ş:"s",ö:"o",ç:"c",İ:"i"}[c])).replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,30);
 const egLessonTpl=n=>(EGITIM.programlar[0].oturumlar.find(s=>s.modul===n)||{dersler:[]});
+/* modül: programın kendi modülleri (Claude tasarımı) yoksa katalog */
+const egMod=(p,no)=>((p&&p.moduller)||EGITIM.moduller).find(x=>x.no===no)||{t:"Modül "+no,soru:"",fn:[],panel:[],hizmet:""};
+const EG_SAAT=["10:00–11:00","11:15–12:15","13:30–14:30","14:45–15:45"];
+const JURIS_HIZMET=["Şirket Stratejisinin Analizi ve Geliştirilmesi","Hukuki Denetim ve Risk Analizi","Şirket İçi Hukuki Süreçlerin Geliştirilmesi","Kurumsal Yönetim ve Organizasyon Yapısının Geliştirilmesi","Uyuşmazlık ve Hukuki Süreç Danışmanlığı"];
+const EG_KITLE=["Girişimciler (erken aşama)","Yatırımcılar / melek ağları","KOBİ ve aile şirketi yönetimi","Teknopark · kuluçka · ekosistem paydaşları","Şirket içi yönetim ekibi (müvekkil)","Hukukçular / avukat adayları"];
 /* Program oluşturucu: seçilen modüller → başlangıç + aralık ile tarihli oturumlar; dersler şablondan, eğitmen varsayılan */
+/* f.moduller: katalog numaraları (dersler Teknopark şablonundan) · f.ozelModuller: Claude tasarımı modül nesneleri (kendi dersleriyle) */
 function egBuildProgram(f){
-  const start=new Date(f.baslangic+"T00:00:00"); const step=+f.aralik; const mods=f.moduller;
+  const start=new Date(f.baslangic+"T00:00:00"); const step=+f.aralik;
   const AY=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"], GUN=["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
-  const oturumlar=mods.map((m,i)=>{ const d=new Date(start.getTime()+i*step*86400000); const tpl=egLessonTpl(m);
-    return {no:i+1,modul:m,tarih:d.toISOString().slice(0,10),ay:AY[d.getMonth()],duzey:tpl.duzey||"—",misafir:tpl.misafir||null,dersler:tpl.dersler.map(x=>[x[0],f.egitmen,x[2]])}; });
-  const last=oturumlar[oturumlar.length-1]; const yil=start.getFullYear();
-  return {id:egSlug(f.kurum)+"-"+yil+"-"+Math.random().toString(36).slice(2,5),ad:f.ad||"Girişim & Yatırım Hukuku Eğitimi",tema:"Bir Girişimin Kuruluştan Exit'e Yolculuğu",motto:"Neden ile Başla — Simon Sinek",
-    kurum:f.kurum,yer:f.yer||"—",gun:GUN[start.getDay()],format:`${oturumlar.length} Oturum × 3 Ders · ${oturumlar.length*3} saat`,donem:`${AY[start.getMonth()]}${last?"–"+AY[new Date(last.tarih).getMonth()]:""} ${yil}`,
+  const ozel=f.ozelModuller||null; const mods=ozel?ozel.map(m=>m.no):f.moduller;
+  const ymd=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; /* yerel tarih — toISOString UTC'ye kaydırır */
+  const oturumlar=mods.map((m,i)=>{ const d=new Date(start); d.setDate(d.getDate()+i*step);
+    if(ozel){ const om=ozel[i]; return {no:i+1,modul:m,tarih:ymd(d),ay:AY[d.getMonth()],duzey:om.duzey||f.duzey||"—",misafir:om.misafir||null,dersler:(om.dersler||[]).map((x,j)=>[x.t||String(x),f.egitmen,x.sure||EG_SAAT[j]||""])}; }
+    const tpl=egLessonTpl(m); return {no:i+1,modul:m,tarih:ymd(d),ay:AY[d.getMonth()],duzey:tpl.duzey||"—",misafir:tpl.misafir||null,dersler:tpl.dersler.map(x=>[x[0],f.egitmen,x[2]])}; });
+  const last=oturumlar[oturumlar.length-1]; const yil=start.getFullYear(); const dersN=oturumlar.reduce((a,s)=>a+s.dersler.length,0);
+  const ayBit=last?AY[new Date(last.tarih+"T00:00:00").getMonth()]:null; const donemStr=`${AY[start.getMonth()]}${ayBit&&ayBit!==AY[start.getMonth()]?"–"+ayBit:""} ${yil}`;
+  return {id:egSlug(f.kurum)+"-"+yil+"-"+Math.random().toString(36).slice(2,5),ad:f.ad||"Girişim & Yatırım Hukuku Eğitimi",tema:f.tema||"Bir Girişimin Kuruluştan Exit'e Yolculuğu",motto:f.motto||"Neden ile Başla — Simon Sinek",neden:f.neden||"",
+    kurum:f.kurum,yer:f.yer||"—",gun:GUN[start.getDay()],format:`${oturumlar.length} Oturum × ${Math.round(dersN/Math.max(oturumlar.length,1))} Ders · ${dersN} saat`,donem:donemStr,
     baslangic:f.baslangic,bitis:last?last.tarih:f.baslangic,hedefKitle:f.hedef||"Girişimciler, yatırımcılar ve ekosistem paydaşları",koordinator:f.koord,
-    final:mods.includes(8)?"Yatırım Süreci Simülasyonu (8. modül)":"—",network:{amac:"Katılımcılar → Juris müvekkil adayı / MTFG funnel",kanal:"Oturum sonu tanışma · kontrol listeleri"},oturumlar,dokumanlar:[],olusturma:new Date().toISOString(),turetilmis:true};
+    final:f.final||(mods.includes(8)&&!ozel?"Yatırım Süreci Simülasyonu (8. modül)":"—"),network:{amac:"Katılımcılar → Juris müvekkil adayı / MTFG funnel",kanal:"Oturum sonu tanışma · kontrol listeleri"},oturumlar,dokumanlar:[],
+    moduller:ozel||undefined,kaynaklar:f.kaynaklar||undefined,tasarim:f.tasarim||undefined,olusturma:new Date().toISOString(),turetilmis:true};
 }
+/* ---- Eğitim tasarla · Claude: konu + kitle + hizmetler → teori / uygulama / hizmet eşlemeli modüller (JSON) ---- */
+let egDesign=null, egDesignCtl=null;
+function openDesign(){ const f=$("#designBox"); f.reset(); egDesign=null; $("#dsOut").textContent=""; $("#dsOut").classList.remove("err"); $("#dsPreview").innerHTML=""; $("#dsSave").hidden=true; $("#dsGo").disabled=false;
+  $("#dsKitle").innerHTML=EG_KITLE.map(k=>`<option>${k}</option>`).join(""); $("#dsHiz").innerHTML=JURIS_HIZMET.map((h,i)=>`<label><input type="checkbox" name="hiz" value="${esc(h)}"${i<4?" checked":""}><span>${esc(h)}</span></label>`).join("");
+  $("#dsEg").innerHTML=EGITIM.egitmenler.map(e=>`<option value="${e.id}"${e.id==="fy"?" selected":""}>${esc(e.ad)}</option>`).join(""); $("#dsKo").innerHTML=EGITIM.egitmenler.map(e=>`<option value="${e.id}"${e.id==="ik"?" selected":""}>${esc(e.ad)}</option>`).join("");
+  const d=new Date(); d.setDate(d.getDate()+((9-d.getDay())%7||7)); f.baslangic.value=d.toISOString().slice(0,10);
+  $("#designModal").hidden=false; f.konu.focus(); }
+function egDesignPrompt(v){
+  const katalog=EGITIM.moduller.map(m=>`${m.no}. ${m.t} — ${m.soru} · hizmet: ${m.hizmet} · fn: ${m.fn.join("/")} · panel: ${m.panel.join(", ")}`).join("\n");
+  return `Sen Juris Avukatlık Ortaklığı'nın eğitim tasarımcısısın. Juris; girişim sermayesi, teknoloji ve kurumsal yönetim alanında müvekkillerine şu HİZMETLERİ verir (eğitim bu hizmetlerle paralel olmalı — eğitimde anlatılan, panelde yapılan iştir):
+${v.hizmetler.map((h,i)=>`H${i+1}. ${h}`).join("\n")}
+Juris Kurumsal Yönetim Paneli fonksiyonları: PLAN (A.1 İş Modeli, A.2 İş Planı/OKR, A.3 Yönetişim/RACI, A.4 Yatırımcı Sunumu) · İCRA (D operasyon, E-2 sözleşme seti, İK, KVKK) · DENETİM (E-1 DD checklist, Data Room A–F, C muhasebe/mali disiplin, risk haritası) · RAPORLAMA (B bütçe/nakit/bilanço, F-1 toplantı döngüsü, karar kaydı).
+
+Referans program (Ankara Teknopark 2026, derinlik ve üslup ölçütü; kopyalama, uyarla):
+${katalog}
+Referans slayt disiplini: her tema slaytında "Kaynak ve Dayanak" satırı (mevzuat maddesi + literatür), "Hedeflenen Kazanımlar", "Kitap ve Film Önerileri", final atölyesi. Jenerik "müvekkil" yerine rol kullanılır. Belirsiz / doğrulanamayan dayanak uydurulmaz; "[teyit edilecek]" yazılır.
+
+GÖREV: Aşağıdaki brife göre ${v.oturum} modüllük bir eğitim tasarla. Her modül bir oturumdur ve ${v.ders} dersten oluşur (ders ≈ 60 dk).
+- Konu / tema: ${v.konu}
+- Hedef kitle: ${v.kitle}
+- Düzey: ${v.duzey}
+- Ton: ${v.ton}
+- Kurum / ev sahibi: ${v.kurum||"[belirlenecek]"}
+${v.not?`- Kurucu notu: ${v.not}`:""}
+Her modülde ÜÇ KATMAN zorunlu: (1) teorik/akademik çerçeve — kavramlar, Türk mevzuatından dayanak (kanun + madde; emin değilsen "[teyit edilecek]"), literatür (yazar – eser, yıl); (2) uygulamadaki karşılığı — atölye/vaka, katılımcının kendi şirketine uygulayacağı kontrol listesi, çıktı belgesi; (3) Juris hizmet eşlemesi — hangi hizmet (H1–H5), hangi panel fonksiyonu ve konusu.
+
+YALNIZ aşağıdaki JSON'u döndür (açıklama, markdown çiti yok):
+{"program":{"ad":"","tema":"","motto":"","neden":"2-3 cümle: bu eğitim neden var (Simon Sinek yaklaşımı)","hedefKitle":"","format":""},
+ "moduller":[{"no":1,"t":"","soru":"oturumun tek cümlelik sorusu (tırnak içinde)","duzey":"Başlangıç|Orta|İleri","hizmet":"H# adıyla","fn":["PLAN"],"panel":["A.1 …"],
+   "teori":{"kavramlar":["…"],"dayanak":["Kanun m.X — ne düzenler"],"literatur":["Yazar — Eser (yıl)"]},
+   "uygulama":{"atolye":"…","kontrolListesi":["…"],"cikti":"katılımcının elinde kalan belge"},
+   "dersler":[{"t":"","kazanim":""}],"misafir":"önerilen misafir profili ya da null","kitapFilm":["…"],"kazanimlar":["…"]}],
+ "final":"kapanış atölyesi / simülasyon tanımı","kaynaklar":["program geneli temel kaynaklar"]}`;
+}
+async function runDesign(){
+  const f=$("#designBox"), out=$("#dsOut"); const sample=await getSample(); if(!sample){ out.textContent="Claude bağlantısı yok (ANTHROPIC_API_KEY)."; out.classList.add("err"); return; }
+  const v={konu:f.konu.value.trim(),kitle:f.kitle.value,duzey:f.duzey.value,ton:f.ton.value,oturum:+f.oturum.value,ders:+f.ders.value,kurum:f.kurum.value.trim(),not:f.not.value.trim(),hizmetler:[...f.querySelectorAll('input[name="hiz"]:checked')].map(x=>x.value)};
+  if(!v.hizmetler.length){ out.textContent="En az bir Juris hizmeti seçin."; out.classList.add("err"); return; }
+  if(egDesignCtl){ egDesignCtl.abort(); egDesignCtl=null; $("#dsGo").textContent="Tasarla"; return; }
+  egDesignCtl=new AbortController(); $("#dsGo").textContent="Durdur"; out.classList.remove("err"); out.textContent="Claude tasarlıyor… (Opus · 1–3 dk)"; $("#dsPreview").innerHTML=""; $("#dsSave").hidden=true;
+  try{
+    const r=await sample([{role:"user",content:egDesignPrompt(v)}],{modelTier:"default",signal:egDesignCtl.signal,onText:({text})=>{out.textContent=`Claude tasarlıyor… ${text.length.toLocaleString("tr-TR")} karakter · ${(text.match(/"no":/g)||[]).length} modül`;}});
+    const m=r.text.match(/\{[\s\S]*\}/); const j=JSON.parse(m?m[0]:r.text);
+    if(!j.moduller||!j.moduller.length) throw new Error("Modül listesi boş");
+    j.moduller.forEach((x,i)=>{x.no=i+1; x.fn=Array.isArray(x.fn)?x.fn:[String(x.fn||"PLAN")]; x.panel=Array.isArray(x.panel)?x.panel:[String(x.panel||"")]; x.dersler=(x.dersler||[]).map(d=>typeof d==="string"?{t:d,kazanim:""}:d);});
+    egDesign={brief:v,...j}; out.textContent=`${j.moduller.length} modül tasarlandı. Önizleyin; uygunsa "Programı kaydet".`; renderDesignPreview(); $("#dsSave").hidden=false;
+  }catch(e){ if(e&&e.code==="cancelled"){ out.textContent="Durduruldu."; } else { out.textContent="Tasarım alınamadı: "+(e.message||e.code||e); out.classList.add("err"); } }
+  egDesignCtl=null; $("#dsGo").textContent="Tasarla";
+}
+function renderDesignPreview(){ const d=egDesign; if(!d)return;
+  $("#dsPreview").innerHTML=`<div class="card pad" style="margin-top:12px"><div class="eyebrow">Program</div><b style="font-size:15px;font-family:var(--font-display)">${esc(d.program.ad||"")}</b> — ${esc(d.program.tema||"")}<div class="muted" style="font-size:12.5px;margin-top:4px">${esc(d.program.motto||"")} · ${esc(d.program.format||"")}</div><p style="font-size:12.5px;margin:8px 0 0">${esc(d.program.neden||"")}</p></div>
+  ${d.moduller.map(m=>`<details class="card" style="margin-top:8px;padding:10px 14px"><summary style="cursor:pointer;font-weight:600;font-size:13.5px">${String(m.no).padStart(2,"0")} · ${esc(m.t)} <span class="pill info">${m.fn.join(" · ")}</span> <span class="muted" style="font-weight:400;font-size:12px">${esc(m.hizmet||"")}</span></summary>
+    <div class="q" style="font-family:var(--font-display);font-style:italic;color:var(--ink-2);margin:6px 0">${esc(m.soru||"")}</div>
+    <div class="grid2" style="font-size:12.5px"><div><b>Teori</b><ul style="margin:4px 0 0 16px;padding:0">${(m.teori&&m.teori.kavramlar||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="muted" style="margin-top:4px">Dayanak: ${(m.teori&&m.teori.dayanak||[]).map(esc).join(" · ")||"—"}</div><div class="muted">Literatür: ${(m.teori&&m.teori.literatur||[]).map(esc).join(" · ")||"—"}</div></div>
+    <div><b>Uygulama</b><div style="margin-top:4px">${esc(m.uygulama&&m.uygulama.atolye||"")}</div><ul style="margin:4px 0 0 16px;padding:0">${(m.uygulama&&m.uygulama.kontrolListesi||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="muted" style="margin-top:4px">Çıktı: ${esc(m.uygulama&&m.uygulama.cikti||"—")}</div></div></div>
+    <div style="margin-top:8px;font-size:12.5px"><b>Dersler</b> ${m.dersler.map((x,i)=>`<div><span class="muted">${m.no}.${i+1}</span> ${esc(x.t)} <span class="muted">— ${esc(x.kazanim||"")}</span></div>`).join("")}</div>
+    <div class="muted" style="font-size:12px;margin-top:6px">Panel: ${m.panel.map(esc).join(" · ")} · Misafir: ${esc(m.misafir||"—")} · Kitap/film: ${(m.kitapFilm||[]).map(esc).join(", ")||"—"}</div></details>`).join("")}
+  <div class="muted" style="font-size:12px;margin-top:8px">Final: ${esc(d.final||"—")} · Kaynaklar: ${(d.kaynaklar||[]).map(esc).join(" · ")||"—"}</div>`; }
+function saveDesign(){ const d=egDesign, f=$("#designBox"); if(!d)return;
+  const p=egBuildProgram({kurum:f.kurum.value.trim()||"[kurum belirlenecek]",yer:f.yer.value.trim(),ad:d.program.ad,tema:d.program.tema,motto:d.program.motto,neden:d.program.neden,baslangic:f.baslangic.value,aralik:f.aralik.value,hedef:d.program.hedefKitle||f.kitle.value,egitmen:f.egitmen.value,koord:f.koord.value,duzey:f.duzey.value,
+    ozelModuller:d.moduller,final:d.final,kaynaklar:d.kaynaklar,tasarim:{konu:d.brief.konu,kitle:d.brief.kitle,hizmetler:d.brief.hizmetler,ton:d.brief.ton,tarih:new Date().toISOString()}});
+  egitimState.push({k:"prog",p}); egCur=p.id; $("#designModal").hidden=true; egSave(); go("egitim"); $("#vnote").textContent=`${p.kurum} · ${p.oturumlar.length} oturumluk program kaydedildi. Her oturumdan "Design brief" alınabilir.`; }
+/* ---- Claude Design brief'i: modül → Markdown (Juris slayt disiplini) ---- */
+function egBrief(p,s){ const m=egMod(p,s.modul); const T=m.teori||{}, U=m.uygulama||{}; const dersler=s.dersler.map((d,i)=>`${i+1}. ${d[0]} — ${d[2]} · ${egTeacher(d[1])}`+((m.dersler&&m.dersler[i]&&m.dersler[i].kazanim)?`\n   Kazanım: ${m.dersler[i].kazanim}`:"")).join("\n");
+  return `# Claude Design brief — ${p.ad} · Oturum ${String(s.no).padStart(2,"0")}
+**Modül:** ${m.t}
+**Oturumun sorusu:** ${m.soru||"—"}
+**Program:** ${p.ad} — ${p.tema} · ${p.kurum} · ${p.yer} · ${egFmt(s.tarih)} · Düzey: ${s.duzey}
+**Eğitim sağlayıcı:** Juris Avukatlık Ortaklığı · Eğitmen: ${[...new Set(s.dersler.map(d=>egTeacher(d[1])))].join(", ")}${s.misafir?` · Misafir: ${s.misafir}`:""}
+
+## Görsel standart (zorunlu)
+- Juris Kurumsal Kimlik: lacivert #0A2240 (zemin/başlık), kırmızı #BC2F2C (vurgu), kağıt #FAFAF7; Playfair Display (başlık), Inter (metin), JetBrains Mono (kod/numara).
+- 16:9 slayt; her slaytta üstte küçük eyebrow ("TEMA 01 · SLAYT 6"), altta "Juris · Bölüm ${String(s.no).padStart(2,"0")} · n / N".
+- Referans: Ankara Teknopark 2026 serisi slaytları (1-B, 1-C, Bölüm 03) — aynı dizilim.
+
+## Slayt iskeleti (sırayla)
+1. Kapak: "OTURUM ${String(s.no).padStart(2,"0")}" · modül adı · oturumun sorusu · Juris · slayt sayısı · tarih
+2. Eğitim İçeriği (giriş, 4–5 madde)
+3. Eğitim Bölümü ve İçindekiler (${Math.max(3,(T.kavramlar||[]).length>6?4:3)} bölüm, slayt aralıklarıyla)
+4. Eğitim Bölümünün Amacı
+5. Temalar / kavram haritası (#etiketler)
+6. Hedeflenen Kazanımlar
+7… Tema slaytları — her tema: başlık · 3–5 cümle · şema/karşılaştırma kutusu · **"KAYNAK VE DAYANAK"** satırı (mevzuat + literatür)
+N-3. Uygulama: atölye / vaka / kontrol listesi
+N-2. Juris hizmet bağı: "${m.hizmet||"—"}" → panel: ${(m.panel||[]).join(", ")||"—"}
+N-1. Kitap ve Film Önerileri
+N. Özet ve kazanımlar
+
+## İçerik
+### Dersler (${s.dersler.length})
+${dersler}
+
+### Teorik / akademik çerçeve
+- Kavramlar: ${(T.kavramlar||[]).join("; ")||"[tasarım notu yok — katalog modülü]"}
+- Dayanak (mevzuat): ${(T.dayanak||[]).join("; ")||"[teyit edilecek]"}
+- Literatür: ${(T.literatur||[]).join("; ")||"[teyit edilecek]"}
+
+### Uygulama karşılığı
+- Atölye / vaka: ${U.atolye||"—"}
+- Kontrol listesi: ${(U.kontrolListesi||[]).join("; ")||"—"}
+- Katılımcı çıktısı: ${U.cikti||"—"}
+
+### Kazanımlar
+${(m.kazanimlar||[]).map(x=>"- "+x).join("\n")||"- [tasarımdan gelecek]"}
+
+### Kitap / film
+${(m.kitapFilm||[]).map(x=>"- "+x).join("\n")||"- —"}
+
+## Kurallar
+- Türkçe, kurumsal ve net; jenerik "müvekkil" yerine rol (Girişimci · Yatırımcı · Şirket · Hukukçu).
+- Dayanak uydurma: emin olunmayan madde/eser "[teyit edilecek]" olarak kalır.
+- Her slaytta tek fikir; metin ≤ 60 kelime; şema > paragraf.
+- Çıktı: tek dosya HTML slayt (klavye ile gezinme) ya da PDF; dosya adı "${s.no}-${egSlug(m.t)}".
+`; }
+function openBrief(sid){ const [pid,no]=sid.split(":"); const p=egPrograms().find(x=>x.id===pid); const s=p&&p.oturumlar.find(x=>x.no===+no); if(!s)return;
+  const txt=egBrief(p,s); $("#brTitle").textContent=`Design brief · Oturum ${String(s.no).padStart(2,"0")} · ${egMod(p,s.modul).t}`; $("#brText").value=txt; $("#briefModal").hidden=false;
+  $("#brCopy").onclick=()=>copyText(txt,$("#brCopy"));
+  $("#brDl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/markdown"}));a.download=`design-brief-${egSlug(p.kurum)}-${s.no}.md`;a.click();};
+  $("#brLib").onclick=()=>{library.unshift({id:uid(),title:`Design brief · ${p.kurum} · Oturum ${s.no} · ${egMod(p,s.modul).t}`,scope:"juris",alan:"iletisim",date:Date.now(),text:txt,sess:"Eğitim tasarımı"}); saveLib(); if(typeof renderLibrary==="function")renderLibrary(); $("#brLib").textContent="Kaydedildi";}; }
 function openProg(){ const f=$("#progBox"); f.reset(); $("#pgOut").textContent="";
   $("#pgEg").innerHTML=EGITIM.egitmenler.map(e=>`<option value="${e.id}"${e.id==="fy"?" selected":""}>${esc(e.ad)}</option>`).join(""); $("#pgKo").innerHTML=EGITIM.egitmenler.map(e=>`<option value="${e.id}"${e.id==="ik"?" selected":""}>${esc(e.ad)}</option>`).join("");
   $("#pgMod").innerHTML=EGITIM.moduller.map(m=>`<label><input type="checkbox" name="mod" value="${m.no}" checked><span><b>${String(m.no).padStart(2,"0")}</b> ${esc(m.t)}<br><span class="muted" style="font-size:11px">${m.fn.join(" · ")} · ${esc(m.hizmet)}</span></span></label>`).join("");
@@ -1010,11 +1164,12 @@ function renderEgitim(){
   const kat=egParticipants(p), adaylar=egitimState.filter(x=>x.k==="aday"&&x.pid===p.id);
   $("#navEgitim").textContent=`${done}/${total}`;
   const docRow=d=>`<div class="d"><span class="pill ${d.url?"belge":"yok"}">${d.url?"belge":"link yok"}</span><span class="t">${esc(d.t)}</span>${d.url?`<a href="${esc(d.url)}" target="_blank" rel="noopener">aç ↗</a>`:`<button class="eg-link" data-eglink="${esc(d.id)}">link ekle</button>`}<span class="muted" style="font-size:11px">${esc(d.not||"")}</span>${d.ek?`<button class="eg-link" style="color:var(--ink-3)" data-egdel="${esc(d.id)}">sil</button>`:""}</div>`;
-  const sess=p.oturumlar.map((s,i)=>{ const st=sts[i]; const m=EGITIM.moduller.find(x=>x.no===s.modul); const sid=p.id+":"+s.no;
+  const sess=p.oturumlar.map((s,i)=>{ const st=sts[i]; const m=egMod(p,s.modul); const sid=p.id+":"+s.no;
     return `<div class="eg-sess ${st}"><div class="when"><b>${String(s.no).padStart(2,"0")}</b>${egFmt(s.tarih)}<br>${esc(s.duzey)}<br><span class="pill ${EG_ST[st][0]}" style="margin-top:4px">${EG_ST[st][1]}</span></div>
       <div><h4>${esc(m.t)}<span class="pill info">${m.fn.join(" · ")}</span>${s.misafir?`<span class="pill warn">Misafir: ${esc(s.misafir)}</span>`:""}</h4><div class="q">${esc(m.soru)}</div>
       <div class="eg-les">${s.dersler.map((d,j)=>`<span class="n">${s.no}.${j+1} · ${d[2]}</span><span>${esc(d[0])}</span><span class="who">${esc(egTeacher(d[1]))}</span>`).join("")}</div>
-      <div class="eg-docs">${egDocs(p,s.no).map(docRow).join("")}<div><button class="eg-link" data-egadd="${sid}">＋ Doküman ekle</button><span class="muted" style="font-size:11px;margin-left:8px">Panel bağı: ${m.panel.map(esc).join(" · ")}</span></div>
+      ${m.teori?`<div class="muted" style="font-size:12px;margin:4px 0 6px"><b style="color:var(--ink-2)">Teori:</b> ${(m.teori.kavramlar||[]).slice(0,4).map(esc).join(" · ")} <b style="color:var(--ink-2);margin-left:6px">Uygulama:</b> ${esc((m.uygulama&&m.uygulama.atolye)||"—")}</div>`:""}
+      <div class="eg-docs">${egDocs(p,s.no).map(docRow).join("")}<div><button class="eg-link" data-egadd="${sid}">＋ Doküman ekle</button><button class="eg-link" data-egbrief="${sid}" style="margin-left:10px">✦ Design brief</button><span class="muted" style="font-size:11px;margin-left:8px">Panel bağı: ${m.panel.map(esc).join(" · ")}</span></div>
       <form class="eg-add" data-egform="${sid}"><input name="t" placeholder="Doküman adı" required><input name="url" type="url" placeholder="https://drive.google.com/…" required><button class="btn primary" type="submit" style="height:30px">Ekle</button><button class="btn" type="button" data-egcancel="${sid}" style="height:30px">Vazgeç</button></form></div>
       <div class="muted" style="font-size:11px;margin-top:8px">Durum: ${["done","next","planned","cancel"].map(k=>`<button class="eg-link" style="color:${st===k?"var(--ink)":"var(--ink-3)"};margin-right:8px" data-egst="${sid}" data-st="${k}">${EG_ST[k][1]}</button>`).join("")}</div></div></div>`; }).join("");
   el.innerHTML=`
@@ -1022,7 +1177,7 @@ function renderEgitim(){
     <div class="tile accent"><div class="l">Aktif program</div><div class="v" style="font-size:18px;line-height:1.25">${esc(p.kurum)}</div><div class="d">${esc(p.donem)} · ${esc(p.gun)} · ${esc(p.yer)}</div></div>
     <div class="tile"><div class="l">Oturum</div><div class="v">${done}<small>/ ${total}</small></div><div class="meter" style="margin-top:8px">${bar(Math.round(done/total*100),"var(--navy)")}</div></div>
     <div class="tile"><div class="l">Ders</div><div class="v">${lessonsDone}<small>/ ${lessons}</small></div><div class="d">${esc(p.format)}</div></div>
-    <div class="tile"><div class="l">Sıradaki</div><div class="v" style="font-size:18px;line-height:1.25">${next?egFmt(next.tarih):"—"}</div><div class="d">${next?esc(EGITIM.moduller.find(x=>x.no===next.modul).t):"Program tamamlandı"}</div></div>
+    <div class="tile"><div class="l">Sıradaki</div><div class="v" style="font-size:18px;line-height:1.25">${next?egFmt(next.tarih):"—"}</div><div class="d">${next?esc(egMod(p,next.modul).t):"Program tamamlandı"}</div></div>
     <div class="tile"><div class="l">Eğitmen</div><div class="v">${teachers.size}</div><div class="d">Juris ortakları + birim avukatı</div></div>
     <div class="tile"><div class="l">Misafir oturumu</div><div class="v">${guests}</div><div class="d">yatırımcı · girişimci · danışman</div></div>
     <div class="tile"><div class="l">Doküman</div><div class="v">${docsLinked}<small>/ ${docsAll.length}</small></div><div class="d">linkli / toplam</div></div>
@@ -1039,13 +1194,13 @@ function renderEgitim(){
     </table></div>
     <form class="eg-add open" data-egkat="${p.id}" style="padding:10px 14px;border-top:1px solid var(--divider)"><input name="ad" placeholder="Ad Soyad" required><input name="sirket" placeholder="Şirket / kurum"><select name="rol" style="padding:6px 9px;border:1px solid var(--border);border-radius:7px;font:inherit;font-size:12.5px;background:var(--bg);color:var(--ink)">${EG_ROL.map(r=>`<option>${r}</option>`).join("")}</select><input name="not" placeholder="Not (ilgi alanı, ihtiyaç, takip)"><button class="btn primary" type="submit" style="height:30px">＋ Katılımcı</button></form></div>
   </div>
-  <div class="sec"><div class="sec-h"><h2>Hizmetlerle eşleme</h2><span class="meta">Her modül paneldeki bir fonksiyona bağlanır — eğitimde anlatılan, panelde yapılan iştir</span></div>
-    <div class="eg-map">${EGITIM.moduller.map(m=>`<div class="m"><div class="no">${String(m.no).padStart(2,"0")}</div><b>${esc(m.t)}</b><p>${esc(m.hizmet)}</p><div>${m.fn.map(f=>`<span class="fnchip">${f}</span>`).join("")}</div><div class="muted" style="font-size:11.5px;margin-top:6px">${m.panel.map(esc).join(" · ")}</div></div>`).join("")}</div>
+  <div class="sec"><div class="sec-h"><h2>Hizmetlerle eşleme</h2><span class="meta">Her modül paneldeki bir fonksiyona bağlanır — eğitimde anlatılan, panelde yapılan iştir${p.tasarim?` · Claude tasarımı: ${esc(p.tasarim.konu)} → ${esc(p.tasarim.kitle)}`:""}</span></div>
+    <div class="eg-map">${(p.moduller||EGITIM.moduller).map(m=>`<div class="m"><div class="no">${String(m.no).padStart(2,"0")}</div><b>${esc(m.t)}</b><p>${esc(m.hizmet)}</p><div>${m.fn.map(f=>`<span class="fnchip">${f}</span>`).join("")}</div><div class="muted" style="font-size:11.5px;margin-top:6px">${m.panel.map(esc).join(" · ")}</div></div>`).join("")}</div>
   </div>
   <div class="sec"><div class="sec-h"><h2>Network</h2><span class="meta">Eğitim → tanışma → funnel</span></div>
     <div class="grid2">
       <div class="card pad"><b style="font-size:13.5px">Ev sahibi · ${esc(p.kurum)}</b><p class="muted" style="font-size:12.5px;margin:6px 0 0">${esc(p.yer)} · ${esc(p.donem)} · her ay 2 oturum. ${esc(p.network.amac)}</p><p class="muted" style="font-size:12px;margin:6px 0 0">Kanal: ${esc(p.network.kanal)}</p></div>
-      <div class="card pad"><b style="font-size:13.5px">Misafir katılımcılar</b><div class="eg-les" style="margin-top:8px">${p.oturumlar.filter(s=>s.misafir).map(s=>`<span class="n">${String(s.no).padStart(2,"0")} · ${egFmt(s.tarih)}</span><span>${esc(s.misafir)}</span><span class="who">${esc(EGITIM.moduller.find(x=>x.no===s.modul).t.split(",")[0])}</span>`).join("")}</div><p class="muted" style="font-size:12px;margin:8px 0 0">Final atölyesi: ${esc(p.final)}</p></div>
+      <div class="card pad"><b style="font-size:13.5px">Misafir katılımcılar</b><div class="eg-les" style="margin-top:8px">${p.oturumlar.filter(s=>s.misafir).map(s=>`<span class="n">${String(s.no).padStart(2,"0")} · ${egFmt(s.tarih)}</span><span>${esc(s.misafir)}</span><span class="who">${esc(egMod(p,s.modul).t.split(",")[0])}</span>`).join("")}</div><p class="muted" style="font-size:12px;margin:8px 0 0">Final atölyesi: ${esc(p.final)}</p></div>
     </div>
   </div>`;
 }
@@ -1054,6 +1209,12 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#newProg")){openProg();return;}
   if(e.target.closest("#pgCancel")){$("#progModal").hidden=true;return;}
   if(e.target.id==="progModal"){$("#progModal").hidden=true;return;}
+  if(e.target.closest("#newDesign")){openDesign();return;}
+  if(e.target.closest("#dsGo")){runDesign();return;}
+  if(e.target.closest("#dsSave")){saveDesign();return;}
+  if(e.target.closest("#dsCancel")||e.target.id==="designModal"){ if(egDesignCtl){egDesignCtl.abort();egDesignCtl=null;} $("#designModal").hidden=true;return;}
+  if(e.target.closest("#brClose")||e.target.id==="briefModal"){$("#briefModal").hidden=true;return;}
+  const br=e.target.closest("[data-egbrief]"); if(br){openBrief(br.dataset.egbrief);return;}
   const pg=e.target.closest("[data-egprog]"); if(pg){ egCur=pg.dataset.egprog; renderEgitim(); return; }
   const pd=e.target.closest("[data-egprogdel]"); if(pd){ if(pd.dataset.arm){ const id=pd.dataset.egprogdel; egitimState=egitimState.filter(x=>!((x.k==="prog"&&x.p.id===id)||(x.pid===id)||(x.sid&&x.sid.startsWith(id+":")))); egCur=null; egSave(); } else { pd.dataset.arm="1"; pd.textContent="Emin misiniz? (katılımcılar ve dokümanlar da silinir)"; setTimeout(()=>{delete pd.dataset.arm;pd.textContent="Programı sil";},3000); } return; }
   const ad=e.target.closest("[data-egaday]"); if(ad){ const k=egitimState.find(x=>x.k==="kat"&&x.id===ad.dataset.egaday); if(!k)return; egitimState.push({k:"aday",id:uid(),katId:k.id,pid:k.pid,ad:k.ad,sirket:k.sirket,rol:k.rol,kaynak:"Eğitim · "+(egP().kurum||""),date:new Date().toISOString()}); egSave(); return; }
@@ -1327,7 +1488,7 @@ async function buildContext(){
   if(src.portfolio){ used.push("Portföy kaydı"); parts.push("## MTFG Portföy kaydı\n"+JSON.stringify(ASSETS.map(a=>({kod:a.code,ad:a.name,sinif:a.cls,kategori:a.cat,mtfgPayi:a.stake,digerPaydaslar:a.others,nakit:cfLabel[a.cf][1],deger:eqLabel[a.eq][1],tezSkoru:fitScore(a),tezPuanlari:a.fit,dayanak:a.doc+" – "+a.docName,gate:a.gate,not:a.note})))+"\nTez kriterleri: "+CRIT.map(c=>c[0]+" "+c[1]).join("; ")+"\nFunnel: "+JSON.stringify(FUNNEL.map(f=>({asama:f.s,iliskiler:f.items.map(x=>x[0]+" ("+x[1]+")")})))); }
   if(src.risks){ used.push("Risk kaydı"); parts.push("## MTFG Risk kaydı\n"+JSON.stringify(RISKS.map(r=>({id:r[0],risk:r[1],alan:r[2],olasilik:r[3],etki:r[4],skor:r[3]*r[4],sahip:r[5],dayanakBelge:r[6],dayanak:r[7]})))); }
   if(src.docs){ used.push("MTFG Data Room"); parts.push("## MTFG Data Room\n"+JSON.stringify(DOCS.map(d=>({klasor:d[0]+" "+d[1],belge:d[2],icerik:d[3],durum:d[4],panel:d[5]})))); }
-  if(src.egitim&&typeof EGITIM!=="undefined"){ const p=egP(), sts=egStatus(p); used.push("Eğitim programı"); parts.push("## Eğitim programı · "+p.kurum+"\n"+JSON.stringify({program:p.ad,tema:p.tema,yer:p.yer,donem:p.donem,format:p.format,hedefKitle:p.hedefKitle,oturumlar:p.oturumlar.map((s,i)=>({no:s.no,tarih:s.tarih,durum:sts[i],modul:EGITIM.moduller.find(m=>m.no===s.modul).t,duzey:s.duzey,misafir:s.misafir,dersler:s.dersler.map(d=>d[0]+" ("+egTeacher(d[1])+", "+d[2]+")"),dokuman:egDocs(p,s.no).map(d=>d.t+(d.url?" ["+d.url+"]":" [link yok]"))})),hizmetEslemesi:EGITIM.moduller.map(m=>({modul:m.no,hizmet:m.hizmet,fn:m.fn,panel:m.panel}))})); }
+  if(src.egitim&&typeof EGITIM!=="undefined"){ const p=egP(), sts=egStatus(p); used.push("Eğitim programı"); parts.push("## Eğitim programı · "+p.kurum+"\n"+JSON.stringify({program:p.ad,tema:p.tema,yer:p.yer,donem:p.donem,format:p.format,hedefKitle:p.hedefKitle,oturumlar:p.oturumlar.map((s,i)=>({no:s.no,tarih:s.tarih,durum:sts[i],modul:egMod(p,s.modul).t,duzey:s.duzey,misafir:s.misafir,dersler:s.dersler.map(d=>d[0]+" ("+egTeacher(d[1])+", "+d[2]+")"),dokuman:egDocs(p,s.no).map(d=>d.t+(d.url?" ["+d.url+"]":" [link yok]"))})),hizmetEslemesi:EGITIM.moduller.map(m=>({modul:m.no,hizmet:m.hizmet,fn:m.fn,panel:m.panel}))})); }
   for(const id of PANEL_IDS) if(src[id]){ const d=await panelData(id); used.push(PANELS[id].name+" ("+d.src+")"); parts.push(`## ${PANELS[id].name} Kurumsal Yönetim Paneli (${d.src})\n`+d.txt); }
   return {text:parts.join("\n\n"),used};
 }

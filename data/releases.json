@@ -1,6 +1,19 @@
 {
   "surumler": [
     {
+      "surum": "0.5.4",
+      "tarih": "2026-10-18",
+      "faz": "v1.0 yolu",
+      "baslik": "Eğitim tasarla · Claude + Design brief",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "'✦ Eğitim tasarla · Claude': konu, hedef kitle, düzey, ton, oturum/ders sayısı, Juris hizmetleri, kurum/tarih/aralık → Opus her modül için teori (kavramlar, mevzuat dayanağı, literatür), uygulama (atölye, kontrol listesi, çıktı), hizmet–fonksiyon–panel eşlemesi, dersler + kazanımlar, misafir profili, kitap/film; akış sayaçlı, durdurulabilir" },
+        { "tur": "yeni", "metin": "Önizleme (modül akordeonları) → 'Programı kaydet': özel modüller programla saklanır; oturum kartında teori/uygulama özeti; hizmet eşlemesi programın kendi modüllerinden" },
+        { "tur": "yeni", "metin": "Oturum başına '✦ Design brief': Juris görsel standardı + Teknopark slayt iskeleti + içerik (Markdown) — kopyala, .md indir, Çıktı Kütüphanesi'ne kaydet" },
+        { "tur": "iyilestirme", "metin": "Katalogdan program oluşturucu ikincil düğme; program künyesinde 'neden' ve tasarım izi" }
+      ]
+    },
+    {
       "surum": "0.5.3",
       "tarih": "2026-10-18",
       "faz": "v1.0 yolu",
@@ -175,7 +188,7 @@
     }
   ],
   "planli": [
-    { "surum": "0.5.4", "baslik": "Veri doğruluğu turu", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
+    { "surum": "0.5.5", "baslik": "Veri doğruluğu turu", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

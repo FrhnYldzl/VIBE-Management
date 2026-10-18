@@ -3,6 +3,20 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.4] — 2026-10-18 · Eğitim tasarla · Claude + Design brief
+
+### Eklendi
+- **✦ Eğitim tasarla · Claude** (Eğitim görünümü): konu/tema, hedef kitle (6 profil), düzey, ton, oturum ve ders sayısı, vurgulanacak Juris
+  hizmetleri (5 kapsam maddesi), kurum/yer/başlangıç/aralık, eğitmen, koordinatör, kurucu notu → Opus (mevcut `/api/sample` köprüsü) **yalnız JSON**
+  üretir: program künyesi (ad, tema, motto, "neden"), her modül için **teori** (kavramlar, mevzuat dayanağı "[teyit edilecek]" disipliniyle,
+  literatür), **uygulama** (atölye/vaka, kontrol listesi, katılımcı çıktısı), **hizmet–fonksiyon–panel eşlemesi**, dersler + kazanımlar, misafir
+  profili, kitap/film; final atölyesi ve kaynaklar. Ankara Teknopark kataloğu Claude'a derinlik/üslup referansı olarak gider.
+- Önizleme (modül akordeonları) → **Programı kaydet**: `egBuildProgram` özel modülleri (`p.moduller`) ve derslerini programla birlikte saklar;
+  oturum kartında teori/uygulama özeti, hizmet eşlemesi programın kendi modüllerinden; "Katalogdan program" ikincil düğme.
+- **✦ Design brief** (her oturumda): Markdown — Juris görsel standardı (renk/tipografi), Teknopark slayt iskeleti (içerik → içindekiler → amaç →
+  temalar → kazanımlar → tema slaytları + "Kaynak ve Dayanak" → uygulama → hizmet bağı → kitap/film → özet), modül içeriği, kurallar.
+  Kopyala · `.md` indir · Çıktı Kütüphanesi'ne kaydet → Claude Design'a yapıştırılır; dönen slayt oturuma doküman linki olarak bağlanır.
+
 ## [0.5.3] — 2026-10-18 · Eğitim: program oluşturucu, katılımcılar → funnel
 
 ### Eklendi
