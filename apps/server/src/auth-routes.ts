@@ -4,7 +4,7 @@ import { join } from "node:path";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import {
-  type AuthConfig, type Session, clearCookie, COOKIE, createSession, parseCookies, randomState, readSession, sessionCookie, verifyPassword,
+  type AuthConfig, type Session, clearCookie, COOKIE, createSession, hashLooksValid, parseCookies, randomState, readSession, sessionCookie, verifyPassword,
 } from "./auth.ts";
 
 declare module "fastify" {
@@ -50,6 +50,8 @@ export function registerAuth(app: FastifyInstance, cfg: AuthConfig) {
   app.get("/api/me", async (req) => req.session);
   app.get("/api/auth/config", async () => ({
     github: Boolean(cfg.github), password: Object.keys(cfg.passwordUsers).length, emails: Object.keys(cfg.passwordUsers),
+    // teşhis: hash biçimi sağlam mı (Railway Raw Editor '$' bozması) — değer gösterilmez
+    hashOk: Object.fromEntries(Object.entries(cfg.passwordUsers).map(([e, h]) => [e, hashLooksValid(h)])),
     allowedGithubUsers: cfg.allowedGithubUsers, disabled: cfg.disabled,
   }));
 

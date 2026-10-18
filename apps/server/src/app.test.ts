@@ -1,6 +1,6 @@
 import { afterAll, describe, expect, it } from "vitest";
 import { buildApp } from "./app.ts";
-import { type AuthConfig, hashPassword, verifyPassword } from "./auth.ts";
+import { type AuthConfig, hashLooksValid, hashPassword, verifyPassword } from "./auth.ts";
 
 const auth: AuthConfig = {
   secret: "test-secret", github: { clientId: "id", clientSecret: "sec" },
@@ -61,8 +61,11 @@ describe("kimlik", () => {
     expect((await open.inject("/api/roadmap")).statusCode).toBe(200);
     expect((await open.inject("/api/health")).json().kimlik).toBe("kapalı");
   });
-  it("scrypt parola", () => {
-    const h = hashPassword("abc"); expect(verifyPassword("abc", h)).toBe(true); expect(verifyPassword("abd", h)).toBe(false);
+  it("scrypt parola: '~' ve eski '$' biçimi, biçim denetimi", () => {
+    const h = hashPassword("abc"); expect(h.startsWith("scrypt~")).toBe(true); expect(h.includes("$")).toBe(false);
+    expect(verifyPassword("abc", h)).toBe(true); expect(verifyPassword("abd", h)).toBe(false);
+    const legacy = h.replace(/~/g, "$"); expect(verifyPassword("abc", legacy)).toBe(true);
+    expect(hashLooksValid(h)).toBe(true); expect(hashLooksValid("scrypt$$")).toBe(false); expect(hashLooksValid("scrypt~abc~def")).toBe(false);
   });
 });
 

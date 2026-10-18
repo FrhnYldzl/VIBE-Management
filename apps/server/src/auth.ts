@@ -65,13 +65,20 @@ export function parseCookies(header: string | undefined): Record<string, string>
   return out;
 }
 
-/* ---- parola: scrypt$salt$hash (hepsi base64url) ---- */
+/* ---- parola: scrypt~salt~hash (base64url). Ayraç '~' — Railway Raw Editor '$' işaretini değişken referansı sanıp bozuyor;
+   eski 'scrypt$salt$hash' biçimi de kabul edilir. ---- */
 export function hashPassword(password: string): string {
   const salt = randomBytes(16);
-  return `scrypt$${b64u(salt)}$${b64u(scryptSync(password, salt, 32))}`;
+  return `scrypt~${b64u(salt)}~${b64u(scryptSync(password, salt, 32))}`;
+}
+const splitHash = (stored: string) => stored.split(stored.includes("~") ? "~" : "$");
+/** Hash biçimsel olarak sağlam mı? (teşhis — değer sızdırmaz) */
+export function hashLooksValid(stored: string): boolean {
+  const [alg, salt, hash] = splitHash(stored);
+  return alg === "scrypt" && !!salt && !!hash && Buffer.from(salt, "base64url").length === 16 && Buffer.from(hash, "base64url").length === 32;
 }
 export function verifyPassword(password: string, stored: string): boolean {
-  const [alg, salt, hash] = stored.split("$");
+  const [alg, salt, hash] = splitHash(stored);
   if (alg !== "scrypt" || !salt || !hash) return false;
   const got = scryptSync(password, Buffer.from(salt, "base64url"), 32);
   const want = Buffer.from(hash, "base64url");
