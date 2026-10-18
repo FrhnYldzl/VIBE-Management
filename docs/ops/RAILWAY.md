@@ -22,7 +22,7 @@ NODE_ENV=production
 DATA_PATH=/data/vibe.db
 SESSION_SECRET=<uzun rastgele>
 PASSWORD_USERS=<eposta1>:<hash1>,<eposta2>:<hash2>
-ANTHROPIC_API_KEY=<sk-ant-...>            # Vibe stüdyosu; boşsa Vibe 503 döner, geri kalan çalışır
+ANTHROPIC_API_KEY=<sk-ant-...>            # Vibe stüdyosu; boşsa Vibe 503 döner, geri kalan çalışır. Takma ad: VIBE-MANAGEMENT (kullanımda)
 ```
 
 İsteğe bağlı (geliştirici GitHub girişi):
