@@ -11,6 +11,7 @@ const body = z.object({
   modelTier: z.enum(["quick", "default", "complex"]).optional(),
   model: z.string().optional(),
   images: z.array(z.object({ media_type: z.enum(["image/jpeg", "image/png", "image/webp", "image/gif"]), data: z.string() })).optional(),
+  maxTokens: z.number().int().min(256).max(32000).optional(), // uzun yapılandırılmış çıktılar (eğitim tasarımı) için
 });
 
 export function registerSample(app: FastifyInstance) {
@@ -33,9 +34,11 @@ export function registerSample(app: FastifyInstance) {
     const model = b.model ?? TIER[b.modelTier ?? "default"];
     reply.raw.writeHead(200, { "content-type": "text/event-stream", "cache-control": "no-cache", connection: "keep-alive" });
     try {
-      const stream = getClient().messages.stream({ model, max_tokens: 16000, messages: msgs });
+      const stream = getClient().messages.stream({ model, max_tokens: b.maxTokens ?? 16000, messages: msgs });
       stream.on("text", (delta) => reply.raw.write(`data: ${JSON.stringify({ delta })}\n\n`));
-      await stream.finalMessage();
+      const final = await stream.finalMessage();
+      // max_tokens'a takıldıysa istemci bilsin (JSON yarım kalmış olabilir)
+      if (final.stop_reason === "max_tokens") reply.raw.write(`data: ${JSON.stringify({ truncated: true })}\n\n`);
       reply.raw.write("data: [DONE]\n\n");
     } catch (e) {
       const msg = e instanceof Anthropic.APIError ? `${e.status} ${e.message}` : String((e as Error).message ?? e);

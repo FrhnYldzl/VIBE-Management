@@ -1047,8 +1047,9 @@ GÖREV: Aşağıdaki brife göre ${v.oturum} modüllük bir eğitim tasarla. Her
 - Kurum / ev sahibi: ${v.kurum||"[belirlenecek]"}
 ${v.not?`- Kurucu notu: ${v.not}`:""}
 Her modülde ÜÇ KATMAN zorunlu: (1) teorik/akademik çerçeve — kavramlar, Türk mevzuatından dayanak (kanun + madde; emin değilsen "[teyit edilecek]"), literatür (yazar – eser, yıl); (2) uygulamadaki karşılığı — atölye/vaka, katılımcının kendi şirketine uygulayacağı kontrol listesi, çıktı belgesi; (3) Juris hizmet eşlemesi — hangi hizmet (H1–H5), hangi panel fonksiyonu ve konusu.
+Uzunluk disiplini (JSON tam kapanmalı): kavramlar ≤5, dayanak ≤3, literatur ≤2, kontrolListesi ≤4, kitapFilm ≤2, kazanimlar ≤3; her metin alanı ≤ 35 kelime. Önce kısa ve tam, sonra zengin.
 
-YALNIZ aşağıdaki JSON'u döndür (açıklama, markdown çiti yok):
+YALNIZ aşağıdaki JSON'u döndür (açıklama yok, markdown çiti yok, ilk karakter "{" son karakter "}"):
 {"program":{"ad":"","tema":"","motto":"","neden":"2-3 cümle: bu eğitim neden var (Simon Sinek yaklaşımı)","hedefKitle":"","format":""},
  "moduller":[{"no":1,"t":"","soru":"oturumun tek cümlelik sorusu (tırnak içinde)","duzey":"Başlangıç|Orta|İleri","hizmet":"H# adıyla","fn":["PLAN"],"panel":["A.1 …"],
    "teori":{"kavramlar":["…"],"dayanak":["Kanun m.X — ne düzenler"],"literatur":["Yazar — Eser (yıl)"]},
@@ -1062,14 +1063,28 @@ async function runDesign(){
   if(!v.hizmetler.length){ out.textContent="En az bir Juris hizmeti seçin."; out.classList.add("err"); return; }
   if(egDesignCtl){ egDesignCtl.abort(); egDesignCtl=null; $("#dsGo").textContent="Tasarla"; return; }
   egDesignCtl=new AbortController(); $("#dsGo").textContent="Durdur"; out.classList.remove("err"); out.textContent="Claude tasarlıyor… (Opus · 1–3 dk)"; $("#dsPreview").innerHTML=""; $("#dsSave").hidden=true;
+  let raw="";
   try{
-    const r=await sample([{role:"user",content:egDesignPrompt(v)}],{modelTier:"default",signal:egDesignCtl.signal,onText:({text})=>{out.textContent=`Claude tasarlıyor… ${text.length.toLocaleString("tr-TR")} karakter · ${(text.match(/"no":/g)||[]).length} modül`;}});
-    const m=r.text.match(/\{[\s\S]*\}/); const j=JSON.parse(m?m[0]:r.text);
+    const r=await sample([{role:"user",content:egDesignPrompt(v)}],{modelTier:"default",maxTokens:28000,signal:egDesignCtl.signal,onText:({text})=>{raw=text;out.textContent=`Claude tasarlıyor… ${text.length.toLocaleString("tr-TR")} karakter · ${(text.match(/"no":/g)||[]).length} modül`;}});
+    raw=r.text; const j=egParseDesign(r.text);
     if(!j.moduller||!j.moduller.length) throw new Error("Modül listesi boş");
-    j.moduller.forEach((x,i)=>{x.no=i+1; x.fn=Array.isArray(x.fn)?x.fn:[String(x.fn||"PLAN")]; x.panel=Array.isArray(x.panel)?x.panel:[String(x.panel||"")]; x.dersler=(x.dersler||[]).map(d=>typeof d==="string"?{t:d,kazanim:""}:d);});
-    egDesign={brief:v,...j}; out.textContent=`${j.moduller.length} modül tasarlandı. Önizleyin; uygunsa "Programı kaydet".`; renderDesignPreview(); $("#dsSave").hidden=false;
-  }catch(e){ if(e&&e.code==="cancelled"){ out.textContent="Durduruldu."; } else { out.textContent="Tasarım alınamadı: "+(e.message||e.code||e); out.classList.add("err"); } }
+    j.program=j.program||{}; j.moduller.forEach((x,i)=>{x.no=i+1; x.t=x.t||x.baslik||("Modül "+(i+1)); x.fn=Array.isArray(x.fn)?x.fn:[String(x.fn||"PLAN")]; x.panel=Array.isArray(x.panel)?x.panel:[String(x.panel||"")]; x.dersler=(x.dersler||[]).map(d=>typeof d==="string"?{t:d,kazanim:""}:d); x.teori=x.teori||{}; x.uygulama=x.uygulama||{};});
+    egDesign={brief:v,...j}; out.textContent=`${j.moduller.length} modül tasarlandı${r.truncated||j._onarildi?" (çıktı kesildi; eksik modüller onarıldı — sayı az geldiyse oturum sayısını düşürüp tekrar deneyin)":""}. Önizleyin; uygunsa "Programı kaydet".`; renderDesignPreview(); $("#dsSave").hidden=false;
+  }catch(e){ if(e&&e.code==="cancelled"){ out.textContent="Durduruldu."; } else { const msg=e&&(e.message||e.code)||String(e); out.innerHTML=`Tasarım alınamadı: ${esc(msg)}${raw?` · <a href="#" id="dsRaw">ham çıktıyı göster</a>`:""}${/rate|429/i.test(msg)?" · Birkaç dakika sonra tekrar deneyin.":""}`; out.classList.add("err");
+      const a=$("#dsRaw"); if(a) a.onclick=ev=>{ev.preventDefault(); $("#dsPreview").innerHTML=`<pre style="white-space:pre-wrap;font-size:11px;max-height:40vh;overflow:auto;border:1px solid var(--border);border-radius:8px;padding:10px">${esc(raw.slice(0,20000))}</pre>`;}; } }
   egDesignCtl=null; $("#dsGo").textContent="Tasarla";
+}
+/* Claude çıktısını JSON'a çevir: çit temizliği → düz parse → kesilmiş çıktıyı son tam modülde kapatarak onar */
+function egParseDesign(text){
+  let t=String(text).trim().replace(/^```(?:json)?\s*/i,"").replace(/```\s*$/,"");
+  const a=t.indexOf("{"); if(a>0) t=t.slice(a);
+  try{ return JSON.parse(t.slice(0,t.lastIndexOf("}")+1)); }catch(e){}
+  // onarım: "moduller":[ ... son tam { ... } ] → kapat
+  const mi=t.indexOf('"moduller"'); if(mi<0) throw new Error("JSON çözümlenemedi (modül dizisi yok)");
+  const arr=t.indexOf("[",mi); let depth=0,lastEnd=-1,inStr=false,esc_=false;
+  for(let i=arr+1;i<t.length;i++){ const c=t[i]; if(inStr){ if(esc_)esc_=false; else if(c==="\\")esc_=true; else if(c==='"')inStr=false; continue; } if(c==='"')inStr=true; else if(c==="{")depth++; else if(c==="}"){depth--; if(depth===0)lastEnd=i;} else if(c==="]"&&depth===0)break; }
+  if(lastEnd<0) throw new Error("JSON çözümlenemedi (tam modül yok) — oturum sayısını azaltıp tekrar deneyin");
+  const fixed=t.slice(0,lastEnd+1)+"]}"; const j=JSON.parse(fixed); j._onarildi=true; return j;
 }
 function renderDesignPreview(){ const d=egDesign; if(!d)return;
   $("#dsPreview").innerHTML=`<div class="card pad" style="margin-top:12px"><div class="eyebrow">Program</div><b style="font-size:15px;font-family:var(--font-display)">${esc(d.program.ad||"")}</b> — ${esc(d.program.tema||"")}<div class="muted" style="font-size:12.5px;margin-top:4px">${esc(d.program.motto||"")} · ${esc(d.program.format||"")}</div><p style="font-size:12.5px;margin:8px 0 0">${esc(d.program.neden||"")}</p></div>
