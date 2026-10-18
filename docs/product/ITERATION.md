@@ -37,6 +37,6 @@ Yeni bir sayfa ya da bileşen tasarım sistemine sığmıyorsa:
 ## Kalite kapısı (her sürüm)
 
 - `npm run typecheck` ve `npm run test` temiz
-- `npm run build` temiz
+- `npm run build:mrf` temiz (Mr. F konsolu); tek servis derlemesizdir
 - Açık + koyu tema ve 375px genişlik gözle kontrol
 - Skor motoru `scripts/score.py` ile aynı sonucu verir (test)

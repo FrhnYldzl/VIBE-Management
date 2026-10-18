@@ -70,7 +70,7 @@ npm run typecheck
 npm test
 ```
 
-Üretim: `npm run build` sonra `npm start` — API derlenmiş arayüzü aynı porttan sunar.
+Mr. F konsolunu üretim için derlemek: `npm run build:mrf` (tek servis bunu kullanmaz; Railway build fazı yok).
 
 ## Sürüm
 
