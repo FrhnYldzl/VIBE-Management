@@ -3,6 +3,13 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.4.4] — 2026-10-18 · Kurucu önerileri (canlı sonrası ilk tur)
+
+### Eklendi
+- Ana Merkez sol panel: **Oturumlar** ve **Çıktı Kütüphanesi** Vibe Management altında doğrudan erişilir (sayaçlı).
+- Yanıt altına **"E-posta taslağı aç"**: konu (Konu: satırı ya da başlık) + düz metin gövdeyle varsayılan e-posta istemcisini açar (mailto).
+- Yol haritası: Intake-lite v0.5.1'e çekildi (Drive linki → panel kartı); dışa aktarma Word/Excel/PDF + Juris anteti v0.6.0; Connectors (Gmail taslak) v0.6.2.
+
 ## [0.4.3] — 2026-10-18 · Kullanıcılar veritabanında, hesap sayfası, Railway canlı
 
 ### Eklendi

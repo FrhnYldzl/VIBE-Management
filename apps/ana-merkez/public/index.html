@@ -436,7 +436,9 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
   <div class="client"><div class="lbl">Program</div><div class="cname">Yatırımcıya Dönüşüm 1.0</div><div class="ents" id="progEnts"></div></div>
 
   <div class="navsec">
-    <button class="ni vibe-ni" data-view="vibe"><span class="k"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l1.6 5.2L15 7l-5.4 1.8L8 14 6.4 8.8 1 7l5.4-1.8z"/></svg></span><span class="t">Vibe Management</span><span class="tag">Claude</span></button>
+    <button class="ni vibe-ni" data-view="vibe" data-vgo="studio"><span class="k"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l1.6 5.2L15 7l-5.4 1.8L8 14 6.4 8.8 1 7l5.4-1.8z"/></svg></span><span class="t">Vibe Management</span><span class="tag">Claude</span></button>
+    <button class="ni" data-view="vibe" data-vgo="sessions" style="padding-left:42px"><span class="k">·</span><span class="t">Oturumlar</span><span class="pct" id="navSessCnt"></span></button>
+    <button class="ni" data-view="vibe" data-vgo="library" style="padding-left:42px"><span class="k">·</span><span class="t">Çıktı Kütüphanesi</span><span class="pct" id="navLibCnt"></span></button>
   </div>
 
   <div class="navsec"><div class="h top">MTFG Portföy Yönetimi</div><div class="h">Strateji</div>
@@ -1004,7 +1006,7 @@ async function pullState(){ try{ const r=await fetch(VAPI,{credentials:"same-ori
   if(st.sessions&&Array.isArray(st.sessions.value)){ sessions=st.sessions.value; lsSet(LSK.sess,sessions); } else if(sessions.some(s=>!s.example)){ pushState("sessions"); }
   if(st.library&&Array.isArray(st.library.value)){ library=st.library.value; lsSet(LSK.lib,library); } else if(library.length){ pushState("library"); }
   if(typeof renderStudio==="function")renderStudio(); if(typeof renderSessions==="function")renderSessions(); if(typeof renderLibrary==="function")renderLibrary(); if(typeof renderRecent==="function")renderRecent(); if(typeof renderThread==="function")renderThread();
-  $("#sessCnt").textContent=sessions.length; $("#libCnt").textContent=library.length; }catch(e){} }
+  $("#sessCnt").textContent=sessions.length; $("#libCnt").textContent=library.length; syncNavCounts(); }catch(e){} }
 let curSess=null, running=null, sampleP=null, vtab="studio", sfil="all", lfil="all";
 let atts=[]; /* {id,name,kind:'text'|'image'|'pdf',text?,blob?,err?} */
 function getSample(){ if(!sampleP){ sampleP=(window.claude&&window.claude.use?window.claude.use("sample"):Promise.resolve(null)).catch(()=>null);} return sampleP; }
@@ -1035,7 +1037,17 @@ function loadTpl(id,autorun){
   if(t.file&&!atts.length){ $("#composer").scrollIntoView({behavior:"smooth",block:"center"}); $("#vnote").textContent="Bu şablon dosya ile çalışır: önce 'Dosya ekle' ile dokümanı ekleyin, sonra Çalıştır."; $("#attIn").click(); return; }
   if(autorun) run(); else { $("#composer").scrollIntoView({behavior:"smooth",block:"center"}); $("#vq").focus(); }
 }
-function setVtab(t){ vtab=t; document.querySelectorAll("[data-vtab]").forEach(b=>b.classList.toggle("on",b.dataset.vtab===t)); ["studio","sessions","library"].forEach(k=>$("#vt-"+k).hidden=k!==t); if(t==="sessions")renderSessions(); if(t==="library")renderLibrary(); }
+function setVtab(t){ vtab=t; document.querySelectorAll("[data-vtab]").forEach(b=>b.classList.toggle("on",b.dataset.vtab===t)); ["studio","sessions","library"].forEach(k=>$("#vt-"+k).hidden=k!==t); if(t==="sessions")renderSessions(); if(t==="library")renderLibrary();
+  document.querySelectorAll(".ni[data-vgo]").forEach(b=>b.classList.toggle("active",current==="vibe"&&b.dataset.vgo===t)); syncNavCounts(); }
+/* Sol paneldeki Oturumlar / Kütüphane sayaçları (kurucu önerisi 1) */
+function syncNavCounts(){ const a=$("#navSessCnt"), b=$("#navLibCnt"); if(a)a.textContent=sessions.length; if(b)b.textContent=library.length; }
+document.addEventListener("click",e=>{ const b=e.target.closest(".ni[data-vgo]"); if(b){ setTimeout(()=>setVtab(b.dataset.vgo),0); } });
+/* Yanıtı e-posta taslağı olarak aç (mailto: — Gmail/Outlook varsayılan istemci). Gmail API taslağı v0.6.x Connectors ile gelir. */
+function mailDraft(i){ const s=sessions.find(x=>x.id===curSess); const m=s&&s.msgs[i]; if(!m)return;
+  const txt=m.a.replace(/^#+\s*/gm,"").replace(/\*\*(.+?)\*\*/g,"$1").replace(/`/g,"").replace(/^\|.*\|$/gm,l=>l.replace(/\|/g," ").replace(/\s{2,}/g," ").trim()).replace(/^-{3,}$/gm,"");
+  const subjM=m.a.match(/^\s*(?:konu|subject)\s*:\s*(.+)$/im); const subject=subjM?subjM[1].trim():titleOf(m.a,s.title);
+  const body=(txt.length>1800?txt.slice(0,1800)+"\n\n[…] (tamamı kütüphanede)":txt)+"\n\n— VIBE Management · "+scopeName(s.scope);
+  location.href="mailto:?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body); }
 
 /* ---- dosya ekleri ---- */
 const PDFJS="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", PDFW="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
@@ -1056,7 +1068,7 @@ async function addFiles(list){
 function renderAtts(){ $("#atts").innerHTML=atts.map(a=>`<span class="att" title="${esc(a.name)}"><span class="nm">${esc(a.name)}</span><span class="kind ${a.err?"err":""}">${a.err?esc(a.err):a.kind==="image"?"görsel":a.kind==="pdf"?"pdf · "+Math.round((a.text||"").length/1000)+"k":"metin · "+Math.round((a.text||"").length/1000)+"k"}</span><button class="x" data-att="${a.id}" aria-label="Kaldır">×</button></span>`).join(""); }
 
 /* ---- oturumlar ---- */
-function saveSess(){ lsSet(LSK.sess,sessions); pushState("sessions"); $("#sessCnt").textContent=sessions.length; }
+function saveSess(){ lsSet(LSK.sess,sessions); pushState("sessions"); $("#sessCnt").textContent=sessions.length; syncNavCounts(); }
 function newSession(title){ const s={id:uid(),title:title||"Yeni oturum",scope,alan,pinned:false,created:Date.now(),msgs:[]}; sessions.unshift(s); curSess=s.id; saveSess(); renderThread(); renderSessions(); return s; }
 function openSession(id){ const s=sessions.find(x=>x.id===id); if(!s)return; curSess=id; setScope(s.scope||"all"); alan=s.alan||"genel"; renderScope(); setVtab("studio"); renderThread(); renderSessions(); $("#composer").scrollIntoView({behavior:"smooth",block:"start"}); }
 function renderSessions(){
@@ -1073,10 +1085,10 @@ function renderThread(){
   t.hidden=false;
   t.innerHTML=`<div class="thread-bar"><span>Oturum · ${esc(s.title)}${s.example?" · örnek içerik":""}</span><button id="vnew">Yeni oturum</button></div>`+s.msgs.map((m,i)=>`<div class="msg-u"><span class="meta">${esc(scopeName(s.scope))} · ${esc(alanName(s.alan))}${m.files?` · ${esc(m.files)}`:""}</span>${esc(m.q)}</div><div class="msg-a"><div class="av">${AV}</div><div class="body">${md(m.a)}${actHTML(i)}</div></div>`).join("");
 }
-function actHTML(i){ return `<div class="act"><button data-copy="${i}">Kopyala</button><button data-save="${i}">Kaydet</button><button data-follow="Bunu daha kısa ve madde madde yap.">Kısalt</button><button data-follow="Bunu e-posta taslağına çevir.">E-postaya çevir</button><button data-follow="Bundan aksiyon listesi (sahip, tarih, öncelik) çıkar.">Aksiyonlara çevir</button></div>`; }
+function actHTML(i){ return `<div class="act"><button data-copy="${i}">Kopyala</button><button data-save="${i}">Kaydet</button><button data-mail="${i}" title="Varsayılan e-posta istemcisinde taslak olarak açar">E-posta taslağı aç</button><button data-follow="Bunu daha kısa ve madde madde yap.">Kısalt</button><button data-follow="Bunu e-posta taslağına çevir.">E-postaya çevir</button><button data-follow="Bundan aksiyon listesi (sahip, tarih, öncelik) çıkar.">Aksiyonlara çevir</button></div>`; }
 
 /* ---- kütüphane ---- */
-function saveLib(){ lsSet(LSK.lib,library); pushState("library"); $("#libCnt").textContent=library.length; renderRecent(); }
+function saveLib(){ lsSet(LSK.lib,library); pushState("library"); $("#libCnt").textContent=library.length; renderRecent(); syncNavCounts(); }
 function titleOf(txt,q){ const m=txt.match(/^#+\s*(.+)$/m); return (m?m[1]:q).replace(/\*\*/g,"").slice(0,80); }
 function addToLib(i){ const s=sessions.find(x=>x.id===curSess); const m=s&&s.msgs[i]; if(!m)return; library.unshift({id:uid(),title:titleOf(m.a,m.q),scope:s.scope,alan:s.alan,date:Date.now(),text:m.a,sess:s.title}); saveLib(); renderLibrary(); $("#vnote").textContent="Çıktı kütüphaneye kaydedildi."; }
 function renderRecent(){ $("#libCnt").textContent=library.length; $("#recent").innerHTML=library.length?library.slice(0,5).map(l=>`<div class="r"><div><b>${esc(l.title)}</b><span>${esc(scopeName(l.scope))} · ${fmtD(l.date)}</span></div><button data-vtab="library">Aç</button></div>`).join(""):`<div class="s">Henüz kayıtlı çıktı yok. Bir yanıtın altındaki "Kaydet" ile başlayın.</div>`; }
@@ -1176,6 +1188,7 @@ document.addEventListener("click",e=>{
   const vt=e.target.closest("[data-vtab]"); if(vt){setVtab(vt.dataset.vtab);return;}
   const ax=e.target.closest("[data-att]"); if(ax){atts=atts.filter(a=>a.id!==ax.dataset.att);renderAtts();return;}
   const fo=e.target.closest("[data-follow]"); if(fo){$("#vq").value=fo.dataset.follow;run();return;}
+  const ml=e.target.closest("[data-mail]"); if(ml){mailDraft(+ml.dataset.mail);return;}
   const cp=e.target.closest("[data-copy]"); if(cp){const s=sessions.find(x=>x.id===curSess);const m=s&&s.msgs[+cp.dataset.copy];if(m)copyText(m.a,cp);return;}
   const sv=e.target.closest("[data-save]"); if(sv){addToLib(+sv.dataset.save);sv.textContent="Kaydedildi";return;}
   if(e.target.closest("#vnew")||e.target.closest("#sessNew")||e.target.closest("#sessNew2")){newSession();setVtab("studio");$("#composer").scrollIntoView({behavior:"smooth",block:"center"});$("#vq").focus();return;}

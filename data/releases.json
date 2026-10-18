@@ -1,6 +1,18 @@
 {
   "surumler": [
     {
+      "surum": "0.4.4",
+      "tarih": "2026-10-18",
+      "faz": "v1.0 yolu",
+      "baslik": "Kurucu önerileri · ilk tur",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "Oturumlar ve Çıktı Kütüphanesi sol panelde (Vibe altında, sayaçlı)" },
+        { "tur": "yeni", "metin": "Yanıtı 'E-posta taslağı aç' ile varsayılan e-posta istemcisinde taslak olarak açma" },
+        { "tur": "iyilestirme", "metin": "Yol haritası: Intake-lite v0.5.1 · Word/Excel/PDF antetli dışa aktarma v0.6.0 · Connectors (Gmail) v0.6.2" }
+      ]
+    },
+    {
       "surum": "0.4.3",
       "tarih": "2026-10-18",
       "faz": "v1.0 yolu",
