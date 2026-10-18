@@ -3,6 +3,18 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.2.0] — 2026-10-18 · MTFG Ana Merkez
+
+### Eklendi
+- `apps/ana-merkez`: kurucunun **MTFG Ana Merkez** kodu birebir (public/index.html — portföy paneli + Vibe Management
+  stüdyosu, onscala.html, codemag.html, claude-adapter.js, server/index.mjs). Root script `npm run ana-merkez` (port 8787).
+- `packages/juris-panel-kit`: Juris Kurumsal Yönetim Paneli master HTML + müvekkil veri blokları (config/assess/views)
+  + `assemble.py` / `smoke.js` üretim kiti, Meown AI örnek çıktısı.
+
+### Değişti
+- Ürün çerçevesi: VIBE Management = MTFG Ana Merkez (varlık + data room yönetimi); Mr. F konsolu alt modül.
+- `server/index.mjs` TIER model kimlikleri güncel Claude 5 ailesine çekildi (haiku-5-5 / opus-5-5 / fable-5-1); diğer dosyalar değişmedi.
+
 ## [0.1.1] — 2026-10-18 · Faz A · Juris görsel standardı
 
 ### Değişti

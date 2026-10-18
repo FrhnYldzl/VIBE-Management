@@ -1,0 +1,8 @@
+{
+  "name": "mtfg-ana-merkez",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server/index.mjs" },
+  "dependencies": { "@anthropic-ai/sdk": "^0.52.0" }
+}

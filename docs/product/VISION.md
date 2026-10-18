@@ -1,6 +1,26 @@
-# Ürün Vizyonu — VIBE Management · Mr. F
+# Ürün Vizyonu — VIBE Management
 
-> Kaynak: [`docs/kurucu-dokuman.html`](../kurucu-dokuman.html) (Kurucu Doküman v1). Bu dosya onun
+## Çerçeve (2026-10-18 itibarıyla)
+
+**VIBE Management = MTFG Ana Merkez.** MTFG'nin varlıklarını — şirketler (Onscala, Codemag, Zyrone,
+Qervan-Wetrade, Meown AI…), projeler, Drive data room'ları — tek yerden yöneten merkez. Üç katman:
+
+1. **MTFG Portföy Yönetim Paneli** — PE / family office mantığı: nakit akışı × değer, tez uyumu, risk, yönetişim takvimi.
+2. **Juris Kurumsal Yönetim Panelleri** — müvekkil başına Data Room → fonksiyon → doküman · sorumlu · durum · dayanak.
+   `packages/juris-panel-kit` master'ından üretilir, Ana Merkez'e iframe'le gömülür.
+3. **Vibe Management stüdyosu** — Claude ile portföy + panel + Data Room bağlamında çalışan operatör asistanı.
+
+Kaynak kod kurucunun tek-dosya HTML'leridir (`apps/ana-merkez`); **birebir korunur**, iterasyonlar
+aynı dizilim ve token setiyle yapılır. Veri kaynağı: Google Drive (MTFG Ana Merkez sürücüsü + data room klasörleri), Notion Command Center.
+
+**Mr. F / Problem Pazaryeri** bu merkezin altında bir venture-building projesidir (03. Projeler). Aşağıdaki
+bölümler Mr. F'in ürün vizyonudur; operatör konsolu `apps/web` + `apps/api`.
+
+---
+
+# Mr. F · Problem Pazaryeri
+
+> Kaynak: [`docs/kurucu-dokuman.html`](../kurucu-dokuman.html) (Kurucu Doküman v1). Bu bölüm onun
 > **ürün** karşılığıdır: kim için, ne, hangi kaliteyle.
 
 ## Tek cümle

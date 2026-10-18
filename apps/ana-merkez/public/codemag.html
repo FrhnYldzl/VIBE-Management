@@ -1,0 +1,840 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Juris Kurumsal Yönetim Paneli – Codemag</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: navy brand rail (left) + paper workspace. Juris Kurumsal Kimlik tokens: Pantone 289C navy, 7620C red. */
+:root{
+  --navy:#0A2240; --red:#BC2F2C; --red-ink:#8A1F1D;
+  --bg:#FAFAF7; --bg-elev:#FFFFFF; --bg-sunken:#F3F2EE; --bg-nav:#0A2240; --bg-nav-2:#0E2B50;
+  --border:rgba(10,34,64,.09); --border-strong:rgba(10,34,64,.18); --divider:rgba(10,34,64,.06);
+  --ink:#0A2240; --ink-2:rgba(10,34,64,.72); --ink-3:rgba(10,34,64,.52); --ink-4:rgba(10,34,64,.36);
+  --nav-ink:#FFFFFF; --nav-ink-2:rgba(255,255,255,.72); --nav-ink-3:rgba(255,255,255,.45); --nav-hover:rgba(255,255,255,.07); --nav-active:rgba(255,255,255,.12); --nav-accent:#E26B68;
+  --tint-04:rgba(10,34,64,.04); --tint-08:rgba(10,34,64,.08); --tint-12:rgba(10,34,64,.12);
+  --success:#1F7A4E; --success-bg:rgba(31,122,78,.10); --warn:#B4701C; --warn-bg:rgba(180,112,28,.11); --info:#1F5AA8; --info-bg:rgba(31,90,168,.10); --neutral:#5A6B82; --neutral-bg:rgba(90,107,130,.12); --accent-bg:rgba(188,47,44,.10);
+  --track:rgba(10,34,64,.10); --chart-1:#0A2240; --chart-2:#BC2F2C; --chart-3:#1F5AA8; --chart-4:#B4701C; --chart-ghost:rgba(10,34,64,.18);
+  --font-display:"Playfair Display","Times New Roman",Georgia,serif;
+  --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r-sm:6px; --r-md:10px; --r-lg:14px;
+  --shadow-sm:0 1px 2px rgba(10,34,64,.05),0 1px 1px rgba(10,34,64,.03);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#060F1F; --bg-elev:#0D1B33; --bg-sunken:#040A17; --bg-nav:#040A17; --bg-nav-2:#0A1830;
+  --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16); --divider:rgba(255,255,255,.05);
+  --ink:#F2F0EA; --ink-2:rgba(242,240,234,.72); --ink-3:rgba(242,240,234,.5); --ink-4:rgba(242,240,234,.32);
+  --tint-04:rgba(255,255,255,.03); --tint-08:rgba(255,255,255,.07); --tint-12:rgba(255,255,255,.10);
+  --success:#4FB07F; --success-bg:rgba(79,176,127,.14); --warn:#D9984A; --warn-bg:rgba(217,152,74,.14); --info:#6FA0E0; --info-bg:rgba(111,160,224,.14); --neutral:#9AA8BC; --neutral-bg:rgba(154,168,188,.14); --red-ink:#E26B68; --accent-bg:rgba(226,107,104,.14);
+  --track:rgba(255,255,255,.10); --chart-1:#8FB0E0; --chart-2:#E26B68; --chart-3:#6FA0E0; --chart-4:#D9984A; --chart-ghost:rgba(255,255,255,.2);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#060F1F; --bg-elev:#0D1B33; --bg-sunken:#040A17; --bg-nav:#040A17; --bg-nav-2:#0A1830;
+  --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16); --divider:rgba(255,255,255,.05);
+  --ink:#F2F0EA; --ink-2:rgba(242,240,234,.72); --ink-3:rgba(242,240,234,.5); --ink-4:rgba(242,240,234,.32);
+  --tint-04:rgba(255,255,255,.03); --tint-08:rgba(255,255,255,.07); --tint-12:rgba(255,255,255,.10);
+  --success:#4FB07F; --success-bg:rgba(79,176,127,.14); --warn:#D9984A; --warn-bg:rgba(217,152,74,.14); --info:#6FA0E0; --info-bg:rgba(111,160,224,.14); --neutral:#9AA8BC; --neutral-bg:rgba(154,168,188,.14); --red-ink:#E26B68; --accent-bg:rgba(226,107,104,.14);
+  --track:rgba(255,255,255,.10); --chart-1:#8FB0E0; --chart-2:#E26B68; --chart-3:#6FA0E0; --chart-4:#D9984A; --chart-ghost:rgba(255,255,255,.2);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:3px}
+.num{font-variant-numeric:tabular-nums}
+.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+
+/* shell */
+.app{display:flex;height:100%;min-height:100vh}
+.nav{width:276px;flex:0 0 276px;background:var(--bg-nav);color:var(--nav-ink);display:flex;flex-direction:column;padding-left:max(0px,env(safe-area-inset-left,0px));overflow-y:auto}
+.brand{display:flex;align-items:center;gap:12px;padding:20px 20px 14px}
+.brand .name{font-family:var(--font-display);font-size:22px;line-height:1}
+.brand .sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nav-ink-3);margin-top:4px}
+.client{margin:0 14px 6px;padding:12px 14px;border-radius:var(--r-md);background:var(--bg-nav-2);border:1px solid rgba(255,255,255,.08)}
+.client .lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--nav-ink-3)}
+.client .cname{font-weight:600;font-size:14px;margin-top:3px;line-height:1.3}
+.client .ents{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.client .ent{font-size:10.5px;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--nav-ink-2)}
+.navsec{padding:12px 14px 2px}
+.navsec .h{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nav-ink-3);padding:0 8px 6px;display:flex;justify-content:space-between}
+.ni{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:7px 10px;border-radius:var(--r-sm);color:var(--nav-ink-2);font-size:13px;font-weight:500}
+.ni:hover{background:var(--nav-hover);color:var(--nav-ink)}
+.ni.active{background:var(--nav-active);color:var(--nav-ink)}
+.ni .k{font-family:var(--font-mono);font-size:11px;color:var(--nav-ink-3);width:22px;flex:0 0 22px}
+.ni.active .k{color:var(--nav-accent)}
+.ni .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ni .pct{font-family:var(--font-mono);font-size:11px;color:var(--nav-ink-3)}
+.ni .chev{width:14px;height:14px;transition:transform .15s;color:var(--nav-ink-3)}
+.ni[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.sub-list{display:none;flex-direction:column;gap:1px;padding:2px 0 4px}
+.sub-list.open{display:flex}
+.ni.sub{padding:5px 10px 5px 42px;font-size:12.5px;font-weight:400}
+.ni.sub .dot{width:7px;height:7px;border-radius:50%;flex:0 0 7px}
+.navfoot{margin-top:auto;padding:14px 20px 18px;font-size:11px;color:var(--nav-ink-3);line-height:1.5;border-top:1px solid rgba(255,255,255,.07)}
+
+.main{flex:1;min-width:0;overflow-y:auto;padding-block:0 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 0 0;min-height:52px}
+.crumb{font-size:12px;color:var(--ink-3)} .crumb b{color:var(--ink-2);font-weight:500}
+.topbar .spacer{flex:1}
+.date{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3)}
+.menu-btn{display:none;width:34px;height:34px;border-radius:var(--r-sm);border:1px solid var(--border);align-items:center;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto}
+.page-h{padding:22px 0 18px;display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.page-h h1{font-family:var(--font-display);font-weight:500;font-size:30px;line-height:1.1;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.page-h .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red-ink);font-weight:600;margin-bottom:6px}
+.page-h p{margin:8px 0 0;color:var(--ink-2);max-width:62ch}
+.page-h .right{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:12.5px;font-weight:600;background:var(--bg-elev);color:var(--ink);text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--tint-04);border-color:var(--border-strong)}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+:root[data-theme="dark"] .btn.primary{background:#F2F0EA;color:#0A2240;border-color:#F2F0EA}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .btn.primary{background:#F2F0EA;color:#0A2240;border-color:#F2F0EA}}
+
+/* tiles / bars */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
+.tile{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px 12px;min-width:0}
+.tile .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.tile .v{font-family:var(--font-display);font-size:30px;line-height:1.05;margin-top:6px;font-variant-numeric:tabular-nums}
+.tile .v small{font-family:var(--font-body);font-size:13px;color:var(--ink-3);margin-left:4px}
+.tile .d{font-size:12px;color:var(--ink-3);margin-top:4px}
+.tile.accent{border-color:transparent;background:var(--navy);color:#fff}
+.tile.accent .l,.tile.accent .d{color:rgba(255,255,255,.65)}
+.bar{height:6px;border-radius:999px;background:var(--track);overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.bar .s-done{background:var(--success)} .bar .s-review{background:var(--info)} .bar .s-progress{background:var(--warn)} .bar .s-input{background:var(--red-ink)}
+.tile.accent .bar{background:rgba(255,255,255,.18)}
+.sec{margin-top:26px}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.sec-h h2{font-family:var(--font-display);font-weight:500;font-size:19px;margin:0}
+.sec-h .meta{font-size:12px;color:var(--ink-3)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);min-width:0}
+.card.pad{padding:16px 18px}
+.area{display:flex;flex-direction:column;gap:10px;padding:14px 16px;cursor:pointer;text-align:left;width:100%;border-radius:var(--r-lg)}
+.area:hover{border-color:var(--border-strong);box-shadow:var(--shadow-sm)}
+.area .top{display:flex;align-items:center;gap:10px}
+.area .code{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);background:var(--tint-08);padding:2px 6px;border-radius:4px}
+.area .ttl{font-weight:600;font-size:14px;flex:1;min-width:0}
+.area .pct{font-family:var(--font-mono);font-size:12px;color:var(--ink-2)}
+.area .foot{display:flex;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3)}
+.fnchip{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--tint-08);color:var(--ink-2)}
+.fnchip.PLAN{background:var(--info-bg);color:var(--info)} .fnchip.İCRA{background:var(--warn-bg);color:var(--warn)} .fnchip.DENETİM{background:var(--accent-bg);color:var(--red-ink)} .fnchip.RAPORLAMA{background:var(--success-bg);color:var(--success)}
+
+/* tables */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
+th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border-strong);font-weight:600;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--divider);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.doc{font-weight:500;min-width:220px}
+td.doc .ent{display:inline-block;font-size:10.5px;color:var(--ink-3);margin-left:6px;font-weight:400}
+td .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin-right:6px}
+.owner{font-size:12px;color:var(--ink-2);white-space:nowrap}
+.status{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;font-size:11.5px;font-weight:600;white-space:nowrap;border:1px solid transparent}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.status.done{background:var(--success-bg);color:var(--success)} .status.review{background:var(--info-bg);color:var(--info)} .status.progress{background:var(--warn-bg);color:var(--warn)} .status.input{background:var(--accent-bg);color:var(--red-ink)} .status.pending{background:var(--neutral-bg);color:var(--neutral)}
+button.status:hover{border-color:currentColor}
+.linkbtn{font-size:12px;color:var(--info);text-decoration:none;white-space:nowrap;background:none;border:0;padding:0;cursor:pointer}
+.linkbtn:hover{text-decoration:underline}
+.muted{color:var(--ink-4);font-size:12px}
+.note{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:var(--r-md);background:var(--warn-bg);color:var(--ink-2);font-size:13px;margin-top:12px}
+.note.blue{background:var(--info-bg)} .note.red{background:var(--accent-bg)}
+.note b{color:var(--ink)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px} .legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.flow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--ink-2)}
+.flow span{padding:4px 9px;border-radius:var(--r-sm);background:var(--tint-04);border:1px solid var(--border)} .flow em{color:var(--ink-4);font-style:normal}
+.rhythm{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.rhythm .r{padding:12px 14px;border-radius:var(--r-md);background:var(--bg-sunken);border:1px solid var(--border)}
+.rhythm .r b{display:block;font-family:var(--font-display);font-size:20px;font-weight:500} .rhythm .r span{font-size:12px;color:var(--ink-3)}
+.folders{display:flex;flex-wrap:wrap;gap:8px}
+.folder{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:var(--r-sm);border:1px dashed var(--border-strong);font-size:12.5px;color:var(--ink-2);text-decoration:none}
+.folder.empty{color:var(--ink-4)}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:var(--tint-08);color:var(--ink-2);font-weight:600;white-space:nowrap}
+.pill.red{background:var(--accent-bg);color:var(--red-ink)} .pill.green{background:var(--success-bg);color:var(--success)} .pill.amber{background:var(--warn-bg);color:var(--warn)} .pill.blue{background:var(--info-bg);color:var(--info)}
+
+/* assessment */
+.tabs{display:flex;gap:4px;flex-wrap:wrap;position:sticky;top:0;z-index:3;background:var(--bg);padding:8px 0 10px;border-bottom:1px solid var(--border)}
+.tab{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--bg-elev);font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.tab .k{font-family:var(--font-mono);font-size:11px;color:var(--ink-4)}
+.tab.active{background:var(--navy);border-color:var(--navy);color:#fff} .tab.active .k{color:rgba(255,255,255,.6)}
+.ent-tabs{display:inline-flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden}
+.ent-tabs button{height:30px;padding:0 12px;font-size:12px;font-weight:600;color:var(--ink-3);background:var(--bg-elev)}
+.ent-tabs button.active{background:var(--tint-08);color:var(--ink)}
+.doc-h{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;margin:28px 0 12px}
+.doc-h h2{font-family:var(--font-display);font-weight:500;font-size:20px;margin:0}
+.doc-h .right{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.basis{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px;font-size:12px;color:var(--ink-3)}
+.basis .f{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:4px;background:var(--accent-bg);color:var(--red-ink)}
+.basis .src{display:inline-flex;align-items:center;gap:5px}
+.basis .src::before{content:"";width:7px;height:7px;border-radius:50%}
+.basis .src.doc::before{background:var(--success)} .basis .src.beyan::before{background:var(--warn)} .basis .src.none::before{background:var(--neutral)}
+.basis .guide{color:var(--info);text-decoration:none}
+.bmc{display:grid;gap:8px;grid-template-columns:repeat(10,minmax(0,1fr));grid-template-rows:auto auto auto}
+.bmc .b{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-md);padding:10px 12px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.bmc .b h4{margin:0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:700;display:flex;justify-content:space-between;gap:6px}
+.bmc .b h4 i{font-style:normal;font-family:var(--font-mono);color:var(--ink-4);font-weight:400}
+.bmc .b ul{margin:0;padding-left:14px;font-size:12.5px;line-height:1.45;color:var(--ink-2)} .bmc .b li{margin:0 0 3px} .bmc .b li b{color:var(--ink);font-weight:600}
+.bmc .kp{grid-column:1/3;grid-row:1/3} .bmc .ka{grid-column:3/5;grid-row:1} .bmc .kr{grid-column:3/5;grid-row:2} .bmc .vp{grid-column:5/7;grid-row:1/3;background:var(--navy);color:#fff;border-color:var(--navy)} .bmc .vp h4{color:rgba(255,255,255,.65)} .bmc .vp ul{color:rgba(255,255,255,.85)} .bmc .vp li b{color:#fff} .bmc .cr{grid-column:7/9;grid-row:1} .bmc .ch{grid-column:7/9;grid-row:2} .bmc .cs{grid-column:9/11;grid-row:1/3} .bmc .co{grid-column:1/6;grid-row:3} .bmc .rs{grid-column:6/11;grid-row:3}
+.bmc .pr{grid-column:1/3;grid-row:1/3} .bmc .so{grid-column:3/5;grid-row:1} .bmc .km{grid-column:3/5;grid-row:2} .bmc .ua{grid-column:7/9;grid-row:1}
+@media (max-width:900px){.bmc{grid-template-columns:1fr 1fr;grid-template-rows:none}.bmc .b{grid-column:auto!important;grid-row:auto!important}.bmc .vp,.bmc .co,.bmc .rs{grid-column:1/3!important}}
+.org{display:flex;flex-direction:column;align-items:center}
+.org .node{background:var(--bg-elev);border:1px solid var(--border-strong);border-radius:var(--r-md);padding:8px 14px;text-align:center;min-width:150px;max-width:100%}
+.org .node b{display:block;font-size:13px} .org .node span{font-size:11.5px;color:var(--ink-3)}
+.org .node.top{background:var(--navy);color:#fff;border-color:var(--navy)} .org .node.top span{color:rgba(255,255,255,.7)}
+.org .node.ghost{border-style:dashed} .org .node.ghost b{color:var(--ink-3)}
+.org .line{width:1px;height:18px;background:var(--border-strong)}
+.org .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;position:relative;padding-top:18px}
+.org .row::before{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;background:var(--border-strong)}
+.org .row>div{position:relative} .org .row>div::before{content:"";position:absolute;top:-18px;left:50%;width:1px;height:18px;background:var(--border-strong)}
+.matrix td,.matrix th{text-align:center} .matrix td:first-child,.matrix th:first-child{text-align:left}
+.rc{display:inline-block;width:26px;height:26px;line-height:26px;border-radius:6px;font-family:var(--font-mono);font-size:12px;font-weight:600}
+.rc.R{background:var(--navy);color:#fff} .rc.A{background:var(--accent-bg);color:var(--red-ink)} .rc.C{background:var(--info-bg);color:var(--info)} .rc.I{background:var(--neutral-bg);color:var(--neutral)} .rc.x{background:var(--tint-04);color:var(--ink-4)}
+.heat{display:grid;grid-template-columns:auto repeat(5,1fr);gap:4px;font-size:11px}
+.heat .ax{display:flex;align-items:center;justify-content:center;color:var(--ink-3);padding:4px;text-align:center}
+.heat .c{min-height:54px;border-radius:6px;padding:5px 6px;display:flex;flex-wrap:wrap;gap:3px;align-content:flex-start;font-size:10.5px;color:var(--ink)}
+.heat .c span{background:var(--bg-elev);border:1px solid var(--border);border-radius:4px;padding:2px 5px;font-weight:600;font-family:var(--font-mono)}
+.h1{background:var(--success-bg)} .h2{background:rgba(31,122,78,.18)} .h3{background:var(--warn-bg)} .h4{background:rgba(180,112,28,.22)} .h5{background:var(--accent-bg)}
+.check{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.check .grp{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-md);padding:10px 12px}
+.check .grp h5{margin:0 0 6px;font-size:12px;display:flex;justify-content:space-between;gap:8px} .check .grp h5 span{font-family:var(--font-mono);font-size:11px;color:var(--ink-4)}
+.check .grp ul{margin:0;padding:0;list-style:none;font-size:12px;color:var(--ink-2)}
+.check .grp li{display:flex;gap:7px;align-items:flex-start;padding:3px 0;border-top:1px solid var(--divider)}
+.check .grp li i{flex:0 0 12px;width:12px;height:12px;border-radius:3px;border:1.5px solid var(--border-strong);margin-top:3px}
+.check .grp li.ok i{background:var(--success);border-color:var(--success)}
+.fin td.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--font-mono);font-size:12px} .fin td.n.empty{color:var(--ink-4)} .fin tr.sum td{font-weight:700;border-top:1px solid var(--border-strong)}
+.proc{display:flex;gap:6px;flex-wrap:wrap}
+.proc .st{flex:1 1 120px;min-width:0;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 10px;font-size:12px}
+.proc .st b{display:block;font-size:11px;color:var(--ink-3);font-family:var(--font-mono);margin-bottom:2px}
+.tl .ev{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:8px 0;border-top:1px solid var(--divider);font-size:13px}
+.tl .ev .w{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3);padding-top:2px} .tl .ev .t b{display:block;font-weight:600} .tl .ev .t span{color:var(--ink-3);font-size:12px}
+.slides{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.slide{aspect-ratio:16/10;max-width:100%;background:var(--bg-elev);border:1px dashed var(--border-strong);border-radius:6px;padding:8px 10px;display:flex;flex-direction:column;justify-content:space-between;font-size:11.5px;color:var(--ink-3)}
+.slide b{font-size:12px;color:var(--ink-2)} .slide .n{font-family:var(--font-mono);font-size:10px;color:var(--ink-4)}
+.rel{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.rel .box{background:var(--bg-elev);border:1px solid var(--border-strong);border-radius:var(--r-md);padding:12px 14px;text-align:center}
+.rel .box b{display:block;font-family:var(--font-display);font-size:17px;font-weight:500} .rel .box span{font-size:12px;color:var(--ink-3)}
+.rel .arr{font-size:11px;color:var(--ink-3);text-align:center;line-height:1.3}
+.rel .box.navy{background:var(--navy);color:#fff;border-color:var(--navy)} .rel .box.navy span{color:rgba(255,255,255,.7)}
+@media (max-width:700px){.rel{grid-template-columns:1fr}}
+/* doc bar (çıktı dokümanı şeridi) */
+.docbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.docbar .d{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--bg-elev);font-size:11.5px;color:var(--ink-2)}
+.docbar .d i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.docbar .d .n{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-4)}
+/* OKR */
+.okr{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.okr .o{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px}
+.okr .o h4{margin:0 0 4px;font-size:14px}
+.okr .o .obj{font-size:12.5px;color:var(--ink-2);margin-bottom:10px}
+.okr .kr{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;font-size:12px;padding:6px 0;border-top:1px solid var(--divider)}
+.okr .kr .m{color:var(--ink-2)} .okr .kr .tgt{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);white-space:nowrap}
+.okr .kr .bar{grid-column:1/3;height:4px}
+/* charts */
+.chart{width:100%;height:auto;display:block}
+.chart text{font-family:var(--font-body);fill:var(--ink-3);font-size:11px}
+.chart .grid{stroke:var(--divider)} .chart .axis{stroke:var(--border-strong)}
+/* kanban */
+.kanban{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.kanban .col{background:var(--bg-sunken);border:1px solid var(--border);border-radius:var(--r-md);padding:10px}
+.kanban .col h5{margin:0 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);display:flex;justify-content:space-between}
+.kanban .pc{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 10px;font-size:12px;margin-bottom:8px}
+.kanban .pc b{display:block;font-size:12.5px} .kanban .pc span{display:block;color:var(--ink-3);font-size:11.5px;margin-top:2px}
+.kanban .pc .r{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+/* onboarding */
+.steps{display:flex;gap:0;flex-wrap:wrap}
+.steps .s{flex:1 1 140px;min-width:0;padding:10px 12px;border-top:3px solid var(--track);font-size:12px}
+.steps .s.ok{border-top-color:var(--success)} .steps .s.cur{border-top-color:var(--warn)}
+.steps .s b{display:block;font-size:12.5px} .steps .s span{color:var(--ink-3);font-size:11.5px}
+.lvl{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.lvl div{height:8px;border-radius:3px;background:var(--track)} .lvl div.on{background:var(--navy)}
+.scrim{display:none;position:fixed;inset:0;background:rgba(4,10,23,.5);z-index:9}
+@media (max-width:900px){
+  .nav{position:fixed;left:0;top:0;bottom:0;z-index:10;transform:translateX(-100%);transition:transform .2s;padding-top:env(safe-area-inset-top,0px)}
+  .nav.open{transform:none} .scrim.open{display:block} .menu-btn{display:inline-flex} .page-h h1{font-size:24px} table{min-width:540px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+
+<div class="app">
+  <nav class="nav" id="nav" aria-label="Ana menü">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 200 200" aria-hidden="true"><g transform="translate(8,8)"><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#BC2F2C"/></g><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#FFFFFF" opacity=".96"/></svg>
+      <div><div class="name">Juris</div><div class="sub">Kurumsal Yönetim Paneli</div></div>
+    </div>
+    <div class="client" id="clientBox"></div>
+    <div class="navsec"><button class="ni" data-view="home"><span class="k">◌</span><span class="t">Genel Bakış</span></button><button class="ni" data-view="insights"><span class="k">◈</span><span class="t">Insights</span></button></div>
+    <div class="navsec"><div class="h">Fonksiyonlar</div><div id="fnNav"></div></div>
+    <div class="navsec"><div class="h">Durum Değerlendirmesi</div><div id="asNav"></div></div>
+    <div class="navsec"><div class="h">Data Room</div><div id="drNav"></div></div>
+    <div class="navsec"><div class="h">Onboard &amp; Learn</div><div id="obNav"></div></div>
+    <div class="navfoot">Şirketler Hukuku ve Kurumsal Yönetim Danışmanlığı · Doküman Haritası<br>Durum verisi: Google Drive Data Room (17.10.2026)</div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+  <main class="main" id="main"><div class="wrap">
+    <div class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menü"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+      <div class="crumb" id="crumb"></div><div class="spacer"></div><div class="date" id="today"></div>
+    </div>
+    <div id="view"></div>
+  </div></main>
+</div>
+
+<script>
+/* =========================================================
+   CLIENT CONFIG — her müvekkil için bu blok değişir.
+   Durum: done · review (onay bekliyor) · progress · input (girdi bekleniyor – kimden olduğu 'owner' alanında) · pending
+   Dayanak: doc (Drive'da doküman var) · beyan (toplantı/soru seti/e-posta beyanı) · none
+   ========================================================= */
+const CLIENT = {
+  id:"codemag", name:"CODEMAG",
+  entities:["Codemag Yazılım Hizmetleri Ticaret Ltd. Şti."], short:["Codemag"],
+  driveRoot:"https://drive.google.com/drive/folders/1MmlPT_B9qx4k-Tn41KJgVhfkUJu0noDu",
+  planSheet:"https://docs.google.com/spreadsheets/d/1Wa7sEaJg4hkgDLEXaE7FViaPbqYDA6Ek6R0otjh6-is/edit", planLabel:"Hizmet Planı (14.10.2026)",
+  kickoff:"04.09.2026", rhythm:[["Aylık","Hizmet bedeli · ayın 1–5'i (01.09.2026 – 31.08.2027)"],["Ekim 2026","Bütünleşik yönetim sistemi sunumu (1 aylık hedef)"],["Talep bazlı","Toplantı · son: 15.10.2026"]],
+  startDocs:[["Ç3","Juris–Codemag Gizlilik Sözleşmesi (NDA) – taslak + 08.04 imzalı tarama bildirimi","07.04.2026"],["Ç4","Hizmet Kapsam Dokümanı","27.04.2026"],["Ç1","Şirketler Hukuku ve Kurumsal Yönetim Hizmet Teklifi – 23.08'de mail ile kabul","04.08.2026"],["Ç2","Danışmanlık Sözleşmesi (01.09.2026 yürürlük) – 11.09 unvanı güncel sürüm; imzalı nüsha teyitsiz","26.08 / 11.09.2026"],["Ç5","Kick-off Toplantı Notları ve İş Listesi (tutanak 04.09 · takvim 09.09)","16.09.2026"],["Ç6","Ortak Drive dosya planı / Data Room erişimi","16.09.2026"]],
+  scopeIn:["1. Şirket Stratejisinin Analizi ve Geliştirilmesi – iş modeli, SaaS, Asset/vendor leasing, yatırımcı perspektifi","2. Performans İzleme ve Raporlama – 10 faaliyet + 5 finansal KPI, proje P&L, yönetim raporu","3. Hukuki Denetim ve Risk Analizi – DD, Data Room, risk haritası, DPP mevzuat görüşü","4. Şirket İçi Hukuki Süreçler – standart proje paketi, satış sonrası/SaaS, operasyon sözleşmeleri, İK","5. Kurumsal Yönetim ve Organizasyon – org şeması, görev/yetki matrisi, karar ve aksiyon sistemi","6. Uyuşmazlık ve Hukuki Süreç Danışmanlığı – marka ihlali, dosya bazlı görüş"],
+  scopeOut:["Almanya GmbH kuruluşu, Handelsregister/Finanzamt tescilleri – ayrı yazılı mutabakat","Yatırım turu, GmbH → TR sermaye aktarımı, M&A yürütümü – kapsam dışı (stratejik görüş dahil)","Marka/patent/tasarım tescil, itiraz ve yenileme işlemleri – kapsam dışı (ihlal değerlendirmesi dahil)","Kapsamlı KVKK uyum projesi – yalnızca mini set dahil","Teknokent başvurusu ve mali sürdürme – Teşvik Danışmanı (Tolga Polat)","İşe alım ve 3 aylık İK süreç danışmanlığı – The Hire Factory (Juris hukuki koordinasyon)","Halka arz (BIST Büyüme Pazarı hedefi) ve sermaye piyasası işlemleri"],
+  contacts:{ "Müvekkil Yönetimi":"Özgür Gömeç (yönetim · idari geçiş koordinasyonu) · Serkan Hacıoğlu (şirket sahibi · denetleyici rol – teyit edilecek)", "Mali Müşavir":"Teyit edilmedi – kick-off'ta muhasebe personeli alımı kararı", "İK Danışmanı":"The Hire Factory – Ceren Pirol (25.09.2026 →)", "Teşvik Danışmanı":"Tolga Polat – Teknokent seçenekleri ve mali sürdürme", "Juris":"Ferhan Yıldızlı · Gülşah Algın · Murat Gülgün · İlayda Karakum (DPP) · Tuğberk Dekak" },
+};
+const FUNCTIONS = {
+  PLAN:{k:"1",title:"PLAN",desc:"Şirket stratejisinin analizi ve geliştirilmesi; kurumsal yönetim ve organizasyon yapısının tasarımı."},
+  "İCRA":{k:"2",title:"İCRA",desc:"Şirket içi hukuki süreçlerin geliştirilmesi: standart proje paketi, satış sonrası/SaaS ve operasyon sözleşmeleri, İK, KVKK, dosya bazlı danışmanlık."},
+  "DENETİM":{k:"3",title:"DENETİM",desc:"Hukuki denetim ve risk analizi: ön inceleme, Data Room kurulumu, due diligence, DPP mevzuat uyumu ve risk haritası."},
+  RAPORLAMA:{k:"4",title:"RAPORLAMA",desc:"Performans izleme ve raporlama: 10 faaliyet + 5 finansal KPI, proje P&L, yönetim raporlaması, aksiyon ve karar takibi."},
+};
+const D="https://docs.google.com/document/d/", S="https://docs.google.com/spreadsheets/d/", P="https://docs.google.com/presentation/d/", F="https://drive.google.com/drive/folders/", FL="https://drive.google.com/file/d/";
+const doc=(no,t,owner,status,url,ent)=>({no,t,owner,status,url,ent});
+const O={J:"Juris",JM:"Juris → Müvekkil Yönetimi",M:"Müvekkil Yönetimi",SM:"Mali Müşavir",HR:"İK Danışmanı (The Hire Factory)",TP:"Teşvik Danışmanı (Tolga Polat)",O:"Ortak"};
+
+/* Drive dosya kısayolları */
+const U={
+ tt1:D+"1X5mpCWuMxVLUFNs7M7eo23zZKi5FSSwv0hd1yXaHjcQ/edit", gemini:D+"1S18GS0vXapZyl1hONFZoq40XG9yuThtUCPoZa7bHwpM/edit", rec:FL+"1ctj_T8tszkj1AWUqoGV1APCU-n0zFqrO/view",
+ brief:FL+"1b0D71FC-KpD_wNlFTzcEmpWABdJZi-TY/view", contract:D+"1cP0Z243GzqOjiKrVRHYc6UkfivPtbXSDHeEbPRL88mM/edit", teklif:FL+"19mW5j3VfVhgo0ZTY6BCJtHNLWAnOmU6N/view", teklifSlides:P+"1K4H9kE4MXv9lsf4k6Krk67j87cP-W-MyNxRko7PeYLY/edit", kapsam:FL+"1l4ncXD8Zq7_l2XOJCWlSkpmmjRMWcJu7/view", nda:FL+"1XfgeJMUTbcU_8Ndl2BpuqvM7j9STKPvN/view",
+ dpp:FL+"1zrnieEDxQsdL-557a4jDXLypK9t5gZ9h/view", finlit:FL+"1sklkSrp5GBKufNJW6DhbulYNWEbvaVwv/view", finlitDoc:D+"1JXjB8pG-qtqn-sdQT6onuB2u2ZZOy4xf0fbDmF-T0Vk/edit",
+ plan:S+"1Wa7sEaJg4hkgDLEXaE7FViaPbqYDA6Ek6R0otjh6-is/edit", hakkinda:F+"1-0if9lHT0-ozg7CUarMGnwXzyM-AhWaw", teklifKlasor:F+"1pInc0Bxw0PcWYTVkyWfzAS9TSxd8ThxZ",
+ fA:F+"1QAhzcNLiVTJ7zEhUTl3JkSIo8iDIHy_9", fB:F+"1MnTzgBw8TKDmyDvr-cHQooNh3ESylHz3", fC:F+"1EPoScFHlWwceMe6clM5p7ps0IFIyzXAt", fD:F+"15WqELN_tqd11XNETpFq-ynZXz8ZdHnHN", fE:F+"1IISzxrFbORklXLvTYl2bYF2UeVFf--n1", fF:F+"1-UH7AGFajCiSQ15sHshjx0eVrYLaj3c8",
+ fF1:F+"1wHtgLnCyfKulh022FY_kh4THVbU8L5fa", fF2:F+"1uAW19RvotUymkl4uBaOqk6qJVwEScVHY",
+};
+
+const DATAROOM = [
+ { id:"A", title:"A. Strateji ve Business", url:U.fA, items:[
+   { id:"A1", title:"A.1. İş Modeli", fn:"PLAN", area:"Şirket Stratejisinin Analizi ve Geliştirilmesi", url:F+"1l245kW9YlQJYr50wy302Ljz0_uFNoknQ", empty:true, guide:["2","İş Modeli Nedir ve Neden Analiz Edilir? – Bilgi Notu"],
+     flow:["Juris İletir","Müvekkil Yönetimi Yanıtlar","Birlikte Onaylanır"], docs:[
+     doc("1","Codemag–Juris Brief (Nisan 2026): serileştirme, track & trace, 128+ hat, SaaS, vendor leasing, GmbH – müvekkil girdisi",O.M,"done",U.brief),
+     doc("2","İş Modeli Nedir ve Neden Analiz Edilir? – Bilgi Notu (16.09 aksiyonu; Drive'da yok)",O.J,"pending",U.tt1),
+     doc("3","İş Modeli Soru Seti – mevcut proje modeli · SaaS/satış sonrası · Asset (kiralama)",O.JM,"pending",U.tt1),
+     doc("4","İş Modeli Dokümanı – proje bazlı gelir modeli (Kanvas + Lean Canvas; bugün brief ve tutanağa dayalı iskelet)",O.O,"progress",U.tt1),
+     doc("4","SaaS gelir modeli – satış sonrası hizmetlerle entegre ayrı iş modeli (04.09 kararı)",O.O,"pending",U.tt1),
+     doc("9","Asset / vendor leasing iş modeli ve operasyon yapısı (hedef: Ekim 2026)",O.J,"progress",U.brief) ]},
+   { id:"A2", title:"A.2. İş Planı", fn:"PLAN", area:"Şirket Stratejisinin Analizi ve Geliştirilmesi", url:F+"1jH2J4QoltS-q57g3yL0n2Tfm220cJ8gv", empty:true, guide:["5","İş Planı Nedir ve Neden Analiz Edilir? – Bilgi Notu"],
+     flow:["Juris Format Verir","Müvekkil Yönetimi Hazırlar","Birlikte Onaylanır"], docs:[
+     doc("5","İş Planı Soru Seti – 2027 proje bazlı gelir/gider, maliyet, yatırım, iş geliştirme",O.JM,"pending",U.tt1),
+     doc("7","Proje Bazlı Bütçe Formatı – maliyet · gelir-gider · nakit akışı · P&L (Juris gönderecek)",O.J,"progress",U.tt1),
+     doc("8","Ödeme Planı Formatı – tahsilat/ödeme standart tablosu",O.J,"pending",U.tt1),
+     doc("6","2027 Proje Bazlı İş Planı ve P&L – Ekim 2026 içinde onaya sunulacak",O.M,"input",U.tt1),
+     doc("9","Vakıf Leasing / katılım finansmanı alternatiflerinin değerlendirilmesi",O.O,"pending",U.tt1) ]},
+   { id:"A3", title:"A.3. Yönetişim", fn:"PLAN", area:"Kurumsal Yönetim ve Organizasyon Yapısının Geliştirilmesi", url:F+"11pTAnENm6Qhp76c5iM3-xEhUgNlmVQAO", empty:true, guide:["32","Kurumsal Yönetim ve Organizasyon Yapısı – Bilgi Notu"],
+     flow:["Müvekkil Yönetimi Taslak Verir","Juris İnceler","Birlikte Onaylanır"], docs:[
+     doc("29","Hedef Organizasyon Şeması – Eylül 2026 v2 (PNG, 21.09 e-postası; Drive'a yüklenmedi)",O.M,"review"),
+     doc("30","Görev, Yetki ve Sorumluluk Matrisi – Yönetim · Ar-Ge · Satış&Pazarlama · Satın Alma/İdari · Finans · Proje · Üretim · Satış Sonrası · Kalite",O.O,"input"),
+     doc("31","Yönetim Karar Toplantısı, Aksiyon Takibi ve Onay Akışı Modeli",O.J,"progress",U.plan),
+     doc("32","Proje Yönetim Programı ve Task Sisteminin Seçimi (tüm projeler + Tolga'nın taskleri tek sistemde)",O.M,"input",U.tt1),
+     doc("33","Bütünleşik Yönetim Sistemi Sunumu – finans · proje · İK · operasyon · raporlama (Ekim 2026)",O.O,"pending",U.tt1),
+     doc("—","Ortaklık yapısı, pay oranları ve temsil yetkisi teyidi (sicil / pay defteri / imza sirküleri)",O.M,"input") ]},
+   { id:"A4", title:"A.4. Yatırımcı Sunumu", fn:"PLAN", area:"Şirket Stratejisinin Analizi ve Geliştirilmesi", url:F+"1J7MJjiYNjjkAZlEOcEouKyFRfxkW1_6d", empty:true, guide:["A.4.2","Yatırımcı Sunumu (Pitch Deck) Bilgi Notu"],
+     flow:["Juris İletir","Müvekkil Yönetimi Yanıtlar","Birlikte Onaylanır"], docs:[
+     doc("A.4.2","Yatırımcı Sunumu (Pitch Deck) Bilgi Notu",O.J,"pending"),
+     doc("—","Yatırım hikâyesi: kiralama filosu finansmanı + büyüme finansmanı (Vision AI, SaaS, KZ/UZ, Avrupa distribütör ağı)",O.O,"pending",U.brief),
+     doc("37","GmbH → Codemag TR sermaye aktarımı ve yatırım turu yapısı – kapsam dışı, ayrı mutabakat",O.M,"pending",U.contract),
+     doc("—","Pitch Deck (.pptx)",O.O,"pending") ]},
+   { id:"A5", title:"A.5. Performans İzleme ve Raporlama", fn:"RAPORLAMA", area:"Performans İzleme ve Raporlama Süreçlerinin Geliştirilmesi", url:F+"1cdRpXE_c-vEoNoLwlZ3VPJvJ9npgTsYp", empty:true, guide:["10","Finansal Okuryazarlık Eğitim / Bilgi Notu",U.finlit],
+     flow:["Juris İletir","Müvekkil Yönetimi Yanıtlar","Birlikte Onaylanır"], docs:[
+     doc("10","Finansal Okuryazarlık Eğitim Katılım Notu (21.09.2026) – B klasöründe",O.J,"done",U.finlit),
+     doc("Ç7","Codemag–Juris Hizmet Planı takip dosyası (Künye · Toplantılar · Teslimatlar · Plan · Aksiyon · Hedefler · Drive)",O.J,"done",U.plan),
+     doc("11","Performans KPI Soru Seti – veri, sorumlu, hesap yöntemi",O.JM,"pending",U.tt1),
+     doc("12","KPI Matrisi – 10 faaliyet + 5 finansal KPI (tanım · kaynak · hedef · sorumlu)",O.O,"progress",U.tt1),
+     doc("14","Proje / Task Panosu – aktif ve tamamlanan projeler, termin, finans",O.M,"input",U.tt1),
+     doc("15","Aylık Yönetim / Finans Raporu – proje P&L + KPI scorecard",O.O,"pending",U.tt1) ]},
+ ]},
+ { id:"B", title:"B. Finans", url:U.fB, items:[
+   { id:"B1", title:"B.1. Bütçe", fn:"RAPORLAMA", area:"Performans İzleme ve Raporlama Süreçlerinin Geliştirilmesi", url:F+"1oJ5xUABPwsy3N8esq4AZpW3PV7mpyB2r", empty:true, flow:["Juris Format Verir","Müvekkil Yönetimi Hazırlar","Aylık Onay"], docs:[
+     doc("7","Proje Bazlı Bütçe Şablonu (Juris)",O.J,"progress",U.tt1),
+     doc("—","2025 ve 2026 bütçe / fiilî gerçekleşme verileri (kick-off'ta değerlendirildi; Drive'da yok)",O.M,"input",U.tt1),
+     doc("6","2027 Proje Bazlı Bütçe – sektör bazında kârlılık, onaya sunum Ekim 2026",O.M,"input",U.tt1) ]},
+   { id:"B2", title:"B.2. Nakit Akışı", fn:"RAPORLAMA", area:"Performans İzleme ve Raporlama Süreçlerinin Geliştirilmesi", url:F+"1Niy80MP7YeQFbU3xgdepUDGBIEWRLhZh", empty:true, flow:["Juris Format Verir","Müvekkil Yönetimi Hazırlar","Aylık Onay"], docs:[
+     doc("7","Proje Bazlı Nakit Akışı Formatı (Juris)",O.J,"progress",U.tt1),
+     doc("8","Ödeme Planı – tahsilat ve ödeme takvimi, tek tablo",O.M,"input",U.tt1),
+     doc("—","2027 proje bazlı nakit akışı (bütçe ile birlikte)",O.M,"input",U.tt1) ]},
+   { id:"B3", title:"B.3. Bilanço", fn:"DENETİM", area:"Hukuki Denetim ve Risk Analizi", url:F+"1Sfs2QoZMguWTIqHhEx71gh-KkDCsPLYK", empty:true, flow:["Juris Yönerge Verir","Mali Müşavir Yükler"], docs:[
+     doc("DR","2025 yıl sonu bilanço ve gelir tablosu",O.SM,"input"),
+     doc("DR","2026 ara dönem mizan bazlı bilanço",O.SM,"input"),
+     doc("DR","Finansman yapısı: krediler, leasing yükümlülükleri, teminatlar",O.SM,"input",U.brief) ]},
+ ]},
+ { id:"C", title:"C. Muhasebe", url:U.fC, items:[
+   { id:"C1", title:"C.1. Hesap Planı", fn:"DENETİM", area:"Hukuki Denetim ve Risk Analizi", url:F+"1Ydzcrl2TxWXkBlMooibbXFB9Fv_197Gd", empty:true, flow:["Mali Müşavir Yükler","Juris İnceler"], docs:[
+     doc("DR","Tek düzen hesap planı",O.SM,"input"),
+     doc("DR","Proje / sektör bazlı gelir-gider etiketleme (proje P&L için)",O.O,"pending",U.tt1),
+     doc("—","Ön muhasebe + idari işler + özlük fonksiyonunun yapılandırılması; muhasebe personeli alımı (mülakatlara Ferhan Yıldızlı katılır)",O.M,"progress",U.tt1) ]},
+   { id:"C2", title:"C.2. Mizan", fn:"DENETİM", area:"Hukuki Denetim ve Risk Analizi", url:F+"1oogWYbbDQ4MVcxvjZKSNQs1cWPpP8FQF", empty:true, flow:["Mali Müşavir Yükler","Juris İnceler"], docs:[
+     doc("DR","Güncel mizan (aylık)",O.SM,"input"),
+     doc("DR","Proje bazlı P&L ile mizan mutabakatı",O.O,"pending") ]},
+ ]},
+ { id:"D", title:"D. Operasyonlar", url:U.fD, items:[
+   { id:"D1", title:"D.1. Ana Faaliyetler", fn:"İCRA", area:"Şirket İçi Hukuki Süreçlerin Geliştirilmesi", url:F+"1fmq190MbOHH0Xx97m3P_8qAAVX2bjx1x", empty:true,
+     flow:["Müvekkil Yönetimi Yükler","Juris İnceler","Sözleşme setine girdi"], docs:[
+     doc("22","Standart Proje Paketi – Teknik Şartname → Teklif → Kabul → Sözleşme → Maliyet → Plan → Bütçe → Gelir/Gider → P&L",O.M,"input",U.tt1),
+     doc("—","Örnek bir projenin uçtan uca dokümantasyonu",O.M,"input",U.tt1),
+     doc("—","Mevcut dokümanların iletilmesi (proje, sözleşme, teklif örnekleri)",O.M,"input",U.tt1),
+     doc("—","Projelerin sektörel bazda ayrıştırılması (ilaç · FMCG · gıda · tarım)",O.M,"input",U.tt1),
+     doc("23","Satış sonrası hizmet modeli – operasyon ve sözleşme yapısı; SaaS ile entegrasyon",O.O,"progress",U.tt1) ]},
+   { id:"D2", title:"D.2. Projeler", fn:"İCRA", area:"Şirket İçi Hukuki Süreçlerin Geliştirilmesi", url:F+"1yzgHlQRUYLIz_Hr2KGVGhCet-rSK9bo2", empty:true, flow:["Müvekkil Yönetimi Yükler","Juris İnceler"], docs:[
+     doc("—","SaaS gelir modeli projesi – paketler, abonelik, sözleşme, satış hedefi",O.O,"progress",U.tt1),
+     doc("9","Asset / vendor leasing projesi – makine kiralama (3+2 yıl), iki sözleşmeli yapı, leasing partneri",O.O,"progress",U.brief),
+     doc("28","Teknokent başvurusu – seçenek karşılaştırması (05.09), mali sürdürme sözleşmesi (06.10), başvuru 'tamamlandı sayılır' (13.10 beyanı)",O.TP,"progress"),
+     doc("35","PAII / EDETEK – DPP ortaklık modeli ve Avrupa DPP pazar araştırması (03.10 görüş talebi)",O.J,"progress"),
+     doc("36","Codemag GmbH (Almanya) – kuruluş ve KZ/UZ sözleşme tarafı; ana sözleşme kapsamı dışı",O.M,"pending",U.brief),
+     doc("37","Yatırım turu – kiralama filosu + büyüme finansmanı; ana sözleşme kapsamı dışı",O.M,"pending",U.brief) ]},
+ ]},
+ { id:"E", title:"E. Hukuk", url:U.fE, items:[
+   { id:"E1", title:"E-1. Hukuki Durum Tespiti ve Risk Analizi", fn:"DENETİM", area:"Hukuki Denetim ve Risk Analizi", url:F+"1rilAyyA0EXM54aS_9AFIM9Ci5Ujh1AV7", empty:true, guide:["DD","Due Diligence Asgari İnceleme Kılavuzu (Ltd. Şti.)"],
+     flow:["Juris Sorar","Müvekkil Yönetimi Cevaplar","Mali Müşavir + Yönetim Yükler","Juris Oluşturur","Birlikte Değerlendirilir"], docs:[
+     doc("18","Dijital Ürün Pasaportu (DPP) – AB Mevzuatı Bilgi Notu (27.08.2026) – E klasöründe",O.J,"done",U.dpp),
+     doc("Ç6","Data Room Sisteminin Kurulması (A–F klasörleri, 16.10.2026)",O.J,"done",CLIENT.driveRoot),
+     doc("16","Hukuki Bilgilendirme ve Risk Tespiti Formu / DD Belge Talep Listesi (Ltd. Şti.)",O.JM,"progress",U.contract),
+     doc("17","Data Room belge yüklemesi (A–F klasörleri boş)",O.M+" / "+O.SM,"input",CLIENT.driveRoot),
+     doc("DD","Due Diligence Asgari İnceleme – Ltd. Şti. Kılavuzu",O.J,"pending"),
+     doc("20","Hukuki Risk Envanteri ve Risk Haritası – sözleşme · fikri mülkiyet · iş hukuku · uyum",O.J,"pending",U.contract),
+     doc("21","Hukuki Denetim ve Risk Analizi Raporu",O.J,"pending"),
+     doc("—","Hukuki Risk Aksiyon Planı",O.O,"pending") ]},
+   { id:"E2", title:"E-2. Şirket Ana Faaliyet Sözleşmeleri", fn:"İCRA", area:"Şirket İçi Hukuki Süreçlerin Geliştirilmesi", url:F+"1fPxhiFOD9Ev4j7eDTEWPITovVSfGdR8n", empty:true,
+     flow:["Müvekkil Paketi Verir","Juris İnceler / Revize Eder","Birlikte Onaylanır"], docs:[
+     doc("22","Standart Proje Paketi hukuki incelemesi – teklif, kabul, sözleşme (Codemag hazırlar, Juris revize eder)",O.M,"input",U.tt1),
+     doc("23","Satış Sonrası / SaaS Sözleşme Seti – bakım, destek, abonelik, lisans, süreklilik",O.J,"pending",U.tt1),
+     doc("25","Operasyon Sözleşmeleri – ön muhasebe, satın alma, teknik servis, alt yüklenici / tedarik",O.J,"pending",U.tt1),
+     doc("9","Vendor Leasing Sözleşme Yapısı – Kiralama (Leasing ↔ Codemag, 3+2 yıl) + Hizmet (Codemag ↔ Müşteri, 5 yıl)",O.J,"pending",U.brief),
+     doc("26","Teknokent Mali Sürdürme Hizmet Sözleşmesi (06.10, Tolga Polat) – Juris incelemesi",O.TP,"review"),
+     doc("27","Sözleşme kayıt, onay, saklama ve yenileme takip sistemi",O.O,"pending",U.contract) ]},
+   { id:"E3", title:"E-3. İnsan Kaynakları Projesi", fn:"İCRA", area:"Şirket İçi Hukuki Süreçlerin Geliştirilmesi", url:F+"1r_wJsreHWEgxplwbMWEsgw3M3uAFRePn", empty:true,
+     flow:["Müvekkil Yönetimi Yükler","İK Danışmanı Çalışır","Juris Sorar / Hukuki Koordinasyon","Birlikte Onaylanır"], docs:[
+     doc("24","The Hire Factory – İK Süreç Danışmanlığı ve İşe Alım Hizmeti Sözleşmesi + 3 aylık iş planı (25.09; Drive'da yok)",O.HR,"review"),
+     doc("29","Hedef Organizasyon Şeması ve kadro ihtiyaçları – 6 öncelikli pozisyon (21.09)",O.M,"review"),
+     doc("24","İnsan Kaynakları Soru Seti ve Ön Due Diligence (kick-off aksiyonu)",O.JM,"pending",U.tt1),
+     doc("24","Personel analizi ('şirket röntgeni'), görev tanımları, formlar ve politikalar",O.HR,"progress"),
+     doc("—","Muhasebe / tahsilat personeli işe alımı – mülakatlara Ferhan Yıldızlı katılır (04.09 kararı)",O.M,"progress",U.tt1),
+     doc("29","İş sözleşmeleri – 24 çalışan (21.09 itibarıyla); yazılım geliştiren personel için eser/buluş devri",O.J,"pending") ]},
+   { id:"E4", title:"E-4. NDA Sözleşme Seti", fn:"İCRA", area:"Şirket İçi Hukuki Süreçlerin Geliştirilmesi", url:F+"1Y94VNmIw0-9SiAG27bsXwk79vMyRpu06", empty:true,
+     flow:["Juris Hazırlar","Müvekkil Yönetimi Onaylar","Kullanım bilgilendirmesi"], docs:[
+     doc("Ç3","Juris–Codemag NDA (07.04 taslak · 08.04 imzalı tarama bildirimi; karşılıklı imzalı nüsha teyitsiz)",O.J,"review",U.nda),
+     doc("27","Müşteri / distribütör / leasing partneri için Karşılıklı NDA (TR + EN)",O.J,"pending"),
+     doc("27","Tedarikçi ve alt yüklenici için Tek Taraflı NDA",O.J,"pending"),
+     doc("27","Çalışan gizlilik ve fikri mülkiyet taahhüdü (yazılım kaynak kodu, müşteri verisi)",O.J,"pending"),
+     doc("27","NDA Kullanım Bilgilendirme Dokümanı",O.J,"pending") ]},
+   { id:"E5", title:"E-5. Hukuki Danışmanlık", fn:"İCRA", area:"Uyuşmazlık ve Hukuki Süreç Danışmanlığı", url:F+"1-v3e9oCWRSnWuOBf4VJaFJY57gcjiyRg", empty:true,
+     flow:["Dosya / olay bazında sürekli hizmet"], docs:[
+     doc("19","CODEMAG isim / marka ihlali başvurusunun hukuki değerlendirmesi (26.04 talebi; görüş teslimi teyitsiz)",O.J,"progress"),
+     doc("35","PAII / EDETEK ortaklık ve Avrupa DPP araştırma belgelerinin hukuki-ticari değerlendirmesi (03.10 talebi)",O.J,"progress"),
+     doc("9","Vendor leasing hukuki yapısı – Almanya'da sözleşme şablonları, KZ/UZ'de geçerlilik (brief beklentisi; ana sözleşme sınırında)",O.J,"progress",U.brief),
+     doc("26","Teknokent mali sürdürme sözleşmesi incelemesi",O.J,"pending"),
+     doc("36","GmbH kuruluşu ve uluslararası tescil – ayrı teklif / mutabakat",O.J,"pending",U.contract) ]},
+   { id:"E6", title:"E-6. KVKK Projesi – Mini", fn:"İCRA", area:"Şirket İçi Hukuki Süreçlerin Geliştirilmesi", url:F+"15qXS1Jm5retCitrXEIid09UjYFXkBovQ", empty:true,
+     flow:["Mali Müşavir bilanço toplamı iletir","Juris Sorar","Müvekkil Yönetimi Cevaplar","Teslim + Eğitim"], docs:[
+     doc("—","VERBİS yükümlülüğü – 2025 bilanço toplamı / çalışan sayısı (24)",O.SM,"input"),
+     doc("30","Mini KVKK Soru Seti – track & trace verisi, müşteri hat verileri, SaaS, yurt dışı aktarım (RU/KZ/UZ)",O.JM,"pending"),
+     doc("31","Mini KVKK Doküman Seti – aydınlatma, açık rıza, saklama-imha, çalışan",O.J,"pending"),
+     doc("31","SaaS / çevrim içi platform metinleri – kullanım şartları, veri işleme eki, çerez",O.J,"pending") ]},
+   { id:"E7", title:"E-7. Uyuşmazlık Takibi", fn:"İCRA", area:"Uyuşmazlık ve Hukuki Süreç Danışmanlığı", url:F+"1FezVnBEVi_LhqPDEplbNWbHS6mzlHdkL", empty:true,
+     flow:["Dosya / olay bazında yürütülen sürekli hizmet"], docs:[
+     doc("34","Marka ismi ihlali – ihtar / görüş / takip kararı (tescil ve itiraz işlemleri kapsam dışı)",O.J,"progress"),
+     doc("34","Olay bazlı ihtar, hukuki görüş ve uyuşmazlık risk değerlendirmesi (sürekli hizmet)",O.J,"pending",U.contract) ]},
+ ]},
+ { id:"F", title:"F. İletişim", url:U.fF, items:[
+   { id:"F1", title:"F-1. Toplantı Tutanakları", fn:"RAPORLAMA", area:"Performans İzleme ve Raporlama Süreçlerinin Geliştirilmesi", url:U.fF1,
+     flow:["Gündem","Toplantı","Tutanak + Aksiyon","Teslim / Teslim edilemeyen","Sonraki gündem"], docs:[
+     doc("TT","06.05.2026 · CODEMAG İlk Görüşme – takvim kaydı, tutanak yok",O.J,"pending"),
+     doc("TT","29.07.2026 · CODEMAG & Qervan Toplantısı – takvim kaydı, tutanak yok",O.J,"pending"),
+     doc("TT","19.08.2026 · Juris – CODEMAG Toplantısı – takvim kaydı, tutanak yok",O.J,"pending"),
+     doc("TT","04.09.2026 · Kick-off Toplantı Notları – 8 başlık, 16 karar, 22 aksiyon (takvimde 09.09; 16.09 mail ile iletildi)",O.J,"done",U.tt1),
+     doc("TT","24.09.2026 · İK süreç danışmanlığı / The Hire Factory görüşmesi – e-posta dayanaklı, tutanak yok",O.J,"pending"),
+     doc("TT","15.10.2026 · CODEMAG Toplantısı – Gemini notu + kayıt var, içerik tutanağı yok",O.J,"review",U.gemini) ]},
+   { id:"F2", title:"F-2. Mailler", fn:"RAPORLAMA", area:"Performans İzleme ve Raporlama Süreçlerinin Geliştirilmesi", url:U.fF2, empty:true,
+     flow:["Teslim maili","Talep maili","Hatırlatma","Onay"], docs:[
+     doc("M","07.04 · NDA taslağı (İlayda Karakum → Özgür Gömeç)",O.J,"done",U.nda),
+     doc("M","27.04 · Hizmet Kapsam Dokümanı",O.J,"done",U.kapsam),
+     doc("M","04.08 · Hizmet Teklifi → 23.08 kabul (80.000 TL/ay)",O.J,"done",U.teklif),
+     doc("M","26.08 / 11.09 · Danışmanlık Sözleşmesi (ilk + unvanı güncel sürüm) – imza teyitsiz",O.J,"done",U.contract),
+     doc("M","27.08 · DPP – AB Mevzuatı Bilgi Notu",O.J,"done",U.dpp),
+     doc("M","16.09 · Kick-off tutanağı + Drive dosya planı + öncelikli aksiyon listesi (3 mail)",O.J,"done",U.tt1),
+     doc("M","21.09 · Finansal Okuryazarlık Eğitim Notu",O.J,"done",U.finlit),
+     doc("M","Planlı · İş Modeli Bilgi Notu + Soru Seti · Proje bazlı bütçe/nakit akışı formatı · Ödeme planı formatı · İK soru seti",O.J,"pending",U.tt1),
+     doc("M","Planlı · Talep: standart proje paketi, örnek proje dokümantasyonu, mevcut dokümanlar, org şeması Drive'a",O.J,"pending"),
+     doc("M","Planlı · Mali Müşavir / finans: 2025 bilanço, mizan, hesap planı, 2026 fiilî veriler",O.J,"pending") ]},
+ ]},
+];
+
+/* dayanak sayacı: doküman mı beyan mı */
+const BASIS_COUNT={doc:["F-1 Kick-off Tutanağı (04.09.2026)","E-1 DPP Bilgi Notu (27.08)","A.5 Finansal Okuryazarlık Notu (21.09)","A.5 Hizmet Planı takip dosyası (14.10)","Teklif · Kapsam · Sözleşme · NDA (Teklif ve Sözleşme klasörü)","A.1 Codemag Brief – Nisan 2026 (müvekkil girdisi)"],beyan:["A.1 İş Modeli Kanvası (brief + tutanak)","A.3 Organizasyon (21.09 PNG, Drive'da yok)","E-3 İK (The Hire Factory yazışmaları)","D.2 Teknokent (13.10 beyanı)","A.2 / B Finansal hedefler (sayısal hedef yok)","E-5 Marka ihlali ve DPP ortaklık talepleri"],none:["B Finans (bütçe · nakit · bilanço)","C Muhasebe","E-1 DD Belge Checklist","E-2 Sözleşme Seti","E-4 Müşteri NDA Seti","E-6 KVKK","A.4 Pitch Deck"]};
+
+/* ---------- state ---------- */
+const STATUS={done:"Tamamlandı",review:"Onay Bekliyor",progress:"Devam Ediyor",input:"Girdi Bekleniyor",pending:"Başlamadı"};
+const CYCLE=["pending","input","progress","review","done"];
+const LS="juris-panel:"+CLIENT.id;
+let overrides={}; try{overrides=JSON.parse(localStorage.getItem(LS)||"{}");}catch(e){overrides={};}
+let current="home", assessTab="A", assessEnt="Codemag";
+try{assessTab=localStorage.getItem(LS+":atab")||"A";assessEnt=localStorage.getItem(LS+":aent")||"Codemag";}catch(e){}
+const openSections=new Set(["A","E"]);
+const allItems=()=>DATAROOM.flatMap(s=>s.items.map(it=>({...it,section:s})));
+const docKey=(it,i)=>it.id+":"+i;
+const stOf=(it,i)=>overrides[docKey(it,i)]||it.docs[i].status;
+function setStatus(it,i,s){overrides[docKey(it,i)]=s;try{localStorage.setItem(LS,JSON.stringify(overrides));}catch(e){}}
+function stats(items){const c={done:0,review:0,progress:0,input:0,pending:0,total:0};items.forEach(it=>it.docs.forEach((d,i)=>{c[stOf(it,i)]++;c.total++;}));c.pct=c.total?Math.round(100*(c.done+.5*(c.review+c.progress))/c.total):0;return c;}
+const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+function bar(c){const w=k=>c.total?(100*c[k]/c.total)+"%":"0%";return `<div class="bar"><i class="s-done" style="width:${w("done")}"></i><i class="s-review" style="width:${w("review")}"></i><i class="s-progress" style="width:${w("progress")}"></i><i class="s-input" style="width:${w("input")}"></i></div>`;}
+const legend=`<div class="legend"><span><i style="background:var(--success)"></i>Tamamlandı</span><span><i style="background:var(--info)"></i>Onay bekliyor</span><span><i style="background:var(--warn)"></i>Devam ediyor</span><span><i style="background:var(--red-ink)"></i>Girdi bekleniyor</span><span><i style="background:var(--neutral)"></i>Başlamadı</span></div>`;
+const li=a=>a.map(x=>`<li>${x}</li>`).join("");
+const ghost=(t,cls="")=>`<div class="note ${cls}"><span>▲</span><div>${t}</div></div>`;
+const shortTitle=t=>t.replace(/^[A-F][.\-]\d\.?\s*/,"");
+
+function tiles(c){return `<div class="tiles">
+  <div class="tile accent"><div class="l">Tamamlanma</div><div class="v num">${c.pct}<small>%</small></div><div style="margin-top:10px">${bar(c)}</div></div>
+  <div class="tile"><div class="l">Toplam doküman</div><div class="v num">${c.total}</div><div class="d">${c.done} tamamlandı</div></div>
+  <div class="tile"><div class="l">Onay bekliyor</div><div class="v num">${c.review}</div><div class="d">müvekkil yönetimi incelemesinde</div></div>
+  <div class="tile"><div class="l">Devam ediyor</div><div class="v num">${c.progress}</div><div class="d">Juris üzerinde</div></div>
+  <div class="tile"><div class="l">Girdi bekleniyor</div><div class="v num">${c.input}</div><div class="d">yönetim / mali müşavir / üretim ekibi</div></div>
+  <div class="tile"><div class="l">Başlamadı</div><div class="v num">${c.pending}</div><div class="d">planlı</div></div></div>`;}
+
+function docTable(it){return `<div class="tbl-wrap"><table><thead><tr><th>Doküman</th><th>Sorumlu</th><th>Durum</th><th>Drive</th></tr></thead><tbody>
+ ${it.docs.map((d,i)=>{const s=stOf(it,i);return `<tr><td class="doc"><span class="no">${esc(d.no)}</span>${esc(d.t)}${d.ent?`<span class="ent">· ${esc(d.ent)}</span>`:""}</td><td class="owner">${esc(d.owner)}</td><td><button class="status ${s}" data-item="${it.id}" data-i="${i}" title="Durumu değiştirmek için tıklayın">${STATUS[s]}</button></td><td>${d.url?`<a class="linkbtn" href="${d.url}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}</td></tr>`;}).join("")}
+ </tbody></table></div>`;}
+function areaCard(it){const c=stats([it]);return `<button class="card area" data-view="${it.id}"><div class="top"><span class="code">${esc(it.id.replace(/(\D)(\d)/,"$1.$2"))}</span><span class="ttl">${esc(shortTitle(it.title))}</span><span class="pct num">${c.pct}%</span></div>${bar(c)}<div class="foot"><span class="fnchip ${it.fn}">${it.fn}</span><span>${c.done}/${c.total} tamamlandı</span>${c.input?`<span>· ${c.input} girdi</span>`:""}${it.noFolder?`<span>· Drive klasörü yok</span>`:""}</div></button>`;}
+
+/* ---------- views ---------- */
+function viewHome(){
+  const items=allItems(), c=stats(items);
+  const fnCards=Object.keys(FUNCTIONS).map(k=>{const its=items.filter(i=>i.fn===k), cc=stats(its);return `<button class="card area" data-view="fn-${k}"><div class="top"><span class="code">${FUNCTIONS[k].k}</span><span class="ttl">${k}</span><span class="pct num">${cc.pct}%</span></div>${bar(cc)}<div class="foot"><span>${its.length} alt başlık</span><span>· ${cc.done}/${cc.total} doküman</span></div></button>`;}).join("");
+  const attention=[]; items.forEach(it=>it.docs.forEach((d,i)=>{const s=stOf(it,i);if(s==="review"||s==="input")attention.push({it,d,s});}));
+  const ob=onboardStats();
+  return `<div class="page-h"><div><div class="eyebrow">Genel Bakış</div><h1>${esc(CLIENT.name)}</h1><p>Hizmet planının dört fonksiyonu, A–F Data Room sırası ve Durum Değerlendirmesi çıktıları tek ekranda. Danışmanlık başlangıcı: ${CLIENT.kickoff}.</p></div>
+   <div class="right"><a class="btn" href="${CLIENT.planSheet}" target="_blank" rel="noopener">${esc(CLIENT.planLabel||"Hizmet Planı")} ↗</a><a class="btn primary" href="${CLIENT.driveRoot}" target="_blank" rel="noopener">Data Room ↗</a></div></div>
+  ${tiles(c)}${legend}
+  <div class="sec"><button class="card area" data-view="insights" style="flex-direction:row;align-items:center;gap:14px"><span class="code">◈</span><span class="ttl">Insights – iş planı metrikleri ve genel durum grafikleri</span><span class="pct">Aç →</span></button></div>
+  <div class="sec"><div class="sec-h"><h2>Dayanak durumu</h2><span class="meta">Panellerin dokümana mı beyana mı dayandığı</span></div><div class="grid3">
+   ${[["doc","Dokümana dayalı","green"],["beyan","Beyana dayalı",  "amber"],["none","Dayanak yok","red"]].map(([k,t,col])=>`<div class="card pad"><div class="row" style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:13.5px">${t}</b><span class="pill ${col}">${BASIS_COUNT[k].length}</span></div><ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(BASIS_COUNT[k])}</ul></div>`).join("")}
+  </div></div>
+  <div class="sec"><div class="sec-h"><h2>Fonksiyonlar</h2></div><div class="grid2">${fnCards}</div></div>
+  <div class="sec"><div class="sec-h"><h2>Durum Değerlendirmesi</h2><span class="meta">Çıktı dokümanları kendi formatında</span></div><div class="grid3">${ASSESS_TABS.map(([k,t,fmt])=>`<button class="card area" data-view="as-${k}"><div class="top"><span class="code">${k}</span><span class="ttl">${t}</span></div><div class="foot"><span>${fmt}</span></div></button>`).join("")}</div></div>
+  <div class="sec"><div class="sec-h"><h2>Data Room</h2><span class="meta">Drive klasör sırası</span></div>
+   ${DATAROOM.filter(s=>!s.virtual).map(s=>`<div style="margin-bottom:14px"><div class="sec-h" style="margin-bottom:8px"><h2 style="font-size:15px;font-family:var(--font-body);font-weight:600">${esc(s.title)}</h2>${s.url?`<a class="linkbtn" href="${s.url}" target="_blank" rel="noopener">Klasör ↗</a>`:""}</div><div class="grid2">${s.items.map(areaCard).join("")}</div></div>`).join("")}</div>
+  <div class="sec"><div class="sec-h"><h2>Onboard &amp; Learn</h2><span class="meta">Müvekkil gelişim seviyesi</span></div><div class="grid2">
+   <button class="card area" data-view="ob-onboarding"><div class="top"><span class="code">OB</span><span class="ttl">Onboarding</span><span class="pct num">${ob.obPct}%</span></div>${bar({done:ob.obDone,review:0,progress:0,input:0,total:ob.obTotal})}<div class="foot"><span>${ob.obDone}/${ob.obTotal} adım</span></div></button>
+   <button class="card area" data-view="ob-learn"><div class="top"><span class="code">LN</span><span class="ttl">Learn – rehber ve bilgi notları</span><span class="pct num">${ob.lnPct}%</span></div>${bar({done:ob.lnDone,review:ob.lnShared,progress:0,input:0,total:ob.lnTotal})}<div class="foot"><span>${ob.lnDone} özümsendi · ${ob.lnShared} paylaşıldı · ${ob.lnTotal} toplam</span></div></button>
+  </div></div>
+  <div class="sec"><div class="sec-h"><h2>Dikkat gereken kalemler</h2><span class="meta">Onay ve girdi bekleyenler</span></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Doküman</th><th>Alt başlık</th><th>Kimden</th><th>Durum</th></tr></thead><tbody>
+   ${attention.map(a=>`<tr><td class="doc">${esc(a.d.t)}${a.d.ent?`<span class="ent">· ${esc(a.d.ent)}</span>`:""}</td><td><button class="linkbtn" data-view="${a.it.id}">${esc(a.it.title)}</button></td><td class="owner">${esc(a.d.owner)}</td><td><span class="status ${a.s}">${STATUS[a.s]}</span></td></tr>`).join("")}
+  </tbody></table></div></div></div>
+  <div class="sec"><div class="sec-h"><h2>Çalışma ritmi</h2></div><div class="rhythm">${CLIENT.rhythm.map(r=>`<div class="r"><b>${r[0]}</b><span>${r[1]}</span></div>`).join("")}<div class="r"><b>${CLIENT.entities.length}</b><span>Tüzel kişilik${CLIENT.legacy?` · ${CLIENT.legacy.length} eski yapı`:""}</span></div></div></div>`;
+}
+function viewFn(k){
+  const f=FUNCTIONS[k], items=allItems().filter(i=>i.fn===k), c=stats(items); const byArea={}; items.forEach(i=>{(byArea[i.area]=byArea[i.area]||[]).push(i);});
+  return `<div class="page-h"><div><div class="eyebrow">Fonksiyon ${f.k}</div><h1>${k}</h1><p>${esc(f.desc)}</p></div></div>${tiles(c)}${legend}
+  ${Object.keys(byArea).map(a=>`<div class="sec"><div class="sec-h"><h2>${esc(a)}</h2><span class="meta">${byArea[a].length} alt başlık</span></div><div class="grid2">${byArea[a].map(areaCard).join("")}</div></div>`).join("")}
+  <div class="sec"><div class="sec-h"><h2>Tüm dokümanlar</h2><span class="meta">Durum çipine tıklayarak güncelleyin</span></div>
+  ${items.map(it=>`<div class="card" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--divider);flex-wrap:wrap"><button class="linkbtn" data-view="${it.id}" style="font-weight:600;font-size:13.5px;color:var(--ink)">${esc(it.title)}</button><span class="muted num">${stats([it]).pct}%</span>${it.url?`<a class="linkbtn" href="${it.url}" target="_blank" rel="noopener" style="margin-left:auto">Klasör ↗</a>`:`<span class="muted" style="margin-left:auto">Drive klasörü yok</span>`}</div>${docTable(it)}</div>`).join("")}</div>`;
+}
+function viewItem(id){
+  const it=allItems().find(i=>i.id===id); if(!it) return viewHome(); const c=stats([it]);
+  return `<div class="page-h"><div><div class="eyebrow">${esc(it.section.title)} · <span class="fnchip ${it.fn}">${it.fn}</span></div><h1>${esc(it.title)}</h1><p>${esc(it.area)}</p></div>
+   <div class="right"><button class="btn" data-view="as-${it.id[0]}">Durum Değerlendirmesi</button>${it.url?`<a class="btn primary" href="${it.url}" target="_blank" rel="noopener">Drive klasörü ↗</a>`:""}</div></div>
+  ${tiles(c)}${legend}
+  <div class="sec"><div class="grid2">
+   <div class="card pad"><div class="sec-h" style="margin-bottom:10px"><h2 style="font-size:15px">İş akışı</h2></div><div class="flow">${it.flow.map((s,i)=>(i?`<em>→</em>`:"")+`<span>${esc(s)}</span>`).join("")}</div>${it.guide?`<div class="basis" style="margin-top:12px"><span class="pill blue">Rehber</span><span>${esc(it.guide[0])}. ${esc(it.guide[1])}</span>${it.guide[2]?`<a class="guide" href="${it.guide[2]}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">henüz paylaşılmadı</span>`}</div>`:""}</div>
+   <div class="card pad"><div class="sec-h" style="margin-bottom:10px"><h2 style="font-size:15px">Drive yapısı</h2></div>${it.noFolder?`<div class="muted">Data Room'da karşılık gelen klasör henüz açılmadı.</div>`:it.subfolders?`<div class="folders">${it.subfolders.map(s=>`<a class="folder ${s[2]?"empty":""}" href="${s[1]}" target="_blank" rel="noopener">▸ ${esc(s[0])}${s[2]?" · boş":""}</a>`).join("")}</div>`:it.empty?`<div class="muted">Klasör açıldı, henüz doküman yüklenmedi.</div>`:`<div class="muted">Dokümanlar doğrudan klasörde.</div>`}</div>
+  </div></div>
+  ${it.empty||it.noFolder?ghost(`<b>Bu alt başlıkta henüz çıktı yok.</b> İlk adım: ${esc(it.docs[0].t)} (${esc(it.docs[0].owner)}).`):""}
+  <div class="sec"><div class="sec-h"><h2>Dokümanlar</h2><span class="meta">Hizmet planı doküman haritası</span></div><div class="card">${docTable(it)}</div></div>`;
+}
+
+/* =========================================================
+   DURUM DEĞERLENDİRMESİ — veri (Codemag)
+   ========================================================= */
+const ASSESS_TABS=[["A","Strateji ve Business","Kanvas · OKR · Org şeması · RACI"],["B","Finans","Trend · Bütçe · Nakit · Finansman · Bilanço"],["C","Muhasebe","Hesap planı · Mizan · Finansal disiplin"],["D","Operasyonlar","Gelir faaliyetleri · Proje zinciri · Projeler"],["E","Hukuk","DD · Sözleşme · İK · NDA · KVKK · Risk"],["F","İletişim","Toplantı döngüsü · Aksiyonlar · Mailler"]];
+const SRC={
+ tt1:{t:"Kick-off Toplantı Notları · 04.09.2026",u:U.tt1,k:"doc"}, brief:{t:"Codemag–Juris Brief · Nisan 2026 (müvekkil girdisi)",u:U.brief,k:"doc"}, contract:{t:"Danışmanlık Sözleşmesi · 01.09.2026",u:U.contract,k:"doc"}, plan:{t:"Codemag–Juris Hizmet Planı · 14.10.2026",u:U.plan,k:"doc"}, dpp:{t:"DPP – AB Mevzuatı Bilgi Notu · 27.08.2026",u:U.dpp,k:"doc"}, finlit:{t:"Finansal Okuryazarlık Eğitim Notu · 21.09.2026",u:U.finlit,k:"doc"}, nda:{t:"Juris–Codemag NDA · 07.04.2026",u:U.nda,k:"doc"}, gemini:{t:"15.10.2026 Toplantısı – Gemini notu",u:U.gemini,k:"doc"},
+ org:{t:"Hedef Organizasyon Şeması v2 – 21.09 e-postası (Drive'da yok)",k:"beyan"}, hr:{t:"The Hire Factory yazışmaları · 25.09.2026 (Drive'da yok)",k:"beyan"}, mail:{t:"E-posta yazışmaları (Hizmet Planı · Teslimatlar sekmesi)",u:U.plan,k:"beyan"}, beyan:{t:"Soru seti / toplantı beyanı – belge bekleniyor",k:"beyan"}, none:{t:"Henüz doküman yok – iskelet",k:"none"} };
+const basisLine=(src,extra="")=>`<div class="basis"><span class="src ${src.k}">${src.k==="doc"?"Belge":src.k==="beyan"?"Beyan":"Dayanak yok"}</span>${src.u?`<a class="guide" href="${src.u}" target="_blank" rel="noopener">${esc(src.t)} ↗</a>`:`<span>${esc(src.t)}</span>`}${extra}</div>`;
+const docH=(title,fmt,src,status,right="")=>`<div class="doc-h"><div><h2>${title}</h2><div class="basis" style="margin-top:4px"><span class="f">${fmt}</span></div>${basisLine(src)}</div><div class="right"><span class="status ${status}">${STATUS[status]}</span>${right}</div></div>`;
+const entTabs=(opts=CLIENT.short)=>opts.length>1?`<div class="ent-tabs">${opts.map(e=>`<button class="${assessEnt===e?"active":""}" data-ent="${e}">${e}</button>`).join("")}</div>`:"";
+const blk=(cls,no,title,items)=>`<div class="b ${cls}"><h4>${title}<i>${no}</i></h4><ul>${li(items)}</ul></div>`;
+const docbar=(ids)=>{const all=allItems();const out=[];ids.forEach(([itemId,no])=>{const it=all.find(i=>i.id===itemId);if(!it)return;it.docs.forEach((d,i)=>{if(d.no===no&&!out.some(o=>o.t===d.t)){out.push({t:d.t,s:stOf(it,i),no,url:d.url});}});});return `<div class="docbar">${out.map(o=>`<span class="d" title="${esc(o.t)}"><i style="background:${o.s==="done"?"var(--success)":o.s==="review"?"var(--info)":o.s==="progress"?"var(--warn)":o.s==="input"?"var(--red-ink)":"var(--neutral)"}"></i><span class="n">${esc(o.no)}</span>${esc(o.t).slice(0,42)}${o.t.length>42?"…":""}</span>`).join("")}</div>`;};
+
+const BMC={
+ Codemag:{kp:["<b>Leasing şirketleri</b> – Türkiye için yerli, KZ/UZ için Almanya merkezli (vendor leasing planı)","<b>CRPT</b> – Rusya Chestny ZNAK akreditasyonu (2021'den beri)","<b>PAII / EDETEK</b> – DPP ortaklık modeli görüşmesi (03.10.2026)","Avrupa distribütör ağı – GmbH üzerinden (plan)","The Hire Factory (İK) · Tolga Polat (Teknokent) · Juris (hukuk & kurumsal yönetim)","Alt yüklenici / komponent tedarikçileri – operasyon sözleşmeleri bekliyor"],
+  ka:["Serileştirme ve track & trace yazılımı geliştirme (ilaç İTS, Chestny ZNAK, DPP)","Makine üretimi, hat entegrasyonu, kurulum ve devreye alma","Proje yönetimi: Teknik Şartname → Teklif → Sözleşme → Maliyet → Plan → Bütçe → P&L","Satış sonrası destek 7/24 ve bakım (sözleşme/SaaS modeli kurgulanıyor)","Ar-Ge: Vision AI ve SaaS platform bileşenleri","<b>Tüm projeler tek sistemde izlenmiyor</b> (04.09 tespiti)"],
+  kr:["24 kişilik ekip (21.09.2026) – mühendislik + saha","128+ aktif üretim hattı referansı","CRPT akreditasyonu · sektörel regülasyon bilgisi","Avcılar merkez + İkitelli OSB operasyon; Teknokent başvurusu","Yazılım ve marka hakları – <b>tescil durumu teyit edilmedi</b>"],
+  vp:["İlaç ve FMCG üreticileri için <b>serileştirme ve izlenebilirlik</b> – yazılım + makine + entegrasyon tek elden","Regülasyon uyumu: TR İTS · Rusya Chestny ZNAK · AB Dijital Ürün Pasaportu (DPP)","<b>Vendor leasing</b>: sıfır başlangıç yatırımı, 5. yıl sonunda mülkiyet devri","Yazılım bakımı ve 7/24 destek 5 yıl boyunca dahil"],
+  cr:["Proje bazlı ilişki → satış sonrası sözleşme ve <b>SaaS aboneliği</b> ile süreklilik","Müşteri yalnızca Codemag ile muhatap; leasing arka planda","Tier-1 referanslarla güven; satış sonrası ekip"],
+  ch:["Doğrudan B2B proje satışı (Türkiye)","Codemag GmbH üzerinden KZ/UZ sözleşmeleri (plan – kapsam dışı)","Avrupa distribütör ağı (orta vade)","Serileştirme / DPP iş birlikleri (PAII/EDETEK)"],
+  cs:["İlaç: Drogsan, Recordati","FMCG: Ülker-Pladis, Evyap, Hayat Kimya, Perfetti Van Melle","Gıda ve tarım üreticileri","Pazarlar: Türkiye · Rusya · Kazakistan · Özbekistan · Azerbaycan"],
+  co:["Mühendislik ve saha ekibi (24 kişi) · Ar-Ge","Makine üretimi, komponent, kurulum","Leasing finansman maliyeti (filo modeli) · Teknokent kira / mali sürdürme","Danışmanlıklar: Juris 80.000 TL/ay · The Hire Factory · Tolga Polat"],
+  rs:["Proje bazlı satış – yazılım + makine + kurulum (bugünkü ana gelir)","Satış sonrası bakım ve destek (sözleşmeli hâle getirilecek)","SaaS abonelik geliri (ayrı iş modeli – planlanan)","Vendor leasing aylık ödemeleri (makine ~60.000 EUR, 3+2 yıl – planlanan)","<b>2027 ciro hedefi belirlenmedi</b>"]}};
+const LEAN={
+ Codemag:{pr:["Üreticiler İTS / Chestny ZNAK / DPP yükümlülüklerini parçalı çözümlerle karşılıyor","Makine yatırımı yüksek başlangıç maliyeti istiyor","Teslim sonrası destek sürekliliği ve geliri sözleşmesiz","<b>Alternatifler:</b> global serileştirme sağlayıcıları, hat üreticilerinin kendi modülleri"],so:["Yazılım + makine + entegrasyon tek paket","Vendor leasing: leasing şirketi makineyi alır, müşteri aylık öder","5 yıl bakım + 7/24 destek dahil","Satış sonrası → SaaS aboneliği"],km:["Aktif hat sayısı (128+)","Proje P&L ve proje bazlı nakit akışı","Yinelenen gelir payı (bakım + SaaS)","Tahsilat süresi / ödeme planı sapması","10 faaliyet + 5 finansal KPI – <b>liste belirlenecek</b>"],vp:["Regülasyon uyumunu yatırım yükü olmadan sağlayan <b>tek muhatap</b>","Yerli üretim, Tier-1 referans, çok pazar"],ua:["CRPT akreditasyonu (2021)","128+ hatta saha deneyimi ve Tier-1 referanslar","Kendi makine + yazılım + Vision AI"],ch:["Doğrudan B2B satış · distribütör · GmbH (plan)"],cs:["İlaç ve FMCG üreticileri (TR)","<b>Early adopter:</b> KZ / UZ üreticileri (leasing ile)","DPP yükümlüsü AB ihracatçıları"],co:["Ekip · Ar-Ge · makine üretimi · leasing finansmanı · danışmanlık"],rs:["Proje satışı · bakım/destek · SaaS · leasing ödemeleri"]}};
+function canvas(d,lean=false){ if(lean) return `<div class="bmc lean">${blk("pr","1","Problem",d.pr)}${blk("so","4","Çözüm",d.so)}${blk("km","8","Kilit Metrikler",d.km)}${blk("vp","3","Benzersiz Değer Önerisi",d.vp)}${blk("ua","9","Haksız Avantaj",d.ua)}${blk("ch","5","Kanallar",d.ch)}${blk("cs","2","Müşteri Segmentleri",d.cs)}${blk("co","7","Maliyet Yapısı",d.co)}${blk("rs","6","Gelir Akışları",d.rs)}</div>`;
+ return `<div class="bmc">${blk("kp","8","Kilit Ortaklıklar",d.kp)}${blk("ka","7","Kilit Faaliyetler",d.ka)}${blk("kr","6","Kilit Kaynaklar",d.kr)}${blk("vp","2","Değer Önerileri",d.vp)}${blk("cr","4","Müşteri İlişkileri",d.cr)}${blk("ch","3","Kanallar",d.ch)}${blk("cs","1","Müşteri Segmentleri",d.cs)}${blk("co","9","Maliyet Yapısı",d.co)}${blk("rs","5","Gelir Akışları",d.rs)}</div>`;}
+
+/* İş Planı – 5 bölüm × OKR (3–5 KR) · kaynak: Hizmet Planı 'Yıllık Stratejik Hedefler' (S1–S12) + 04.09 kararları */
+const OKR={
+ Codemag:[
+  {t:"Bütçe",o:"S1–S2: 2027 proje bazlı bütçe, nakit akışı ve ödeme planının kurulması",kr:[["Proje bazlı bütçe + nakit akışı formatı iletildi (Juris)","Ekim 2026",10],["2027 proje bazlı bütçe ve P&L onaya sunuldu","Ekim 2026",20],["Ödeme planı standardı kuruldu (tek tablo)","Ekim 2026",0],["10 faaliyet + 5 finansal KPI matrisi","15 KPI",10],["Aylık yönetim / finans raporu ritmi","aylık",0]]},
+  {t:"Satış Planı",o:"S5–S6: proje gelirinin standart paketle, satış sonrası gelirin sözleşmeyle güvence altına alınması",kr:[["2027 proje ciro hedefi belirlendi","belirlenecek",0],["SaaS yıllık gelir hedefi ayrıştırıldı","belirlenecek",0],["Satış sonrası bakım / destek teklif-sözleşme modeli","sözleşme seti",10],["Standart proje paketi (şartname → teklif → sözleşme)","örnek paket",10],["Projelerin sektörel bazda ayrıştırılması","ilaç · FMCG · gıda · tarım",0]]},
+  {t:"Pazarlama Planı",o:"SaaS paketleri ve sektörel konumlandırma; DPP ile yeni pazar",kr:[["SaaS servis paketleri – hedef pazar ve mesajlar","paket tanımı",0],["Serileştirme / DPP iş birlikleri (PAII/EDETEK) değerlendirmesi","karar",15],["Hedef sektörel proje / ürün pazarlaması","plan",0],["Marka koruması – isim ihlali değerlendirmesi","hukuki görüş",10]]},
+  {t:"Operasyon ve Üretim",o:"S4 · S8–S10: tek proje sistemi, organizasyon, İK ve Teknokent",kr:[["Tüm projeler ve taskler tek sistemde","program seçimi + kurulum",15],["Hedef organizasyon + görev/yetki matrisi","21.09 şema → matris",45],["6 öncelikli pozisyon işe alımı (The Hire Factory)","3 aylık çalışma",35],["Teknokent başvurusu ve mali sürdürme","kabul teyidi",70],["Ön muhasebe + idari + özlük fonksiyonu kuruldu","muhasebe personeli",20]]},
+  {t:"İş Geliştirme",o:"S7 · S11–S12: Asset/leasing, finansman, DPP ortaklığı, uluslararası açılım",kr:[["Asset / vendor leasing iş modeli ve operasyon akışı","Ekim 2026",15],["Vakıf Leasing / katılım finansmanı değerlendirmesi","alternatif raporu",0],["DPP ortaklık modeli kararı (PAII/EDETEK)","görüş + karar",10],["Codemag GmbH fizibilitesi – ayrı mutabakat","teklif",0],["Yatırım turu hazırlığı (kiralama filosu + büyüme)","pitch deck",0]]}]};
+function okrGrid(list){return `<div class="okr">${list.map(o=>`<div class="o"><h4>${o.t}</h4><div class="obj">${o.o}</div>${o.kr.map(k=>`<div class="kr"><span class="m">${k[0]}</span><span class="tgt">${k[1]}</span><div class="bar"><i class="s-done" style="width:${k[2]}%"></i></div></div>`).join("")}</div>`).join("")}</div>`;}
+const RACI={roles:["Şirket Sahibi (Serkan H.)","Yönetim / İdari (Özgür G.)","Proje Yönetimi (PM)","Satış & Satış Sonrası","Finans / Ön Muhasebe","İK Danışmanı","Juris"],rows:[["Stratejik plan ve 2027 bütçe onayı","A","R","C","C","C","x","C"],["Teklif ve proje sözleşmesi imzası (olağan)","I","A","R","R","I","x","C"],["Çerçeve / leasing / eşik üstü sözleşme","A","R","C","C","C","x","R"],["Satın alma (PM ile birlikte – 04.09 kararı)","I","A","R","x","C","x","x"],["Proje planı, bütçe ve P&L takibi","I","A","R","C","R","x","C"],["Ödeme planı ve tahsilat","I","A","C","C","R","x","I"],["İşe alım ve görev tanımları","A","R","C","C","I","R","C"],["Proje yönetim programı seçimi","I","A","R","C","C","x","C"],["SaaS / Asset iş modeli kararı","A","R","C","R","C","x","R"],["Marka, fikri mülkiyet ve uyuşmazlık","A","R","I","I","x","x","R"]]};
+
+/* Finans – yıllara sari */
+const FIN={ Codemag:{years:["2024","2025","2026E","2027B"],revenue:[null,null,null,null],range:[null,null,null,null],margin:[null,null,null,null],note:"Drive'da bütçe, gelir tablosu veya ciro verisi yok; 2025–2026 bütçeleri kick-off'ta sözlü değerlendirildi. 2027 ciro ve SaaS gelir hedefi belirlenmedi (Hizmet Planı: 'rakam uydurulmadı'). Değerler 2027 proje bazlı bütçe ve 2025 bilanço gelince dolacak."} };
+function barChart(years,vals,ranges,unit){const W=640,H=220,pl=44,pb=34,pt=16,pr=12;const max=Math.max(...vals.filter(v=>v!=null).concat(ranges.filter(Boolean).map(r=>r[1])),10)*1.15;const n=years.length,bw=(W-pl-pr)/n;const y=v=>pt+(H-pt-pb)*(1-v/max);let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Yıllık gelir">`;for(let g=0;g<=4;g++){const v=max*g/4;s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`;}years.forEach((yr,i)=>{const cx=pl+bw*i+bw/2;const r=ranges[i],v=vals[i];if(r){s+=`<rect x="${cx-bw*0.3}" y="${y(r[1])}" width="${bw*0.6}" height="${y(r[0])-y(r[1])}" rx="4" fill="var(--tint-12)"><title>${yr}: aralık ${r[0]}–${r[1]} ${unit}</title></rect>`;}if(v!=null){s+=`<rect x="${cx-bw*0.18}" y="${y(v)}" width="${bw*0.36}" height="${Math.max(0,y(0)-y(v))}" rx="3" fill="var(--navy)"><title>${yr}: ${v} ${unit}</title></rect><text x="${cx}" y="${y(v)-5}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${v}</text>`;}else{s+=`<rect x="${cx-bw*0.18}" y="${pt}" width="${bw*0.36}" height="${H-pt-pb}" rx="3" fill="none" stroke="var(--border-strong)" stroke-dasharray="4 3"><title>${yr}: belge bekleniyor</title></rect><text x="${cx}" y="${(H-pb)/2+8}" text-anchor="middle" style="fill:var(--ink-4)">${r?"karar":"belge"}</text>`;}s+=`<text x="${cx}" y="${H-pb+16}" text-anchor="middle">${yr}</text>`;});s+=`<text x="${pl}" y="${H-4}" style="fill:var(--ink-4)">${unit}</text></svg>`;return s;}
+/* Finansman yapısı – vendor leasing (brief §3) */
+const LEASING={steps:[["1","Codemag","Makineyi üretir ve müşteriye sunar"],["2","Leasing Şirketi","Makineyi Codemag'dan satın alır → Codemag peşin bedeli alır"],["3","Leasing Şirketi","Makineyi arka planda müşteriye kiralar"],["4","Müşteri","Aylık ödemeyi yalnızca Codemag'a yapar"],["5","Codemag","Tahsil edilen ödemeyi leasing şirketine aktarır"]],timeline:[["Yıl 0","Kurulum ve devreye alma"],["Yıl 1–3","Zorunlu kiralama dönemi"],["Yıl 4–5","Müşteri opsiyonu – kiraya devam"],["Yıl 5 sonu","Mülkiyet müşteriye devredilir"]],markets:[["Türkiye","Codemag TR","Türk leasing şirketi","EUR / TRY"],["Kazakistan","Codemag GmbH (plan)","Alman leasing şirketi","EUR / USD"],["Özbekistan","Codemag GmbH (plan)","Alman leasing şirketi","EUR / USD"]]};
+
+/* Faaliyetler ve projeler */
+const REVACT={ Codemag:[["Proje bazlı serileştirme / track & trace (yazılım + makine + kurulum)",0,"Proje satışı · şartname–teklif–sözleşme zinciri","Ana"],["Satış sonrası bakım ve destek",0,"Hizmet · sözleşmeli hâle getirilecek","Ana – büyüme"],["SaaS abonelik",0,"Yinelenen gelir · ayrı iş modeli (04.09 kararı)","Ana – büyüme"],["Vendor leasing / Asset – makine kiralama",0,"Aylık ödeme · 3+2 yıl · leasing partneri","Fırsat"],["DPP çözümleri – AB ihracatçıları",0,"Yazılım · PAII/EDETEK ortaklık modeli","Fırsat"],["Entegrasyon ve danışmanlık",0,"Proje tamamlayıcısı","Tamamlayıcı"]] };
+const VALPROC={ Codemag:["Lead · ihtiyaç analizi","Teknik Şartname","Teklif","Teklif Kabulü","Sözleşme","Maliyet","Proje Planı","Bütçe","Yazılım geliştirme · makine üretimi","Kurulum · devreye alma","Gelir / Gider takibi","P&L","Satış sonrası · SaaS"] };
+const STAGES=["Fikir","Fizibilite","Bütçe","Geliştirme","Lansman","Gelir"];
+const PROJECTS=[
+ {t:"SaaS gelir modeli – satış sonrası ile entegre",ent:"Codemag",st:1,res:"Satış sonrası ekip · mevcut 128+ hat müşteri tabanı · Juris sözleşme seti",bud:"Belirlenecek",ret:"Yinelenen gelir; proje gelirinden ayrı SaaS hedefi",due:"Ekim 2026 kurgu"},
+ {t:"Asset / vendor leasing – makine kiralama modeli",ent:"Codemag",st:1,res:"Leasing partneri (TR yerli / DE) · hukuki şablonlar · filo finansmanı",bud:"Makine ~60.000 EUR / adet (brief)",ret:"Öngörülebilir aylık gelir; müşteri için sıfır başlangıç yatırımı",due:"Ekim 2026 (04.09 kararı)"},
+ {t:"Tek proje yönetim sistemi ve task panosu",ent:"Codemag",st:1,res:"Program seçimi (Codemag) · tüm proje ve taskler · Tolga'nın taskleri dahil",bud:"—",ret:"Proje P&L görünürlüğü; sektörel ayrım",due:"Ekim 2026"},
+ {t:"İK reorganizasyonu – The Hire Factory",ent:"Codemag",st:3,res:"3 aylık İK danışmanlığı · 6 öncelikli pozisyon · hedef org şeması v2",bud:"The Hire Factory sözleşmesi (25.09)",ret:"Kalıcı İK fonksiyonu; ön muhasebe + idari + özlük yapısı",due:"Aralık 2026"},
+ {t:"Teknokent giriş ve mali sürdürme",ent:"Codemag",st:3,res:"Tolga Polat · seçenek karşılaştırması (05.09) · mali sürdürme sözleşmesi (06.10)",bud:"Kira / sürdürme bedeli – sözleşmede",ret:"Ar-Ge teşvikleri, Teknokent istisnaları",due:"Başvuru tamamlandı sayılır (13.10)"},
+ {t:"DPP ortaklığı – PAII / EDETEK",ent:"Codemag",st:1,res:"Avrupa DPP pazar araştırması · AB mevzuat notu (27.08) · Juris görüşü",bud:"—",ret:"AB ihracatçılarına DPP çözümü; yeni pazar",due:"Karar bekliyor"},
+ {t:"Codemag GmbH (Almanya) – KZ/UZ sözleşme tarafı",ent:"Kapsam dışı",st:0,res:"Handelsregister · Finanzamt · Alman leasing partnerleri · ayrı Juris mutabakatı",bud:"—",ret:"Avrupa ve BDT operasyon merkezi; GmbH → TR sermaye aktarımı",due:"Brief hedefi Eylül 2026 – gerçekleşmedi"},
+ {t:"Yatırım turu – kiralama filosu + büyüme finansmanı",ent:"Kapsam dışı",st:0,res:"Pitch deck · yatırımcı/leasing ortaklığı · BIST Büyüme Pazarı hikâyesi",bud:"—",ret:"Filo stoku; mühendislik ekibi; Vision AI / SaaS; KZ-UZ girişi",due:"Planlanacak"}];
+const stagesEl=s=>`<div class="stages">${STAGES.map((n,i)=>`<span class="${i===s?"on":i<s?"past":""}">${n}</span>`).join("")}</div>`;
+
+/* Hukuk */
+const DD={ Codemag:[["1. Şirket Kayıtları ve Kurumsal Yönetim",["Şirket sözleşmesi (Ltd. Şti.) ve son tadiller","Ortaklar kurulu karar defteri","Pay defteri · ortaklık oranları (Serkan Hacıoğlu – teyit)","Güncel imza sirküleri ve müdür atama kararı","Ticaret sicil gazeteleri (41002-5 · MERSİS 0211070238300018)","Unvan teyidi: 'Yazılım Hizmetleri' vs 'Makina Sanayi'"],"Müvekkil Yönetimi"],["2. Lisanslar, İzinler, Regülasyon",["CRPT (Chestny ZNAK) akreditasyon belgeleri","İTS / ilaç serileştirme uyum belgeleri","Teknokent başvuru ve kabul yazısı","İhracatçı Birliği üyeliği","İSG risk değerlendirmesi ve eğitim kayıtları"],"Müvekkil Yönetimi"],["3. Kredi, Finansman ve Teminatlar",["Banka kredi ve leasing sözleşmeleri","Teminat, kefalet ve ipotek listesi","Vergi borcu yoktur","SGK borcu yoktur","2025 bilanço ve gelir tablosu"],"Mali Müşavir"],["4. Sözleşmeler ve Ticari İlişkiler",["Juris–Codemag NDA","Juris Danışmanlık Sözleşmesi (imzalı nüsha)","Tier-1 müşteri sözleşmeleri (Ülker-Pladis, Evyap, Hayat Kimya, Perfetti, Drogsan, Recordati)","Satış sonrası / bakım sözleşmeleri","Tedarikçi ve alt yüklenici sözleşmeleri","Distribütör / yurt dışı müşteri sözleşmeleri (RU, KZ, UZ, AZ)","The Hire Factory İK hizmet sözleşmesi","Teknokent mali sürdürme sözleşmesi (Tolga Polat)"],"Müvekkil Yönetimi"],["5. Çalışanlar ve İK",["Güncel çalışan listesi ve görev tanımları (24 kişi)","İş sözleşmeleri","SGK sicil ve işe giriş bildirgeleri","Bordro ve fazla mesai kayıtları","Çalışan eser / buluş devir sözleşmeleri (yazılım geliştiriciler)"],"Mali Müşavir + Yönetim"],["7. BT, Veri Koruma, Fikri Mülkiyet",["Codemag marka tescil belgesi / başvurusu (TÜRKPATENT)","Yazılım kaynak kodu sahipliği ve lisans kayıtları","3. taraf yazılım lisansları / açık kaynak listesi","Domain ve bulut altyapı sahipliği","KVKK / VERBİS kaydı ve veri envanteri","Müşteri hat verisi işleme protokolleri"],"Müvekkil Yönetimi"],["8. Sigorta",["İş yeri ve makine sigortaları","Ürün sorumluluk / mesleki sorumluluk sigortası","Nakliyat sigortası (makine sevkiyatı)","Çalışan sağlık / kaza"],"Müvekkil Yönetimi"]] };
+const DD_DONE={Codemag:["Juris–Codemag NDA","Juris Danışmanlık Sözleşmesi (imzalı nüsha)"]};
+function ddList(ent){let tot=0,ok=0;const html=DD[ent].map(([g,items,who])=>{const rows=items.map(it=>{tot++;const d=DD_DONE[ent].includes(it);if(d)ok++;return `<li class="${d?"ok":""}"><i></i>${esc(it)}</li>`;}).join("");return `<div class="grp"><h5>${esc(g)}<span>${items.filter(i=>DD_DONE[ent].includes(i)).length}/${items.length}</span></h5><div class="muted" style="margin-bottom:4px">Kimden: ${who}</div><ul>${rows}</ul></div>`;}).join("");return {html:`<div class="check">${html}</div>`,tot,ok};}
+const CONTRACTS=[["Standart Proje Paketi – Teklif / Kabul / Sözleşme","Teknik şartname eki, kabul, teslim, ödeme, garanti, fikri mülkiyet","Codemag ↔ müşteri","R1","input"],["Satış Sonrası Bakım ve Destek Sözleşmesi","Bakım kapsamı, SLA, 7/24 destek, ücret, süre","Codemag ↔ müşteri","R2","pending"],["SaaS Abonelik / Lisans Sözleşmesi","Abonelik, kullanım hakkı, veri işleme, süreklilik, fesih","Codemag ↔ müşteri","R2","pending"],["Vendor Leasing – Kiralama Sözleşmesi","Makine finansmanı, 3+2 yıl, temerrüt, mülkiyet devri","Leasing ↔ Codemag","R3","pending"],["Vendor Leasing – Hizmet Sözleşmesi","Makine kullanımı, yazılım lisansı, bakım, 5 yıl, ödeme akışı","Codemag ↔ müşteri","R3","pending"],["Operasyon Sözleşmeleri","Ön muhasebe, satın alma, teknik servis, alt yüklenici / tedarik","Codemag ↔ 3. kişiler","R1","pending"],["İş Sözleşmeleri + Eser/Buluş Devri + Gizlilik","24 çalışan; yazılım geliştiriciler için fikri mülkiyet devri","Codemag ↔ çalışan","R5","pending"],["NDA Seti (TR/EN) – müşteri, distribütör, leasing partneri, tedarikçi","Karşılıklı / tek taraflı gizlilik","Codemag ↔ 3. kişiler","R6","pending"],["Ortaklar Sözleşmesi / Yönetim ve Temsil Düzeni","Pay yapısı, Serkan–Özgür rol ayrımı, yetki eşikleri","Ortaklar ↔ Codemag","R4","input"],["Teknokent Mali Sürdürme Sözleşmesi (inceleme)","Ar-Ge yükümlülükleri, kira, sürdürme bedeli","Codemag ↔ Teknokent","R12","review"],["The Hire Factory İK Hizmet Sözleşmesi (inceleme)","3 aylık İK danışmanlığı, işe alım, gizlilik, KVKK","Codemag ↔ The Hire Factory","R5","review"],["KVKK / Veri İşleme Ekleri","Track & trace verisi, SaaS, yurt dışı aktarım (RU/KZ/UZ)","Codemag ↔ müşteri / tedarikçi","R7","pending"]];
+const RISKS=[
+ {id:"R1",t:"Projeler standart belge zinciri olmadan yürüyor; teklif–kabul–sözleşme–P&L izlenemiyor",ent:"Codemag",p:4,i:4,ifnot:"Standart Proje Paketi + operasyon sözleşmeleri (E-2) + tek proje sistemi (A.3)",src:SRC.tt1},
+ {id:"R2",t:"Satış sonrası hizmetler sözleşmesiz; destek yükümlülüğü ve geliri belirsiz, SaaS modeli yok",ent:"Codemag",p:4,i:3,ifnot:"Satış sonrası / SaaS sözleşme seti + SaaS iş modeli (D.2)",src:SRC.tt1},
+ {id:"R3",t:"Vendor leasing: müşteri ödemezse leasing borcu Codemag'da kalır; iki sözleşmeli yapı ve mülkiyet devri kurgulanmadı",ent:"Codemag",p:3,i:5,ifnot:"Kiralama + hizmet sözleşmesi çifti, temerrüt/rücu hükümleri, leasing partneri seçimi",src:SRC.brief},
+ {id:"R4",t:"Ortaklık yapısı, pay oranları ve temsil yetkisi teyit edilmedi; Serkan–Özgür rol ayrımı yazılı değil; unvan tutarsızlığı",ent:"Codemag",p:3,i:4,ifnot:"Sicil / pay defteri teyidi + görev-yetki matrisi (A.3) + imza sirküleri",src:SRC.mail},
+ {id:"R5",t:"24 çalışan için iş sözleşmesi, görev tanımı ve yazılım eser/buluş devri belgeleri görülmedi",ent:"Codemag",p:4,i:4,ifnot:"İK doküman seti + eser/buluş devri (E-3) · The Hire Factory koordinasyonu",src:SRC.hr},
+ {id:"R6",t:"Yazılım ve marka haklarının tescil durumu belirsiz; marka ismi ihlali başvurusu açık",ent:"Codemag",p:3,i:4,ifnot:"Marka ihlali görüşü (E-5) + tescil envanteri (DD 7) · tescil işlemleri ayrı mutabakat",src:SRC.mail},
+ {id:"R7",t:"Müşteri hat verisi, SaaS ve yurt dışı aktarım (RU/KZ/UZ) için KVKK düzeni ve VERBİS teyidi yok",ent:"Codemag",p:3,i:3,ifnot:"Mini KVKK projesi + veri işleme ekleri (E-6)",src:SRC.none},
+ {id:"R8",t:"Proje P&L, bütçe ve nakit akışı yok; leasing/finansman kararları dayanaksız alınır",ent:"Codemag",p:4,i:4,ifnot:"Proje bazlı bütçe + nakit akışı + ödeme planı (B.1–B.2) + 15 KPI",src:SRC.tt1},
+ {id:"R9",t:"Danışmanlık sözleşmesinin karşılıklı imzalı nüshası yok; dosya adı 'Makina Sanayi', metin 'Yazılım Hizmetleri'",ent:"Juris ↔ Codemag",p:2,i:2,ifnot:"İmza turu + unvan düzeltmesi (Ç2)",src:SRC.plan},
+ {id:"R10",t:"KZ/UZ sözleşmeleri GmbH kurulmadan yapılırsa geçerlilik, vergi ve döviz uyum riski",ent:"Kapsam dışı",p:2,i:4,ifnot:"GmbH fizibilitesi ve ayrı mutabakat (A.4 / D.2)",src:SRC.brief},
+ {id:"R11",t:"Tahsilat süreci sahipsiz: muhasebe personeli yok, ödeme planı yok",ent:"Codemag",p:4,i:3,ifnot:"Muhasebe personeli alımı + ödeme planı formatı (C.1 / B.2)",src:SRC.tt1},
+ {id:"R12",t:"Teknokent: Ar-Ge yükümlülükleri ve mali sürdürme sözleşmesi hukuken incelenmedi",ent:"Codemag",p:2,i:3,ifnot:"Sözleşme incelemesi (E-2) + kabul teyidi",src:SRC.mail}];
+function heatmap(){let c="";for(let i=5;i>=1;i--){c+=`<div class="ax">Etki ${i}</div>`;for(let p=1;p<=5;p++){const s=p*i,cls=s>=16?"h5":s>=10?"h4":s>=6?"h3":s>=3?"h2":"h1";c+=`<div class="c ${cls}" title="Olasılık ${p} × Etki ${i}">${RISKS.filter(r=>r.p===p&&r.i===i).map(r=>`<span>${r.id}</span>`).join("")}</div>`;}}c+=`<div class="ax"></div>`+[1,2,3,4,5].map(p=>`<div class="ax">Olasılık ${p}</div>`).join("");return `<div class="heat">${c}</div>`;}
+
+/* İletişim */
+const MEETINGS=[
+ {d:"15.10.2026",t:"CODEMAG Toplantısı (15:00–17:00)",who:"Özgür Gömeç, Ferhan Yıldızlı, Gülşah Algın",agenda:["DPP referansları (Gemini özeti)","Gündem tutanağı yok"],delivered:["Toplantı kaydı (Recording) ve Gemini notu Drive'da"],undelivered:["İçerik tutanağı ve aksiyon listesi","Gemini notu anlamlı özet üretmedi"],url:U.gemini,st:"review"},
+ {d:"24.09.2026",t:"İK süreç danışmanlığı – The Hire Factory çalışma görüşmesi",who:"Özgür Gömeç, Ceren Pirol, ilgili ekip",agenda:["3 aylık İK iş planı","6 öncelikli pozisyon","Şirket röntgeni"],delivered:["İK Hizmet Sözleşmesi taslağı (25.09, e-posta)"],undelivered:["Tutanak yok; takvim kaydı teyit edilmedi","Sözleşme Drive'a yüklenmedi"],st:"pending"},
+ {d:"04.09.2026",t:"Kick-off Toplantısı (takvim: 09.09 Hizmet Başlangıç Toplantısı)",who:"Özgür Gömeç, Ferhan Yıldızlı, Murat Gülgün, Gülşah Algın",agenda:["Finans ve bütçe (2025–2026, 2027 proje bazlı)","Proje yönetimi – tek sistem, standart paket","İş modeli: proje · SaaS · Asset","Organizasyon, İK, satış sonrası, finansman (Vakıf Leasing / katılım)","Bütünleşik yönetim sistemi (1 ay)"],delivered:["16 karar · 22 aksiyon (16.09 mail)","Drive dosya planı (16.09)","Finansal Okuryazarlık Notu (21.09)"],undelivered:["İş Modeli Bilgi Notu + Soru Seti (Juris)","Proje bazlı bütçe / nakit akışı / ödeme planı formatları (Juris)","Standart proje paketi ve örnek proje dokümantasyonu (Codemag)","Org şeması Drive'a, proje yönetim programı seçimi (Codemag)"],url:U.tt1,st:"done"},
+ {d:"19.08.2026",t:"Juris – CODEMAG Toplantısı (11:00–16:00)",who:"Gülşah Algın, Ferhan Yıldızlı",agenda:["Takvimde kapsam belirtilmemiş"],delivered:["Teklif 23.08'de kabul edildi (80.000 TL/ay)","Sözleşme taslağı 26.08'de gönderildi"],undelivered:["Tutanak yok"],st:"pending"},
+ {d:"29.07.2026",t:"CODEMAG & Qervan Toplantısı",who:"Gülşah Algın, Ferhan Yıldızlı",agenda:["Takvim kaydı – saat teyidi gerekli (05:30)"],delivered:[],undelivered:["Tutanak yok"],st:"pending"},
+ {d:"06.05.2026",t:"CODEMAG İlk Görüşme",who:"Gülşah Algın, Ferhan Yıldızlı, Özgür Gömeç",agenda:["Tanışma; Nisan brief'i (GmbH, vendor leasing, yatırım)"],delivered:["Hizmet Kapsam Dokümanı (27.04 – görüşme öncesi)"],undelivered:["Tutanak yok"],st:"pending"}];
+const ACTIONS=[["Juris","Proje bazlı bütçe formatı ve nakit akışı formatının iletilmesi","Kritik","Finansal şablon","progress"],["Juris","İş Modeli Bilgi Notu ve Soru Setinin iletilmesi","Yüksek","Bilgi notu + form","pending"],["Juris","Ödeme planı formatının iletilmesi","Yüksek","Tek tablo","pending"],["Juris","Finansal Okuryazarlık Eğitim Notunun iletilmesi","Orta","PDF – 21.09 teslim","done"],["Juris","Standart proje paketi formatının incelenmesi ve revizesi","Yüksek","Revize paket","input"],["Juris","İK Soru Seti ve ön Due Diligence hazırlığı","Yüksek","Soru seti + DD listesi","pending"],["Juris","Operasyon sözleşmelerinin hazırlanması","Yüksek","Sözleşme seti","pending"],["Juris + Codemag","10 faaliyet KPI'ı ve 5 finansal KPI'ın belirlenmesi","Kritik","KPI matrisi","progress"],["Juris + Codemag","Vakıf Leasing ve katılım finansmanı alternatiflerinin değerlendirilmesi","Orta","Alternatif raporu","pending"],["Juris + Codemag","Tüm çalışmaların tek sistem altında toplanması; yönetim sunumu (1 ay)","Kritik","Bütünleşik sistem","pending"],["Juris + Codemag","Asset iş modeli ve operasyon yapısının kurgulanması (hedef Ekim 2026)","Yüksek","Asset modeli","progress"],["Codemag + Juris","SaaS gelir modelinin ayrı iş modeli olarak çalışılması; satış sonrası entegrasyonu","Yüksek","SaaS modeli","progress"],["Codemag","Teknopark ön başvurusu","Orta","Başvuru – 13.10: tamamlandı sayılır","progress"],["Codemag","2027 proje bazlı bütçe ve nakit akışının hazırlanması ve Ekim'de onaya sunulması","Kritik","2027 bütçesi","input"],["Codemag","Tüm task ve projelerin görüleceği task sisteminin kurulması","Yüksek","Task panosu","input"],["Codemag","Ödeme planının hazırlanması","Yüksek","Ödeme planı","input"],["Codemag","Mevcut dokümanların iletilmesi","Yüksek","Data Room yüklemesi","input"],["Codemag","Örnek bir projenin uçtan uca dokümantasyonu","Yüksek","Örnek proje paketi","input"],["Codemag","Standart proje paketinin hazırlanması (şartname → P&L)","Kritik","Standart paket","input"],["Codemag","Proje yönetim programı ve sisteminin belirlenmesi","Yüksek","Program kararı","input"],["Codemag","Mevcut ve reorganize organizasyon şemasının hazırlanması","Yüksek","Org şeması – 21.09 v2 iletildi","review"],["Codemag","Operasyon kırılımlarının kadro bazlı hazırlanması; birim/görev/sorumluluk tanımları","Yüksek","Görev matrisi","input"]];
+const DECISIONS=[["Muhasebe personeli","Tahsilatı yönetecek muhasebe personeli alınacak; mülakatlara Ferhan Yıldızlı katılacak","done"],["Finans operasyon personeli","Bu aşamada ayrıca alınmayacak","done"],["İdari işler ve özlük","Ön muhasebe fonksiyonu altında; geçişte Özgür Gömeç yürütecek","done"],["Satın alma","PM / Proje Yönetimi yapısıyla birlikte konumlanacak","done"],["Proje yönetim programı","Ortak program kullanılacak – hangi program olduğu belirlenecek","input"],["2027 ciro hedefi","Toplam ciro ve proje geliri hedefi (sayısal hedef yok)","input"],["SaaS gelir hedefi","Proje gelirinden ayrıştırılmış yıllık hedef","input"],["KPI seçimi","10 faaliyet + 5 finansal KPI'ın hangileri olacağı","input"],["Finansman alternatifi","Vakıf Leasing / katılım finansmanı – hangisi, hangi projeler için","input"],["GmbH ve yatırım turu","Ayrı mutabakatla mı, ne zaman","input"]];
+const MAILS=[["07.04.2026","Juris (İ. Karakum) → Özgür Gömeç","NDA taslağı – 08.04 imzalı tarama bildirimi","done"],["27.04.2026","Juris (G. Algın) → Özgür Gömeç","Hizmet Kapsam Dokümanı","done"],["04.08.2026","Juris → Özgür Gömeç","Hizmet Teklifi – 23.08 kabul","done"],["26.08 / 11.09.2026","Juris → Codemag","Danışmanlık Sözleşmesi (ilk + unvanı güncel sürüm) – imza teyitsiz","done"],["27.08.2026","Juris (İ. Karakum) → Özgür Gömeç","DPP – AB Mevzuatı Bilgi Notu","done"],["16.09.2026","Juris → Özgür, Ferhan, Murat","Kick-off tutanağı · Drive dosya planı · öncelikli aksiyonlar (3 mail)","done"],["21.09.2026","Juris → Özgür Gömeç","Finansal Okuryazarlık Eğitim Notu","done"],["21.09.2026","Özgür Gömeç → The Hire Factory (Juris CC)","Hedef organizasyon şeması v2 + kadro ihtiyaçları","done"],["25.09.2026","The Hire Factory → Özgür (Juris CC)","İK Süreç Danışmanlığı Sözleşmesi + 3 aylık iş planı","done"],["03.10.2026","Özgür Gömeç → Ferhan, Gülşah, Serkan","PAII/EDETEK ortaklık + Avrupa DPP araştırması – görüş talebi","done"],["06.10.2026","Tolga Polat → Özgür (hukuk CC)","Teknokent mali sürdürme hizmet sözleşmesi","done"],["—","Juris → Codemag","İş Modeli Bilgi Notu + Soru Seti","pending"],["—","Juris → Codemag","Proje bazlı bütçe / nakit akışı / ödeme planı formatları","pending"],["—","Juris → Codemag","İK Soru Seti + DD belge talep listesi + Data Room yükleme yönergesi","pending"],["—","Juris → Özgür Gömeç","Görüş: PAII/EDETEK ortaklık modeli · marka ihlali","pending"],["—","Juris → Codemag","Hatırlatma: standart proje paketi, örnek proje, org şeması Drive'a; sözleşme imza nüshası","pending"]];
+
+/* ---------- assess views ---------- */
+function assessHead(k){const t=ASSESS_TABS.find(x=>x[0]===k);return `<div class="page-h"><div><div class="eyebrow">Durum Değerlendirmesi · ${k}</div><h1>${t[1]}</h1><p>${t[2]}. Her panel dayandığı belgeyi gösterir; belge yoksa <b>beyan</b> veya <b>iskelet</b> olarak işaretlenir.</p></div></div>
+ <div class="tabs">${ASSESS_TABS.map(([kk,tt])=>`<button class="tab ${kk===k?"active":""}" data-view="as-${kk}"><span class="k">${kk}</span>${tt}</button>`).join("")}</div>`;}
+function viewAssess(k){return assessHead(k)+({A:assessA,B:assessB,C:assessC,D:assessD,E:assessE,F:assessF}[k])();}
+const sec=(h,meta="")=>`<div class="sec-h" style="margin-top:22px"><h2>${h}</h2>${meta?`<span class="meta">${meta}</span>`:""}</div>`;
+const lbl=t=>`<div class="label" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600">${t}</div>`;
+const E0="Codemag";
+
+function assessA(){
+ return `${docH("A.1 İş Modeli Kanvası","Osterwalder – Business Model Canvas",SRC.brief,"progress")}
+ ${ghost("Kanvas, Nisan 2026 Codemag brief'i ve 04.09 kick-off tutanağından <b>derlenmiş iskelet</b>tir. İş Modeli Soru Seti yanıtlanınca üç ayrı iş modeli dokümanı (proje · SaaS · Asset) olarak onaya sunulur.","blue")}
+ ${canvas(BMC[E0])}
+ ${docH("A.1 Lean Canvas","Ash Maurya – Lean Canvas",SRC.brief,"progress")}${canvas(LEAN[E0],true)}
+ ${docH("A.1 Yapı İlişki Modeli","Codemag TR · planlanan GmbH · ortaklıklar",SRC.brief,"pending")}
+ <div class="card pad"><div class="rel"><div class="box"><b>Codemag GmbH</b><span>Planlanan (brief: Eylül 2026) · KZ/UZ sözleşme tarafı · Alman leasing partnerleri · <b>kapsam dışı</b></span></div><div class="arr">Sermaye aktarımı (plan)<br>←→<br>Avrupa / BDT operasyonu</div><div class="box navy"><b>Codemag Yazılım Hizmetleri Ltd. Şti.</b><span>İstanbul (Avcılar · İkitelli OSB) · 24 kişi · 128+ hat · Teknokent başvurusu</span></div><div class="box"><b>Leasing Şirketleri</b><span>TR yerli / DE merkezli · makineyi satın alır, müşteriye kiralar</span></div><div class="arr">Ortaklık görüşmesi<br>↔<br>DPP · İK · Teknokent</div><div class="box"><b>PAII/EDETEK · The Hire Factory · Tolga Polat</b><span>DPP ortaklık modeli · 3 aylık İK projesi · Teknokent danışmanlığı</span></div></div></div>
+ ${docH("A.2 İş Planı – 5 bölüm × OKR","İş Planı · 3–5 KR / bölüm",SRC.plan,"progress")}
+ ${ghost("OKR'lar Hizmet Planı'ndaki 2026–2027 Stratejik Hedefler (S1–S12) ve 04.09 kararlarından türetildi. <b>Ciro ve SaaS gelir hedefi sayısal olarak belirlenmedi</b>; 2027 proje bazlı bütçe onaya sunulunca KR hedefleri kesinleşir.","blue")}
+ ${okrGrid(OKR[E0])}
+ ${docH("A.3 Yönetişim – Çıktı Dokümanları","Doküman şeridi · 29–33",SRC.org,"progress")}
+ ${docbar([["A3","29"],["A3","30"],["A3","31"],["A3","32"],["A3","33"]])}
+ <div class="grid2"><div class="card pad">${lbl("29 · Organizasyon Şeması (hedef – 21.09.2026 v2 PNG; Drive'a yüklenmedi)")}<div style="height:10px"></div><div class="org"><div class="node top"><b>Şirket Sahibi</b><span>Serkan Hacıoğlu – denetleyici rol (hedef) · pay yapısı teyit edilecek</span></div><div class="line"></div><div class="node"><b>Yönetim / İdari Koordinasyon</b><span>Özgür Gömeç – geçiş döneminde idari faaliyetler</span></div><div class="row"><div><div class="node"><b>Proje Yönetimi (PM)</b><span>+ Satın Alma (04.09 kararı) · tek proje sistemi</span></div></div><div><div class="node"><b>Ar-Ge · Yazılım</b><span>Serileştirme · Vision AI · SaaS</span></div></div><div><div class="node"><b>Üretim · Kurulum</b><span>Makine · hat entegrasyonu</span></div></div></div><div class="row"><div><div class="node"><b>Satış & Pazarlama</b><span>Proje satışı · distribütör</span></div></div><div><div class="node"><b>Satış Sonrası · Kalite</b><span>7/24 destek → SaaS</span></div></div><div><div class="node ghost"><b>Finans / Ön Muhasebe</b><span>Tahsilat · idari işler · özlük · muhasebe personeli (alınacak)</span></div></div><div><div class="node ghost"><b>İK</b><span>The Hire Factory – 3 ay · 6 pozisyon</span></div></div></div></div></div>
+ <div class="card pad">${lbl("31 · Karar mekanizması ve yetki eşikleri (taslak)")}<div class="tbl-wrap" style="margin-top:8px"><table><thead><tr><th>Karar</th><th>Organ</th><th>Eşik / kural</th></tr></thead><tbody>${[["Bütçe, stratejik plan","Şirket Sahibi + Yönetim","Yıllık onay · 2027 proje bazlı bütçe (Ekim 2026)"],["Olağan teklif ve proje sözleşmesi","Satış + PM","Standart proje paketi ile · kabul sonrası sözleşme"],["Leasing / çerçeve / eşik üstü","Şirket Sahibi","Yazılı karar · Juris incelemesi"],["Satın alma","PM","Proje bütçesi içinde (04.09 kararı)"],["İşe alım","Yönetim + İK Danışmanı","6 öncelikli pozisyon · mülakatlara Juris katılımı (muhasebe)"],["Yeni iş modeli (SaaS · Asset)","Şirket Sahibi + Yönetim","İş modeli dokümanı onayı"],["Toplantı ve aksiyon ritmi","Yönetim","Tutanak + aksiyon listesi · 1 aylık bütünleşik sistem"]].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td style="color:var(--ink-2)">${r[2]}</td></tr>`).join("")}</tbody></table></div></div></div>
+ ${docH("A.3 Yönetişim – Görev, Yetki ve Onay Matrisi","RACI · 30",SRC.org,"input")}
+ <div class="card"><div class="tbl-wrap"><table class="matrix"><thead><tr><th>Karar / İşlem</th>${RACI.roles.map(r=>`<th>${r}</th>`).join("")}</tr></thead><tbody>${RACI.rows.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(c=>`<td><span class="rc ${c}">${c==="x"?"–":c}</span></td>`).join("")}</tr>`).join("")}</tbody></table></div><div class="legend" style="padding:0 14px 12px"><span><i style="background:var(--navy)"></i>R Yürütür</span><span><i style="background:var(--red-ink)"></i>A Onaylar</span><span><i style="background:var(--info)"></i>C Danışılır</span><span><i style="background:var(--neutral)"></i>I Bilgilendirilir</span></div></div>
+ ${docH("A.4 Yatırımcı Sunumu","Pitch Deck · 12 slayt · kiralama filosu + büyüme finansmanı",SRC.none,"pending")}
+ <div class="slides">${["Kapak","Problem: regülasyon uyumu + yüksek makine yatırımı","Çözüm: yazılım + makine + leasing tek elden","Neden şimdi: DPP · Chestny ZNAK · İTS","Pazar: TR · RU · KZ · UZ · AZ · AB (DPP)","İş modeli: proje + bakım + SaaS + leasing","Çekiş: 128+ hat · Tier-1 müşteriler","Rekabet ve haksız avantaj (CRPT)","Yol haritası: GmbH · distribütör ağı · Vision AI","Ekip: 24 kişi · reorganizasyon","Finansal projeksiyon (2027 bütçe sonrası)","Talep: filo finansmanı + büyüme sermayesi"].map((t,i)=>`<div class="slide"><b>${t}</b><span class="n">${String(i+1).padStart(2,"0")}</span></div>`).join("")}</div>`;}
+
+function assessB(){
+ const row=(l,vals,cls="")=>`<tr class="${cls}"><td>${l}</td>${vals.map(v=>`<td class="n ${v===""?"empty":""}">${v===""?"—":v}</td>`).join("")}</tr>`;
+ return `${docH("B · Yıllara Sari Trend","Ciro trendi · 2024–2027",SRC.none,"input")}
+ ${ghost("Drive'da finansal belge yok. 2025 ve 2026 bütçeleri kick-off'ta sözlü değerlendirildi; 2027 bütçesi <b>proje bazlı</b> hazırlanacak ve proje bazlı nakit akışıyla izlenecek. Hizmet Planı: 'ciro hedefi belirlenmemiştir; rakam uydurulmadı'.","blue")}
+ <div class="grid2"><div class="card pad"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">${lbl("Codemag · Yıllık ciro (mn TL)")}<span class="pill">belge bekleniyor</span></div>${barChart(FIN[E0].years,FIN[E0].revenue,FIN[E0].range,"mn TL")}<div class="muted" style="margin-top:6px">${FIN[E0].note}</div></div>
+ <div class="card pad">${lbl("Bilinen finansal parametreler")}<div class="tbl-wrap" style="margin-top:8px"><table class="fin" style="min-width:0"><tbody>${row("Juris danışmanlık bedeli / ay",["80.000 TL + KDV + stopaj"])+row("Ortalama makine bedeli (brief)",["~60.000 EUR"])+row("Leasing süresi",["3 + 2 yıl · 5. yıl sonu mülkiyet devri"])+row("Aktif üretim hattı",["128+"])+row("Çalışan sayısı (21.09.2026)",["24"])+row("2027 ciro / SaaS hedefi",["belirlenecek"],"sum")}</tbody></table></div></div></div>
+ ${docH("B.1 Bütçe","Proje bazlı bütçe · 2027 (format Juris'ten, içerik Codemag'dan)",SRC.tt1,"input")}
+ <div class="card"><div class="tbl-wrap"><table class="fin"><thead><tr><th>Kalem</th><th style="text-align:right">2026 fiilî</th><th style="text-align:right">2027B</th><th style="text-align:right">Not</th></tr></thead><tbody>${row("Proje gelirleri – ilaç",["","","sektörel ayrım (04.09 kararı)"])+row("Proje gelirleri – FMCG",["","",""])+row("Proje gelirleri – gıda / tarım",["","",""])+row("Satış sonrası bakım ve destek",["","","sözleşmeli hâle gelince ayrı kalem"])+row("SaaS abonelik",["","","ayrı iş modeli – hedef belirlenecek"])+row("Toplam gelir",["","",""],"sum")+row("Proje maliyetleri (makine, komponent, kurulum)",["","","proje bazlı maliyet dosyası"])+row("Personel (24 kişi)",["","","bordro"])+row("Ar-Ge (Vision AI, SaaS)",["","","Teknokent teşviki"])+row("Danışmanlık (Juris · İK · Teknokent)",["","960.000 TL (Juris)","80k × 12"])+row("Finansman / leasing maliyeti",["","","Vakıf Leasing / katılım – değerlendirme"])+row("Toplam gider",["","",""],"sum")+row("Faaliyet kârı / proje P&L toplamı",["","",""],"sum")}</tbody></table></div></div>
+ ${docH("B.2 Nakit Akışı ve Ödeme Planı","Proje bazlı nakit akışı · tahsilat/ödeme planı",SRC.tt1,"input")}
+ <div class="card"><div class="tbl-wrap"><table class="fin"><thead><tr><th>Kalem</th><th style="text-align:right">Eki</th><th style="text-align:right">Kas</th><th style="text-align:right">Ara</th><th style="text-align:right">2027 Q1</th></tr></thead><tbody>${row("Dönem başı nakit",["","","",""])+row("Proje tahsilatları (avans · hakediş · kabul)",["","","",""])+row("Bakım / destek tahsilatları",["","","",""])+row("Leasing peşin ödemeleri (makine satışı → leasing)",["","","",""])+row("Toplam giriş",["","","",""],"sum")+row("Personel ve bordro",["","","",""])+row("Tedarikçi / komponent ödemeleri",["","","",""])+row("Leasing şirketine aktarım (müşteri ödemeleri)",["","","",""])+row("Danışmanlık ve kira",["80.000","80.000","80.000","240.000"])+row("Dönem sonu nakit",["","","",""],"sum")}</tbody></table></div></div>
+ ${ghost("Ödeme planı formatı Juris'ten, veriler Codemag'dan bekleniyor (aksiyon 3 ve 16). <b>Muhasebe personeli</b> alınana kadar tahsilat takibi sahipsiz (R11).")}
+ ${docH("B.4 Finansman Yapısı – Vendor Leasing","Akış · zaman çizelgesi · pazara göre yapı (brief §3)",SRC.brief,"progress")}
+ <div class="grid2"><div class="card"><div style="padding:10px 14px 0">${lbl("Ödeme ve mülkiyet akışı (5 adım)")}</div><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Taraf</th><th>Eylem</th></tr></thead><tbody>${LEASING.steps.map(s=>`<tr><td class="num muted">${s[0]}</td><td><b>${s[1]}</b></td><td style="color:var(--ink-2)">${s[2]}</td></tr>`).join("")}</tbody></table></div></div>
+ <div class="card"><div style="padding:10px 14px 0">${lbl("Zaman çizelgesi ve pazara göre yapı")}</div><div class="tbl-wrap"><table><thead><tr><th>Dönem</th><th>Durum</th></tr></thead><tbody>${LEASING.timeline.map(s=>`<tr><td><b>${s[0]}</b></td><td style="color:var(--ink-2)">${s[1]}</td></tr>`).join("")}</tbody></table><table style="margin-top:8px"><thead><tr><th>Pazar</th><th>Sözleşme tarafı</th><th>Leasing partneri</th><th>Para birimi</th></tr></thead><tbody>${LEASING.markets.map(s=>`<tr><td><b>${s[0]}</b></td><td>${s[1]}</td><td style="color:var(--ink-2)">${s[2]}</td><td class="muted">${s[3]}</td></tr>`).join("")}</tbody></table></div></div></div>
+ ${ghost("Müşteri yalnızca Codemag'a öder; leasing borcu Codemag'ın üzerinde kalır. <b>Temerrüt, rücu ve mülkiyet devri</b> hükümleri iki sözleşmede (Leasing ↔ Codemag · Codemag ↔ Müşteri) birbirine bağlanmadan model başlatılmamalı (R3). Vakıf Leasing / katılım finansmanı alternatifi henüz değerlendirilmedi.","red")}
+ ${docH("B.3 Bilanço","Özet bilanço · 2025 + 2026 ara dönem",SRC.none,"input")}
+ <div class="grid2"><div class="card pad">${lbl("Codemag · aktif")}<div class="tbl-wrap" style="margin-top:8px"><table class="fin" style="min-width:0"><tbody>${row("Dönen varlıklar (alıcılar · stok · komponent)",["belge bekleniyor"])+row("Duran varlıklar (makine · yazılım · Ar-Ge aktifleştirme)",[""])+row("Toplam aktif",[""],"sum")}</tbody></table></div></div><div class="card pad">${lbl("Codemag · pasif / öz kaynak")}<div class="tbl-wrap" style="margin-top:8px"><table class="fin" style="min-width:0"><tbody>${row("Banka kredileri / leasing yükümlülükleri",["belge bekleniyor"])+row("Alınan sipariş avansları",[""])+row("Vergi ve SGK yükümlülükleri",["vergi/SGK borcu yoktur yazıları – DD 3"])+row("Sermaye ve ortak katkıları",["pay yapısı teyit edilecek"])+row("Toplam pasif",[""],"sum")}</tbody></table></div></div></div>`;}
+
+function assessC(){return `${docH("C.0 Finansal Disiplin Esasları","Mali yönetim kuralları – Codemag için önerilen çerçeve",SRC.finlit,"pending")}
+ <div class="check">${[["1 · Proje bazlı kayıt",["Her proje için ayrı maliyet merkezi","Gelir-gider etiketleme sektör + proje bazında","Proje P&L aylık kapanış"]],["2 · Tahsilat & ödeme",["Ödeme planı tek tabloda","Tahsilat sorumlusu (muhasebe personeli)","Leasing aktarımları ayrı izlenir"]],["3 · Belge & vergi",["Tüm satış ve bakım hizmetleri e-fatura","Teknokent Ar-Ge istisnası için ayrı kayıt","Yurt dışı hizmet faturaları (RU/KZ/UZ)"]],["4 · Personel & bordro",["Tüm personel sözleşmeli (24)","Ar-Ge personeli Teknokent bildirimleri","Fazla mesai kaydı"]],["5 · Varlık & IP",["Makine ve demirbaş zimmet","Yazılım / kaynak kod envanteri","Aktifleştirilen Ar-Ge"]],["6 · Raporlama",["Aylık yönetim raporu","15 KPI scorecard","Nakit akışı güncellemesi"]]].map(([g,items])=>`<div class="grp"><h5>${g}<span>0/${items.length}</span></h5><ul>${items.map(it=>`<li><i></i>${it}</li>`).join("")}</ul></div>`).join("")}</div>
+ ${ghost("Finansal Okuryazarlık Eğitim Notu (21.09) paylaşıldı; <b>yazılı mali yönetim kuralları henüz yok</b>. Kutular, kural seti onaylanıp uygulandıkça işaretlenir.","blue")}
+ ${docH("C.1 Hesap Planı","Tek Düzen Hesap Planı · ana gruplar",SRC.none,"input")}
+ <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Grup</th><th>Hesap sınıfı</th><th>Şirkete özgü dikkat noktası</th><th>Kimden</th></tr></thead><tbody>${[["1","Dönen Varlıklar","Alıcılar (Tier-1 müşteriler, 128+ hat); proje stokları ve komponent; verilen avanslar"],["2","Duran Varlıklar","Üretilen makineler (leasing'e satışa kadar); yazılım ve Ar-Ge aktifleştirmesi; Teknokent demirbaşı"],["3","KV Yabancı Kaynaklar","Satıcılar; alınan sipariş avansları; müşteri ödemelerinin leasing şirketine aktarım yükümlülüğü"],["4","UV Yabancı Kaynaklar","Banka kredileri; leasing yükümlülükleri; ortaklara borçlar"],["5","Öz Kaynaklar","Sermaye; GmbH → TR sermaye aktarımı (plan)"],["6","Gelir Tablosu","Proje · bakım/destek · SaaS · leasing gelirleri ayrı; sektör bazlı kırılım"],["7","Maliyet","Proje bazlı maliyet (makine, komponent, kurulum, saha); Ar-Ge giderleri"]].map(r=>`<tr><td class="num">${r[0]}</td><td><b>${r[1]}</b></td><td style="color:var(--ink-2)">${r[2]}</td><td class="owner">Mali Müşavir</td></tr>`).join("")}</tbody></table></div></div>
+ ${docH("C.2 Mizan","Aylık mizan özeti",SRC.none,"input")}
+ ${ghost("Mali müşavir / muhasebe sorumlusu henüz teyit edilmedi; mizan, <b>proje bazlı etiketleme</b> kurulmadan proje P&L'e dönüşmez. Önce hesap planı ve muhasebe personeli, sonra aylık mizan.","blue")}
+ <div class="card"><div class="tbl-wrap"><table class="fin"><thead><tr><th>Hesap</th><th style="text-align:right">Borç</th><th style="text-align:right">Alacak</th><th style="text-align:right">Borç bakiye</th><th style="text-align:right">Alacak bakiye</th></tr></thead><tbody>${["100 Kasa","102 Bankalar","120 Alıcılar (proje · bakım · SaaS)","150 İlk Madde ve Malzeme (komponent)","151 Yarı Mamul (üretimdeki makineler)","253 Tesis, Makine ve Cihazlar","260 Haklar (yazılım)","263 Araştırma ve Geliştirme Giderleri","320 Satıcılar","300 Banka Kredileri","340 Alınan Sipariş Avansları","360 Ödenecek Vergi ve Fonlar","500 Sermaye","600 Yurt İçi Satışlar","601 Yurt Dışı Satışlar (RU · KZ · UZ · AZ)","620 Satılan Mamul Maliyeti","750 Ar-Ge Giderleri","770 Genel Yönetim Giderleri"].map(h=>`<tr><td>${h}</td><td class="n empty">—</td><td class="n empty">—</td><td class="n empty">—</td><td class="n empty">—</td></tr>`).join("")}</tbody></table></div></div>`;}
+
+function assessD(){
+ return `${docH("D.1a Gelir Getiren Faaliyetler","Bütçeye esas iş türleri · ciro payı",SRC.tt1,"input")}
+ <div class="card"><div class="tbl-wrap"><table><thead><tr><th>İş türü</th><th style="min-width:160px">Ciro payı</th><th>Gelir niteliği</th><th>Konum</th></tr></thead><tbody>${REVACT[E0].map(r=>`<tr><td><b>${r[0]}</b></td><td><div style="display:flex;align-items:center;gap:8px"><div class="bar" style="flex:1"><i class="s-done" style="width:${r[1]}%;background:var(--navy)"></i></div><span class="num muted" style="min-width:34px;text-align:right">${r[1]?"%"+r[1]:"—"}</span></div></td><td style="color:var(--ink-2)">${r[2]}</td><td><span class="pill ${r[3].startsWith("Ana")?"blue":r[3]==="Fırsat"?"amber":""}">${r[3]}</span></td></tr>`).join("")}</tbody></table></div></div>
+ ${ghost("Ciro payları faaliyet bazlı gelir kırılımı (2026 fiilî) gelince dolacak. 04.09 kararı: <b>SaaS ve Asset modelleri ayrı iş modeli</b> olarak çalışılır; projeler sektörel bazda ayrıştırılır.","blue")}
+ ${docH("D.1b Değer Yaratan Süreç Haritası","Standart proje zinciri · 13 adım (04.09 kararı)",SRC.tt1,"progress")}
+ <div class="card pad"><div class="proc">${VALPROC[E0].map((s,i)=>`<div class="st"><b>${String(i+1).padStart(2,"0")}</b>${s}</div>`).join("")}</div></div>
+ ${docH("D.1c Standart Proje Paketi","Örnek proje uçtan uca dokümantasyon · hangi belge var?",SRC.tt1,"input")}
+ <div class="grid2"><div class="card"><div style="padding:10px 14px 0">${lbl("Paket bileşenleri (Codemag hazırlar · Juris inceler)")}</div><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Belge</th><th>Sahibi</th><th>Durum</th></tr></thead><tbody>${[["1","Teknik Şartname","PM / Ar-Ge","input"],["2","Teklif","Satış","input"],["3","Teklif Kabulü","Satış","input"],["4","Sözleşme (Juris revizesi)","Juris","pending"],["5","Maliyet dosyası","PM / Finans","input"],["6","Proje Planı","PM","input"],["7","Bütçe","Finans","input"],["8","Gelir / Gider","Finans","input"],["9","P&L","Finans","input"]].map(r=>`<tr><td class="num muted">${r[0]}</td><td><b>${r[1]}</b></td><td class="muted">${r[2]}</td><td><span class="status ${r[3]}">${STATUS[r[3]]}</span></td></tr>`).join("")}</tbody></table></div></div>
+ <div class="card"><div style="padding:10px 14px 0">${lbl("Referans müşteriler ve pazarlar (brief)")}</div><div class="tbl-wrap"><table><thead><tr><th>Segment</th><th>Müşteri / pazar</th><th>Durum</th></tr></thead><tbody>${[["İlaç","Drogsan · Recordati","Tier-1 referans"],["FMCG","Ülker-Pladis · Evyap · Hayat Kimya · Perfetti Van Melle","Tier-1 referans"],["Rusya","Chestny ZNAK – CRPT akreditasyonu (2021)","Aktif"],["Kazakistan · Özbekistan","GmbH üzerinden sözleşme (plan) · Alman leasing","Plan"],["Azerbaycan","Mevcut pazar (brief)","Aktif"],["AB","DPP çözümleri – PAII/EDETEK","Değerlendirme"]].map(r=>`<tr><td><b>${r[0]}</b></td><td style="color:var(--ink-2)">${r[1]}</td><td class="muted">${r[2]}</td></tr>`).join("")}</tbody></table></div></div></div>
+ ${docH("D.2 Projeler","Aşama · kaynak · bütçe · beklenen getiri",SRC.tt1,"progress")}
+ ${ghost("Projeler henüz gelir getirmeyen, ayrı odak ve bütçe gerektiren işlerdir. Aşama çubuğu Fikir → Fizibilite → Bütçe → Geliştirme → Lansman → Gelir. <b>GmbH ve yatırım turu</b> ana sözleşme kapsamı dışında; ayrı mutabakat gerektirir.","blue")}
+ <div class="grid2">${PROJECTS.map(p=>`<div class="card pad"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><b style="font-size:13.5px">${p.t}</b><span class="pill ${p.ent==="Kapsam dışı"?"amber":""}">${p.ent}</span></div><div style="margin:10px 0">${stagesEl(p.st)}</div><dl class="kv" style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:12.5px;margin:0"><dt class="muted">Kaynak</dt><dd style="margin:0">${p.res}</dd><dt class="muted">Bütçe</dt><dd style="margin:0">${p.bud}</dd><dt class="muted">Beklenen getiri</dt><dd style="margin:0">${p.ret}</dd><dt class="muted">Hedef</dt><dd style="margin:0" class="num">${p.due}</dd></dl></div>`).join("")}</div>`;}
+
+function assessE(){const dd=ddList(E0);
+ return `${docH("E-1 Due Diligence Belge Checklist","DD asgari inceleme · 7 başlık · Ltd. Şti.",SRC.none,"input",`<span class="pill">${dd.ok}/${dd.tot}</span>`)}
+ ${dd.html}
+ ${ghost("Data Room A–F klasörleri 16.10.2026'da açıldı; <b>müvekkil belgesi yüklenmedi</b>. İşaretli iki kalem Juris'in kendi dosyalarıdır (NDA, sözleşme – Teklif ve Sözleşme klasöründe). DD talep listesi ve Risk Tespiti Formu henüz gönderilmedi.","blue")}
+ ${docH("E-2 Şirket Ana Faaliyet Sözleşme Seti","Sözleşme matrisi · 12 sözleşme",SRC.tt1,"pending")}
+ <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Sözleşme</th><th>Kapsam</th><th>Taraflar</th><th>Kapattığı risk</th><th>Durum</th></tr></thead><tbody>${CONTRACTS.map(r=>`<tr><td><b>${r[0]}</b></td><td style="color:var(--ink-2)">${r[1]}</td><td class="muted">${r[2]}</td><td><span class="pill red">${r[3]}</span></td><td><span class="status ${r[4]}">${STATUS[r[4]]}</span></td></tr>`).join("")}</tbody></table></div></div>
+ ${docH("E-3 İnsan Kaynakları","Kadro · reorganizasyon · doküman seti",SRC.hr,"progress")}
+ <div class="grid2"><div class="card"><div style="padding:10px 14px 0">${lbl("Hedef organizasyon ve kadro (21.09.2026 – beyan)")}</div><div class="tbl-wrap"><table><thead><tr><th>Birim / rol</th><th>Kişi</th><th>Durum</th></tr></thead><tbody>${[["Şirket sahibi · denetleyici rol","Serkan Hacıoğlu","hedef organizasyon – teyit"],["Yönetim · idari geçiş koordinasyonu","Özgür Gömeç","04.09 kararı"],["Ön muhasebe · tahsilat · idari · özlük","Muhasebe personeli (alınacak)","mülakat – Juris katılır"],["Proje Yönetimi + Satın Alma","PM ekibi","04.09 kararı"],["Ar-Ge · Yazılım · Üretim · Satış Sonrası · Kalite","24 kişi (toplam)","görev tanımları bekleniyor"],["6 öncelikli pozisyon","The Hire Factory işe alım","3 aylık çalışma (25.09 →)"]].map(r=>`<tr><td><b>${r[0]}</b></td><td style="color:var(--ink-2)">${r[1]}</td><td class="muted">${r[2]}</td></tr>`).join("")}</tbody></table></div></div>
+ <div class="check">${[["İK doküman seti (The Hire Factory + Juris)",["İş sözleşmeleri (24) + görev tanımı eki","Aday aydınlatma metni","Fazla çalışma onay ve kayıt formu","İzin formları","Zimmet formu (laptop · makine · erişim)","Tutanak / savunma seti","Personel analizi – 'şirket röntgeni'"],[0,0,0,0,0,0,0]],["Fikri haklar ve gizlilik",["Yazılım geliştiriciler için eser/buluş devri","Çalışan gizlilik taahhüdü (kaynak kod · müşteri verisi)","Rekabet yasağı değerlendirmesi (kilit personel)"],[0,0,0]],["Üçüncü taraf koordinasyonu",["The Hire Factory sözleşmesi incelemesi","Teknokent Ar-Ge personeli bildirimleri","İSG risk değerlendirmesi"],[0,0,0]]].map(([g,items,st])=>`<div class="grp"><h5>${g}<span>${st.filter(Boolean).length}/${items.length}</span></h5><ul>${items.map((it,i)=>`<li class="${st[i]?"ok":""}"><i></i>${it}</li>`).join("")}</ul></div>`).join("")}</div></div>
+ ${docH("E-4 NDA Sözleşme Seti","Matris · Tek taraflı / Karşılıklı × TR / EN × muhatap",SRC.nda,"review")}
+ <div class="card"><div class="tbl-wrap"><table class="matrix"><thead><tr><th>Şablon</th><th>Juris ↔ Codemag</th><th>Müşteri / distribütör</th><th>Leasing partneri</th><th>Tedarikçi / alt yüklenici</th><th>Çalışan / danışman</th></tr></thead><tbody>${[["Juris–Codemag NDA (07.04)","review","—","—","—","—"],["Karşılıklı NDA (TR)","—","pending","pending","—","—"],["Mutual NDA (EN) – yurt dışı müşteri / Alman leasing","—","pending","pending","—","—"],["Tek Taraflı NDA (TR)","—","—","—","pending","pending"],["Kullanım Bilgilendirme Dokümanı","—","pending","pending","pending","pending"]].map(r=>`<tr><td><b>${r[0]}</b></td>${r.slice(1).map(s=>`<td>${s==="—"?`<span class="muted">—</span>`:`<span class="status ${s}">${STATUS[s]}</span>`}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>
+ ${docH("E-5 Hukuki Danışmanlık","Dosya bazlı iş listesi",SRC.mail,"progress")}
+ <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Dosya</th><th>Çıktı</th><th>Tarih</th><th>Durum</th></tr></thead><tbody>${[["DPP – AB mevzuatı","Dijital Ürün Pasaportu Bilgi Notu (İlayda Karakum)","27.08.2026","done"],["Marka ismi ihlali","Hukuki değerlendirme – ihtar / görüş (tescil-itiraz kapsam dışı)","26.04.2026 →","progress"],["PAII / EDETEK ortaklığı","Ortaklık modeli + Avrupa DPP araştırması hukuki-ticari görüşü","03.10.2026 →","progress"],["Vendor leasing yapısı","İki sözleşmeli model, temerrüt/rücu, KZ-UZ geçerliliği","Ekim 2026","progress"],["Teknokent mali sürdürme sözleşmesi","İnceleme notu","06.10.2026 →","pending"],["The Hire Factory İK sözleşmesi","İnceleme notu (gizlilik · KVKK · kapsam)","25.09.2026 →","pending"],["Codemag GmbH / uluslararası tescil","Ayrı teklif ve mutabakat","brief – Nisan 2026","pending"],["Danışmanlık sözleşmesi imza ve unvan","İmzalı nüsha + unvan düzeltmesi","11.09.2026 →","review"]].map(r=>`<tr><td><b>${r[0]}</b></td><td style="color:var(--ink-2)">${r[1]}</td><td class="muted">${r[2]}</td><td><span class="status ${r[3]}">${STATUS[r[3]]}</span></td></tr>`).join("")}</tbody></table></div></div>
+ ${docH("E-6 Mini KVKK Projesi","Uyum checklist",SRC.none,"pending")}
+ <div class="check">${[["Ön tespit",["VERBİS yükümlülüğü (bilanço toplamı / 24 çalışan – Mali Müşavir)","Veri envanteri – şirket (çalışan, müşteri temsilcisi, tedarikçi)","Veri envanteri – track & trace / SaaS (müşteri hat verileri, seri numaraları)","Yurt dışı aktarım haritası (RU · KZ · UZ · AZ · DE)"]],["Şirket doküman seti",["Aydınlatma metinleri (çalışan, müşteri, tedarikçi)","Açık rıza metinleri","Saklama ve imha politikası","KVKK politikası ve prosedürler"]],["SaaS / platform doküman seti",["Kullanım şartları","Veri işleme eki (DPA) – müşteri","Çerez ve gizlilik politikası","Alt işleyen (bulut) sözleşmeleri"]],["Eğitim ve teslim",["Çalışan eğitimi","Kullanım kılavuzu","DPP veri paylaşımı protokolü"]]].map(([g,items])=>`<div class="grp"><h5>${g}<span>0/${items.length}</span></h5><ul>${items.map(it=>`<li><i></i>${it}</li>`).join("")}</ul></div>`).join("")}</div>
+ ${docH("Bunları yapmazsak: Hukuki Risk Haritası","Aksiyon → risk · Olasılık × Etki (5×5)",SRC.tt1,"progress")}
+ ${ghost("Yukarıdaki her çıktı bir riski kapatır. Tablo, <b>yapılmadığında</b> hangi riskin açık kaldığını gösterir; puanlar Juris ön değerlendirmesidir (brief + kick-off + yazışmalar), DD belgeleri geldikçe güncellenir.")}
+ <div class="grid2" style="grid-template-columns:minmax(300px,1fr) minmax(300px,1.2fr)"><div class="card pad">${heatmap()}</div>
+ <div class="card"><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Yapılmazsa oluşan risk</th><th>Kapatan aksiyon / doküman</th><th>O×E</th><th>Dayanak</th></tr></thead><tbody>${RISKS.slice().sort((a,b)=>b.p*b.i-a.p*a.i).map(r=>{const s=r.p*r.i;return `<tr><td style="font-family:var(--font-mono);font-size:11px">${r.id}</td><td><b>${r.t}</b><div class="muted">${r.ent}</div></td><td style="color:var(--ink-2)">${r.ifnot}</td><td><span class="pill ${s>=16?"red":s>=10?"amber":s>=6?"blue":"green"}">${s}</span></td><td>${r.src.u?`<a class="linkbtn" href="${r.src.u}" target="_blank" rel="noopener">${r.src.k==="doc"?"belge":"beyan"} ↗</a>`:`<span class="muted">${r.src.k==="beyan"?"beyan":"—"}</span>`}</td></tr>`;}).join("")}</tbody></table></div></div></div>`;}
+
+function assessF(){
+ return `${docH("F-1 Toplantı Döngüsü","Gündem → Toplantı → Tutanak + Aksiyon → Teslim / Teslim edilemeyen → Sonraki gündem",SRC.tt1,"progress")}
+ <div class="card pad"><div class="flow">${["Gündem","Toplantı","Tutanak + Aksiyon","Teslim edilen / edilemeyen","Sonraki gündem"].map((s,i)=>(i?`<em>→</em>`:"")+`<span>${s}</span>`).join("")}</div></div>
+ ${ghost("7 toplantı kaydı, <b>1 tutanak</b> (04.09 kick-off). 15.10 toplantısının kaydı ve Gemini notu var, içerik tutanağı yok. Toplantı ritmi belirlenmedi; 04.09 kararı 'bir aylık dönem sonunda bütünleşik sunum'.","blue")}
+ ${MEETINGS.map(m=>`<div class="card" style="margin-top:12px"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--divider)"><span class="num" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-3)">${m.d}</span><b style="font-size:13.5px">${m.t}</b><span class="muted">${m.who}</span><span style="margin-left:auto" class="status ${m.st}">${m.st==="done"?"Tutanak var":m.st==="review"?"Kayıt var · tutanak yok":"Tutanak yok"}</span>${m.url?`<a class="linkbtn" href="${m.url}" target="_blank" rel="noopener">Aç ↗</a>`:""}</div>
+ <div class="grid3" style="padding:12px 16px"><div>${lbl("Gündem")}<ul style="margin:6px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(m.agenda)}</ul></div><div>${lbl("Teslim edilen")}<ul style="margin:6px 0 0;padding-left:16px;font-size:12.5px;color:var(--success)">${m.delivered.length?li(m.delivered):"<li class='muted'>—</li>"}</ul></div><div>${lbl("Teslim edilemeyen / açık")}<ul style="margin:6px 0 0;padding-left:16px;font-size:12.5px;color:var(--red-ink)">${m.undelivered.length?li(m.undelivered):"<li class='muted'>—</li>"}</ul></div></div></div>`).join("")}
+ ${docH("04.09.2026 Aksiyon Takibi","22 aksiyon · sorumlu · öncelik",SRC.tt1,"progress")}
+ <div class="card"><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Sahibi</th><th>Aksiyon</th><th>Öncelik</th><th>Çıktı</th><th>Durum</th></tr></thead><tbody>${ACTIONS.map((r,i)=>`<tr><td class="num muted">${i+1}</td><td><b>${r[0]}</b></td><td>${r[1]}</td><td><span class="pill ${r[2]==="Kritik"?"red":r[2]==="Yüksek"?"amber":""}">${r[2]}</span></td><td style="color:var(--ink-2)">${r[3]}</td><td><span class="status ${r[4]}">${STATUS[r[4]]}</span></td></tr>`).join("")}</tbody></table></div></div>
+ ${docH("Kararlar ve Karara Bağlanacak Konular","4 karar alındı · 6 karar bekliyor",SRC.tt1,"input")}
+ <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Konu</th><th>Karar / alınması gereken karar</th><th>Durum</th></tr></thead><tbody>${DECISIONS.map(r=>`<tr><td><b>${r[0]}</b></td><td style="color:var(--ink-2)">${r[1]}</td><td><span class="status ${r[2]}">${r[2]==="done"?"Karar alındı":"Karar bekliyor"}</span></td></tr>`).join("")}</tbody></table></div></div>
+ ${docH("Sonraki Toplantı Gündemi (öneri)","Ekim 2026 – bütünleşik sistem sunumu öncesi",SRC.tt1,"pending")}
+ <div class="grid2"><div class="card pad"><b style="font-size:13.5px">Gündem</b><ol style="margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2)"><li>15.10 toplantısının tutanağa bağlanması; 04.09 aksiyonlarının durum turu</li><li>Proje bazlı bütçe / nakit akışı / ödeme planı formatlarının teslimi ve 2027 bütçe takvimi</li><li>Standart proje paketi ve örnek proje dokümantasyonu – Codemag teslimi</li><li>15 KPI listesinin kesinleştirilmesi</li><li>Asset / vendor leasing ve SaaS iş modeli taslakları</li><li>Data Room yüklemesi: sicil, pay defteri, sözleşmeler, 2025 bilanço</li><li>Marka ihlali ve PAII/EDETEK görüşleri</li></ol></div>
+ <div class="card pad"><b style="font-size:13.5px">Bu haftanın görevleri (Juris)</b><ul style="margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2)"><li>İş Modeli Bilgi Notu + Soru Seti (Codemag'a özgü: proje · SaaS · Asset)</li><li>Proje bazlı bütçe, nakit akışı ve ödeme planı formatları</li><li>Hukuki Bilgilendirme ve Risk Tespiti Formu (Ltd.) + DD talep listesi + Data Room yönergesi</li><li>İK Soru Seti; The Hire Factory ve Teknokent sözleşmelerinin incelenmesi</li><li>Danışmanlık sözleşmesi imza turu ve unvan düzeltmesi</li><li>Mail: Mali Müşavir / finans talep listesi · yönetim hatırlatmaları</li></ul></div></div>
+ ${docH("F-2 Mailler","Teslim / talep / hatırlatma / onay kaydı (Hizmet Planı · Teslimatlar)",SRC.plan,"progress")}
+ <div class="card pad">${MAILS.map(m=>`<div class="mail" style="display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;font-size:12.5px;padding:8px 0;border-top:1px solid var(--divider);align-items:center"><span class="num" style="font-family:var(--font-mono);font-size:11px;color:var(--ink-3)">${m[0]}</span><span><b>${m[1]}</b> · ${m[2]}</span><span class="status ${m[3]}">${m[3]==="done"?"Gönderildi":"Planlı"}</span></div>`).join("")}</div>`;}
+
+/* ---------- Onboard & Learn ---------- */
+const ONBOARD=[["Gizlilik sözleşmesi (NDA)","07.04.2026 · imzalı tarama bildirimi",1],["Hizmet Kapsam Dokümanı ve ilk görüşme","27.04 · 06.05.2026",1],["Hizmet teklifi kabulü","04.08 → 23.08.2026 · 80.000 TL/ay",1],["Danışmanlık sözleşmesi yürürlük","01.09.2026 · imzalı nüsha teyitsiz",0],["Kick-off ve 22 aksiyon","04.09 / 09.09.2026 · 16.09 tutanak",1],["Drive Data Room açılışı ve erişim","16.09 dosya planı · 16.10 A–F yapısı",1],["İlk bilgi notları (DPP · Finansal Okuryazarlık)","27.08 · 21.09.2026",1],["İş Modeli soru setleri yanıtlandı","proje · SaaS · Asset",0],["Proje bazlı bütçe formatı ve 2027 bütçesi","Ekim 2026",0],["Bütünleşik yönetim sistemi sunumu","1 aylık hedef (04.09)",0]];
+const LEARN=[{no:"18",t:"Dijital Ürün Pasaportu (DPP) – AB Mevzuatı Bilgi Notu",url:U.dpp,st:"shared",for:"E-1 / E-5 / D.2 DPP"},{no:"10",t:"Finansal Okuryazarlık Eğitim Katılım Notu",url:U.finlit,st:"shared",for:"B / C"},{no:"Ç4",t:"Hizmet Kapsam Dokümanı",url:U.kapsam,st:"shared",for:"Onboarding"},{no:"2",t:"İş Modeli Nedir ve Neden Analiz Edilir? – Bilgi Notu",st:"planned",for:"A.1"},{no:"5",t:"İş Planı Nedir ve Neden Analiz Edilir? – Bilgi Notu",st:"planned",for:"A.2"},{no:"7",t:"Proje Bazlı Bütçe ve Nakit Akışı – Yönerge",st:"planned",for:"B.1 / B.2"},{no:"11",t:"Performans İzleme ve KPI/OKR Sistemi – Bilgi Notu",st:"planned",for:"A.5"},{no:"32",t:"Kurumsal Yönetim ve Organizasyon Yapısı – Bilgi Notu",st:"planned",for:"A.3"},{no:"DD",t:"Due Diligence Asgari İnceleme Kılavuzu – Ltd. Şti.",st:"planned",for:"E-1"},{no:"DR",t:"Data Room Veri Yükleme Yönergesi",st:"planned",for:"E-1 / B / C"},{no:"9",t:"Vendor Leasing Hukuki Çerçevesi – Bilgi Notu",st:"planned",for:"A.1 / E-2"},{no:"27",t:"NDA Kullanım Bilgilendirme Dokümanı",st:"planned",for:"E-4"},{no:"A.4.2",t:"Yatırımcı Sunumu (Pitch Deck) Bilgi Notu",st:"planned",for:"A.4"}];
+const LSTAT={applied:["Özümsendi","done"],shared:["Paylaşıldı","review"],planned:["Planlı","pending"]};
+
+function onboardStats(){const obDone=ONBOARD.filter(s=>s[2]).length,obTotal=ONBOARD.length;const lnDone=LEARN.filter(l=>l.st==="applied").length,lnShared=LEARN.filter(l=>l.st==="shared").length,lnTotal=LEARN.length;return {obDone,obTotal,obPct:Math.round(100*obDone/obTotal),lnDone,lnShared,lnTotal,lnPct:Math.round(100*(lnDone+.5*lnShared)/lnTotal)};}
+function viewOnboard(){const ob=onboardStats();const lvl=Math.min(5,Math.round(ob.obPct/20));
+ return `<div class="page-h"><div><div class="eyebrow">Onboard &amp; Learn</div><h1>Onboarding</h1><p>Müvekkilin hizmet planına alışma yolculuğu. Adımlar tamamlandıkça gelişim seviyesi yükselir.</p></div></div>
+ <div class="tiles"><div class="tile accent"><div class="l">Onboarding</div><div class="v num">${ob.obPct}<small>%</small></div><div style="margin-top:10px">${bar({done:ob.obDone,review:0,progress:0,input:0,total:ob.obTotal})}</div></div><div class="tile"><div class="l">Gelişim seviyesi</div><div class="v num">${lvl}<small>/ 5</small></div><div class="lvl" style="margin-top:10px">${[1,2,3,4,5].map(i=>`<div class="${i<=lvl?"on":""}"></div>`).join("")}</div></div><div class="tile"><div class="l">Tamamlanan adım</div><div class="v num">${ob.obDone}<small>/ ${ob.obTotal}</small></div></div><div class="tile"><div class="l">Rehber özümsenme</div><div class="v num">${ob.lnPct}<small>%</small></div><div class="d">${ob.lnDone} özümsendi · ${ob.lnShared} paylaşıldı</div></div></div>
+ ${sec("Adımlar")}<div class="card pad"><div class="steps">${ONBOARD.map((s,i)=>`<div class="s ${s[2]?"ok":(i===ONBOARD.findIndex(x=>!x[2])?"cur":"")}"><b>${i+1}. ${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div></div>
+ ${sec("Hizmet başlangıcı dokümanları","Hizmet başlangıcı · Nisan–Eylül 2026")}<div class="card"><div class="tbl-wrap"><table><thead><tr><th>No</th><th>Doküman</th><th>Tarih</th><th>Durum</th></tr></thead><tbody>${CLIENT.startDocs.map(d=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${d[0]}</td><td><b>${d[1]}</b></td><td class="muted">${d[2]}</td><td><span class="status done">Paylaşıldı</span></td></tr>`).join("")}</tbody></table></div></div>
+ ${sec("Çalışma kapsamı","Danışmanlık başlıkları / ayrı şartlara bağlı işler")}<div class="grid2"><div class="card pad">${lbl("Danışmanlık çalışma başlıkları (22.10.2025)")}<ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(CLIENT.scopeIn)}</ul></div><div class="card pad">${lbl("Ayrı şartlara bağlı / dış paydaş sorumluluğunda")}<ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(CLIENT.scopeOut)}</ul></div></div>
+ ${sec("Kişiler ve roller","Girdi kimden bekleniyor")}<div class="grid2">${Object.entries(CLIENT.contacts).map(([r,n])=>`<div class="card pad"><div style="display:flex;justify-content:space-between;gap:8px"><b>${r}</b><span class="muted">${n}</span></div><div class="muted" style="margin-top:4px">${allItems().reduce((a,it)=>a+it.docs.filter((d,i)=>stOf(it,i)==="input"&&d.owner.includes(r.split(" ")[0])).length,0)} açık girdi</div></div>`).join("")}</div>`;}
+function viewLearn(){const ob=onboardStats();
+ return `<div class="page-h"><div><div class="eyebrow">Onboard &amp; Learn</div><h1>Learn – Rehber ve Bilgi Notları</h1><p>Müvekkilin girdisini kolaylaştıran rehber, bilgi notu ve kılavuzlar; paylaşıldıkça ve uygulandıkça gelişim izlenir.</p></div></div>
+ <div class="tiles"><div class="tile accent"><div class="l">Özümsenme</div><div class="v num">${ob.lnPct}<small>%</small></div><div style="margin-top:10px">${bar({done:ob.lnDone,review:ob.lnShared,progress:0,input:0,total:ob.lnTotal})}</div></div><div class="tile"><div class="l">Özümsendi</div><div class="v num">${ob.lnDone}</div></div><div class="tile"><div class="l">Paylaşıldı</div><div class="v num">${ob.lnShared}</div></div><div class="tile"><div class="l">Planlı</div><div class="v num">${ob.lnTotal-ob.lnDone-ob.lnShared}</div></div></div>
+ ${sec("Rehberler","Her Data Room alt başlığının sayfasında ilgili rehber ayrıca görünür")}<div class="card"><div class="tbl-wrap"><table><thead><tr><th>No</th><th>Rehber / Bilgi Notu</th><th>İlgili bölüm</th><th>Durum</th><th>Drive</th></tr></thead><tbody>${LEARN.map(l=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${l.no}</td><td><b>${l.t}</b></td><td class="muted">${l.for}</td><td><span class="status ${LSTAT[l.st][1]}">${LSTAT[l.st][0]}</span></td><td>${l.url?`<a class="linkbtn" href="${l.url}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}</td></tr>`).join("")}</tbody></table></div></div>`;}
+
+/* ---------- Insights ---------- */
+function hbar(rows,max=100,unit="%"){ return `<div style="display:flex;flex-direction:column;gap:8px">${rows.map(r=>`<div style="display:grid;grid-template-columns:minmax(120px,1fr) 2fr auto;gap:10px;align-items:center;font-size:12.5px"><span style="color:var(--ink-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(r[0])}">${esc(r[0])}</span><div class="bar" style="height:8px"><i style="width:${Math.min(100,100*r[1]/max)}%;background:${r[2]||"var(--navy)"}"></i></div><span class="num" style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2);min-width:48px;text-align:right">${r[3]!=null?r[3]:(Math.round(r[1])+unit)}</span></div>`).join("")}</div>`;}
+function stackRow(label,c){return `<div style="display:grid;grid-template-columns:minmax(110px,1fr) 3fr auto;gap:10px;align-items:center;font-size:12.5px"><span style="color:var(--ink-2)">${label}</span>${bar(c)}<span class="num" style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2)">${c.done}/${c.total}</span></div>`;}
+
+function viewInsights(){
+ const items=allItems(), c=stats(items), ob=onboardStats(); const ents=CLIENT.short;
+ const okrAvg=ent=>OKR[ent].map(o=>[o.t,Math.round(o.kr.reduce((a,k)=>a+k[2],0)/o.kr.length)]);
+ const krTotal=ents.reduce((a,e)=>a+OKR[e].reduce((x,o)=>x+o.kr.length,0),0);
+ const krStarted=ents.reduce((a,e)=>a+OKR[e].reduce((x,o)=>x+o.kr.filter(k=>k[2]>0).length,0),0);
+ const krAvgAll=Math.round(ents.reduce((a,e)=>a+okrAvg(e).reduce((x,o)=>x+o[1],0),0)/(ents.length*5));
+ const dd=ddList(E0);
+ const riskBands=[["Kritik (≥16)",RISKS.filter(r=>r.p*r.i>=16).length,"var(--red-ink)"],["Yüksek (10–15)",RISKS.filter(r=>{const s=r.p*r.i;return s>=10&&s<16;}).length,"var(--warn)"],["Orta (6–9)",RISKS.filter(r=>{const s=r.p*r.i;return s>=6&&s<10;}).length,"var(--info)"],["Düşük (<6)",RISKS.filter(r=>r.p*r.i<6).length,"var(--success)"]];
+ const basis=[["Dokümana dayalı",BASIS_COUNT.doc.length,"var(--success)"],["Beyana dayalı",BASIS_COUNT.beyan.length,"var(--warn)"],["Dayanak yok",BASIS_COUNT.none.length,"var(--neutral)"]]; const basisTot=basis.reduce((a,b)=>a+b[1],0);
+ const owners={}; items.forEach(it=>it.docs.forEach((d,i)=>{if(stOf(it,i)==="input"){const k=d.owner.split(" / ")[0].split(" + ")[0];owners[k]=(owners[k]||0)+1;}}));
+ const actions=[["Tamamlandı",ACTIONS.filter(a=>a[4]==="done").length],["Devam ediyor",ACTIONS.filter(a=>a[4]==="progress").length],["Girdi bekleniyor",ACTIONS.filter(a=>a[4]==="input"||a[4]==="review").length],["Planlı",ACTIONS.filter(a=>a[4]==="pending").length]];
+ const meetingsDone=MEETINGS.filter(m=>m.st==="done").length;
+ const mailsDone=MAILS.filter(m=>m[3]==="done").length;
+ const months=["Nis 26","May","Haz","Tem","Ağu","Eyl","Eki 26"]; const counts=[0,1,0,1,1,3,1];
+ return `<div class="page-h"><div><div class="eyebrow">Genel Bakış · Insights</div><h1>Insights</h1><p>İş planı metrikleri (OKR), finansal görünürlük ve genel durum göstergeleri; karar destek ve toplantı gündemini hızlı geçmek için.</p></div><div class="right"><button class="btn" data-view="as-A">İş Planı OKR'ları</button><button class="btn" data-view="as-B">Finansman Yapısı</button><button class="btn" data-view="as-E">Risk Haritası</button></div></div>
+ ${sec("A · İş Planı Metrikleri (OKR)","5 bölüm × 4–5 KR · ortalama ilerleme")}
+ <div class="tiles"><div class="tile accent"><div class="l">KR ilerlemesi (ort.)</div><div class="v num">${krAvgAll}<small>%</small></div><div class="d" style="color:rgba(255,255,255,.65)">${krStarted}/${krTotal} KR başladı</div></div><div class="tile"><div class="l">Toplam KR</div><div class="v num">${krTotal}</div><div class="d">5 bölüm</div></div><div class="tile"><div class="l">2027 ciro hedefi</div><div class="v num">—</div><div class="d"><span class="status input">Belirlenecek</span></div></div><div class="tile"><div class="l">KPI matrisi</div><div class="v num">0<small>/ 15</small></div><div class="d">10 faaliyet + 5 finansal</div></div><div class="tile"><div class="l">İş Planı dokümanı</div><div class="v num">A.2</div><div class="d"><span class="status input">2027 proje bazlı – Codemag</span></div></div></div>
+ <div class="grid2" style="margin-top:12px"><div class="card pad">${lbl("Bölüm bazında KR ilerlemesi")}<div style="height:10px"></div>${hbar(okrAvg(E0))}</div>
+ <div class="card pad">${lbl("Öne çıkan KR'lar (hedef · ilerleme)")}<div class="tbl-wrap" style="margin-top:8px"><table><thead><tr><th>Bölüm</th><th>KR</th><th>Hedef</th><th style="min-width:110px">İlerleme</th></tr></thead><tbody>${OKR[E0].flatMap(o=>o.kr.map(k=>({b:o.t,k}))).filter(x=>x.k[2]>0||/ciro|bütçe|SaaS|leasing|KPI/i.test(x.k[0])).slice(0,10).map(x=>`<tr><td class="muted">${x.b}</td><td><b>${x.k[0]}</b></td><td class="muted" style="font-family:var(--font-mono);font-size:11px">${x.k[1]}</td><td><div class="bar" style="height:6px"><i class="s-done" style="width:${x.k[2]}%"></i></div></td></tr>`).join("")}</tbody></table></div></div></div>
+ ${sec("B · Şirket ve Finansal Göstergeler","Brief (Nisan 2026) ve yazışmalardan")}
+ <div class="tiles"><div class="tile accent"><div class="l">Aktif üretim hattı</div><div class="v num">128<small>+</small></div><div class="d" style="color:rgba(255,255,255,.65)">Tier-1 müşteriler · 5 pazar</div></div><div class="tile"><div class="l">Çalışan</div><div class="v num">24</div><div class="d">21.09.2026 · 6 pozisyon açılacak</div></div><div class="tile"><div class="l">Makine bedeli (ort.)</div><div class="v num">~60<small>k EUR</small></div><div class="d">vendor leasing · 3+2 yıl</div></div><div class="tile"><div class="l">Danışmanlık bedeli</div><div class="v num">80<small>k TL/ay</small></div><div class="d">01.09.2026 – 31.08.2027</div></div><div class="tile"><div class="l">Finansal belge (Drive)</div><div class="v num">0</div><div class="d">bütçe · nakit · bilanço bekleniyor</div></div><div class="tile"><div class="l">Gelir modeli</div><div class="v num">1<small>+ 3</small></div><div class="d">proje · bakım · SaaS · leasing</div></div></div>
+ ${sec("C · Genel Durum Metrikleri","Doküman, fonksiyon, dayanak, DD, risk, iletişim")}
+ <div class="tiles"><div class="tile accent"><div class="l">Hizmet planı tamamlanma</div><div class="v num">${c.pct}<small>%</small></div><div style="margin-top:10px">${bar(c)}</div></div><div class="tile"><div class="l">DD belge</div><div class="v num">${dd.ok}<small>/ ${dd.tot}</small></div><div class="d">7 başlık · Data Room boş</div></div><div class="tile"><div class="l">Açık girdi</div><div class="v num">${c.input}</div><div class="d">${Object.entries(owners).map(([k,v])=>`${k.split(" ")[0]} ${v}`).join(" · ")}</div></div><div class="tile"><div class="l">Kritik + yüksek risk</div><div class="v num">${riskBands[0][1]+riskBands[1][1]}<small>/ ${RISKS.length}</small></div><div class="d">sözleşme · leasing · İK · finans</div></div><div class="tile"><div class="l">Toplantı tutanağı</div><div class="v num">${meetingsDone}<small>/ ${MEETINGS.length}</small></div><div class="d">${mailsDone} teslimat maili</div></div><div class="tile"><div class="l">Onboarding</div><div class="v num">${ob.obPct}<small>%</small></div><div class="d">rehber özümsenme ${ob.lnPct}%</div></div></div>
+ <div class="grid2" style="margin-top:12px">
+  <div class="card pad">${lbl("Data Room bölümleri · doküman durumu")}<div style="height:10px"></div><div style="display:flex;flex-direction:column;gap:8px">${DATAROOM.map(sct=>stackRow(sct.title,stats(sct.items))).join("")}</div>${legend}</div>
+  <div class="card pad">${lbl("Fonksiyonlar · tamamlanma")}<div style="height:10px"></div>${hbar(Object.keys(FUNCTIONS).map(k=>[k,stats(items.filter(i=>i.fn===k)).pct]))}<div style="height:16px"></div>${lbl("Dayanak dağılımı · panel sayısı")}<div style="height:10px"></div>${hbar(basis.map(b=>[b[0],b[1],b[2],b[1]+" panel"]),basisTot)}</div>
+  <div class="card pad">${lbl("Due Diligence · başlık bazında belge")}<div style="height:10px"></div>${hbar(DD[E0].map(([g,its])=>[g.slice(0,36),its.filter(i=>DD_DONE[E0].includes(i)).length,"var(--navy)",`${its.filter(i=>DD_DONE[E0].includes(i)).length}/${its.length}`]),9)}</div>
+  <div class="card pad">${lbl("Risk dağılımı · O×E bandı")}<div style="height:10px"></div>${hbar(riskBands.map(r=>[r[0],r[1],r[2],r[1]+" risk"]),RISKS.length)}<div style="height:16px"></div>${lbl("04.09.2026 aksiyonları (22)")}<div style="height:10px"></div>${hbar(actions.map((a,i)=>[a[0],a[1],["var(--success)","var(--warn)","var(--red-ink)","var(--neutral)"][i],a[1]+" aksiyon"]),ACTIONS.length)}</div>
+  <div class="card pad">${lbl("Girdi bekleyen · sorumlu bazında")}<div style="height:10px"></div>${hbar(Object.entries(owners).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,"var(--red-ink)",v+" kalem"]),Math.max(...Object.values(owners),1))}</div>
+  <div class="card pad">${lbl("Toplantı ritmi · ay bazında toplantı kaydı (tutanak: yalnızca Eylül)")}<div style="height:10px"></div><svg class="chart" viewBox="0 0 640 120" role="img" aria-label="Toplantı ritmi">${(()=>{const n=months.length,bw=(640-30)/n;return months.map((m,i)=>{const x=20+i*bw+4,h=counts[i]*20,w=bw-8;return `<rect x="${x}" y="${90-h}" width="${w}" height="${h}" rx="3" fill="${counts[i]?"var(--navy)":"var(--tint-12)"}"><title>${m}: ${counts[i]} toplantı kaydı</title></rect>${counts[i]===0?`<rect x="${x}" y="30" width="${w}" height="60" rx="3" fill="none" stroke="var(--border-strong)" stroke-dasharray="4 3"/>`:""}<text x="${x+w/2}" y="106" text-anchor="middle" style="font-size:9.5px">${m}</text>`;}).join("")+`<line class="grid" x1="20" x2="630" y1="90" y2="90"/>`;})()}</svg><div class="muted">7 kayıttan yalnızca 1'i tutanaklı; düzenli toplantı ritmi ve tutanak standardı kurulmalı.</div></div>
+ </div>`;}
+
+/* ---------- router / nav ---------- */
+function crumbFor(v){const n=`<b>${esc(CLIENT.name)}</b>`;if(v==="home")return n+" · Genel Bakış";if(v==="insights")return n+" · Genel Bakış · Insights";if(v.startsWith("fn-"))return n+" · Fonksiyonlar · "+v.slice(3);if(v.startsWith("as-"))return n+" · Durum Değerlendirmesi · "+v.slice(3);if(v==="ob-onboarding")return n+" · Onboard &amp; Learn · Onboarding";if(v==="ob-learn")return n+" · Onboard &amp; Learn · Learn";const it=allItems().find(i=>i.id===v);return it?n+` · Data Room · ${esc(it.section.title)} · ${esc(it.title)}`:n;}
+function render(){const v=current,el=document.getElementById("view");
+ el.innerHTML=v==="home"?viewHome():v.startsWith("fn-")?viewFn(v.slice(3)):v.startsWith("as-")?viewAssess(v.slice(3)):v==="insights"?viewInsights():v==="ob-onboarding"?viewOnboard():v==="ob-learn"?viewLearn():viewItem(v);
+ document.getElementById("crumb").innerHTML=crumbFor(v);renderNav();}
+function hashFor(v){return v.startsWith("fn-")?"fn"+FUNCTIONS[v.slice(3)].k:v.replace(/[^\w\-]/g,"");}
+function go(v){current=v;try{history.replaceState(null,"","#"+hashFor(v));}catch(e){}render();document.getElementById("main").scrollTop=0;closeNav();}
+function renderNav(){const items=allItems();
+ document.getElementById("clientBox").innerHTML=`<div class="lbl">Müvekkil</div><div class="cname">${esc(CLIENT.name)}</div><div class="ents">${CLIENT.entities.map(e=>`<span class="ent">${esc(e)}</span>`).join("")}</div>`;
+ document.getElementById("fnNav").innerHTML=Object.keys(FUNCTIONS).map(k=>{const c=stats(items.filter(i=>i.fn===k));return `<button class="ni ${current==="fn-"+k?"active":""}" data-view="fn-${k}"><span class="k">${FUNCTIONS[k].k}</span><span class="t">${k}</span><span class="pct num">${c.pct}%</span></button>`;}).join("");
+ document.getElementById("asNav").innerHTML=ASSESS_TABS.map(([k,t])=>`<button class="ni ${current==="as-"+k?"active":""}" data-view="as-${k}"><span class="k">${k}</span><span class="t">${t}</span></button>`).join("");
+ document.getElementById("drNav").innerHTML=DATAROOM.filter(s=>!s.virtual).map(s=>{const open=openSections.has(s.id)||s.items.some(i=>i.id===current),c=stats(s.items);return `<button class="ni" data-toggle="${s.id}" aria-expanded="${open}"><span class="k">${s.id}</span><span class="t">${esc(s.title.replace(/^[A-F]\.\s*/,""))}</span><span class="pct num">${c.pct}%</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3l5 5-5 5"/></svg></button><div class="sub-list ${open?"open":""}">${s.items.map(it=>{const cc=stats([it]),col=cc.pct===100?"var(--success)":cc.pct>0?"var(--warn)":"var(--nav-ink-3)";return `<button class="ni sub ${current===it.id?"active":""}" data-view="${it.id}"><span class="dot" style="background:${col}"></span><span class="t">${esc(shortTitle(it.title))}</span><span class="pct num">${cc.pct}%</span></button>`;}).join("")}</div>`;}).join("");
+ const ob=onboardStats();document.getElementById("obNav").innerHTML=`<button class="ni ${current==="ob-onboarding"?"active":""}" data-view="ob-onboarding"><span class="k">OB</span><span class="t">Onboarding</span><span class="pct num">${ob.obPct}%</span></button><button class="ni ${current==="ob-learn"?"active":""}" data-view="ob-learn"><span class="k">LN</span><span class="t">Learn</span><span class="pct num">${ob.lnPct}%</span></button>`;
+ document.querySelectorAll('.ni[data-view="home"]').forEach(b=>b.classList.toggle("active",current==="home"));document.querySelectorAll('.ni[data-view="insights"]').forEach(b=>b.classList.toggle("active",current==="insights"));}
+document.addEventListener("click",e=>{
+ const en=e.target.closest("[data-ent]");if(en){assessEnt=en.dataset.ent;try{localStorage.setItem(LS+":aent",assessEnt);}catch(x){}const y=document.getElementById("main").scrollTop;render();document.getElementById("main").scrollTop=y;return;}
+ const v=e.target.closest("[data-view]");if(v){go(v.dataset.view);return;}
+ const t=e.target.closest("[data-toggle]");if(t){const id=t.dataset.toggle;openSections.has(id)?openSections.delete(id):openSections.add(id);renderNav();return;}
+ const s=e.target.closest("button.status[data-item]");if(s){const it=allItems().find(i=>i.id===s.dataset.item),i=+s.dataset.i,cur=stOf(it,i);setStatus(it,i,CYCLE[(CYCLE.indexOf(cur)+1)%CYCLE.length]);const y=document.getElementById("main").scrollTop;render();document.getElementById("main").scrollTop=y;return;}
+});
+const navEl=document.getElementById("nav"),scrim=document.getElementById("scrim");
+function closeNav(){navEl.classList.remove("open");scrim.classList.remove("open");}
+document.getElementById("menuBtn").addEventListener("click",()=>{navEl.classList.toggle("open");scrim.classList.toggle("open");});
+scrim.addEventListener("click",closeNav);
+document.getElementById("today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
+const h=(location.hash||"").slice(1);
+if(/^fn\d$/.test(h)){const k=Object.keys(FUNCTIONS).find(k=>FUNCTIONS[k].k===h[2]);if(k)current="fn-"+k;}
+else if(/^as-[A-F]$/.test(h)||h==="home"||h==="insights"||h==="ob-onboarding"||h==="ob-learn"||allItems().some(i=>i.id===h))current=h;
+render();
+</script>
+
+</body></html>

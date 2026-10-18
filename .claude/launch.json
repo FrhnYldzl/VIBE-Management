@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "ana-merkez",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "ana-merkez"],
+      "port": 8787
+    },
+    {
       "name": "vibe-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],

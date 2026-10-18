@@ -1,38 +1,51 @@
-# VIBE Management · Mr. F ve Problem Pazaryeri
+# VIBE Management · MTFG Ana Merkez
 
-Türk işletmelerinin ortak problemlerini raflayan, çözümleri ölçülmüş kanıtla karşılaştıran ve
-kendi ürünlerini talep verisiyle seçen bir pazaryeri — ve onu besleyen Mr. F motoru.
+MTFG'nin varlıklarını (şirketler, projeler, data room'lar) tek yerden yöneten merkez:
+**MTFG Portföy Yönetim Paneli** (üst katman) + gömülü **Juris Kurumsal Yönetim Panelleri**
+(müvekkil başına) + Claude tabanlı **Vibe Management** stüdyosu. Görsel standart ve dizilim:
+Juris Kurumsal Kimlik (lacivert #0A2240 · kırmızı #BC2F2C · Playfair Display + Inter + JetBrains Mono).
 
-- Tez ve mimari: [docs/kurucu-dokuman.html](docs/kurucu-dokuman.html)
-- Ürün vizyonu: [docs/product/VISION.md](docs/product/VISION.md)
-- Yol haritası (faz + sürüm): [docs/product/ROADMAP.md](docs/product/ROADMAP.md)
-- İterasyon sistemi: [docs/product/ITERATION.md](docs/product/ITERATION.md)
+**Mr. F / Problem Pazaryeri** bu merkezin altında bir venture-building projesidir; operatör konsolu
+`apps/web` + `apps/api` altında yaşar.
+
+- Ana Merkez: [apps/ana-merkez/README.md](apps/ana-merkez/README.md)
+- Panel üretim kiti: [packages/juris-panel-kit/CLAUDE.md](packages/juris-panel-kit/CLAUDE.md)
+- Ürün vizyonu: [docs/product/VISION.md](docs/product/VISION.md) · Yol haritası: [docs/product/ROADMAP.md](docs/product/ROADMAP.md) · İterasyon: [docs/product/ITERATION.md](docs/product/ITERATION.md)
 - Tasarım sistemi: [docs/design/DESIGN-SYSTEM.md](docs/design/DESIGN-SYSTEM.md)
+- Mr. F tezi: [docs/kurucu-dokuman.html](docs/kurucu-dokuman.html)
 
 ## Yapı
 
 ```
-data/               Problem veri seti (tek doğruluk kaynağı) — şema: data/schema.md
-scripts/score.py    Python skorlayıcı → data/problems.csv, data/rankings.md
-packages/core       @vibe/core — tipler + skor motoru (score.py ile parite testli)
-apps/api            @vibe/api  — Fastify API, SQLite (talep sinyali + geri bildirim)
-apps/web            @vibe/web  — React + Vite operatör konsolu
-docs/               Kurucu doküman, ürün, tasarım, ADR
+apps/ana-merkez           MTFG Ana Merkez — public/index.html (portföy + Vibe stüdyosu), onscala/codemag panelleri,
+                          server/index.mjs (statik + Anthropic Messages API köprüsü, SSE)   ← ÜRÜNÜN ANA YÜZÜ
+packages/juris-panel-kit  Juris Kurumsal Yönetim Paneli master + müvekkil veri blokları + assemble.py / smoke.js
+apps/web  · apps/api      Mr. F operatör konsolu (React + Vite · Fastify + SQLite)
+packages/core             @vibe/core — Mr. F tipleri + skor motoru (score.py paritesi)
+data/ · scripts/score.py  Mr. F problem veri seti ve Python skorlayıcı
+docs/                     Ürün, tasarım, ADR, kurucu doküman
 ```
 
 ## Çalıştırma
 
-Gereken: Node 22.13+ (yerleşik `node:sqlite` için).
+Gereken: Node 22.13+.
 
 ```bash
 npm install
 ```
 
+Ana Merkez (http://localhost:8787 — Vibe stüdyosu için `apps/ana-merkez/.env` içine `ANTHROPIC_API_KEY`):
+
+```bash
+npm run ana-merkez
+```
+
+Mr. F operatör konsolu (web http://localhost:5173 · API 127.0.0.1:4310, `VIBE_API_PORT`):
+
 ```bash
 npm run dev
 ```
 
-Web: http://localhost:5173 · API: http://127.0.0.1:4310 (`VIBE_API_PORT` ile değişir).
 Çalışma zamanı verisi `var/vibe.db` dosyasına yazılır (git dışı).
 
 ```bash
@@ -47,4 +60,4 @@ npm test
 
 ## Sürüm
 
-Güncel: **v0.1.1** (Faz A — operatör konsolu temeli, Juris görsel standardı). Ayrıntı: [CHANGELOG.md](CHANGELOG.md).
+Güncel: **v0.2.0** (MTFG Ana Merkez + Juris panel kiti repoya birebir alındı; Mr. F konsolu alt modül). Ayrıntı: [CHANGELOG.md](CHANGELOG.md).

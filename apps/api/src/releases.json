@@ -1,6 +1,18 @@
 {
   "surumler": [
     {
+      "surum": "0.2.0",
+      "tarih": "2026-10-18",
+      "faz": "Ana Merkez",
+      "baslik": "MTFG Ana Merkez + Juris panel kiti",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "apps/ana-merkez: MTFG Portföy Paneli + gömülü Juris panelleri (Onscala, Codemag) + Vibe Management stüdyosu — kurucu kodu birebir" },
+        { "tur": "yeni", "metin": "packages/juris-panel-kit: panel master + müvekkil veri blokları + assemble/smoke kiti" },
+        { "tur": "iyilestirme", "metin": "Ürün çerçevesi: VIBE Management = Ana Merkez; Mr. F konsolu alt modül" }
+      ]
+    },
+    {
       "surum": "0.1.1",
       "tarih": "2026-10-18",
       "faz": "A — Operatör konsolu",
@@ -30,7 +42,7 @@
     }
   ],
   "planli": [
-    { "surum": "0.2.0", "baslik": "Veri editörü", "ozet": "Problem oluştur/düzenle, paket 3-6, mevzuat_oynakligi + yeni risk formülü" },
+    { "surum": "0.2.x", "baslik": "Ana Merkez'e paneller", "ozet": "Zyrone, Qervan-Wetrade, Meown AI panellerinin PANELS'e eklenmesi; Drive data room senkronu" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

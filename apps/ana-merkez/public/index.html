@@ -1,0 +1,1181 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<!-- Yerel çalıştırma: claude.ai dışında window.claude yoksa bu adaptör /api/sample üzerinden Claude API'ye bağlanır -->
+<script src="claude-adapter.js"></script>
+</head><body>
+<title>MTFG Ana Merkez</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: navy brand rail + paper workspace; Vibe Management sayfası koyu lacivert stüdyo zemini. Juris kurumsal kimlik: Pantone 289C lacivert, 7620C kırmızı. */
+:root{
+  --navy:#0A2240; --red:#BC2F2C; --red-ink:#8A1F1D;
+  --bg:#FAFAF7; --bg-elev:#FFFFFF; --bg-sunken:#F3F2EE; --bg-nav:#0A2240; --bg-nav-2:#0E2B50;
+  --border:rgba(10,34,64,.09); --border-strong:rgba(10,34,64,.18); --divider:rgba(10,34,64,.06);
+  --ink:#0A2240; --ink-2:rgba(10,34,64,.72); --ink-3:rgba(10,34,64,.52); --ink-4:rgba(10,34,64,.36);
+  --nav-ink:#FFFFFF; --nav-ink-2:rgba(255,255,255,.72); --nav-ink-3:rgba(255,255,255,.45); --nav-hover:rgba(255,255,255,.07); --nav-active:rgba(255,255,255,.12); --nav-accent:#E26B68;
+  --tint-04:rgba(10,34,64,.04); --tint-08:rgba(10,34,64,.08); --tint-12:rgba(10,34,64,.12);
+  --success:#1F7A4E; --success-bg:rgba(31,122,78,.10); --warn:#B4701C; --warn-bg:rgba(180,112,28,.11); --info:#1F5AA8; --info-bg:rgba(31,90,168,.10); --neutral:#5A6B82; --neutral-bg:rgba(90,107,130,.12); --accent-bg:rgba(188,47,44,.10);
+  --track:rgba(10,34,64,.10); --chart-1:#0A2240; --chart-2:#BC2F2C; --chart-3:#1F5AA8; --chart-4:#B4701C; --chart-ghost:rgba(10,34,64,.18);
+  --btn-primary-bg:#0A2240; --btn-primary-ink:#FFFFFF;
+  /* Vibe stüdyosu – tek görünüm, tema bağımsız */
+  --v-bg:#06111F; --v-bg-2:#0A1A30; --v-panel:#0E2240; --v-panel-2:#132B4F; --v-line:rgba(255,255,255,.09); --v-line-2:rgba(255,255,255,.16);
+  --v-ink:#F3F1EA; --v-ink-2:rgba(243,241,234,.70); --v-ink-3:rgba(243,241,234,.46); --v-red:#E5574F; --v-red-soft:rgba(229,87,79,.16); --v-blue:#6FA0E0; --v-amber:#E0A25A; --v-green:#5CBF8C;
+  --font-display:"Playfair Display","Times New Roman",Georgia,serif;
+  --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r-sm:6px; --r-md:10px; --r-lg:14px;
+  --shadow-sm:0 1px 2px rgba(10,34,64,.05),0 1px 1px rgba(10,34,64,.03);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#060F1F; --bg-elev:#0D1B33; --bg-sunken:#040A17; --bg-nav:#040A17; --bg-nav-2:#0A1830;
+  --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16); --divider:rgba(255,255,255,.05);
+  --ink:#F2F0EA; --ink-2:rgba(242,240,234,.72); --ink-3:rgba(242,240,234,.5); --ink-4:rgba(242,240,234,.32);
+  --tint-04:rgba(255,255,255,.03); --tint-08:rgba(255,255,255,.07); --tint-12:rgba(255,255,255,.10);
+  --success:#4FB07F; --success-bg:rgba(79,176,127,.14); --warn:#D9984A; --warn-bg:rgba(217,152,74,.14); --info:#6FA0E0; --info-bg:rgba(111,160,224,.14); --neutral:#9AA8BC; --neutral-bg:rgba(154,168,188,.14); --red-ink:#E26B68; --accent-bg:rgba(226,107,104,.14);
+  --track:rgba(255,255,255,.10); --chart-1:#8FB0E0; --chart-2:#E26B68; --chart-3:#6FA0E0; --chart-4:#D9984A; --chart-ghost:rgba(255,255,255,.2);
+  --btn-primary-bg:#F2F0EA; --btn-primary-ink:#0A2240;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#060F1F; --bg-elev:#0D1B33; --bg-sunken:#040A17; --bg-nav:#040A17; --bg-nav-2:#0A1830;
+  --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.16); --divider:rgba(255,255,255,.05);
+  --ink:#F2F0EA; --ink-2:rgba(242,240,234,.72); --ink-3:rgba(242,240,234,.5); --ink-4:rgba(242,240,234,.32);
+  --tint-04:rgba(255,255,255,.03); --tint-08:rgba(255,255,255,.07); --tint-12:rgba(255,255,255,.10);
+  --success:#4FB07F; --success-bg:rgba(79,176,127,.14); --warn:#D9984A; --warn-bg:rgba(217,152,74,.14); --info:#6FA0E0; --info-bg:rgba(111,160,224,.14); --neutral:#9AA8BC; --neutral-bg:rgba(154,168,188,.14); --red-ink:#E26B68; --accent-bg:rgba(226,107,104,.14);
+  --track:rgba(255,255,255,.10); --chart-1:#8FB0E0; --chart-2:#E26B68; --chart-3:#6FA0E0; --chart-4:#D9984A; --chart-ghost:rgba(255,255,255,.2);
+  --btn-primary-bg:#F2F0EA; --btn-primary-ink:#0A2240;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:3px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- shell ---------- */
+.app{display:flex;height:100%}
+.nav{width:268px;flex:0 0 268px;background:var(--bg-nav);color:var(--nav-ink);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transition:width .18s,flex-basis .18s}
+.brand{display:flex;align-items:center;gap:12px;padding:18px 18px 12px;min-height:66px}
+.brand .mark{width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:var(--red);display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:15px;color:#fff}
+.brand .name{font-family:var(--font-display);font-size:21px;line-height:1;white-space:nowrap}
+.brand .sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nav-ink-3);margin-top:4px;white-space:nowrap}
+.client{margin:0 12px 4px;padding:11px 13px;border-radius:var(--r-md);background:var(--bg-nav-2);border:1px solid rgba(255,255,255,.08)}
+.client .lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--nav-ink-3)}
+.client .cname{font-weight:600;font-size:13.5px;margin-top:3px;line-height:1.3}
+.client .ents{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.client .ent{font-size:10.5px;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--nav-ink-2)}
+.navsec{padding:10px 12px 2px}
+.navsec .h{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nav-ink-3);padding:0 8px 5px;white-space:nowrap}
+.navsec .h.top{color:var(--nav-accent);padding-top:6px;border-top:1px solid rgba(255,255,255,.07);margin-top:4px}
+.ni{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:7px 10px;border-radius:var(--r-sm);color:var(--nav-ink-2);font-size:13px;font-weight:500;white-space:nowrap}
+.ni:hover{background:var(--nav-hover);color:var(--nav-ink)}
+.ni.active{background:var(--nav-active);color:var(--nav-ink)}
+.ni .k{font-family:var(--font-mono);font-size:11px;color:var(--nav-ink-3);width:22px;flex:0 0 22px;display:grid;place-items:center}
+.ni.active .k{color:var(--nav-accent)}
+.ni .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.ni .pct{font-family:var(--font-mono);font-size:11px;color:var(--nav-ink-3)}
+.ni.vibe-ni{background:linear-gradient(100deg,rgba(229,87,79,.20),rgba(111,160,224,.10));border:1px solid rgba(255,255,255,.10);color:#fff;font-weight:600}
+.ni.vibe-ni .k{color:var(--nav-accent)}
+.ni.vibe-ni.active{border-color:rgba(229,87,79,.55)}
+.ni .tag{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;border-radius:999px;background:rgba(255,255,255,.12);color:var(--nav-ink-2)}
+.navfoot{margin-top:auto;padding:14px 18px 18px;font-size:11px;color:var(--nav-ink-3);line-height:1.5;border-top:1px solid rgba(255,255,255,.07)}
+.navfoot b{color:var(--nav-ink-2);font-weight:500}
+/* panel açıkken üst menü ince raya döner */
+@media (min-width:821px){
+  .app.rail .nav{width:64px;flex-basis:64px}
+  .app.rail .nav .t,.app.rail .nav .pct,.app.rail .nav .tag,.app.rail .nav .h,.app.rail .nav .client,.app.rail .nav .navfoot,.app.rail .brand>div:last-child{display:none}
+  .app.rail .nav .ni{justify-content:center;padding:8px 0}
+  .app.rail .nav .navsec{padding:4px 8px}
+  .app.rail .brand{padding:18px 15px 12px}
+}
+
+.main{flex:1;min-width:0;overflow-y:auto;padding-block:0 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));position:relative}
+.topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 0 0;min-height:52px}
+.crumb{font-size:12px;color:var(--ink-3)} .crumb b{color:var(--ink-2);font-weight:500}
+.topbar .spacer{flex:1}
+.date{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3)}
+.menu-btn{display:none;width:34px;height:34px;border-radius:var(--r-sm);border:1px solid var(--border);align-items:center;justify-content:center}
+.wrap{max-width:1180px;margin:0 auto}
+.page-h{padding:22px 0 18px;display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.page-h h1{font-family:var(--font-display);font-weight:500;font-size:30px;line-height:1.1;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.page-h .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red-ink);font-weight:600;margin-bottom:6px}
+.page-h p{margin:8px 0 0;color:var(--ink-2);max-width:66ch}
+.page-h .right{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:12.5px;font-weight:600;background:var(--bg-elev);color:var(--ink);text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--tint-04);border-color:var(--border-strong)}
+.btn.primary{background:var(--btn-primary-bg);border-color:var(--btn-primary-bg);color:var(--btn-primary-ink)}
+.btn[disabled]{opacity:.5;cursor:default}
+
+/* panel host (iframe) */
+.main.embed{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.main.embed .topbar{padding:10px max(16px,env(safe-area-inset-left,0px)) 10px;min-height:0;border-bottom:1px solid var(--border);background:var(--bg-elev)}
+.main.embed>.wrap{display:none}
+#panelHost{display:none;flex:1;min-height:0;position:relative}
+.main.embed #panelHost{display:block}
+#panelHost iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
+#panelHost iframe[hidden]{display:none}
+.pload{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-3);font-size:13px}
+#frameStash{position:absolute;width:0;height:0;overflow:hidden;visibility:hidden}
+
+/* ---------- MTFG panel bileşenleri ---------- */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
+.tile{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px 12px;min-width:0}
+.tile .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.tile .v{font-family:var(--font-display);font-size:28px;line-height:1.05;margin-top:6px;font-variant-numeric:tabular-nums}
+.tile .v small{font-family:var(--font-body);font-size:13px;color:var(--ink-3);margin-left:4px}
+.tile .d{font-size:12px;color:var(--ink-3);margin-top:4px}
+.tile.accent{border-color:transparent;background:var(--navy);color:#fff}
+.tile.accent .l,.tile.accent .d{color:rgba(255,255,255,.65)}
+.sec{margin-top:26px}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.sec-h h2{font-family:var(--font-display);font-weight:500;font-size:19px;margin:0}
+.sec-h .meta{font-size:12px;color:var(--ink-3)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);min-width:0}
+.card.pad{padding:16px 18px}
+.card h3{font-size:14px;font-weight:600;margin:0 0 8px}
+.card .sub{font-size:12px;color:var(--ink-3);margin:-4px 0 10px}
+.muted{color:var(--ink-3)}
+.mono{font-family:var(--font-mono);font-size:11.5px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.ok,.pill.belge{background:var(--success-bg);color:var(--success)}
+.pill.warn,.pill.beyan{background:var(--warn-bg);color:var(--warn)}
+.pill.info{background:var(--info-bg);color:var(--info)}
+.pill.neu,.pill.yok{background:var(--neutral-bg);color:var(--neutral)}
+.pill.red{background:var(--accent-bg);color:var(--red-ink)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--border-strong);white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--divider);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tr.row:hover td{background:var(--tint-04)}
+.tbl td.r,.tbl th.r{text-align:right}
+.tbl .code{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);background:var(--tint-08);padding:2px 6px;border-radius:4px}
+.tbl .nm{font-weight:600}
+.tbl .sm{font-size:11.5px;color:var(--ink-3)}
+.scroll{overflow-x:auto}
+.bar{height:6px;border-radius:999px;background:var(--track);overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.meter{display:flex;align-items:center;gap:8px}
+.meter .bar{flex:1}
+.meter .n{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);width:40px;text-align:right}
+.score{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;font-family:var(--font-mono);font-size:12px;font-weight:600;border:2px solid var(--track)}
+.score.hi{border-color:var(--success);color:var(--success)} .score.mid{border-color:var(--warn);color:var(--warn)} .score.lo{border-color:var(--neutral);color:var(--neutral)}
+.thesis{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+@media (max-width:860px){.thesis{grid-template-columns:1fr}}
+.tri svg{width:100%;height:auto;display:block}
+.tri text{font-family:var(--font-body);fill:var(--ink)}
+.tri .ed{font-size:11px;fill:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.tri .bx{fill:var(--bg-elev);stroke:var(--border-strong)}
+.tri .bx.top{fill:var(--navy);stroke:var(--navy)}
+.tri .bx.mid{fill:var(--accent-bg);stroke:var(--red)}
+.tri .t{font-weight:600;font-size:13px}
+.tri .t.w{fill:#fff}
+.tri .ln{stroke:var(--chart-1);stroke-width:1.6;fill:none}
+.tri .rd{fill:var(--red-ink)}
+.crit{display:flex;flex-direction:column;gap:8px}
+.crit .c{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bg-sunken)}
+.crit .c b{font-size:13px}
+.crit .c .q{font-size:12px;color:var(--ink-2);margin-top:2px}
+.crit .c .k{font-family:var(--font-mono);font-size:11px;color:var(--red-ink);width:26px;flex:0 0 26px;padding-top:2px}
+.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:900px){.funnel{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.funnel{grid-template-columns:1fr}}
+.stage{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);padding:12px 14px;min-width:0}
+.stage .h{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.stage .h b{font-size:13px}
+.stage .h .n{font-family:var(--font-display);font-size:24px}
+.stage .def{font-size:11.5px;color:var(--ink-3);margin:4px 0 10px;min-height:34px}
+.stage ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.stage li{font-size:12.5px;display:flex;justify-content:space-between;gap:6px;padding:5px 8px;border-radius:var(--r-sm);background:var(--bg-sunken)}
+.stage li span{color:var(--ink-3);font-size:11px;white-space:nowrap}
+.stage li.go{cursor:pointer;background:var(--info-bg)} .stage li.go span{color:var(--info)}
+.matrix td.c{text-align:center;font-family:var(--font-mono);font-size:13px}
+.plus{color:var(--success);font-weight:700}.plusc{color:var(--red-ink);font-weight:700}.arrow{color:var(--info)}.minus{color:var(--ink-4)}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:900px){.pillars{grid-template-columns:1fr}}
+.pillar{padding:16px 18px}
+.pillar .no{font-family:var(--font-display);font-size:28px;color:var(--red-ink);line-height:1}
+.pillar h3{margin:8px 0 4px}
+.pillar p{margin:0 0 10px;font-size:12.5px;color:var(--ink-2)}
+.tmpl{display:flex;flex-direction:column;gap:5px}
+.tmpl .t{display:flex;align-items:center;gap:8px;font-size:12.5px;padding:6px 8px;border-radius:var(--r-sm);border:1px solid var(--border)}
+.tmpl .t .f{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center}
+@media (max-width:760px){.flow{grid-template-columns:1fr}.flow .ar{display:none}}
+.flow .box{padding:12px 14px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bg-elev)}
+.flow .box .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.flow .box ul{margin:6px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
+.flow .ar{color:var(--ink-4);font-size:20px;text-align:center}
+.cadence{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.cad{padding:12px 14px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bg-elev)}
+.cad .f{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red-ink);font-weight:600}
+.cad b{display:block;margin-top:3px}
+.cad p{margin:4px 0 0;font-size:12px;color:var(--ink-2)}
+.risk td.sev{font-family:var(--font-mono);font-size:11px}
+.dotsev{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.callout{display:flex;gap:12px;padding:12px 14px;border-radius:var(--r-md);background:var(--accent-bg);border:1px solid rgba(188,47,44,.25);font-size:12.5px;color:var(--ink-2)}
+.callout b{color:var(--red-ink)}
+.callout.info{background:var(--info-bg);border-color:rgba(31,90,168,.25)}.callout.info b{color:var(--info)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.pcard{display:flex;flex-direction:column;gap:10px;padding:16px 18px;text-align:left;width:100%}
+.pcard:hover{border-color:var(--border-strong);box-shadow:var(--shadow-sm)}
+.pcard .top{display:flex;align-items:center;gap:10px}
+.pcard .top b{font-size:14.5px;flex:1}
+.pcard .facts{display:flex;flex-wrap:wrap;gap:6px}
+.pcard .facts span{font-size:11.5px;color:var(--ink-2);background:var(--tint-04);border:1px solid var(--border);padding:2px 8px;border-radius:999px}
+.pcard .go{font-size:12px;color:var(--info);font-weight:600}
+.view{display:none}.view.active{display:block}
+
+/* ---------- VIBE MANAGEMENT ---------- */
+.main.vibe-mode{background:var(--v-bg);color:var(--v-ink)}
+.main.vibe-mode .crumb{color:var(--v-ink-3)} .main.vibe-mode .crumb b{color:var(--v-ink-2)}
+.main.vibe-mode .date{color:var(--v-ink-3)}
+.main.vibe-mode .menu-btn{border-color:var(--v-line-2);color:var(--v-ink)}
+.vibe{position:relative;color:var(--v-ink);padding-bottom:20px}
+.v-glow{position:absolute;inset:-80px -40px auto;height:520px;pointer-events:none;background:radial-gradient(60% 55% at 50% 18%,rgba(229,87,79,.20),transparent 70%),radial-gradient(40% 45% at 18% 40%,rgba(111,160,224,.14),transparent 70%),radial-gradient(35% 40% at 85% 35%,rgba(224,162,90,.10),transparent 70%)}
+.v-hero{position:relative;text-align:center;padding:42px 0 22px;max-width:760px;margin:0 auto}
+.v-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--v-ink-2);font-weight:600;padding:5px 12px;border:1px solid var(--v-line-2);border-radius:999px;background:rgba(255,255,255,.03)}
+.v-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--v-green);box-shadow:0 0 0 3px rgba(92,191,140,.18)}
+.v-eyebrow .dot.off{background:var(--v-amber);box-shadow:0 0 0 3px rgba(224,162,90,.18)}
+.v-hero h1{font-family:var(--font-display);font-weight:500;font-size:clamp(30px,5vw,46px);line-height:1.08;margin:18px 0 10px;letter-spacing:-.015em;text-wrap:balance}
+.v-hero h1 em{font-style:italic;color:var(--v-red)}
+.v-hero p{margin:0 auto;color:var(--v-ink-2);max-width:60ch;font-size:14.5px}
+.composer{position:relative;max-width:780px;margin:0 auto;background:var(--v-panel);border:1px solid var(--v-line-2);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.35);padding:12px 12px 10px}
+.composer:focus-within{border-color:rgba(229,87,79,.55)}
+.scope{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:2px 4px 8px}
+.scope .lab{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--v-ink-3);font-weight:600;margin-right:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;border:1px solid var(--v-line-2);font-size:12px;color:var(--v-ink-2);background:transparent;white-space:nowrap}
+.chip:hover{color:var(--v-ink);border-color:rgba(255,255,255,.3)}
+.chip.on{background:var(--v-ink);color:var(--v-bg);border-color:var(--v-ink);font-weight:600}
+.chip .sw{width:7px;height:7px;border-radius:50%}
+#vq{display:block;width:100%;min-height:76px;max-height:260px;resize:vertical;background:transparent;border:0;outline:0;color:var(--v-ink);font-size:15px;line-height:1.55;padding:6px 6px 8px}
+#vq::placeholder{color:var(--v-ink-3)}
+.c-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--v-line)}
+.srcs{display:flex;gap:5px;flex-wrap:wrap;flex:1;min-width:0}
+.src{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 9px;border-radius:7px;font-size:11.5px;color:var(--v-ink-3);border:1px dashed var(--v-line-2);white-space:nowrap}
+.src i{width:12px;height:12px;border-radius:3px;border:1.5px solid currentColor;display:inline-block;position:relative}
+.src.on{color:var(--v-ink);border-style:solid;background:rgba(255,255,255,.05)}
+.src.on i{background:var(--v-red);border-color:var(--v-red)}
+.src.on i::after{content:"";position:absolute;left:3px;top:0;width:3px;height:7px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.tier{height:30px;border-radius:8px;background:var(--v-bg-2);border:1px solid var(--v-line-2);color:var(--v-ink-2);font-size:12px;padding:0 8px}
+.send{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:10px;background:var(--v-red);color:#fff;font-weight:600;font-size:13px}
+.send:hover{filter:brightness(1.08)}
+.send.stop{background:var(--v-ink);color:var(--v-bg)}
+.send kbd{font-family:var(--font-mono);font-size:10.5px;opacity:.75}
+.quick{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:780px;margin:14px auto 0}
+.qk{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 13px;border-radius:999px;border:1px solid var(--v-line-2);background:rgba(255,255,255,.03);color:var(--v-ink-2);font-size:12.5px}
+.qk:hover{color:var(--v-ink);background:rgba(255,255,255,.07)}
+.qk svg{width:14px;height:14px;color:var(--v-red)}
+.v-note{max-width:780px;margin:10px auto 0;text-align:center;font-size:12px;color:var(--v-ink-3)}
+.thread{max-width:780px;margin:22px auto 0;display:flex;flex-direction:column;gap:14px}
+.msg-u{align-self:flex-end;max-width:85%;background:var(--v-panel-2);border:1px solid var(--v-line);border-radius:14px 14px 4px 14px;padding:10px 14px;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg-u .meta{display:block;font-size:10.5px;color:var(--v-ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.msg-a{display:flex;gap:12px;align-items:flex-start;min-width:0}
+.msg-a .av{flex:0 0 28px;width:28px;height:28px;border-radius:8px;background:var(--v-red-soft);display:grid;place-items:center}
+.msg-a .body{flex:1;min-width:0;font-size:14px;line-height:1.6;color:var(--v-ink)}
+.msg-a .body h4{font-family:var(--font-display);font-weight:500;font-size:17px;margin:14px 0 6px}
+.msg-a .body h4:first-child{margin-top:0}
+.msg-a .body p{margin:0 0 8px}
+.msg-a .body ul,.msg-a .body ol{margin:0 0 8px;padding-left:20px}
+.msg-a .body li{margin:2px 0}
+.msg-a .body code{font-family:var(--font-mono);font-size:12px;background:rgba(255,255,255,.08);padding:1px 5px;border-radius:4px}
+.msg-a .body .tw{overflow-x:auto;margin:6px 0 10px}
+.msg-a .body table{border-collapse:collapse;font-size:12.5px;min-width:100%}
+.msg-a .body th,.msg-a .body td{border-bottom:1px solid var(--v-line);padding:6px 8px;text-align:left;vertical-align:top}
+.msg-a .body th{color:var(--v-ink-3);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.msg-a .think{color:var(--v-ink-3);font-style:italic}
+.msg-a .act{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.msg-a .act button{font-size:11.5px;color:var(--v-ink-3);border:1px solid var(--v-line);border-radius:7px;padding:3px 9px}
+.msg-a .act button:hover{color:var(--v-ink)}
+.msg-a .err{color:var(--v-amber);font-size:12.5px;margin-top:6px}
+.thread-bar{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--v-ink-3)}
+.thread-bar button{font-size:11.5px;letter-spacing:0;text-transform:none;color:var(--v-ink-2);border:1px solid var(--v-line-2);border-radius:999px;padding:3px 10px}
+.v-sec{max-width:1180px;margin:46px auto 0}
+.v-sec-h{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.v-sec-h h2{font-family:var(--font-display);font-weight:500;font-size:24px;margin:0;letter-spacing:-.01em}
+.v-sec-h p{margin:4px 0 0;color:var(--v-ink-3);font-size:12.5px;max-width:62ch}
+.v-sec-h .right{margin-left:auto}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tabs button{height:30px;padding:0 12px;border-radius:999px;font-size:12px;color:var(--v-ink-3);border:1px solid transparent}
+.tabs button:hover{color:var(--v-ink)}
+.tabs button.on{color:var(--v-ink);border-color:var(--v-line-2);background:rgba(255,255,255,.05)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.tcard{display:flex;flex-direction:column;text-align:left;background:var(--v-bg-2);border:1px solid var(--v-line);border-radius:16px;overflow:hidden;min-width:0;transition:transform .15s,border-color .15s}
+.tcard:hover{transform:translateY(-2px);border-color:var(--v-line-2)}
+.tcard .art{position:relative;aspect-ratio:16/10;max-width:100%;overflow:hidden;border-bottom:1px solid var(--v-line)}
+.tcard .art .gl{position:absolute;left:14px;bottom:10px;font-family:var(--font-display);font-size:40px;line-height:1;color:rgba(255,255,255,.92);letter-spacing:-.02em}
+.tcard .art .lb{position:absolute;right:12px;top:10px;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.72);background:rgba(0,0,0,.25);padding:2px 7px;border-radius:999px;backdrop-filter:blur(4px)}
+.tcard .art .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:22px 22px;mask-image:linear-gradient(180deg,#000,transparent 85%);-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%)}
+.a1{background:radial-gradient(70% 90% at 80% 10%,#E5574F,transparent 60%),radial-gradient(60% 80% at 10% 100%,#1F5AA8,transparent 65%),#0B1E3A}
+.a2{background:conic-gradient(from 210deg at 70% 60%,#0A2240,#BC2F2C,#E0A25A,#0A2240)}
+.a3{background:radial-gradient(50% 60% at 30% 30%,#6FA0E0,transparent 70%),radial-gradient(45% 55% at 75% 70%,#5CBF8C,transparent 70%),#0A1A30}
+.a4{background:linear-gradient(135deg,#132B4F 0 40%,#BC2F2C 40% 41%,#132B4F 41% 60%,#E0A25A 60% 61%,#0A1A30 61%)}
+.a5{background:radial-gradient(80% 80% at 50% 120%,#E0A25A,transparent 60%),radial-gradient(60% 70% at 50% -10%,#E5574F,transparent 65%),#091629}
+.a6{background:repeating-linear-gradient(90deg,#0E2240 0 18px,#132B4F 18px 36px),#0E2240}
+.a6::after{content:"";position:absolute;inset:0;background:radial-gradient(40% 60% at 70% 40%,rgba(229,87,79,.55),transparent 70%)}
+.a7{background:radial-gradient(circle at 30% 50%,transparent 0 24px,rgba(111,160,224,.5) 25px 26px,transparent 27px 44px,rgba(111,160,224,.3) 45px 46px,transparent 47px),radial-gradient(60% 80% at 80% 30%,#BC2F2C,transparent 70%),#0A1A30}
+.a8{background:linear-gradient(160deg,#5CBF8C22,transparent 50%),radial-gradient(70% 90% at 90% 90%,#1F5AA8,transparent 60%),#0B1E3A}
+.tcard .tb{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.tcard .tb b{font-size:14px;color:var(--v-ink)}
+.tcard .tb span{font-size:12.5px;color:var(--v-ink-3);line-height:1.45}
+.tcard .tf{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.tcard .tf em{font-style:normal;font-size:10.5px;color:var(--v-ink-2);border:1px solid var(--v-line);padding:1px 7px;border-radius:999px}
+.cos{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:10px}
+.co{background:var(--v-bg-2);border:1px solid var(--v-line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;text-align:left;min-width:0}
+.co .r1{display:flex;align-items:center;gap:8px}
+.co .r1 b{font-size:13.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.co .role{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:4px}
+.role.y{background:rgba(111,160,224,.16);color:var(--v-blue)} .role.d{background:rgba(229,87,79,.16);color:var(--v-red)} .role.o{background:rgba(224,162,90,.16);color:var(--v-amber)} .role.m{background:rgba(92,191,140,.16);color:var(--v-green)}
+.co .ln{font-size:11.5px;color:var(--v-ink-3)}
+.co .st{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--v-ink-2)}
+.co .st i{width:7px;height:7px;border-radius:50%;background:var(--v-ink-3)}
+.co .st i.live{background:var(--v-green)} .co .st i.part{background:var(--v-amber)}
+.co.click{cursor:pointer} .co.click:hover{border-color:var(--v-line-2)}
+.studio{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px}
+@media (max-width:900px){.studio{grid-template-columns:1fr}}
+.pane{background:var(--v-bg-2);border:1px solid var(--v-line);border-radius:16px;padding:14px 16px;min-width:0}
+.pane h3{margin:0 0 4px;font-size:13.5px}
+.pane .s{font-size:12px;color:var(--v-ink-3);margin-bottom:10px}
+.recipe{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:center;padding:10px 0;border-top:1px solid var(--v-line);font-size:12px}
+.recipe .n{background:rgba(255,255,255,.04);border:1px solid var(--v-line);border-radius:8px;padding:7px 9px;color:var(--v-ink-2);min-width:0}
+.recipe .n b{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--v-ink-3);font-weight:600;margin-bottom:2px}
+.recipe .n.c{border-color:rgba(229,87,79,.4);background:var(--v-red-soft);color:var(--v-ink)}
+.recipe .ar{color:var(--v-ink-3)}
+@media (max-width:620px){.recipe{grid-template-columns:1fr}.recipe .ar{display:none}}
+.recipe-h{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:10px;font-size:12.5px;font-weight:600}
+.recipe-h .pill{background:rgba(255,255,255,.07);color:var(--v-ink-2)}
+.recipe-h .pill.live{background:rgba(92,191,140,.16);color:var(--v-green)}
+pre.req{margin:0;background:#040B16;border:1px solid var(--v-line);border-radius:10px;padding:12px 14px;font-family:var(--font-mono);font-size:11.5px;line-height:1.55;color:#C9D6EA;overflow-x:auto;white-space:pre;max-height:340px}
+pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
+.pane .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.pane select{height:30px;border-radius:8px;background:var(--v-bg);border:1px solid var(--v-line-2);color:var(--v-ink-2);font-size:12px;padding:0 8px;max-width:100%}
+.ghostbtn{height:30px;padding:0 11px;border-radius:8px;border:1px solid var(--v-line-2);font-size:12px;color:var(--v-ink-2)}
+.ghostbtn:hover{color:var(--v-ink)}
+
+/* vibe – sekmeler, ekler, oturumlar, kütüphane */
+.vtabs{display:flex;gap:4px;justify-content:center;margin:0 auto 18px;padding:4px;width:max-content;max-width:100%;border:1px solid var(--v-line-2);border-radius:999px;background:rgba(255,255,255,.03)}
+.vtabs button{height:32px;padding:0 14px;border-radius:999px;font-size:12.5px;color:var(--v-ink-3);display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.vtabs button:hover{color:var(--v-ink)}
+.vtabs button.on{background:var(--v-ink);color:var(--v-bg);font-weight:600}
+.vtabs .cnt{font-family:var(--font-mono);font-size:10.5px;padding:1px 6px;border-radius:999px;background:rgba(255,255,255,.12)}
+.vtabs button.on .cnt{background:rgba(6,17,31,.15)}
+.atts{display:flex;gap:6px;flex-wrap:wrap;padding:0 4px 6px}
+.atts:empty{display:none}
+.att{display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 6px 0 9px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid var(--v-line-2);font-size:12px;color:var(--v-ink);max-width:100%}
+.att .nm{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.att .kind{font-family:var(--font-mono);font-size:10px;color:var(--v-ink-3);text-transform:uppercase}
+.att .kind.err{color:var(--v-amber)}
+.att .x{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;color:var(--v-ink-3);font-size:14px;line-height:1}
+.att .x:hover{background:rgba(255,255,255,.1);color:var(--v-ink)}
+.attbtn{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:8px;border:1px solid var(--v-line-2);color:var(--v-ink-2);font-size:12px}
+.attbtn:hover{color:var(--v-ink);background:rgba(255,255,255,.05)}
+.attbtn svg{width:14px;height:14px}
+.tcard .need{position:absolute;left:12px;top:10px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#fff;background:rgba(229,87,79,.85);padding:2px 7px;border-radius:999px}
+.sess-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:1180px;margin:0 auto 14px}
+.sess-h .fil{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.sess{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;max-width:1180px;margin:0 auto}
+.sc{background:var(--v-bg-2);border:1px solid var(--v-line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0;text-align:left;position:relative}
+.sc:hover{border-color:var(--v-line-2)}
+.sc.cur{border-color:rgba(229,87,79,.55)}
+.sc .t1{display:flex;align-items:flex-start;gap:8px}
+.sc .t1 b{font-size:14px;flex:1;min-width:0;line-height:1.35}
+.sc .pin{color:var(--v-ink-3);font-size:14px;line-height:1}
+.sc .pin.on{color:var(--v-amber)}
+.sc .prev{font-size:12.5px;color:var(--v-ink-3);line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.sc .m{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:11px;color:var(--v-ink-3);margin-top:auto}
+.sc .m em{font-style:normal;border:1px solid var(--v-line);padding:1px 7px;border-radius:999px;color:var(--v-ink-2)}
+.sc .m em.ex{border-color:rgba(224,162,90,.5);color:var(--v-amber)}
+.sc .acts{display:flex;gap:6px;flex-wrap:wrap}
+.sc .acts button{font-size:11.5px;color:var(--v-ink-2);border:1px solid var(--v-line);border-radius:7px;padding:3px 9px}
+.sc .acts button:hover{color:var(--v-ink)}
+.sc .acts button.pri{background:var(--v-ink);color:var(--v-bg);border-color:var(--v-ink);font-weight:600}
+.sc.new{border-style:dashed;align-items:center;justify-content:center;text-align:center;min-height:150px;cursor:pointer;color:var(--v-ink-2)}
+.sc.new b{font-size:14px;color:var(--v-ink)} .sc.new span{font-size:12px;color:var(--v-ink-3)}
+.can{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;max-width:1180px;margin:0 auto}
+.can .c{background:rgba(255,255,255,.03);border:1px solid var(--v-line);border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--v-ink-2)}
+.can .c b{display:block;color:var(--v-ink);font-size:13px;margin-bottom:4px}
+.can .c i{font-style:normal;display:block;color:var(--v-ink-3);font-size:11.5px;margin-top:6px;font-family:var(--font-mono)}
+.lib{display:flex;flex-direction:column;gap:8px;max-width:1180px;margin:0 auto}
+.li{background:var(--v-bg-2);border:1px solid var(--v-line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:start}
+.li b{font-size:13.5px}
+.li .m{font-size:11.5px;color:var(--v-ink-3);display:flex;gap:8px;flex-wrap:wrap}
+.li .acts{display:flex;gap:6px;flex-wrap:wrap;grid-column:2;grid-row:1/3}
+.li .acts button{font-size:11.5px;color:var(--v-ink-2);border:1px solid var(--v-line);border-radius:7px;padding:3px 9px}
+.li .body{grid-column:1/3;font-size:13px;color:var(--v-ink-2);line-height:1.55;max-height:240px;overflow:auto;border-top:1px solid var(--v-line);padding-top:8px;margin-top:4px}
+.li .body[hidden]{display:none}
+.li .body h4{font-family:var(--font-display);font-weight:500;font-size:15px;margin:8px 0 4px;color:var(--v-ink)}
+.li .body p{margin:0 0 6px} .li .body ul,.li .body ol{margin:0 0 6px;padding-left:18px}
+.li .body table{border-collapse:collapse;font-size:12px} .li .body th,.li .body td{border-bottom:1px solid var(--v-line);padding:4px 6px;text-align:left}
+.empty{max-width:780px;margin:0 auto;text-align:center;padding:36px 16px;border:1px dashed var(--v-line-2);border-radius:14px;color:var(--v-ink-3);font-size:13px}
+.empty b{display:block;color:var(--v-ink);font-size:15px;margin-bottom:4px}
+.recent .r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:9px 0;border-top:1px solid var(--v-line);font-size:12.5px;align-items:center}
+.recent .r b{font-size:13px;color:var(--v-ink);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent .r span{color:var(--v-ink-3);font-size:11.5px}
+.recent .r button{font-size:11.5px;color:var(--v-ink-2);border:1px solid var(--v-line);border-radius:7px;padding:3px 9px}
+
+@media (max-width:820px){
+  .nav{position:fixed;inset:0 auto 0 0;z-index:20;transform:translateX(-100%);transition:transform .2s;padding-top:env(safe-area-inset-top,0px)}
+  .nav.open{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(4,10,23,.5);z-index:19;display:none}
+  .scrim.open{display:block}
+  .menu-btn{display:inline-flex}
+  .page-h h1{font-size:24px}
+  .v-hero{padding-top:26px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="app" id="app">
+<nav class="nav" id="nav" aria-label="Ana menü">
+  <div class="brand"><div class="mark">M</div><div><div class="name">MTFG</div><div class="sub">Ana Merkez</div></div></div>
+  <div class="client"><div class="lbl">Program</div><div class="cname">Yatırımcıya Dönüşüm 1.0</div><div class="ents" id="progEnts"></div></div>
+
+  <div class="navsec">
+    <button class="ni vibe-ni" data-view="vibe"><span class="k"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l1.6 5.2L15 7l-5.4 1.8L8 14 6.4 8.8 1 7l5.4-1.8z"/></svg></span><span class="t">Vibe Management</span><span class="tag">Claude</span></button>
+  </div>
+
+  <div class="navsec"><div class="h top">MTFG Portföy Yönetimi</div><div class="h">Strateji</div>
+    <button class="ni" data-view="home"><span class="k">00</span><span class="t">Genel Bakış</span></button>
+    <button class="ni" data-view="thesis"><span class="k">01</span><span class="t">Yatırım Tezi</span></button>
+    <button class="ni" data-view="portfolio"><span class="k">02</span><span class="t">Portföy</span><span class="pct" id="pf-count"></span></button>
+  </div>
+  <div class="navsec"><div class="h">İş Geliştirme ve Yatırım</div>
+    <button class="ni" data-view="funnel"><span class="k">03</span><span class="t">İş Geliştirme Funnel'ı</span></button>
+    <button class="ni" data-view="vb"><span class="k">04</span><span class="t">Venture Building</span></button>
+  </div>
+  <div class="navsec"><div class="h">Yatırım Yönetimi</div>
+    <button class="ni" data-view="os"><span class="k">05</span><span class="t">İşletim Sistemi: Üç Sütun</span></button>
+    <button class="ni" data-view="capital"><span class="k">06</span><span class="t">Bütçe, Nakit ve Sermaye</span></button>
+    <button class="ni" data-view="value"><span class="k">07</span><span class="t">Değerleme ve Networth</span></button>
+    <button class="ni" data-view="risk"><span class="k">08</span><span class="t">Risk Yönetimi</span></button>
+  </div>
+  <div class="navsec"><div class="h">Dayanak</div>
+    <button class="ni" data-view="dataroom"><span class="k">09</span><span class="t">Data Room</span></button>
+    <button class="ni" data-view="cadence"><span class="k">10</span><span class="t">Yönetişim Takvimi</span></button>
+  </div>
+
+  <div class="navsec"><div class="h top">Kurumsal Yönetim Panelleri · Juris</div>
+    <button class="ni" data-view="p-onscala"><span class="k">ON</span><span class="t">Onscala</span><span class="pct">Danışmanlık</span></button>
+    <button class="ni" data-view="p-codemag"><span class="k">CM</span><span class="t">Codemag</span><span class="pct">Danışmanlık</span></button>
+  </div>
+  <div class="navfoot">Kaynak sistemler: Notion <b>MTFG Ana Merkezi / Command Center</b> (süreç) · Google Drive (belge) · Mail (iletişim). Belgesiz değer <b>beyan</b> olarak işaretlenir.</div>
+</nav>
+<div class="scrim" id="scrim"></div>
+
+<main class="main" id="main">
+  <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button><div class="crumb" id="crumb"></div><div class="spacer"></div><div class="date" id="today"></div></div>
+  <div id="panelHost"><div class="pload" id="pload">Panel yükleniyor…</div></div>
+  <div class="wrap">
+
+  <!-- VIBE MANAGEMENT -->
+  <section class="view" id="v-vibe">
+    <div class="vibe">
+      <div class="v-glow" aria-hidden="true"></div>
+      <div class="v-hero">
+        <div class="v-eyebrow"><span class="dot off" id="vdot"></span><span id="vstatus">Vibe Management · Claude bağlantısı kontrol ediliyor</span></div>
+        <h1 id="greet">Bugün hangi şirketi <em>ileri</em> taşıyoruz?</h1>
+        <p>Yatırım yaptığımız, danışmanlık verdiğimiz ve operatörlüğünü üstlendiğimiz şirketlerin panel verisi tek komut satırında. Sor, özetlet, mail ve gündem taslağı çıkar.</p>
+      </div>
+
+      <div class="vtabs" role="tablist"><button class="on" data-vtab="studio" role="tab">Stüdyo</button><button data-vtab="sessions" role="tab">Oturumlar <span class="cnt" id="sessCnt">0</span></button><button data-vtab="library" role="tab">Çıktı Kütüphanesi <span class="cnt" id="libCnt">0</span></button></div>
+
+      <div id="vt-studio">
+      <div class="composer" id="composer">
+        <div class="scope" id="scope"><span class="lab">Kapsam</span></div>
+        <div class="scope" id="alan"><span class="lab">Alan</span></div>
+        <label for="vq" style="position:absolute;left:-9999px">İstek</label>
+        <textarea id="vq" rows="3" placeholder="Örn. Onscala'da bu hafta kimden ne bekliyoruz? Sorumlu bazında hatırlatma maillerini hazırla. Dosya ekleyip 'bu formatta Jurisleştir' de diyebilirsin."></textarea>
+        <div class="atts" id="atts"></div>
+        <div class="c-foot">
+          <div class="srcs" id="srcs"></div>
+          <button class="attbtn" id="attBtn" title="Dosya ekle (txt, md, csv, json, pdf, görsel)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10.5 5.5l-4.6 4.6a1.6 1.6 0 002.3 2.3l5-5a3 3 0 00-4.3-4.3l-5.3 5.3a4.4 4.4 0 006.3 6.3l4.4-4.4"/></svg>Dosya ekle</button>
+          <input type="file" id="attIn" multiple hidden accept=".txt,.md,.csv,.json,.html,.pdf,image/png,image/jpeg,image/webp,image/gif">
+          <label for="tier" style="position:absolute;left:-9999px">Model</label>
+          <select id="tier" class="tier" title="Model seviyesi"><option value="quick">Hızlı</option><option value="default" selected>Dengeli</option><option value="complex">Derin</option></select>
+          <button class="send" id="vsend"><span id="vsendT">Çalıştır</span><kbd>⌘↵</kbd></button>
+        </div>
+      </div>
+      <div class="quick" id="quick"></div>
+      <div class="v-note" id="vnote"></div>
+
+      <div class="thread" id="thread" hidden></div>
+
+      <div class="v-sec" id="tpl">
+        <div class="v-sec-h"><div><h2>Şablonlar</h2><p>Tekrarlayan işleri tek tıkla başlatın. Kart, istemi, alanı ve doğru veri kaynaklarını komut satırına yükler. "Dosya gerekir" olanlar eklediğiniz dokümanla çalışır.</p></div>
+          <div class="right tabs" id="ttabs"></div></div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+
+      <div class="v-sec">
+        <div class="v-sec-h"><div><h2>Bağlı şirketler</h2><p>Rolümüz ve veri kaynağı. Canlı veri: kurumsal yönetim paneli bu sayfaya bağlı; kısmi: portföy kaydı ve beyan.</p></div></div>
+        <div class="cos" id="cos"></div>
+      </div>
+
+      <div class="v-sec">
+        <div class="v-sec-h"><div><h2>API Studio</h2><p>Şablonu otomasyona çevirin: tetikleyici → Claude → çıktı. Sağda bu stüdyoda kaydettiğiniz son çıktılar; tamamı Çıktı Kütüphanesi'nde.</p></div></div>
+        <div class="studio">
+          <div class="pane"><h3>Akışlar</h3><div class="s">Bu sayfada çalışanlar ve kurulacak otomasyonlar</div><div id="recipes"></div></div>
+          <div class="pane"><h3>Son çıktılar</h3><div class="s">Yanıt altındaki "Kaydet" ile eklenir · bu tarayıcıda saklanır</div><div class="recent" id="recent"></div></div>
+        </div>
+      </div>
+      </div>
+
+      <div id="vt-sessions" hidden>
+        <div class="sess-h"><div class="fil tabs" id="sfil"></div><button class="ghostbtn" id="sessNew">+ Yeni oturum</button></div>
+        <div class="sess" id="sessGrid"></div>
+        <div class="v-sec"><div class="v-sec-h"><div><h2>Bir oturumda neler yapılır</h2><p>Oturum, bir şirket veya konu etrafında süren çalışma alanıdır: bağlam korunur, çıktılar kütüphaneye kaydedilir, dosyalar eklenir.</p></div></div>
+          <div class="can" id="can"></div></div>
+      </div>
+
+      <div id="vt-library" hidden>
+        <div class="sess-h"><div class="fil tabs" id="lfil"></div><span class="muted" style="font-size:12px;color:var(--v-ink-3)">Kaydedilen çıktılar bu tarayıcıda saklanır; paylaşmak için kopyalayın.</span></div>
+        <div class="lib" id="libList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 00 GENEL BAKIŞ -->
+  <section class="view" id="v-home">
+    <div class="page-h"><div><div class="eyebrow">Yatırımcıya Dönüşüm 1.0</div><h1>Portföy Kokpiti</h1><p>MTFG'nin şirket ve projelerini Private Equity / Family Office mantığıyla tek yerden izler: her varlığın <b>nakit akışına</b> ve <b>değere</b> katkısı, yatırım tezine uyumu ve risk durumu.</p></div>
+      <div class="right"><a class="btn" href="https://app.notion.com/p/971388f8aedc4885b509edc6da7fe208" target="_blank" rel="noopener">Command Center ↗</a><button class="btn primary" data-view="vibe">Vibe Studio'da sor</button></div></div>
+    <div class="tiles">
+      <div class="tile accent"><div class="l">Networth (NAV)</div><div class="v">—</div><div class="d">Değerleme politikası tanımlanınca</div></div>
+      <div class="tile"><div class="l">Nakit Akışı (12 ay)</div><div class="v">—</div><div class="d">Bütçe + fiili; belge bekleniyor</div></div>
+      <div class="tile"><div class="l">Portföy Varlığı</div><div class="v" id="t-assets">—</div><div class="d" id="t-assets-d"></div></div>
+      <div class="tile"><div class="l">Tez Uyum Skoru</div><div class="v" id="t-fit">—</div><div class="d">Portföy ortalaması / 10</div></div>
+      <div class="tile"><div class="l">Açık Yüksek Risk</div><div class="v" id="t-risk">—</div><div class="d">Skor ≥ 16 · risk kaydı</div></div>
+      <div class="tile"><div class="l">Belge Kapsama</div><div class="v" id="t-doc">—</div><div class="d">Dayanaklı Data Room kalemi</div></div>
+    </div>
+    <div class="sec"><div class="sec-h"><h2>Kurumsal yönetim panelleri</h2><span class="meta">Juris danışmanlığındaki müvekkiller · funnel'ın ikinci aşaması</span></div>
+      <div class="grid2" id="pcards"></div></div>
+    <div class="sec"><div class="sec-h"><h2>Nakit akışı × Değer matrisi</h2><span class="meta">Bugün nakit mi üretiyor, yarın değer mi biriktiriyor?</span></div>
+      <div class="card pad"><div class="scroll"><table class="tbl" id="cfv"></table></div>
+      <div class="legend"><span><i style="background:var(--success)"></i>Nakit üretir</span><span><i style="background:var(--info)"></i>Değer biriktirir</span><span><i style="background:var(--warn)"></i>Nakit tüketir (yatırım dönemi)</span><span><i style="background:var(--chart-ghost)"></i>Veri yok</span></div></div></div>
+    <div class="sec grid2">
+      <div class="card pad"><h3>Bu çeyrek karar gündemi</h3><div class="sub">Yatırım Komitesi'ne gidecek maddeler</div><div class="tmpl" id="agenda"></div></div>
+      <div class="card pad"><h3>Sistem sağlığı</h3><div class="sub">İşletim sisteminin üç sütunu</div><div id="health"></div></div>
+    </div>
+  </section>
+
+  <!-- 01 YATIRIM TEZİ -->
+  <section class="view" id="v-thesis">
+    <div class="page-h"><div><div class="eyebrow">01 · Strateji</div><h1>Yatırım Tezi</h1><p>Tepe <b>Yatırım</b>, merkez <b>Değer</b>. İki kenar inovasyon ve teknoloji; taban mal ihracatı, kurumsal yönetim ve hizmet ihracatı. Tez, portföye neyin girip neyin girmeyeceğini belirler.</p></div></div>
+    <div class="thesis">
+      <div class="card pad tri">
+        <svg viewBox="0 0 520 400" role="img" aria-label="Yatırım tezi üçgeni">
+          <path class="ln" d="M260 56 L60 318 L460 318 Z"/>
+          <rect class="bx top" x="200" y="22" width="120" height="40" rx="8"/><text class="t w" x="260" y="47" text-anchor="middle">YATIRIM</text>
+          <rect class="bx mid" x="205" y="165" width="110" height="38" rx="8"/><text class="t" x="260" y="189" text-anchor="middle">DEĞER</text>
+          <text class="ed" x="120" y="190" transform="rotate(-53 120 190)" text-anchor="middle">İnovasyon</text>
+          <text class="ed" x="400" y="190" transform="rotate(53 400 190)" text-anchor="middle">Teknoloji</text>
+          <rect class="bx" x="20" y="300" width="110" height="38" rx="8"/><text class="t" x="75" y="324" text-anchor="middle">Mal</text>
+          <rect class="bx" x="165" y="300" width="190" height="38" rx="8"/><text class="t" x="260" y="324" text-anchor="middle">Kurumsal Yönetim</text>
+          <rect class="bx" x="390" y="300" width="110" height="38" rx="8"/><text class="t" x="445" y="324" text-anchor="middle">Hizmet</text>
+          <text class="ed" x="75" y="358" text-anchor="middle">İhracat</text>
+          <text class="ed" x="260" y="358" text-anchor="middle">Hukuk · Vergi · Finans · Teşvik</text>
+          <text class="ed" x="445" y="358" text-anchor="middle">İhracat</text>
+          <text class="ed rd" x="75" y="385" text-anchor="middle">Fevup · EuroStep</text>
+          <text class="ed rd" x="260" y="385" text-anchor="middle">Onscala · Codemag · Qervan</text>
+          <text class="ed rd" x="445" y="385" text-anchor="middle">Juris · Marqby · Ariwon</text>
+        </svg>
+      </div>
+      <div class="card pad"><h3>Tez kriterleri</h3><div class="sub">Her aday varlık 6 soruyla puanlanır (0–10). Eşik: ≥ 6 portföye girer, 4–6 izleme, &lt; 4 reddedilir.</div><div class="crit" id="crit"></div></div>
+    </div>
+    <div class="sec"><div class="sec-h"><h2>Tez uyum tablosu</h2><span class="meta">Mevcut portföy, kriterlere göre</span></div><div class="card pad"><div class="scroll"><table class="tbl" id="fit"></table></div></div></div>
+    <div class="sec callout"><div><b>Tez belgesi (dayanak):</b> "MTFG Yatırım Tezi v1.0" – Drive › MTFG › A. Strateji. Henüz yazılmadı; bu sayfa taslağıdır. Yatırım Komitesi onayından sonra <i>Investment Policy Statement</i> olarak sabitlenir ve yılda bir gözden geçirilir.</div></div>
+  </section>
+
+  <!-- 02 PORTFÖY -->
+  <section class="view" id="v-portfolio">
+    <div class="page-h"><div><div class="eyebrow">02 · Strateji</div><h1>Portföy</h1><p>Notion "03. Stratejik Portföy" kaydıyla eşleşir. Pay oranları ve paydaşlar oradan; nakit/değer katkısı ve dayanak belgeler buradan izlenir.</p></div><div class="right"><a class="btn" href="https://app.notion.com/p/991ea5ed5dca4fa5a641dec387cd143b" target="_blank" rel="noopener">Stratejik Portföy (Notion) ↗</a></div></div>
+    <div class="card pad"><div class="scroll"><table class="tbl" id="pf"></table></div></div>
+    <div class="sec grid2">
+      <div class="card pad"><h3>Sahiplik yoğunlaşması</h3><div class="sub">MTFG payı × varlık (cap table'dan)</div><div id="own"></div></div>
+      <div class="card pad"><h3>Kategori dağılımı</h3><div class="sub">Tez tabanına göre</div><div id="cat"></div></div>
+    </div>
+  </section>
+
+  <!-- 03 FUNNEL -->
+  <section class="view" id="v-funnel">
+    <div class="page-h"><div><div class="eyebrow">03 · İş Geliştirme ve Yatırım</div><h1>İş Geliştirme Funnel'ı</h1><p>Müvekkil ilişkisi başlangıç noktasıdır. Hukuk → Kurumsal Yönetim → (Mal/Marka veya Hizmet/SaaS) ilerledikçe ilişki <b>müvekkilden ortaklığa</b> dönüşür. Başarı tanımı: her aşamada bir sonrakine geçiş.</p></div></div>
+    <div class="funnel" id="funnel"></div>
+    <div class="sec"><div class="sec-h"><h2>Dikey matris</h2><span class="meta">+ hizmet veriliyor · ⊕ kendi markası · → genişleme fırsatı · – yok</span></div>
+      <div class="card pad"><div class="scroll"><table class="tbl matrix" id="matrix"></table></div></div></div>
+    <div class="sec callout info"><div><b>Dayanak:</b> Funnel verisi Notion <i>CRM / Müvekkiller</i> ve <i>Projeler</i> tablolarından gelir; ortaklık/opsiyon kayıtları Drive › E. Hukuk › Hissedarlık Sözleşmeleri'ne bağlanır. "Ortaklık" aşamasına geçiş için imzalı sözleşme veya opsiyon planı şarttır.</div></div>
+  </section>
+
+  <!-- 04 VENTURE BUILDING -->
+  <section class="view" id="v-vb">
+    <div class="page-h"><div><div class="eyebrow">04 · İş Geliştirme ve Yatırım</div><h1>Venture Building</h1><p>Funnel'dan çıkan fırsatların şirkete dönüşme hattı. VCP projeleri <b>gate</b>'lerle ilerler; her gate bir karar ve bir belge gerektirir.</p></div></div>
+    <div class="flow">
+      <div class="box"><div class="l">Gate 0 · Fikir / Tez uyumu</div><ul><li>Tez puanı ≥ 6</li><li>Bir sayfalık tez notu</li><li>Sponsor: MTFG</li></ul></div><div class="ar">→</div>
+      <div class="box"><div class="l">Gate 1 · Doğrulama</div><ul><li>Pazar / müşteri kanıtı</li><li>Bütçe tavanı (seed)</li><li>Kurucu / partner anlaşması</li></ul></div><div class="ar">→</div>
+      <div class="box"><div class="l">Gate 2 · Şirketleşme</div><ul><li>Hissedarlık sözleşmesi</li><li>Cap table + opsiyon havuzu</li><li>Command Center'a varlık kaydı</li></ul></div>
+    </div>
+    <div class="sec"><div class="sec-h"><h2>VCP hattı</h2><span class="meta">Durum ve bir sonraki gate</span></div><div class="card pad"><div class="scroll"><table class="tbl" id="vcp"></table></div></div></div>
+    <div class="sec callout"><div><b>100 günlük değer yaratma planı:</b> Gate 2'yi geçen her varlık için "Value Creation Plan" şablonu doldurulur: 3–5 OKR, bütçe, sorumlu, çeyreklik review. Şablon: Drive › MTFG › D. Operasyon › VCP_Template.</div></div>
+  </section>
+
+  <!-- 05 İŞLETİM SİSTEMİ -->
+  <section class="view" id="v-os">
+    <div class="page-h"><div><div class="eyebrow">05 · Yatırım Yönetimi</div><h1>İşletim Sistemi: Üç Sütun</h1><p><b>Beklenti yönetimi</b>, <b>dokümantasyon ve iletişim</b>, <b>karar ve aksiyon</b> iyi işlediğinde doğru girdi ($ ₺ €) doğru çıktıya (nakit akışı, networth) dönüşür.</p></div></div>
+    <div class="pillars">
+      <div class="card pillar"><div class="no">1</div><h3>Beklenti Yönetimi</h3><p>Yatırım · bütçe · borç · finans. Her yıl bütçe; her çeyrek sapma; her varlık için hedef getiri ve ufuk.</p><div class="tmpl">
+        <div class="t">Yıllık Bütçe ve Hedef Seti<span class="f">Sheets · yıllık</span></div>
+        <div class="t">Varlık bazlı beklenti kartı (hedef IRR / nakit)<span class="f">Notion · varlık</span></div>
+        <div class="t">Borç ve yükümlülük takvimi<span class="f">Sheets · aylık</span></div>
+        <div class="t">Sapma analizi (bütçe vs fiili)<span class="f">Sheets · çeyrek</span></div></div></div>
+      <div class="card pillar"><div class="no">2</div><h3>Dokümantasyon ve İletişim</h3><p>Kayıt yoksa olmamıştır: toplantı, mail ve belge üçlüsü. Vibe Studio şablonları bu sütunun hızlandırıcısıdır.</p><div class="tmpl">
+        <div class="t">Toplantı notu şablonu (karar + aksiyon)<span class="f">Notion · toplantı</span></div>
+        <div class="t">Data Room klasör standardı A–F<span class="f">Drive · varlık</span></div>
+        <div class="t">Paydaş / yatırımcı mektubu<span class="f">Docs · çeyrek</span></div>
+        <div class="t">Fırsat kaydı (deal memo, 1 sayfa)<span class="f">Notion · fırsat</span></div></div></div>
+      <div class="card pillar"><div class="no">3</div><h3>Karar ve Aksiyon</h3><p>Resmi · gayriresmi · takip ve kontrol. Kararlar tek yerde, aksiyonlar Notion görevlerinde, kontrol çeyreklik review'da.</p><div class="tmpl">
+        <div class="t">Karar kaydı (Decision Log)<span class="f">Notion · sürekli</span></div>
+        <div class="t">Yatırım Komitesi gündemi ve tutanağı<span class="f">Docs · çeyrek</span></div>
+        <div class="t">Aksiyon takibi (görev DB)<span class="f">Notion · haftalık</span></div>
+        <div class="t">Çeyreklik Portföy Review paketi<span class="f">Bu panel · çeyrek</span></div></div></div>
+    </div>
+    <div class="sec"><div class="sec-h"><h2>Girdi → Sistem → Çıktı</h2></div>
+      <div class="flow">
+        <div class="box"><div class="l">Girdiler</div><ul><li>Sermaye ($ · ₺ · €)</li><li>Zaman (kurucu kapasitesi)</li><li>İlişki / müvekkil ağı</li></ul></div><div class="ar">→</div>
+        <div class="box"><div class="l">Üç sütun</div><ul><li>Beklenti yönetimi</li><li>Dokümantasyon ve iletişim</li><li>Karar ve aksiyon</li></ul></div><div class="ar">→</div>
+        <div class="box"><div class="l">Çıktılar</div><ul><li><b>Nakit akışı</b> (temettü, ücret, danışmanlık)</li><li><b>Networth</b> (equity değeri)</li><li>Yönetilen risk</li></ul></div>
+      </div></div>
+  </section>
+
+  <!-- 06 SERMAYE -->
+  <section class="view" id="v-capital">
+    <div class="page-h"><div><div class="eyebrow">06 · Yatırım Yönetimi</div><h1>Bütçe, Nakit Akışı ve Sermaye Tahsisi</h1><p>Yıllık bütçe tek başına yetmez; <b>sermaye tahsis politikası</b>, <b>likidite rezervi</b> ve <b>döviz sepeti</b> birlikte yönetilir.</p></div></div>
+    <div class="tiles">
+      <div class="tile"><div class="l">Bütçe Yılı</div><div class="v">2027<small>taslak</small></div><div class="d">Onay: Aralık Yatırım Komitesi</div></div>
+      <div class="tile"><div class="l">Likidite rezervi hedefi</div><div class="v">6<small>ay</small></div><div class="d">Sabit giderlerin karşılığı</div></div>
+      <div class="tile"><div class="l">Döviz sepeti</div><div class="v">$ ₺ €</div><div class="d">Hedef oranlar tanımlanacak</div></div>
+      <div class="tile"><div class="l">Yeni yatırım tavanı</div><div class="v">—</div><div class="d">Dağıtılabilir nakdin % olarak</div></div>
+    </div>
+    <div class="sec"><div class="sec-h"><h2>Varlık bazlı nakit akışı planı</h2><span class="meta">Bütçe vs fiili · belge: Sheets "MTFG Bütçe 2027"</span></div><div class="card pad"><div class="scroll"><table class="tbl" id="cash"></table></div></div></div>
+    <div class="sec grid2">
+      <div class="card pad"><h3>Sermaye tahsis kuralları (taslak)</h3><div class="tmpl">
+        <div class="t">Tek varlığa maruziyet ≤ %40 Networth<span class="f">yoğunlaşma limiti</span></div>
+        <div class="t">Yeni VCP'ye seed ≤ dağıtılabilir nakdin %X'i<span class="f">tavan</span></div>
+        <div class="t">Follow-on yalnızca gate geçişinde<span class="f">koşullu sermaye</span></div>
+        <div class="t">Borçla finansman için komite kararı<span class="f">resmi karar</span></div></div></div>
+      <div class="card pad"><h3>Nakit akışı kaynakları</h3><div class="tmpl">
+        <div class="t">Temettü / kâr payı (şirketler)<span class="f">yıllık</span></div>
+        <div class="t">Yönetim ve danışmanlık ücretleri (Juris: Onscala, Codemag · D2-X)<span class="f">aylık</span></div>
+        <div class="t">Hizmet ihracatı gelirleri (Marqby, Ariwon)<span class="f">aylık</span></div>
+        <div class="t">Teşvikler (E-Turquality vb.)<span class="f">dönemsel</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- 07 DEĞERLEME -->
+  <section class="view" id="v-value">
+    <div class="page-h"><div><div class="eyebrow">07 · Yatırım Yönetimi</div><h1>Değerleme ve Networth</h1><p>Her varlık çeyrekte bir <b>değerleme politikasına</b> göre işaretlenir (son tur fiyatı, çarpan, DCF veya maliyet). Networth = Σ (MTFG payı × varlık değeri) − borçlar + likit varlıklar.</p></div></div>
+    <div class="tiles">
+      <div class="tile accent"><div class="l">Networth</div><div class="v">—</div><div class="d">İlk işaretleme sonrası</div></div>
+      <div class="tile"><div class="l">Yatırılan toplam</div><div class="v">—</div><div class="d">Maliyet bazı</div></div>
+      <div class="tile"><div class="l">MOIC</div><div class="v">—<small>x</small></div><div class="d">Değer / maliyet</div></div>
+      <div class="tile"><div class="l">DPI</div><div class="v">—<small>x</small></div><div class="d">Dağıtılan / yatırılan</div></div>
+      <div class="tile"><div class="l">Portföy IRR</div><div class="v">—<small>%</small></div><div class="d">Nakit akışı serisinden</div></div>
+    </div>
+    <div class="sec"><div class="sec-h"><h2>Varlık değerleme tablosu</h2><span class="meta">Belge: Drive › B. Finans › Değerleme › çeyrek dosyası</span></div><div class="card pad"><div class="scroll"><table class="tbl" id="val"></table></div></div></div>
+    <div class="sec grid2">
+      <div class="card pad"><h3>Değerleme politikası (taslak)</h3><div class="tmpl">
+        <div class="t">Son 12 ayda tur varsa → tur fiyatı<span class="f">öncelik 1</span></div>
+        <div class="t">Gelirli şirket → sektör çarpanı × gelir/FAVÖK<span class="f">öncelik 2</span></div>
+        <div class="t">Erken VCP → maliyet bazı (yazılmış sermaye)<span class="f">öncelik 3</span></div>
+        <div class="t">Azınlık paylarında likidite iskontosu %20–30<span class="f">kural</span></div></div></div>
+      <div class="card pad"><h3>Çıkış ve likidite planı</h3><div class="sub">Her varlık için en az bir senaryo</div><div class="tmpl">
+        <div class="t">Temettü / nakit üretici olarak tutma<span class="f">hold</span></div>
+        <div class="t">Stratejik satış / ortak alımı<span class="f">secondary</span></div>
+        <div class="t">Yeni tur ile kısmi çıkış<span class="f">partial</span></div>
+        <div class="t">Kapatma / birleştirme<span class="f">wind-down</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- 08 RİSK -->
+  <section class="view" id="v-risk">
+    <div class="page-h"><div><div class="eyebrow">08 · Yatırım Yönetimi</div><h1>Risk Yönetimi</h1><p>Refahı artırmanın diğer yarısı. Risk kaydı olasılık × etki ile puanlanır; sahibi ve dayanak belgesi vardır.</p></div><div class="right"><button class="btn" data-run="risk">Vibe: Risk Radar</button></div></div>
+    <div class="card pad"><div class="scroll"><table class="tbl risk" id="risks"></table></div></div>
+    <div class="sec callout"><div><b>Yoğunlaşma uyarısı:</b> Kurucu zamanı tek kişide toplanıyor; "key person" riski portföyün tamamını etkiler. Yedekleme ve yetki devri (Gülşah / İcra Kurulu) planı ayrı başlık olarak izlenir.</div></div>
+  </section>
+
+  <!-- 09 DATA ROOM -->
+  <section class="view" id="v-dataroom">
+    <div class="page-h"><div><div class="eyebrow">09 · Dayanak</div><h1>Dayanak Dokümanlar / Data Room</h1><p>Panelin her sayısı bir belgeye bağlanır. Klasör standardı Kurumsal Yönetim Panelleri'ndeki A–F yapısıyla aynıdır; MTFG seviyesinde bir üst klasör olarak açılır.</p></div><div class="right"><button class="btn" disabled title="MTFG Drive klasörü bağlantısı henüz eklenmedi">Drive klasörü · bağlanacak</button></div></div>
+    <div class="card pad"><div class="scroll"><table class="tbl" id="docs"></table></div></div>
+    <div class="sec callout info"><div><b>Kural:</b> Belge yüklenene kadar değer <span class="pill beyan">beyan</span> olarak gösterilir; belge gelince <span class="pill belge">belge</span>. Panel belgesiz bir sayıyı "doğru" göstermez.</div></div>
+  </section>
+
+  <!-- 10 TAKVİM -->
+  <section class="view" id="v-cadence">
+    <div class="page-h"><div><div class="eyebrow">10 · Dayanak</div><h1>Yönetişim Takvimi</h1><p>Family office'lerin en çok atlanan parçası ritimdir. Karar organı: <b>MTFG Yatırım Komitesi</b> (Ferhan + Gülşah + gerektiğinde dış danışman).</p></div></div>
+    <div class="cadence">
+      <div class="cad"><div class="f">Haftalık</div><b>Aksiyon kontrolü</b><p>Notion görev DB; açık aksiyonlar, gecikenler. Vibe: "Haftalık Portföy Brifingi". 30 dk.</p></div>
+      <div class="cad"><div class="f">Aylık</div><b>Nakit akışı kapanışı</b><p>Varlık bazlı fiili nakit, borç takvimi, rezerv kontrolü.</p></div>
+      <div class="cad"><div class="f">Çeyreklik</div><b>Portföy Review + Yatırım Komitesi</b><p>Değerleme, tez uyumu, risk kaydı, gate kararları, paydaş mektubu.</p></div>
+      <div class="cad"><div class="f">Yıllık</div><b>Strateji ve bütçe</b><p>Tez gözden geçirme, bütçe onayı, sermaye tahsis kuralları, çıkış senaryoları.</p></div>
+      <div class="cad"><div class="f">Olay bazlı</div><b>Fırsat / deal memo</b><p>Ortaklık aşamasına geçen her ilişki için 1 sayfalık memo ve komite kararı.</p></div>
+      <div class="cad"><div class="f">Yıllık</div><b>Yapı ve süreklilik</b><p>Holding yapısı, vergi, miras ve yetki devri kontrolü.</p></div>
+    </div>
+  </section>
+
+  </div>
+  <div id="frameStash" aria-hidden="true"></div>
+</main>
+</div>
+
+<script>
+/* ======= VERİ — Notion "03. Stratejik Portföy" + Yatırımcıya Dönüşüm 1.0 ======= */
+const ASSETS = [
+  {code:"FEVUP", name:"Fevup Brands", cls:"Şirket", cat:"Mal İhracatı", stake:44.1, others:"Mercan Kimya A.Ş. %51 · Burak Derelli %4,9", cf:"consume", eq:"build", fit:[8,9,8,7,6,7], doc:"belge", docName:"Hissedarlık sözleşmesi", gate:null, val:"çarpan", note:"Non-compete kapsamı"},
+  {code:"JURİS", name:"Juris Avukatlık Ortaklığı", cls:"Şirket", cat:"Hizmet İhracatı", stake:100, others:"—", cf:"produce", eq:"hold", fit:[7,6,9,9,8,9], doc:"belge", docName:"Ortaklık sözleşmesi", gate:null, val:"çarpan", note:"Funnel'ın giriş kapısı · Onscala, Codemag danışmanlığı"},
+  {code:"MRQ", name:"Marqby", cls:"Şirket", cat:"Hizmet İhracatı", stake:44.1, others:"Beyza Ece %18,9 · Burak Dereli %15,3 · Y. E. Dinç %11,7 · Albaraka SGlobe GSYF %10", cf:"consume", eq:"build", fit:[9,9,8,8,7,6], doc:"belge", docName:"Hissedarlık sözleşmesi", gate:null, val:"son tur", note:"Non-compete kapsamı"},
+  {code:"D2-X", name:"D2-X", cls:"VCP Projesi", cat:"Mal İhracatı", stake:100, others:"—", cf:"produce", eq:"build", fit:[7,8,8,6,7,8], doc:"beyan", docName:"Yapı kararı bekliyor", gate:"Gate 1", val:"maliyet", note:"Operating partner modeli"},
+  {code:"ARW", name:"Ariwon", cls:"VCP Projesi", cat:"Hizmet İhracatı", stake:50, others:"Sergey Ryskin %55 (Notion kaydı; toplam >%100 – düzeltilmeli)", cf:"consume", eq:"build", fit:[8,9,7,5,6,5], doc:"beyan", docName:"Ortaklık belgesi yok", gate:"Gate 1", val:"maliyet", note:"Cap table doğrulama"},
+  {code:"MER", name:"Meridyen", cls:"VCP Projesi", cat:"Yatırım", stake:100, others:"—", cf:"none", eq:"build", fit:[6,8,5,7,8,6], doc:"yok", docName:"—", gate:"Gate 0", val:"maliyet", note:"Finansal varlık yönetimi aracı"},
+  {code:"KAT", name:"Katalist PMO", cls:"VCP Projesi", cat:"Hizmet İhracatı", stake:null, others:"Hüseyin Çiloğlu · Hilmi Doğan", cf:"none", eq:"none", fit:[6,5,7,6,5,7], doc:"yok", docName:"Pay oranı tanımsız", gate:"Gate 0", val:"—", note:"Pay ve rol netleşmeli"},
+  {code:"EUS", name:"EuroStep Digital", cls:"VCP Projesi", cat:"Mal İhracatı", stake:null, others:"Gakırak? (sayfa ②)", cf:"none", eq:"build", fit:[7,6,7,6,6,8], doc:"yok", docName:"Yapı kararı bekliyor", gate:"Gate 0", val:"—", note:"Notion portföyünde henüz yok"},
+  {code:"STD", name:"Standio", cls:"VCP Projesi", cat:"Hizmet İhracatı", stake:null, others:"—", cf:"none", eq:"build", fit:[8,9,6,5,5,6], doc:"yok", docName:"—", gate:"Gate 0", val:"—", note:"Meanm bağlantısı (sayfa ①)"},
+];
+const CRIT = [
+  ["T1","İhracat odaklı mı?","Gelirin anlamlı kısmı yurt dışından (mal veya hizmet) geliyor / gelecek mi?"],
+  ["T2","İnovasyon ve teknoloji kaldıracı var mı?","Yazılım, AI veya süreç inovasyonu ile ölçeklenebilir mi?"],
+  ["T3","Kurumsal yönetim ile değer yaratabilir miyiz?","Hukuk · vergi · finans · teşvik – Juris'in katkısı somut mu?"],
+  ["T4","Nakit akışı yolu net mi?","24 ay içinde MTFG'ye nakit (ücret, temettü) dönme ihtimali"],
+  ["T5","Değer (equity) birikimi var mı?","Çıkış veya tur senaryosu; pay oranı ve koruma hükümleri"],
+  ["T6","Kurucu kapasitesi ve risk uyumu","Zaman, non-compete, yoğunlaşma limitine uyum"],
+];
+const FUNNEL = [
+  {s:"Müvekkil", def:"Hukuk hizmeti alan ilişki. Giriş kapısı Juris.", items:[["Ones","Hukuk"],["ERC","Hukuk"],["Ave","Hukuk"],["Rebelstar?","Hukuk"],["Tetakı?","Hukuk"]]},
+  {s:"Kurumsal Yönetim", def:"Hizmet planı + Data Room ile sürekli danışmanlık; Juris Kurumsal Yönetim Paneli devrede.", items:[["Onscala","Panel aktif","p-onscala"],["Codemag","Panel aktif","p-codemag"],["Qervan–WeTrade","Panel (ayrı)"],["Meanm?","Danışmanlık"],["Kanonel?","Danışmanlık"]]},
+  {s:"Ortaklık / Opsiyon", def:"Kurucu ortaklık, stock option veya hizmet karşılığı pay ile değer biriktirme.", items:[["Onscala","Danışman / opsiyon"],["Ariwon","%50 (doğrulanacak)"],["Katalist PMO","Pay tanımsız"]]},
+  {s:"Venture / Portföy", def:"MTFG'nin kurucu veya çoğunluk ortak olduğu, Command Center'da varlık olarak izlenen işler.", items:[["Juris","%100"],["Fevup","%44,1"],["Marqby","%44,1"],["D2-X","%100"],["Meridyen","%100"]]},
+];
+const MATRIX = [
+  ["Onscala","+","+","→","–"],["Codemag","+","+","–","→"],["Qervan–WeTrade","+","+","→","→"],["Meanm?","+","+","–","→"],["Kanonel?","+","+","–","→"],
+  ["Gakırak? – EuroStep Digital","+","+","⊕","–"],["Fevup","+","+","⊕","–"],["Lyrona?","+","+","–","–"],["Ones","+","–","–","–"],["ERC","+","–","–","–"],["Ave","+","–","–","–"],["Rebelstar?","+","–","–","–"],["Tetakı?","+","–","–","–"],
+];
+const RISKS = [
+  ["R1","Key person – kurucu zamanı yoğunlaşması","Portföy",5,4,"Ferhan","Yetki devri planı","beyan"],
+  ["R2","Non-compete ihlali riski (Fevup / Marqby yatırımcı sözleşmeleri)","Hukuk",3,5,"Juris","Hissedarlık sözleşmeleri","belge"],
+  ["R3","Cap table tutarsızlığı (Ariwon toplam >%100; Katalist pay tanımsız)","Yapı",4,3,"Juris","Notion Stratejik Portföy","belge"],
+  ["R4","Tek varlığa maruziyet (Networth yoğunlaşması)","Finans",3,4,"Yatırım Komitesi","Değerleme dosyası","yok"],
+  ["R5","Kur riski – ₺ gider / $-€ gelir uyumsuzluğu","Finans",4,3,"Finans","Bütçe 2027","yok"],
+  ["R6","Belgesiz karar – toplantı kararlarının kayıt dışı kalması","Yönetişim",4,3,"Gülşah","Decision Log","beyan"],
+  ["R7","VCP projelerinin süresiz 'proje' kalması (gate'siz sermaye tüketimi)","Portföy",4,4,"Yatırım Komitesi","Gate kararları","yok"],
+  ["R8","Danışmanlık müvekkillerinde girdi gecikmesi (Onscala, Codemag Data Room boş) – ücret/değer dengesi","Danışmanlık",4,3,"Juris","Kurumsal Yönetim Panelleri","belge"],
+];
+const DOCS = [
+  ["A","Strateji","MTFG Yatırım Tezi v1.0 (IPS)","Tez, kriterler, eşikler","yok","Yatırım Tezi"],
+  ["A","Strateji","Stratejik Portföy Haritası","Varlık, pay, paydaş","belge","Portföy (Notion)"],
+  ["B","Finans","MTFG Bütçe 2027 + Nakit Akışı","Varlık bazlı bütçe/fiili","yok","Bütçe"],
+  ["B","Finans","Değerleme Politikası ve Çeyrek İşaretleme","NAV, MOIC, IRR","yok","Değerleme"],
+  ["B","Finans","Borç ve Yükümlülük Takvimi","Krediler, taksitler","yok","Sermaye"],
+  ["C","Muhasebe","Yıllık mali tablolar (şirket bazlı)","Gelir, FAVÖK","beyan","Değerleme"],
+  ["D","Operasyon","VCP Value Creation Plan şablonu","OKR, bütçe, sorumlu","yok","Venture Building"],
+  ["D","Operasyon","Kurumsal Yönetim Panelleri (Onscala, Codemag)","Hizmet planı, Data Room durumu","belge","Funnel · Vibe"],
+  ["E","Hukuk","Hissedarlık / ortaklık sözleşmeleri","Pay, koruma, non-compete","belge","Portföy · Risk"],
+  ["E","Hukuk","Stock option / danışman anlaşmaları","Opsiyon hakları","yok","Funnel"],
+  ["F","İletişim","Yatırım Komitesi tutanakları + Decision Log","Kararlar, aksiyonlar","beyan","Karar ve Aksiyon"],
+  ["F","İletişim","Çeyreklik paydaş mektubu","Özet, performans","yok","Takvim"],
+];
+/* Kurumsal yönetim panelleri (aynı artifact içinde ayrı sayfa) */
+const PANELS = {
+  onscala:{name:"Onscala", file:"onscala.html", entity:"Onscala Tasarım ve Modelleme Teknolojileri A.Ş.", since:"22.10.2025", facts:["11 tutanak","13.10 · 14 aksiyon","Borç 36,5 mn TL","Teklif stoğu 10,66 mn TL"], line:"Savunma sanayi maketleri · promosyon · e-ticaret. Öncelik: borç protokolü ve pay sahipliği.",
+    fallback:"Onscala: kick-off 22.10.2025, 11 tutanak. 13.10.2026 toplantısı: 14 aksiyon (6 kritik: borç bütçesi, borç nakit akışı, borç protokolü, Onscala–Çağrı–Nadda cari hesapları, vergi borcu ~2 mn TL, muhasebe mutabakatı), 8 karar bekliyor (2027 ciro senaryosu 40/55/80 mn TL dahil). Toplam borç 36,54 mn TL, aylık ~385k TL borç servisi. Kritik riskler: pay sahipliği sözleşmesi (R1), ortak cari hesap (R2), vergi borcu (R4), nakit akışı (R11). DD klasörü boş."},
+  codemag:{name:"Codemag", file:"codemag.html", entity:"Codemag Yazılım Hizmetleri Ltd. Şti.", since:"04.09.2026", facts:["22 aksiyon","80k TL/ay","128+ hat","Data Room boş"], line:"Serileştirme ve track & trace. Öncelik: 2027 proje bazlı bütçe ve standart proje paketi.",
+    fallback:"Codemag: kick-off 04.09.2026, 22 aksiyon, 16 karar; danışmanlık 80.000 TL/ay. Data Room A–F 16.10.2026'da açıldı, müvekkil belgesi yok. Codemag'dan beklenen: 2027 proje bazlı bütçe, standart proje paketi, örnek proje dokümantasyonu, ödeme planı, task sistemi. Juris'ten beklenen: bütçe/nakit akışı formatları, İş Modeli Bilgi Notu + Soru Seti, İK soru seti. Riskler: standart belge zinciri yok (R1), leasing temerrüt yapısı (R3), proje P&L yok (R8)."},
+};
+
+/* ======= MTFG RENDER ======= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const avg=a=>a.reduce((x,y)=>x+y,0)/a.length;
+const fitScore=a=>+avg(a.fit).toFixed(1);
+const scoreCls=v=>v>=7?"hi":v>=5?"mid":"lo";
+const docPill=d=>`<span class="pill ${d}">${d}</span>`;
+const cfLabel={produce:["ok","Nakit üretir"],consume:["warn","Nakit tüketir"],none:["neu","Veri yok"]};
+const eqLabel={build:["info","Değer biriktirir"],hold:["ok","Değer korur"],none:["neu","Veri yok"]};
+const bar=(v,col)=>`<div class="meter"><div class="bar"><i style="width:${v||0}%;background:${col}"></i></div><span class="n">${v==null?"—":"%"+v.toLocaleString("tr-TR")}</span></div>`;
+const nCo=ASSETS.filter(a=>a.cls==="Şirket").length, nVcp=ASSETS.length-nCo;
+
+function renderHome(){
+  $("#progEnts").innerHTML=`<span class="ent">PE / Family Office</span><span class="ent">${nCo} şirket</span><span class="ent">${nVcp} VCP</span><span class="ent">2 panel</span>`;
+  $("#t-fit").textContent=avg(ASSETS.map(fitScore)).toFixed(1).replace(".",",");
+  $("#t-risk").textContent=RISKS.filter(r=>r[3]*r[4]>=16).length;
+  const docd=DOCS.filter(d=>d[4]==="belge").length; $("#t-doc").innerHTML=`${Math.round(docd/DOCS.length*100)}<small>%</small>`;
+  $("#t-assets").textContent=ASSETS.length; $("#t-assets-d").textContent=`${nCo} şirket · ${nVcp} VCP projesi`;
+  $("#pf-count").textContent=ASSETS.length;
+  $("#pcards").innerHTML=Object.entries(PANELS).map(([id,p])=>`<button class="card pcard" data-view="p-${id}"><div class="top"><b>${p.name}</b><span class="pill red">Danışmanlık</span></div><div class="muted" style="font-size:12.5px">${esc(p.entity)} · başlangıç ${p.since}</div><div style="font-size:12.5px;color:var(--ink-2)">${esc(p.line)}</div><div class="facts">${p.facts.map(f=>`<span>${esc(f)}</span>`).join("")}</div><span class="go">Paneli aç →</span></button>`).join("");
+  $("#cfv").innerHTML=`<tr><th>Varlık</th><th>Sınıf</th><th>Nakit akışı (bugün)</th><th>Değer (yarın)</th><th class="r">Tez uyumu</th><th>Dayanak</th></tr>`+
+    ASSETS.map(a=>`<tr class="row"><td><span class="nm">${a.name}</span> <span class="code">${a.code}</span></td><td class="sm">${a.cls}</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill ${eqLabel[a.eq][0]}">${eqLabel[a.eq][1]}</span></td><td class="r"><span class="score ${scoreCls(fitScore(a))}">${fitScore(a)}</span></td><td>${docPill(a.doc)}</td></tr>`).join("");
+  $("#agenda").innerHTML=[["Yatırım Tezi v1.0'ı onayla (IPS)","Strateji"],["Ariwon ve Katalist cap table'ını doğrula","Yapı"],["D2-X ve EuroStep yapı kararı (Gate 1)","Venture"],["Değerleme politikası + ilk NAV işaretlemesi","Finans"],["2027 bütçesi ve sermaye tahsis tavanları","Finans"],["Onscala ve Codemag: girdi gecikmesi ve ücret/değer dengesi","Danışmanlık"],["Yetki devri planı (key person)","Risk"]]
+    .map(x=>`<div class="t">${x[0]}<span class="f">${x[1]}</span></div>`).join("");
+  $("#health").innerHTML=[["Beklenti yönetimi",35,"Bütçe var, varlık bazlı hedef kartı yok"],["Dokümantasyon ve iletişim",60,"Notion + Drive kuruldu; panellere Vibe Studio bağlandı; Decision Log eksik"],["Karar ve aksiyon",45,"Görev DB aktif; Yatırım Komitesi ritmi yok"]]
+    .map(h=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b>${h[0]}</b><span class="mono muted">${h[1]}%</span></div><div class="bar" style="margin:4px 0"><i style="width:${h[1]}%;background:var(--chart-1)"></i></div><div class="muted" style="font-size:11.5px">${h[2]}</div></div>`).join("");
+}
+function renderThesis(){
+  $("#crit").innerHTML=CRIT.map(c=>`<div class="c"><span class="k">${c[0]}</span><div><b>${c[1]}</b><div class="q">${c[2]}</div></div></div>`).join("");
+  $("#fit").innerHTML=`<tr><th>Varlık</th>${CRIT.map(c=>`<th class="r">${c[0]}</th>`).join("")}<th class="r">Ortalama</th><th>Karar</th></tr>`+
+    ASSETS.map(a=>{const s=fitScore(a);return `<tr class="row"><td class="nm">${a.name}</td>${a.fit.map(v=>`<td class="r mono">${v}</td>`).join("")}<td class="r"><span class="score ${scoreCls(s)}">${s}</span></td><td>${s>=6?'<span class="pill ok">Portföyde</span>':s>=4?'<span class="pill warn">İzleme</span>':'<span class="pill red">Dışarı</span>'}</td></tr>`}).join("")+
+    `<tr><td colspan="9" class="sm muted">Puanlar taslaktır (beyan). Yatırım Komitesi'nde kriter başına tartışılıp sabitlenir.</td></tr>`;
+}
+function renderPortfolio(){
+  $("#pf").innerHTML=`<tr><th>#</th><th>Varlık</th><th>Sınıf</th><th>Kategori</th><th class="r">MTFG payı</th><th>Diğer paydaşlar</th><th>Nakit</th><th>Değer</th><th>Dayanak</th><th>Not</th></tr>`+
+    ASSETS.map((a,i)=>`<tr class="row"><td class="mono muted">${i+1}</td><td><span class="nm">${a.name}</span><br><span class="code">${a.code}</span></td><td class="sm">${a.cls}</td><td class="sm">${a.cat}</td><td class="r mono">${a.stake==null?"—":"%"+a.stake.toLocaleString("tr-TR")}</td><td class="sm">${a.others}</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill ${eqLabel[a.eq][0]}">${eqLabel[a.eq][1]}</span></td><td>${docPill(a.doc)}<div class="sm">${a.docName}</div></td><td class="sm">${a.note}</td></tr>`).join("");
+  $("#own").innerHTML=ASSETS.filter(a=>a.stake!=null).sort((x,y)=>y.stake-x.stake).map(a=>`<div style="margin-bottom:8px"><div style="font-size:12.5px">${a.name}</div>${bar(a.stake,"var(--chart-1)")}</div>`).join("")+`<div class="sm muted" style="font-size:11.5px">Pay oranları Notion kaydından; değer ağırlığı değerleme sonrası eklenir.</div>`;
+  const cats={}; ASSETS.forEach(a=>cats[a.cat]=(cats[a.cat]||0)+1);
+  $("#cat").innerHTML=Object.entries(cats).map(([k,v])=>`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${k}</span><span class="mono muted">${v} varlık</span></div>${bar(Math.round(v/ASSETS.length*100),k==="Yatırım"?"var(--chart-4)":k.startsWith("Mal")?"var(--chart-2)":"var(--chart-3)")}</div>`).join("");
+}
+function renderFunnel(){
+  $("#funnel").innerHTML=FUNNEL.map((f,i)=>`<div class="stage"><div class="h"><b>${i+1}. ${f.s}</b><span class="n">${f.items.length}</span></div><div class="def">${f.def}</div><ul>${f.items.map(x=>`<li${x[2]?` class="go" data-view="${x[2]}" title="Paneli aç"`:""}>${x[0]}<span>${x[1]}${x[2]?" →":""}</span></li>`).join("")}</ul></div>`).join("");
+  const sym=s=>s==="+"?'<span class="plus">+</span>':s==="⊕"?'<span class="plusc">⊕</span>':s==="→"?'<span class="arrow">→</span>':'<span class="minus">–</span>';
+  $("#matrix").innerHTML=`<tr><th>İlişki</th><th style="text-align:center">Hukuk</th><th style="text-align:center">Kurumsal Yönetim</th><th style="text-align:center">Mal / Marka</th><th style="text-align:center">Hizmet / SaaS</th></tr>`+
+    MATRIX.map(m=>`<tr class="row"><td class="nm">${m[0]}</td>${m.slice(1).map(s=>`<td class="c">${sym(s)}</td>`).join("")}</tr>`).join("");
+}
+function renderVB(){
+  const need={"Gate 0":"Tez puanı ≥ 6 + 1 sayfalık tez notu","Gate 1":"Pazar kanıtı + partner anlaşması + seed tavanı","Gate 2":"Hissedarlık sözleşmesi + cap table"};
+  $("#vcp").innerHTML=`<tr><th>Proje</th><th>Kategori</th><th>Mevcut gate</th><th>Sonraki gate için gereken</th><th>Dayanak</th></tr>`+
+    ASSETS.filter(a=>a.gate).map(a=>`<tr class="row"><td class="nm">${a.name}</td><td class="sm">${a.cat}</td><td><span class="pill info">${a.gate}</span></td><td class="sm">${need[a.gate]}</td><td>${docPill(a.doc)}</td></tr>`).join("");
+}
+function renderCapital(){
+  $("#cash").innerHTML=`<tr><th>Varlık</th><th class="r">Bütçe (yıl)</th><th class="r">Fiili (YTD)</th><th class="r">Sapma</th><th>Nakit yönü</th><th>Dayanak</th></tr>`+
+    ASSETS.map(a=>`<tr class="row"><td class="nm">${a.name}</td><td class="r mono muted">—</td><td class="r mono muted">—</td><td class="r mono muted">—</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill yok">yok</span></td></tr>`).join("")+
+    `<tr><td colspan="6" class="sm muted">Sayılar "MTFG Bütçe 2027" Sheets dosyasından çekilecek; dosya oluşturulana kadar tablo boş kalır (belgesiz sayı gösterilmez).</td></tr>`;
+}
+function renderValue(){
+  $("#val").innerHTML=`<tr><th>Varlık</th><th class="r">MTFG payı</th><th>Yöntem</th><th class="r">Varlık değeri</th><th class="r">MTFG payı değeri</th><th class="r">Maliyet</th><th>Dayanak</th></tr>`+
+    ASSETS.map(a=>`<tr class="row"><td class="nm">${a.name}</td><td class="r mono">${a.stake==null?"—":"%"+a.stake.toLocaleString("tr-TR")}</td><td class="sm">${a.val}</td><td class="r mono muted">—</td><td class="r mono muted">—</td><td class="r mono muted">—</td><td><span class="pill yok">yok</span></td></tr>`).join("");
+}
+function renderRisk(){
+  const col=s=>s>=16?"var(--red)":s>=10?"var(--warn)":"var(--success)";
+  $("#risks").innerHTML=`<tr><th>#</th><th>Risk</th><th>Alan</th><th class="r">Olasılık</th><th class="r">Etki</th><th class="r">Skor</th><th>Sahip</th><th>Dayanak</th></tr>`+
+    RISKS.slice().sort((a,b)=>b[3]*b[4]-a[3]*a[4]).map(r=>`<tr class="row"><td class="mono muted">${r[0]}</td><td class="nm">${r[1]}</td><td class="sm">${r[2]}</td><td class="r mono">${r[3]}</td><td class="r mono">${r[4]}</td><td class="r sev"><span class="dotsev" style="background:${col(r[3]*r[4])}"></span>${r[3]*r[4]}</td><td class="sm">${r[5]}</td><td>${docPill(r[7])}<div class="sm">${r[6]}</div></td></tr>`).join("");
+}
+function renderDocs(){
+  $("#docs").innerHTML=`<tr><th>Klasör</th><th>Belge</th><th>İçerik</th><th>Durum</th><th>Beslediği panel</th></tr>`+
+    DOCS.map(d=>`<tr class="row"><td><span class="code">${d[0]}</span> <span class="sm">${d[1]}</span></td><td class="nm">${d[2]}</td><td class="sm">${d[3]}</td><td>${docPill(d[4])}</td><td class="sm">${d[5]}</td></tr>`).join("");
+}
+
+/* ======= PANEL ÇERÇEVELERİ (Onscala / Codemag) ======= */
+const frames={};
+function syncTheme(f){try{const t=document.documentElement.getAttribute("data-theme");const r=f.contentDocument.documentElement;t?r.setAttribute("data-theme",t):r.removeAttribute("data-theme");}catch(e){}}
+function ensureFrame(id){
+  if(frames[id]) return frames[id].ready;
+  const f=document.createElement("iframe"); f.src=PANELS[id].file; f.title=PANELS[id].name+" Kurumsal Yönetim Paneli"; f.hidden=true;
+  const ready=new Promise(res=>{f.addEventListener("load",()=>{syncTheme(f);res(f);},{once:true});setTimeout(()=>res(f),12000);});
+  frames[id]={f,ready}; $("#panelHost").appendChild(f); return ready;
+}
+new MutationObserver(()=>Object.values(frames).forEach(x=>syncTheme(x.f))).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+async function showPanel(id){
+  $("#pload").hidden=false;
+  Object.entries(frames).forEach(([k,x])=>x.f.hidden=k!==id);
+  const f=await ensureFrame(id); if(current!=="p-"+id) return;
+  Object.entries(frames).forEach(([k,x])=>x.f.hidden=k!==id); $("#pload").hidden=true;
+}
+const PANEL_EXTRACT=`(()=>{const c=stats(allItems());const out={sirket:CLIENT.name,unvan:CLIENT.entities,baslangic:CLIENT.kickoff,hizmetPlaniTamamlanma:c.pct+"%",dokumanDurumu:{toplam:c.total,tamamlandi:c.done,onayBekliyor:c.review,devamEdiyor:c.progress,girdiBekleniyor:c.input,baslamadi:c.pending},kisiler:CLIENT.contacts,
+girdiBekleyenler:allItems().flatMap(it=>it.docs.map((d,i)=>({d,s:stOf(it,i),bas:it.title})).filter(x=>x.s==="input").map(x=>({baslik:x.bas,belge:x.d.t,kimden:x.d.owner}))),
+onayBekleyenler:allItems().flatMap(it=>it.docs.map((d,i)=>({d,s:stOf(it,i),bas:it.title})).filter(x=>x.s==="review").map(x=>({baslik:x.bas,belge:x.d.t,kimden:x.d.owner}))),
+riskler:RISKS.map(r=>({id:r.id,risk:r.t,skor:r.p*r.i,kapatanAksiyon:r.ifnot})),
+aksiyonlar:ACTIONS.map(a=>({sahip:a[0],aksiyon:a[1],oncelik:a[2],durum:STATUS[a[4]]})),
+kararlar:DECISIONS.map(d=>({konu:d[0],karar:d[1],durum:d[2]==="done"?"alındı":"bekliyor"})),
+sonToplantilar:MEETINGS.slice(0,3).map(m=>({tarih:m.d,baslik:m.t,teslimEdilemeyen:m.undelivered})),
+okr:OKR[E0].map(o=>({bolum:o.t,hedef:o.o,kr:o.kr.map(k=>k[0]+" ("+k[1]+", %"+k[2]+")")}))};return JSON.stringify(out);})()`;
+async function panelData(id){
+  try{const f=await ensureFrame(id);const txt=f.contentWindow.eval(PANEL_EXTRACT);if(txt)return {src:"canlı panel",txt};}catch(e){}
+  return {src:"özet (panel okunamadı)",txt:PANELS[id].fallback};
+}
+
+/* ======= VIBE MANAGEMENT ======= */
+const SCOPES=[["all","Tüm portföy","#E5574F"],["mtfg","MTFG","#F3F1EA"],["onscala","Onscala","#E0A25A"],["codemag","Codemag","#6FA0E0"],["juris","Juris","#5CBF8C"],["fevup","Fevup","#E5574F"],["marqby","Marqby","#6FA0E0"],["d2x","D2-X","#E0A25A"]];
+const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["docs","MTFG Data Room"],["onscala","Onscala paneli"],["codemag","Codemag paneli"]];
+const ALANLAR=[
+ ["genel","Genel","Konuya en uygun bakış açısını seç."],
+ ["strateji","Strateji","Yatırım tezi (T1–T6), portföy konumlandırması ve odak kararları merceğinden bak; her öneriyi tez kriterine bağla."],
+ ["bd","İş Geliştirme ve Yatırım","Funnel aşamaları (müvekkil → kurumsal yönetim → ortaklık → venture), gate kararları ve deal memo disipliniyle değerlendir."],
+ ["yy","Yatırım Yönetimi","Üç sütun (beklenti · dokümantasyon · karar), nakit akışı, değerleme ve sermaye tahsisi merceğinden bak; belge/beyan ayrımını özellikle vurgula."],
+ ["ops","Operasyon Yönetimi","Aksiyon listeleri, sorumlu/termin, kapasite ve teslim yükümlülükleri merceğinden bak; çıktıyı yürütülebilir görevlere indir."],
+ ["ky","Kurumsal Yönetim","Yönetişim: organ ve yetki eşikleri, RACI, karar kaydı, pay sahipliği ve toplantı ritmi merceğinden değerlendir."],
+ ["hukuk","Hukuk ve Uyum","Sözleşme, DD, KVKK, pay sahipliği ve 'yapılmazsa doğacak risk' diliyle; her tespiti kapatan dokümanla eşle."],
+ ["finans","Finans","Bütçe, nakit akışı, borç yapısı, bilanço ve mizan merceğinden; rakamları yalnızca veriden al, kaynak belgeyi belirt."],
+ ["iletisim","İletişim","Müvekkil ve paydaş iletişimi: e-posta, gündem, tutanak ve hatırlatma formatlarında, kısa ve kurumsal."],
+];
+let scope="all", alan="genel"; const src={portfolio:true,risks:true,docs:false,onscala:true,codemag:true};
+const SCOPE_SRC={all:{portfolio:1,risks:1,docs:0,onscala:1,codemag:1},mtfg:{portfolio:1,risks:1,docs:1,onscala:0,codemag:0},onscala:{portfolio:0,risks:0,docs:0,onscala:1,codemag:0},codemag:{portfolio:0,risks:0,docs:0,onscala:0,codemag:1},juris:{portfolio:1,risks:1,docs:0,onscala:1,codemag:1},fevup:{portfolio:1,risks:1,docs:0,onscala:0,codemag:0},marqby:{portfolio:1,risks:1,docs:0,onscala:0,codemag:0},d2x:{portfolio:1,risks:1,docs:0,onscala:0,codemag:0}};
+
+const TEMPLATES=[
+ {id:"jurisify",cat:"Doküman",art:"a2",gl:"J",lb:"Jurisleştir",title:"Jurisleştir",desc:"Eklediğiniz dokümanı Juris'in kurumsal diline ve yapısına çevirir: başlık düzeni, hukuki netlik, sorumlu ve dayanak satırları.",scope:"juris",alan:"iletisim",out:"Doküman",file:true,
+  prompt:"Eklediğim dokümanı Juris Avukatlık Ortaklığı'nın kurumsal diline ve yapısına çevir ('Jurisleştir'). Kurallar: Türkçe, kurumsal ve net; yapı → Amaç · Kapsam · Tespitler · Değerlendirme · Aksiyonlar (sorumlu + termin) · Dayanak belgeler; hukuki ifadeler sade ama kesin; 'yapılmazsa doğacak risk' dili; jenerik 'müvekkil' yerine kişi/rol. İçeriği yorumlayarak değiştirme, yapıyı ve dili dönüştür. Belirsiz yerleri [teyit edilecek] işaretiyle bırak."},
+ {id:"brandfit",cat:"Doküman",art:"a4",gl:"CI",lb:"Kurumsal kimlik",title:"Kurumsal Kimliğe Uyarla",desc:"Bir kurumsal kimlik kılavuzu + hedef metin ekleyin; metni o markanın ton, terminoloji ve yapı kurallarına göre yeniden yazar.",scope:"all",alan:"iletisim",out:"Doküman",file:true,
+  prompt:"İki dosya ekledim: (1) bir kurumsal kimlik / marka kılavuzu, (2) uyarlanacak metin. Önce kılavuzdan ton, hitap, terminoloji, yapı ve yasak ifadeleri 5 maddede özetle; sonra hedef metni bu kurallara göre yeniden yaz. Hangi dosyanın kılavuz, hangisinin hedef olduğunu dosya adlarından anla; emin değilsen başta belirt."},
+ {id:"byexample",cat:"Doküman",art:"a8",gl:"≡",lb:"Örnek format",title:"Örneğe Göre Yeniden Yaz",desc:"Beğendiğiniz bir örnek dokümanı (başka bir şirketinki olabilir) ekleyin; seçili şirketin panel verisini aynı formatta üretir.",scope:"onscala",alan:"genel",out:"Doküman",file:true,
+  prompt:"Eklediğim dosya bir örnek/şablon dokümandır. Önce formatını çıkar: bölümler, başlık hiyerarşisi, tablo yapıları, uzunluk ve ton. Sonra seçili kapsamdaki şirketin panel verisini kullanarak aynı formatta yeni dokümanı yaz. Örnekteki şirkete ait bilgileri taşıma; yalnızca formatı al. Veride olmayan alanları [veri yok] olarak bırak."},
+ {id:"docreview",cat:"Doküman",art:"a3",gl:"Σ",lb:"Özet + karar",title:"Doküman Özeti ve Karar Notu",desc:"Eklediğiniz tutanak, sözleşme veya raporu özetler; kararlar, aksiyonlar, riskler ve panelle çelişen noktalar.",scope:"all",alan:"ky",out:"Karar notu",file:true,
+  prompt:"Eklediğim dokümanı özetle ve karar notuna çevir: 1) 5 maddelik özet, 2) Kararlar, 3) Aksiyonlar (sahip · termin · öncelik), 4) Riskler ve açık sorular, 5) Panel verisiyle çelişen veya paneli güncellemesi gereken noktalar (hangi panel, hangi satır)."},
+ {id:"brief",cat:"Intelligence",art:"a1",gl:"Brf",lb:"Haftalık · Pzt",title:"Haftalık Portföy Brifingi",desc:"Tüm varlıklar ve iki panelden bu haftanın 5 önceliği, bekleyen kararlar ve kimden ne beklendiği.",scope:"all",alan:"yy",out:"Brifing",
+  prompt:"Haftalık portföy brifingi hazırla. Bölümler: 1) Bu haftanın 5 önceliği (sahip ve son tarih ile), 2) Karar bekleyen konular (şirket bazında), 3) Kimden ne bekliyoruz (kişi/rol bazında tablo), 4) Kırmızı bayraklar (skor ≥ 16 riskler). Maksimum 1 sayfa."},
+ {id:"ic",cat:"Yönetişim",art:"a2",gl:"IC",lb:"Q4 · 2026",title:"Yatırım Komitesi Gündemi",desc:"Çeyreklik IC için gündem, her madde için ön okuma notu ve alınacak karar önerisi.",scope:"mtfg",alan:"ky",out:"Gündem",
+  prompt:"MTFG Yatırım Komitesi için Q4 2026 gündemi hazırla. Her madde için: başlık, neden şimdi, ön okuma (2-3 cümle, veriye dayalı), alınması gereken karar ve dayanak belge (belge/beyan/yok). En fazla 7 madde, önem sırasıyla."},
+ {id:"onscala-mail",cat:"İletişim",art:"a5",gl:"@",lb:"Onscala",title:"Müvekkil Durum Maili",desc:"Onscala yönetimine haftalık durum: teslim ettiklerimiz, beklediklerimiz, gelecek toplantı gündemi.",scope:"onscala",alan:"iletisim",out:"E-posta",
+  prompt:"Onscala yönetimine (Çağrı Aslum, Akif Birdal) Juris adına haftalık durum e-postası taslağı yaz. Konu satırı ile başla. Bölümler: Bu dönem tamamlananlar, Sizden beklediklerimiz (kişi bazında, kritik olanlar önce), Karar bekleyen konular, Sonraki toplantı gündem önerisi. Kurumsal, net, kısa."},
+ {id:"codemag-remind",cat:"İletişim",art:"a3",gl:"↻",lb:"Codemag",title:"Girdi Hatırlatma Seti",desc:"Codemag'da girdi bekleyen kalemleri sorumluya göre gruplayıp ayrı hatırlatma mailleri çıkarır.",scope:"codemag",alan:"iletisim",out:"3–4 e-posta",
+  prompt:"Codemag panelinde 'Girdi Bekleniyor' durumundaki kalemleri sorumlu bazında grupla ve her sorumlu için ayrı kısa hatırlatma e-postası taslağı yaz (Konu + gövde). Ayrıca Juris'in kendi açık aksiyonlarını bir iç not olarak listele."},
+ {id:"risk",cat:"Hukuk & Risk",art:"a6",gl:"R×",lb:"5×5",title:"Risk Radar",desc:"MTFG risk kaydı ile müvekkil risk haritalarını birleştirir; ilk 10 risk ve kapatan aksiyon.",scope:"all",alan:"hukuk",out:"Tablo",
+  prompt:"MTFG risk kaydını ve Onscala/Codemag risk haritalarını birleştir. İlk 10 riski skor sırasıyla tablo olarak ver: şirket, risk, skor, kapatan aksiyon, sahip. Altında 3 maddelik 'bu ay yapılmazsa' uyarısı yaz."},
+ {id:"dataroom",cat:"Hukuk & Risk",art:"a4",gl:"A–F",lb:"Data Room",title:"Data Room Boşluk Analizi",desc:"Her şirket için eksik belge, kimden beklendiği ve DD'ye etkisi.",scope:"all",alan:"hukuk",out:"Kontrol listesi",
+  prompt:"Onscala, Codemag ve MTFG Data Room durumuna göre boşluk analizi yap. Şirket bazında: eksik kritik belgeler, kimden bekleniyor, hangi panel/kararı blokluyor. Sonunda tek bir 'bu hafta talep edilecek belgeler' listesi ver."},
+ {id:"captable",cat:"Yatırım",art:"a8",gl:"%",lb:"Cap table",title:"Cap Table Tutarlılık Kontrolü",desc:"Portföy pay oranlarını tarar; >%100, tanımsız pay ve non-compete çakışmalarını işaretler.",scope:"mtfg",alan:"yy",out:"Bulgu listesi",
+  prompt:"Portföy kaydındaki pay oranlarını ve diğer paydaşları kontrol et. Toplamı %100'ü aşan, pay oranı tanımsız veya belgesi 'yok/beyan' olan varlıkları bulgu listesi olarak ver; her bulgu için düzeltme adımı ve sorumlu öner."},
+ {id:"memo",cat:"Yatırım",art:"a7",gl:"DM",lb:"1 sayfa",title:"Deal Memo",desc:"Bir VCP projesi için tez kriterleri (T1–T6) üzerinden 1 sayfalık yatırım notu ve gate önerisi.",scope:"d2x",alan:"bd",out:"Memo",
+  prompt:"D2-X için 1 sayfalık deal memo yaz: özet, tez uyumu (T1–T6 puanları ve gerekçe), nakit/değer katkısı, riskler, bir sonraki gate için gerekenler ve öneri (ilerle / izle / dur). Veride olmayan rakam kullanma."},
+ {id:"minutes",cat:"Yönetişim",art:"a3",gl:"DL",lb:"Decision Log",title:"Toplantı Notu → Karar Kaydı",desc:"Ham toplantı notunu yapıştırın; kararlar, aksiyonlar (sahip/tarih) ve açık sorular tablosu çıksın.",scope:"all",alan:"ky",out:"Tablo",
+  prompt:"Aşağıya yapıştırdığım toplantı notunu Decision Log formatına çevir: Kararlar (karar, gerekçe, sahip), Aksiyonlar (aksiyon, sahip, son tarih, öncelik), Açık sorular. Not:\n\n[toplantı notunu buraya yapıştırın]"},
+];
+const TCATS=["Tümü","Doküman","Intelligence","İletişim","Yönetişim","Yatırım","Hukuk & Risk"]; let tcat="Tümü";
+const QUICK=[["brief","Haftalık brifing"],["onscala-mail","Onscala durum maili"],["risk","Risk radar"],["ic","IC gündemi"]];
+const COS=[
+ ["Juris","m","Yönetim · %100","Notion · Drive · Mail","part","Danışmanlık hattının operatörü"],
+ ["Onscala","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-onscala"],
+ ["Codemag","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-codemag"],
+ ["Qervan–WeTrade","d","Danışmanlık","Panel ayrı artifact'ta","part",""],
+ ["Fevup","y","Yatırım · %44,1","Portföy kaydı · hissedarlık","part",""],
+ ["Marqby","y","Yatırım · %44,1","Portföy kaydı · hissedarlık","part",""],
+ ["D2-X","o","Operatörlük · %100","Portföy kaydı · beyan","part",""],
+ ["Ariwon · Meridyen · EuroStep · Standio · Katalist","y","VCP hattı","Gate kaydı · beyan","off",""],
+];
+const RECIPES=[
+ {t:"Şablonlar bu sayfada",live:true,a:["Elle · bu sayfa","Şablon seçimi + kapsam"],c:["Claude","Panel verisi bağlam olarak"],o:["Çıktı","Brifing · mail · tablo"]},
+ {t:"Haftalık brifing → mail taslağı",live:false,a:["Her Pazartesi 08:45","Zamanlanmış görev"],c:["Claude","Haftalık Portföy Brifingi"],o:["Gmail taslağı","Ferhan + Gülşah"]},
+ {t:"Toplantı → Decision Log",live:false,a:["Toplantı bitince","Takvim + not"],c:["Claude","Karar kaydı şablonu"],o:["Notion","Command Center · Decision Log"]},
+ {t:"Drive yüklemesi → panel durumu",live:false,a:["Data Room'a belge","Drive klasörü A–F"],c:["Claude","Belge sınıflandırma"],o:["Panel","Durum: girdi → onay"]},
+];
+
+const INSTR=`Sen MTFG Ana Merkez'in Vibe Management stüdyosundaki Claude asistanısın. MTFG, Ferhan Yıldızlı'nın PE / family office mantığıyla yönettiği yapıdır: Juris Avukatlık Ortaklığı üzerinden müvekkillere kurumsal yönetim danışmanlığı verir (Onscala, Codemag), Fevup ve Marqby'de yatırımcıdır, D2-X'te operatördür, VCP projelerini gate'lerle yürütür.
+Kurallar:
+- Türkçe yaz; kurumsal, net ve eyleme dönük ol.
+- Yalnızca aşağıdaki VERİ bölümüne dayan. Veride olmayan rakam, tarih veya kişi uydurma; gerekirse "veride yok" de.
+- Belge / beyan / dayanak yok ayrımını koru; beyanı belge gibi sunma.
+- Sorumlu olarak jenerik "müvekkil" yazma; veride hangi kişi veya rol geçiyorsa onu yaz.
+- Markdown kullan: kısa başlıklar, maddeler, gerektiğinde tablo. E-posta taslağı istenirse "Konu:" satırıyla başla.`;
+
+/* ---- durum: oturumlar, kütüphane, ekler (tarayıcıda saklanır) ---- */
+const LSK={sess:"mtfg-vibe-sessions",lib:"mtfg-vibe-library"};
+const lsGet=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch(e){return d;}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const fmtD=d=>new Date(d).toLocaleDateString("tr-TR",{day:"2-digit",month:"short"});
+/* Örnek oturumlar: Claude çıktısı değildir; panel verisinden hazırlanmış kısa örnek içerik */
+const SEED_SESS=[
+ {id:"ex1",title:"Onscala · 13.10 aksiyon turu",scope:"onscala",alan:"ops",pinned:true,example:true,created:Date.now()-3*864e5,msgs:[{q:"13.10 aksiyonlarından kritik olanları sorumlu bazında grupla; bu hafta kimden ne bekliyoruz?",a:"## Kritik aksiyonlar (6)\n\n| Sorumlu | Aksiyon | Çıktı |\n|---|---|---|\n| Çağrı, Akif, Sinem | Borç bütçesi güncellemesi (alacaklı · tutar · vade · kalan) | Borç Bütçesi |\n| Çağrı, Finans | Borç nakit akışı → 2027 bütçesine bağlanması | Borç Nakit Akışı |\n| Juris, Akif, Çağrı | Borç protokolü (mutabakat, takvim) | Borç Protokolü |\n| Juris, Tolga, Çağrı | Onscala–Çağrı–Nadda para hareketleri | Hukuki/mali yapılandırma |\n| Tolga, Çağrı | Vergi borcu (~2 mn TL) dökümü ve taksit planı | Vergi planı |\n| Tolga, Operasyon | Muhasebe kayıtlarının mutabakatı | Düzeltilmiş kayıtlar |\n\n**Bu hafta beklenen:** Mali Müşavir'den vergi dökümü ve mizan; yönetimden güncel borç listesi. Juris tarafında borç protokolü ve PSS revizyon notu açık."}]},
+ {id:"ex2",title:"Codemag · girdi hatırlatma seti",scope:"codemag",alan:"iletisim",pinned:false,example:true,created:Date.now()-5*864e5,msgs:[{q:"Girdi bekleyen kalemleri sorumluya göre grupla ve kısa hatırlatma maili taslakları çıkar.",a:"## Müvekkil Yönetimi (Özgür Gömeç) – 9 kalem\n\n**Konu:** Codemag · Ekim teslimleri için beklediğimiz girdiler\n\nÖzgür Bey, 04.09 kick-off aksiyonlarından aşağıdakiler tarafınızda bekliyor: 2027 proje bazlı bütçe ve nakit akışı, standart proje paketi, örnek proje dokümantasyonu, ödeme planı, proje yönetim programı kararı, görev/yetki matrisi, Data Room yüklemesi. Öncelik: bütçe ve standart paket (Ekim sunumu için).\n\n## Mali Müşavir – 5 kalem\n\n**Konu:** Codemag · DD için mali belgeler\n\n2025 bilanço ve gelir tablosu, 2026 ara dönem mizan, tek düzen hesap planı, finansman/leasing yükümlülükleri, VERBİS için bilanço toplamı.\n\n## Juris iç not\n\nBizden bekleyen: bütçe/nakit akışı formatı, İş Modeli Bilgi Notu + Soru Seti, ödeme planı formatı, İK soru seti."}]},
+ {id:"ex3",title:"MTFG · Q4 Yatırım Komitesi hazırlığı",scope:"mtfg",alan:"yy",pinned:false,example:true,created:Date.now()-8*864e5,msgs:[{q:"IC gündemine girecek ilk 5 maddeyi dayanak durumuyla ver.",a:"1. **Yatırım Tezi v1.0 (IPS) onayı** – dayanak: yok (taslak bu panel)\n2. **Ariwon / Katalist cap table düzeltmesi** – dayanak: Notion Stratejik Portföy (belge); Ariwon toplamı >%100\n3. **D2-X ve EuroStep yapı kararı (Gate 1)** – dayanak: beyan\n4. **Değerleme politikası + ilk NAV** – dayanak: yok\n5. **Onscala / Codemag girdi gecikmesi ve ücret-değer dengesi (R8)** – dayanak: kurumsal yönetim panelleri (belge)\n\nKırmızı bayrak: R1 key person (20) ve R7 gate'siz VCP (16)."}]},
+];
+let sessions=lsGet(LSK.sess,null); if(!Array.isArray(sessions)){sessions=SEED_SESS;lsSet(LSK.sess,sessions);}
+let library=lsGet(LSK.lib,[]); if(!Array.isArray(library))library=[];
+let curSess=null, running=null, sampleP=null, vtab="studio", sfil="all", lfil="all";
+let atts=[]; /* {id,name,kind:'text'|'image'|'pdf',text?,blob?,err?} */
+function getSample(){ if(!sampleP){ sampleP=(window.claude&&window.claude.use?window.claude.use("sample"):Promise.resolve(null)).catch(()=>null);} return sampleP; }
+const scopeName=k=>(SCOPES.find(s=>s[0]===k)||SCOPES[0])[1];
+const alanName=k=>(ALANLAR.find(a=>a[0]===k)||ALANLAR[0])[1];
+
+function renderVibeStatic(){
+  const h=new Date().getHours(); const g=h<11?"Günaydın":h<18?"İyi günler":"İyi akşamlar";
+  $("#greet").innerHTML=`${g} Ferhan. Bugün hangi şirketi <em>ileri</em> taşıyoruz?`;
+  renderScope(); renderSrcs(); renderAtts();
+  $("#quick").innerHTML=QUICK.map(([id,t])=>`<button class="qk" data-tpl="${id}" data-autorun="1"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l1.6 5.2L15 7l-5.4 1.8L8 14 6.4 8.8 1 7l5.4-1.8z"/></svg>${t}</button>`).join("");
+  $("#ttabs").innerHTML=TCATS.map(c=>`<button class="${c===tcat?"on":""}" data-tcat="${c}">${c}</button>`).join("");
+  $("#gallery").innerHTML=TEMPLATES.filter(t=>tcat==="Tümü"||t.cat===tcat).map(t=>`<button class="tcard" data-tpl="${t.id}"><div class="art ${t.art}"><div class="grid"></div>${t.file?`<span class="need">Dosya gerekir</span>`:""}<span class="lb">${esc(t.lb)}</span><span class="gl">${esc(t.gl)}</span></div><div class="tb"><b>${esc(t.title)}</b><span>${esc(t.desc)}</span><div class="tf"><em>${esc(t.cat)}</em><em>${esc(scopeName(t.scope))}</em><em>${esc(alanName(t.alan))}</em><em>${esc(t.out)}</em></div></div></button>`).join("");
+  $("#cos").innerHTML=COS.map(c=>`<div class="co ${c[5].startsWith("p-")?"click":""}" ${c[5].startsWith("p-")?`data-view="${c[5]}" role="button" tabindex="0"`:""}><div class="r1"><b title="${esc(c[0])}">${esc(c[0])}</b><span class="role ${c[1]}">${{y:"Yatırım",d:"Danışmanlık",o:"Operatör",m:"Yönetim"}[c[1]]}</span></div><div class="ln">${esc(c[2])}</div><div class="st"><i class="${c[4]}"></i>${esc(c[3])}</div>${c[5]&&!c[5].startsWith("p-")?`<div class="ln">${esc(c[5])}</div>`:c[5]?`<div class="ln" style="color:var(--v-blue)">Paneli aç →</div>`:""}</div>`).join("");
+  $("#recipes").innerHTML=RECIPES.map(r=>`<div class="recipe-h"><span>${esc(r.t)}</span><span class="pill ${r.live?"live":""}">${r.live?"Çalışıyor":"Kurulacak"}</span></div><div class="recipe"><div class="n"><b>${esc(r.a[0])}</b>${esc(r.a[1])}</div><span class="ar">→</span><div class="n c"><b>${esc(r.c[0])}</b>${esc(r.c[1])}</div><span class="ar">→</span><div class="n"><b>${esc(r.o[0])}</b>${esc(r.o[1])}</div></div>`).join("");
+  renderRecent(); renderSessions(); renderLibrary(); renderThread();
+}
+function renderScope(){
+  $("#scope").innerHTML=`<span class="lab">Kapsam</span>`+SCOPES.map(([k,t,c])=>`<button class="chip ${k===scope?"on":""}" data-scope="${k}"><span class="sw" style="background:${c}"></span>${t}</button>`).join("");
+  $("#alan").innerHTML=`<span class="lab">Alan</span>`+ALANLAR.map(([k,t,d])=>`<button class="chip ${k===alan?"on":""}" data-alan="${k}" title="${esc(d)}">${t}</button>`).join("");
+}
+function renderSrcs(){ $("#srcs").innerHTML=SOURCES.map(([k,t])=>`<button class="src ${src[k]?"on":""}" data-src="${k}" aria-pressed="${!!src[k]}"><i></i>${t}</button>`).join(""); }
+function setScope(k){ scope=k; const m=SCOPE_SRC[k]||SCOPE_SRC.all; Object.keys(src).forEach(s=>src[s]=!!m[s]); renderScope(); renderSrcs(); }
+function loadTpl(id,autorun){
+  const t=TEMPLATES.find(x=>x.id===id); if(!t) return;
+  setScope(t.scope); alan=t.alan||"genel"; renderScope(); $("#vq").value=t.prompt;
+  if(current!=="vibe") go("vibe"); setVtab("studio");
+  if(t.file&&!atts.length){ $("#composer").scrollIntoView({behavior:"smooth",block:"center"}); $("#vnote").textContent="Bu şablon dosya ile çalışır: önce 'Dosya ekle' ile dokümanı ekleyin, sonra Çalıştır."; $("#attIn").click(); return; }
+  if(autorun) run(); else { $("#composer").scrollIntoView({behavior:"smooth",block:"center"}); $("#vq").focus(); }
+}
+function setVtab(t){ vtab=t; document.querySelectorAll("[data-vtab]").forEach(b=>b.classList.toggle("on",b.dataset.vtab===t)); ["studio","sessions","library"].forEach(k=>$("#vt-"+k).hidden=k!==t); if(t==="sessions")renderSessions(); if(t==="library")renderLibrary(); }
+
+/* ---- dosya ekleri ---- */
+const PDFJS="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", PDFW="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+let pdfP=null; function loadPdf(){ if(!pdfP) pdfP=new Promise((res,rej)=>{if(window.pdfjsLib)return res(window.pdfjsLib);const s=document.createElement("script");s.src=PDFJS;s.onload=()=>{try{window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDFW;}catch(e){}res(window.pdfjsLib);};s.onerror=()=>rej(new Error("pdfjs"));document.head.appendChild(s);}); return pdfP; }
+async function pdfText(file){ const lib=await loadPdf(); const doc=await lib.getDocument({data:await file.arrayBuffer()}).promise; let t=""; const n=Math.min(doc.numPages,60); for(let i=1;i<=n;i++){const pg=await doc.getPage(i);const c=await pg.getTextContent();t+=`\n--- Sayfa ${i} ---\n`+c.items.map(x=>x.str).join(" ");} if(doc.numPages>n)t+=`\n[${doc.numPages-n} sayfa daha okunmadı]`; return t.trim(); }
+async function addFiles(list){
+  for(const f of Array.from(list)){
+    if(atts.length>=8){$("#vnote").textContent="En fazla 8 dosya eklenebilir.";break;}
+    const a={id:uid(),name:f.name,kind:"text",size:f.size}; atts.push(a); renderAtts();
+    try{
+      if(f.type.startsWith("image/")){ a.kind="image"; a.blob=f; }
+      else if(f.type==="application/pdf"||/\.pdf$/i.test(f.name)){ a.kind="pdf"; a.text=await pdfText(f); if(!a.text) a.err="metin çıkmadı (taranmış PDF olabilir)"; }
+      else { if(f.size>2e6) throw new Error("büyük"); a.text=await f.text(); }
+    }catch(e){ a.err=a.kind==="pdf"?"PDF okunamadı – metni yapıştırın veya sayfa görüntüsü ekleyin":"okunamadı"; }
+    renderAtts();
+  }
+}
+function renderAtts(){ $("#atts").innerHTML=atts.map(a=>`<span class="att" title="${esc(a.name)}"><span class="nm">${esc(a.name)}</span><span class="kind ${a.err?"err":""}">${a.err?esc(a.err):a.kind==="image"?"görsel":a.kind==="pdf"?"pdf · "+Math.round((a.text||"").length/1000)+"k":"metin · "+Math.round((a.text||"").length/1000)+"k"}</span><button class="x" data-att="${a.id}" aria-label="Kaldır">×</button></span>`).join(""); }
+
+/* ---- oturumlar ---- */
+function saveSess(){ lsSet(LSK.sess,sessions); $("#sessCnt").textContent=sessions.length; }
+function newSession(title){ const s={id:uid(),title:title||"Yeni oturum",scope,alan,pinned:false,created:Date.now(),msgs:[]}; sessions.unshift(s); curSess=s.id; saveSess(); renderThread(); renderSessions(); return s; }
+function openSession(id){ const s=sessions.find(x=>x.id===id); if(!s)return; curSess=id; setScope(s.scope||"all"); alan=s.alan||"genel"; renderScope(); setVtab("studio"); renderThread(); renderSessions(); $("#composer").scrollIntoView({behavior:"smooth",block:"start"}); }
+function renderSessions(){
+  $("#sessCnt").textContent=sessions.length;
+  const fl=[["all","Tümü"],["pinned","Sabitli"],...SCOPES.slice(1).map(([k,t])=>[k,t])];
+  $("#sfil").innerHTML=fl.map(([k,t])=>`<button class="${k===sfil?"on":""}" data-sfil="${k}">${t}</button>`).join("");
+  const list=sessions.filter(s=>sfil==="all"||(sfil==="pinned"?s.pinned:s.scope===sfil)).sort((a,b)=>(b.pinned-a.pinned)||(b.created-a.created));
+  $("#sessGrid").innerHTML=`<button class="sc new" id="sessNew2"><b>+ Yeni oturum</b><span>Kapsam ve alan seçerek başlayın</span></button>`+list.map(s=>{const last=s.msgs[s.msgs.length-1];return `<div class="sc ${s.id===curSess?"cur":""}"><div class="t1"><b>${esc(s.title)}</b><button class="pin ${s.pinned?"on":""}" data-pin="${s.id}" title="Sabitle">★</button></div><div class="prev">${esc(last?last.q:"Henüz mesaj yok")}</div><div class="m"><em>${esc(scopeName(s.scope))}</em><em>${esc(alanName(s.alan))}</em>${s.example?`<em class="ex">Örnek</em>`:""}<span>${s.msgs.length} mesaj · ${fmtD(s.created)}</span></div><div class="acts"><button class="pri" data-open="${s.id}">Aç</button><button data-ren="${s.id}">Yeniden adlandır</button><button data-del="${s.id}">Sil</button></div></div>`;}).join("");
+  $("#can").innerHTML=[["Şirket odaklı sohbet","Kapsamı Onscala seçin; panel verisi her mesajda bağlam olarak gider, önceki yanıtlar hatırlanır.","Onscala · Operasyon"],["Doküman dönüştürme","Örnek bir rapor veya kılavuz ekleyin; 'bu formatta Jurisleştir' deyin.","Dosya · İletişim"],["Mail ve gündem üretimi","Yanıt altındaki 'E-postaya çevir' ve 'Aksiyonlara çevir' kısayolları.","İletişim · Yönetişim"],["Risk ve DD taraması","Risk Radar ve Data Room Boşluk Analizi şablonları tek tıkla.","Hukuk ve Uyum"],["Kaydet ve paylaş","Beğendiğiniz çıktıyı Kütüphane'ye kaydedin; kopyalayıp Notion'a veya maile taşıyın.","Çıktı Kütüphanesi"],["Alan merceği","Aynı soruyu Finans ve Hukuk merceğiyle sorun; cevap yapısı değişir.","Alan çipleri"]].map(c=>`<div class="c"><b>${c[0]}</b>${c[1]}<i>${c[2]}</i></div>`).join("");
+}
+function renderThread(){
+  const t=$("#thread"); const s=sessions.find(x=>x.id===curSess);
+  if(!s||!s.msgs.length){ t.hidden=!s; t.innerHTML=s?`<div class="thread-bar"><span>Oturum · ${esc(s.title)}</span><button id="vnew">Yeni oturum</button></div>`:""; return; }
+  t.hidden=false;
+  t.innerHTML=`<div class="thread-bar"><span>Oturum · ${esc(s.title)}${s.example?" · örnek içerik":""}</span><button id="vnew">Yeni oturum</button></div>`+s.msgs.map((m,i)=>`<div class="msg-u"><span class="meta">${esc(scopeName(s.scope))} · ${esc(alanName(s.alan))}${m.files?` · ${esc(m.files)}`:""}</span>${esc(m.q)}</div><div class="msg-a"><div class="av">${AV}</div><div class="body">${md(m.a)}${actHTML(i)}</div></div>`).join("");
+}
+function actHTML(i){ return `<div class="act"><button data-copy="${i}">Kopyala</button><button data-save="${i}">Kaydet</button><button data-follow="Bunu daha kısa ve madde madde yap.">Kısalt</button><button data-follow="Bunu e-posta taslağına çevir.">E-postaya çevir</button><button data-follow="Bundan Notion için aksiyon listesi (sahip, tarih, öncelik) çıkar.">Aksiyonlara çevir</button></div>`; }
+
+/* ---- kütüphane ---- */
+function saveLib(){ lsSet(LSK.lib,library); $("#libCnt").textContent=library.length; renderRecent(); }
+function titleOf(txt,q){ const m=txt.match(/^#+\s*(.+)$/m); return (m?m[1]:q).replace(/\*\*/g,"").slice(0,80); }
+function addToLib(i){ const s=sessions.find(x=>x.id===curSess); const m=s&&s.msgs[i]; if(!m)return; library.unshift({id:uid(),title:titleOf(m.a,m.q),scope:s.scope,alan:s.alan,date:Date.now(),text:m.a,sess:s.title}); saveLib(); renderLibrary(); $("#vnote").textContent="Çıktı kütüphaneye kaydedildi."; }
+function renderRecent(){ $("#libCnt").textContent=library.length; $("#recent").innerHTML=library.length?library.slice(0,5).map(l=>`<div class="r"><div><b>${esc(l.title)}</b><span>${esc(scopeName(l.scope))} · ${fmtD(l.date)}</span></div><button data-vtab="library">Aç</button></div>`).join(""):`<div class="s">Henüz kayıtlı çıktı yok. Bir yanıtın altındaki "Kaydet" ile başlayın.</div>`; }
+function renderLibrary(){
+  const fl=[["all","Tümü"],...SCOPES.slice(1).map(([k,t])=>[k,t])];
+  $("#lfil").innerHTML=fl.map(([k,t])=>`<button class="${k===lfil?"on":""}" data-lfil="${k}">${t}</button>`).join("");
+  const list=library.filter(l=>lfil==="all"||l.scope===lfil);
+  $("#libList").innerHTML=list.length?list.map(l=>`<div class="li"><b>${esc(l.title)}</b><div class="m"><span>${esc(scopeName(l.scope))}</span><span>${esc(alanName(l.alan))}</span><span>${fmtD(l.date)}</span><span>${esc(l.sess||"")}</span></div><div class="acts"><button data-lshow="${l.id}">Göster</button><button data-lcopy="${l.id}">Kopyala</button><button data-ldel="${l.id}">Sil</button></div><div class="body" id="lb-${l.id}" hidden>${md(l.text)}</div></div>`).join(""):`<div class="empty"><b>Kütüphane boş</b>Stüdyoda ürettiğiniz bir yanıtın altındaki "Kaydet" düğmesi çıktıyı buraya ekler.</div>`;
+}
+
+async function buildContext(){
+  const parts=[`Bugün: ${new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"})}. Kapsam: ${scopeName(scope)}. Alan merceği: ${alanName(alan)} – ${ALANLAR.find(a=>a[0]===alan)[2]}`]; const used=[];
+  const txtA=atts.filter(a=>a.text); if(txtA.length){ used.push(txtA.length+" dosya"); parts.push("## Yüklenen dosyalar\n"+txtA.map(a=>`### Dosya: ${a.name}\n${a.text.slice(0,60000)}${a.text.length>60000?"\n[kısaltıldı]":""}`).join("\n\n")); }
+  if(src.portfolio){ used.push("Portföy kaydı"); parts.push("## MTFG Portföy kaydı\n"+JSON.stringify(ASSETS.map(a=>({kod:a.code,ad:a.name,sinif:a.cls,kategori:a.cat,mtfgPayi:a.stake,digerPaydaslar:a.others,nakit:cfLabel[a.cf][1],deger:eqLabel[a.eq][1],tezSkoru:fitScore(a),tezPuanlari:a.fit,dayanak:a.doc+" – "+a.docName,gate:a.gate,not:a.note})))+"\nTez kriterleri: "+CRIT.map(c=>c[0]+" "+c[1]).join("; ")+"\nFunnel: "+JSON.stringify(FUNNEL.map(f=>({asama:f.s,iliskiler:f.items.map(x=>x[0]+" ("+x[1]+")")})))); }
+  if(src.risks){ used.push("Risk kaydı"); parts.push("## MTFG Risk kaydı\n"+JSON.stringify(RISKS.map(r=>({id:r[0],risk:r[1],alan:r[2],olasilik:r[3],etki:r[4],skor:r[3]*r[4],sahip:r[5],dayanakBelge:r[6],dayanak:r[7]})))); }
+  if(src.docs){ used.push("MTFG Data Room"); parts.push("## MTFG Data Room\n"+JSON.stringify(DOCS.map(d=>({klasor:d[0]+" "+d[1],belge:d[2],icerik:d[3],durum:d[4],panel:d[5]})))); }
+  for(const id of ["onscala","codemag"]) if(src[id]){ const d=await panelData(id); used.push(PANELS[id].name+" ("+d.src+")"); parts.push(`## ${PANELS[id].name} Kurumsal Yönetim Paneli (${d.src})\n`+d.txt); }
+  return {text:parts.join("\n\n"),used};
+}
+function md(s){
+  const L=esc(s).split("\n"); let o="",ul=false,ol=false,tb=[];
+  const inl=x=>x.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`]+)`/g,"<code>$1</code>");
+  const cl=()=>{if(ul){o+="</ul>";ul=false}if(ol){o+="</ol>";ol=false}};
+  const ft=()=>{if(!tb.length)return;const rows=tb.filter(r=>!/^[\s|:\-]+$/.test(r));o+='<div class="tw"><table>'+rows.map((r,i)=>"<tr>"+r.trim().replace(/^\||\|$/g,"").split("|").map(c=>i?`<td>${inl(c.trim())}</td>`:`<th>${inl(c.trim())}</th>`).join("")+"</tr>").join("")+"</table></div>";tb=[];};
+  for(const l of L){ if(/^\s*\|/.test(l)){cl();tb.push(l);continue} ft(); let m;
+    if(m=l.match(/^#{1,4}\s+(.*)/)){cl();o+=`<h4>${inl(m[1])}</h4>`}
+    else if(m=l.match(/^\s*[-*•]\s+(.*)/)){if(!ul){cl();o+="<ul>";ul=true}o+=`<li>${inl(m[1])}</li>`}
+    else if(m=l.match(/^\s*\d+[.)]\s+(.*)/)){if(!ol){cl();o+="<ol>";ol=true}o+=`<li>${inl(m[1])}</li>`}
+    else if(/^\s*-{3,}\s*$/.test(l)){cl()}
+    else if(!l.trim()){cl()} else {cl();o+=`<p>${inl(l)}</p>`} }
+  cl();ft();return o;
+}
+const AV=`<svg width="15" height="15" viewBox="0 0 200 200" aria-hidden="true"><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#E5574F"/></svg>`;
+const ERR={not_granted:"Bu sayfanın Claude kullanmasına izin verilmedi. İzin verildiğinde şablonlar burada çalışır.",sampling_disabled:"Bu hesapta Claude kullanılamıyor.",rate_limited:"Kısa sürede çok istek gitti veya kullanım sınırına ulaşıldı. Biraz sonra yeniden deneyin.",session_expired:"Oturum süresi doldu; yeniden giriş yapın.",prompt_too_large:"Bağlam çok büyük. Kaynak sayısını azaltın.",refused:"Claude bu isteği yanıtlamadı; isteği farklı ifade edin.",empty_completion:"Yanıt boş döndü; isteği sadeleştirip tekrar deneyin.",upstream_error:"Bağlantı kesildi. Tekrar deneyin."};
+async function run(){
+  if(running){ running.abort(); return; }
+  const q=$("#vq").value.trim(); if(!q){ $("#vq").focus(); return; }
+  const sample=await getSample();
+  let s=sessions.find(x=>x.id===curSess); if(!s||s.example){ s=newSession(q.replace(/\s+/g," ").slice(0,48)+(q.length>48?"…":"")); }
+  else if(!s.msgs.length){ s.title=q.replace(/\s+/g," ").slice(0,48)+(q.length>48?"…":""); s.scope=scope; s.alan=alan; }
+  renderThread(); const t=$("#thread"); t.hidden=false;
+  const fileNames=atts.map(a=>a.name).join(", ");
+  const u=document.createElement("div"); u.className="msg-u"; u.innerHTML=`<span class="meta">${esc(scopeName(scope))} · ${esc(alanName(alan))} · ${esc(SOURCES.filter(([k])=>src[k]).map(([,l])=>l).join(", ")||"kaynak yok")}${fileNames?" · "+esc(fileNames):""}</span>${esc(q)}`; t.appendChild(u);
+  const a=document.createElement("div"); a.className="msg-a"; a.innerHTML=`<div class="av">${AV}</div><div class="body"><div class="think">Veriler toplanıyor…</div></div>`; t.appendChild(a);
+  const body=a.querySelector(".body"); u.scrollIntoView({behavior:"smooth",block:"start"});
+  $("#vq").value="";
+  if(!sample){ body.innerHTML=`<div class="err">Bu görünümde Claude bağlantısı yok (sayfa claude.ai dışında açılmış olabilir). İstem kopyalanabilir:</div><pre class="req" style="margin-top:8px;white-space:pre-wrap">${esc(q)}</pre>`; return; }
+  const ctl=new AbortController(); running=ctl; $("#vsendT").textContent="Durdur"; $("#vsend").classList.add("stop");
+  let answer="";
+  try{
+    const ctx=await buildContext(); body.innerHTML=`<div class="think">Claude düşünüyor… <span style="font-style:normal;opacity:.7">(${esc(ctx.used.join(" · "))})</span></div>`;
+    const turns=[{role:"user",content:INSTR+"\n\nVERİ\n"+ctx.text}];
+    s.msgs.slice(-4).forEach(h=>{turns.push({role:"user",content:h.q});turns.push({role:"assistant",content:h.a});});
+    turns.push({role:"user",content:q});
+    const opts={signal:ctl.signal,modelTier:$("#tier").value,cache:false,onText:({text})=>{answer=text;body.innerHTML=md(text);}};
+    const imgs=atts.filter(x=>x.kind==="image"&&x.blob).map(x=>x.blob);
+    if(imgs.length){ const lim=await sample.limits().catch(()=>null); if(lim&&lim.images) opts.images=imgs.slice(0,lim.images.maxCount); else $("#vnote").textContent="Görseller bu görünümde gönderilemiyor; metin dosyaları kullanıldı."; }
+    const r=await sample(turns,opts);
+    answer=r.text; body.innerHTML=md(answer)+(r.truncated?`<div class="err">Yanıt uzunluk sınırında kesildi; isteği bölün.</div>`:"");
+  }catch(e){
+    const keep=e&&e.text; if(keep){answer=keep;body.innerHTML=md(keep);} else if(e&&e.code==="cancelled"){body.innerHTML=`<div class="think">Durduruldu.</div>`;} else body.innerHTML="";
+    if(!(e&&e.code==="cancelled")) body.insertAdjacentHTML("beforeend",`<div class="err">${esc(ERR[e&&e.code]||ERR.upstream_error)}</div>`);
+  }finally{
+    running=null; $("#vsendT").textContent="Çalıştır"; $("#vsend").classList.remove("stop");
+    if(answer){ s.msgs.push({q,a:answer,files:fileNames||undefined}); saveSess(); body.insertAdjacentHTML("beforeend",actHTML(s.msgs.length-1)); renderSessions(); }
+    atts=[]; renderAtts();
+  }
+}
+function copyText(txt,btn){ const done=()=>{const o=btn.textContent;btn.textContent="Kopyalandı";setTimeout(()=>btn.textContent=o,1400);}; try{navigator.clipboard.writeText(txt).then(done,()=>fallbackCopy(txt,done));}catch(e){fallbackCopy(txt,done);} }
+function fallbackCopy(txt,done){ const ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");done();}catch(e){} ta.remove(); }
+
+/* ======= NAV ======= */
+const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi","p-onscala":"Onscala","p-codemag":"Codemag"};
+let current="vibe";
+function go(v){
+  if(!titles[v]) v="vibe"; current=v; const isPanel=v.startsWith("p-");
+  document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id==="v-"+v));
+  document.querySelectorAll(".ni").forEach(x=>x.classList.toggle("active",x.dataset.view===v));
+  $("#main").classList.toggle("embed",isPanel); $("#main").classList.toggle("vibe-mode",v==="vibe"); $("#app").classList.toggle("rail",isPanel);
+  $("#crumb").innerHTML=v==="vibe"?"<b>Vibe Management</b> · Claude Studio":isPanel?`MTFG · Kurumsal Yönetim Panelleri · <b>${titles[v]}</b>`:`MTFG · Portföy · <b>${titles[v]}</b>`;
+  if(isPanel) showPanel(v.slice(2));
+  closeNav(); if(!isPanel) $("#main").scrollTop=0;
+  try{localStorage.setItem("mtfg-view",v)}catch(e){}
+}
+const navEl=$("#nav"), scrim=$("#scrim");
+function closeNav(){navEl.classList.remove("open");scrim.classList.remove("open");}
+$("#menuBtn").addEventListener("click",()=>{navEl.classList.toggle("open");scrim.classList.toggle("open");});
+scrim.addEventListener("click",closeNav);
+document.querySelectorAll(".nav .ni").forEach(b=>{const t=b.querySelector(".t");if(t)b.title=t.textContent;});
+document.addEventListener("click",e=>{
+  const tp=e.target.closest("[data-tpl]"); if(tp){loadTpl(tp.dataset.tpl,!!tp.dataset.autorun);return;}
+  const rn=e.target.closest("[data-run]"); if(rn){loadTpl(rn.dataset.run,true);return;}
+  const sc=e.target.closest("[data-scope]"); if(sc){setScope(sc.dataset.scope);return;}
+  const al=e.target.closest("[data-alan]"); if(al){alan=al.dataset.alan;renderScope();return;}
+  const sr=e.target.closest("[data-src]"); if(sr){src[sr.dataset.src]=!src[sr.dataset.src];renderSrcs();return;}
+  const tc=e.target.closest("[data-tcat]"); if(tc){tcat=tc.dataset.tcat;renderVibeStatic();return;}
+  const vt=e.target.closest("[data-vtab]"); if(vt){setVtab(vt.dataset.vtab);return;}
+  const ax=e.target.closest("[data-att]"); if(ax){atts=atts.filter(a=>a.id!==ax.dataset.att);renderAtts();return;}
+  const fo=e.target.closest("[data-follow]"); if(fo){$("#vq").value=fo.dataset.follow;run();return;}
+  const cp=e.target.closest("[data-copy]"); if(cp){const s=sessions.find(x=>x.id===curSess);const m=s&&s.msgs[+cp.dataset.copy];if(m)copyText(m.a,cp);return;}
+  const sv=e.target.closest("[data-save]"); if(sv){addToLib(+sv.dataset.save);sv.textContent="Kaydedildi";return;}
+  if(e.target.closest("#vnew")||e.target.closest("#sessNew")||e.target.closest("#sessNew2")){newSession();setVtab("studio");$("#composer").scrollIntoView({behavior:"smooth",block:"center"});$("#vq").focus();return;}
+  const op=e.target.closest("[data-open]"); if(op){openSession(op.dataset.open);return;}
+  const pn=e.target.closest("[data-pin]"); if(pn){const s=sessions.find(x=>x.id===pn.dataset.pin);if(s){s.pinned=!s.pinned;saveSess();renderSessions();}return;}
+  const rnm=e.target.closest("[data-ren]"); if(rnm){const s=sessions.find(x=>x.id===rnm.dataset.ren);if(!s)return;const card=rnm.closest(".sc");const b=card.querySelector(".t1 b");if(card.querySelector("input"))return;const inp=document.createElement("input");inp.value=s.title;inp.style.cssText="width:100%;background:transparent;border:1px solid var(--v-line-2);border-radius:6px;color:inherit;padding:3px 6px;font:inherit";b.replaceWith(inp);inp.focus();const done=()=>{s.title=inp.value.trim()||s.title;saveSess();renderSessions();renderThread();};inp.addEventListener("blur",done);inp.addEventListener("keydown",ev=>{if(ev.key==="Enter")inp.blur();});return;}
+  const dl=e.target.closest("[data-del]"); if(dl){if(dl.dataset.arm){sessions=sessions.filter(x=>x.id!==dl.dataset.del);if(curSess===dl.dataset.del)curSess=null;saveSess();renderSessions();renderThread();}else{dl.dataset.arm="1";dl.textContent="Emin misiniz?";setTimeout(()=>{delete dl.dataset.arm;dl.textContent="Sil";},2500);}return;}
+  const sf=e.target.closest("[data-sfil]"); if(sf){sfil=sf.dataset.sfil;renderSessions();return;}
+  const lf=e.target.closest("[data-lfil]"); if(lf){lfil=lf.dataset.lfil;renderLibrary();return;}
+  const ls=e.target.closest("[data-lshow]"); if(ls){const b=$("#lb-"+ls.dataset.lshow);b.hidden=!b.hidden;ls.textContent=b.hidden?"Göster":"Gizle";return;}
+  const lc=e.target.closest("[data-lcopy]"); if(lc){const l=library.find(x=>x.id===lc.dataset.lcopy);if(l)copyText(l.text,lc);return;}
+  const ld=e.target.closest("[data-ldel]"); if(ld){if(ld.dataset.arm){library=library.filter(x=>x.id!==ld.dataset.ldel);saveLib();renderLibrary();}else{ld.dataset.arm="1";ld.textContent="Emin misiniz?";setTimeout(()=>{delete ld.dataset.arm;ld.textContent="Sil";},2500);}return;}
+  const v=e.target.closest("[data-view]"); if(v){go(v.dataset.view);return;}
+});
+$("#attBtn").addEventListener("click",()=>$("#attIn").click());
+$("#attIn").addEventListener("change",e=>{addFiles(e.target.files);e.target.value="";});
+$("#composer").addEventListener("dragover",e=>{e.preventDefault();$("#composer").style.borderColor="rgba(229,87,79,.7)";});
+$("#composer").addEventListener("dragleave",()=>{$("#composer").style.borderColor="";});
+$("#composer").addEventListener("drop",e=>{e.preventDefault();$("#composer").style.borderColor="";if(e.dataTransfer&&e.dataTransfer.files.length)addFiles(e.dataTransfer.files);});
+document.addEventListener("keydown",e=>{const co=e.target.closest&&e.target.closest(".co.click");if(co&&(e.key==="Enter"||e.key===" ")){e.preventDefault();go(co.dataset.view);}});
+$("#vsend").addEventListener("click",run);
+$("#vq").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();run();}});
+$("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
+
+renderHome();renderThesis();renderPortfolio();renderFunnel();renderVB();renderCapital();renderValue();renderRisk();renderDocs();renderVibeStatic();
+let v0="vibe"; try{v0=localStorage.getItem("mtfg-view")||"vibe"}catch(e){} go(titles[v0]?v0:"vibe");
+getSample().then(s=>{ $("#vdot").classList.toggle("off",!s); $("#vstatus").textContent=s?"Vibe Management · Claude bağlı · 2 panel canlı":"Vibe Management · Claude bu görünümde yok"; $("#vnote").textContent=s?"Panel verisi sadece istek anında okunur ve Claude'a bağlam olarak gönderilir; ilk çalıştırmada izin istenir.":"Şablonlar istemi hazırlar; Claude bağlantısı claude.ai görünümünde açılır."; });
+</script>
+
+</body></html>

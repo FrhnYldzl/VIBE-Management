@@ -1,5 +1,16 @@
 # Yol Haritası — fazlar ve sürümler
 
+## Ana Merkez (VIBE Management çekirdeği)
+
+| Sürüm | Tema | Kapsam | Durum |
+|---|---|---|---|
+| **v0.2.0** | Birebir alım | `apps/ana-merkez` + `packages/juris-panel-kit` repoda, `npm run ana-merkez` ile çalışır | ✅ |
+| v0.2.x | Paneller | Zyrone, Qervan-Wetrade, Meown AI panellerinin `public/` + `PANELS`'e eklenmesi | 🧭 |
+| v0.3 | Drive senkronu | Data room klasörlerinden durum (done/pending/input) otomatik okuma; dayanak linkleri | 💭 |
+| v0.4 | Çok-müvekkil üretim | `assemble.py` akışını konsoldan çalıştırma; yeni müvekkil = veri bloğu | 💭 |
+
+## Mr. F (venture-building projesi) — aşağıdaki fazlar
+
 Kurucu dokümandaki iş fazları (Faz 1 Katalog+sinyal · Faz 2 Hizmet · Faz 3 Kendi ürünler) **iş**
 fazlarıdır. Aşağıdakiler onları taşıyan **ürün** sürümleridir. Her sürüm bir iterasyondur:
 hedef → yapım → demo → geri bildirim → karar. Ayrıntılı kural: [ITERATION.md](ITERATION.md).
