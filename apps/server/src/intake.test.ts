@@ -62,4 +62,15 @@ describe("intake-lite", () => {
     expect((await noDrive.inject({ method: "POST", url: "/api/intake", payload: { name: "X Y", driveRoot: "https://drive.google.com/drive/folders/ROOTFOLDER12345" } })).statusCode).toBe(503);
     await noDrive.close();
   });
+  it("bozuk GOOGLE_SERVICE_ACCOUNT_JSON sunucuyu düşürmez; hata health ve status'ta görünür", async () => {
+    const prev = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+    process.env.GOOGLE_SERVICE_ACCOUNT_JSON = '{"type":"service_account","project_id":"x","private_key":"-----BEGIN'; // yarım yapıştırma
+    const bad = buildApp({ auth, store: openStore(":memory:"), panelsDir: mkdtempSync(join(tmpdir(), "vibe-bad-")) });
+    const h = (await bad.inject("/api/health")).json();
+    expect(h.ok).toBe(true); expect(h.ortam.GOOGLE_SERVICE_ACCOUNT).toBe(false); expect(h.ortam.GOOGLE_SERVICE_ACCOUNT_HATA).toContain("çözümlenemedi");
+    const s = (await bad.inject("/api/intake/status")).json();
+    expect(s.hazir).toBe(false); expect(s.adimlar[0]).toContain("Anahtar bozuk");
+    await bad.close();
+    if (prev === undefined) delete process.env.GOOGLE_SERVICE_ACCOUNT_JSON; else process.env.GOOGLE_SERVICE_ACCOUNT_JSON = prev;
+  });
 });

@@ -9,11 +9,19 @@ const FOLDER = "application/vnd.google-apps.folder";
 
 /* ---------- kimlik ---------- */
 export function serviceAccountFromEnv(env = process.env) {
-  const raw = env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  // Railway Raw Editor tırnak/boşluk/satır sonu ekleyebilir; ham JSON ya da base64 kabul edilir
+  let raw = (env.GOOGLE_SERVICE_ACCOUNT_JSON ?? "").trim().replace(/^['"]|['"]$/g, "").trim();
   if (!raw) return null;
-  const txt = raw.trim().startsWith("{") ? raw : Buffer.from(raw, "base64").toString("utf8");
-  const sa = JSON.parse(txt);
+  let txt = raw;
+  if (!raw.startsWith("{")) {
+    txt = Buffer.from(raw.replace(/\s+/g, ""), "base64").toString("utf8");
+    if (!txt.trim().startsWith("{")) throw new Error("GOOGLE_SERVICE_ACCOUNT_JSON ne JSON ne geçerli base64 (ilk karakterler: " + raw.slice(0, 12) + "…)");
+  }
+  let sa;
+  try { sa = JSON.parse(txt); } catch (e) { throw new Error("GOOGLE_SERVICE_ACCOUNT_JSON çözümlenemedi: " + e.message + " — JSON eksik/yarım yapıştırılmış olabilir"); }
   if (!sa.client_email || !sa.private_key) throw new Error("Service account JSON eksik: client_email / private_key");
+  // private_key içinde gerçek satır sonları yerine kaçışlı \n gelmiş olabilir (Raw Editor) → düzelt
+  sa.private_key = String(sa.private_key).replace(/\\n/g, "\n");
   return sa;
 }
 

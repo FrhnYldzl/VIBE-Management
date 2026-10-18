@@ -17,9 +17,13 @@ const kit = require(join(KIT, "kit.js")) as { buildFile(data: string, out: strin
 const intake = require(join(KIT, "intake.js")) as { generateDataJs(spec: unknown): string; scanRoot(drive: Drive, rootId: string): Promise<Scan>; slugify(s: string): string };
 
 export interface Drive { list(folderId: string): Promise<{ id: string; name: string; folder: boolean; link?: string; modified?: string }[]> }
+/** Anahtar bozuksa hata metni (servis düşmez; health ve A3'te gösterilir) */
+export let driveConfigError: string | null = null;
 /** Varsayılan Drive istemcisi: GOOGLE_SERVICE_ACCOUNT_JSON → JWT → erişim belirteci (50 dk önbellek) */
 export function driveFromEnv(): (() => Promise<Drive>) | null {
-  const sa = serviceAccountFromEnv();
+  let sa: ReturnType<typeof serviceAccountFromEnv>;
+  try { sa = serviceAccountFromEnv(); driveConfigError = null; }
+  catch (e) { driveConfigError = (e as Error).message; console.warn("INTAKE KAPALI —", driveConfigError); return null; }
   if (!sa) return null;
   let cached: { token: string; at: number } | null = null;
   return async () => {
@@ -46,8 +50,8 @@ export function registerIntake(app: FastifyInstance, store: Store, panelsDir: st
   const publicRow = (p: PanelRow) => ({ ...p, file: `p/${p.slug}.html`, data: `/api/panels/${p.slug}/data` });
 
   app.get("/api/intake/status", async () => ({
-    hazir: Boolean(getDrive), serviceAccount: serviceAccountEmail(), dizin: panelsDir, panel: store.listPanels().length,
-    adimlar: getDrive ? [] : ["GOOGLE_SERVICE_ACCOUNT_JSON ortam değişkenini ekleyin (docs/ops/RAILWAY.md → Google service account)", "Data Room klasörünü service account e-postasıyla 'Görüntüleyen' olarak paylaşın"],
+    hazir: Boolean(getDrive), serviceAccount: serviceAccountEmail(), dizin: panelsDir, panel: store.listPanels().length, hata: driveConfigError,
+    adimlar: getDrive ? [] : driveConfigError ? [`Anahtar bozuk: ${driveConfigError}`, "Railway → Variables → GOOGLE_SERVICE_ACCOUNT_JSON değerini base64 dosyasından tek parça yeniden yapıştırın"] : ["GOOGLE_SERVICE_ACCOUNT_JSON ortam değişkenini ekleyin (docs/ops/RAILWAY.md → Google service account)", "Data Room klasörünü service account e-postasıyla 'Görüntüleyen' olarak paylaşın"],
   }));
   app.get("/api/panels", async () => store.listPanels().map(publicRow));
   app.get<{ Params: { slug: string } }>("/api/panels/:slug/data", async (req, reply) => {
