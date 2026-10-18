@@ -15,6 +15,9 @@ public/
   qervan.html         Juris Kurumsal Yönetim Paneli – Qervan–WeTrade (v4, packages/juris-panels/qervan-wetrade/dist)
   meown.html          Juris Kurumsal Yönetim Paneli – Meown AI (packages/juris-panel-kit ile üretildi)
 
+Süreç katmanı (görev · karar · toplantı) Vibe içindedir; ayrı bir görev aracına (Notion vb.) referans yoktur (kurucu düzeltmesi, 18.10.2026).
+Belge Drive Data Room'da, iletişim mailde kalır. Landing (`apps/server/public/index.html`) kurucunun `landing.html`'idir; CTA'lar `/app/`'e gider.
+
 Panel HTML'leri `packages/juris-panel-kit` tek kitinden üretilir ve `node tools/kit.js all --deploy` (root: `npm run panels`)
 ile buraya kopyalanır — elle düzenleme. PANEL_EXTRACT eksik veri setlerini (ACTIONS/DECISIONS/MEETINGS) boş geçer.
   claude-adapter.js   claude.ai dışında window.claude.use("sample") şimi → /api/sample

@@ -1,54 +1,613 @@
-<!doctype html>
-<html lang="tr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>VIBE Management</title>
-<meta name="description" content="MTFG Ana Merkez — portföy, müvekkil kurumsal yönetim panelleri ve Vibe stüdyosu.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+</head><body>
+<title>Vibe Management</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Juris Kurumsal Kimlik token'ları — Ana Merkez ile aynı */
-:root{--navy:#0A2240;--red:#BC2F2C;--red-ink:#8A1F1D;--bg:#FAFAF7;--bg-elev:#FFFFFF;--bg-sunken:#F3F2EE;--border:rgba(10,34,64,.09);--border-strong:rgba(10,34,64,.18);--ink:#0A2240;--ink-2:rgba(10,34,64,.72);--ink-3:rgba(10,34,64,.52);--font-display:"Playfair Display","Times New Roman",Georgia,serif;--font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;--r-sm:6px;--r-lg:14px;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060F1F;--bg-elev:#0D1B33;--bg-sunken:#040A17;--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.16);--ink:#F2F0EA;--ink-2:rgba(242,240,234,.72);--ink-3:rgba(242,240,234,.5);--red-ink:#E26B68;--navy:#F2F0EA;color-scheme:dark}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
-header{display:flex;align-items:center;gap:12px;padding:20px 28px;border-bottom:1px solid var(--border)}
-.mark{width:36px;height:36px;border-radius:9px;background:var(--red);display:grid;place-items:center;font-family:var(--font-display);font-weight:600;color:#fff}
-.name{font-family:var(--font-display);font-size:20px;line-height:1}.sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
-header nav{margin-left:auto;display:flex;gap:8px}
-.btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 14px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:13px;font-weight:600;background:var(--bg-elev);color:var(--ink);text-decoration:none}
-.btn.primary{background:var(--navy);border-color:var(--navy);color:var(--bg)}
-main{flex:1;max-width:1080px;margin:0 auto;padding:72px 28px 56px;width:100%}
-.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red-ink);font-weight:600;margin-bottom:12px}
-h1{font-family:var(--font-display);font-weight:500;font-size:clamp(34px,5vw,54px);line-height:1.06;letter-spacing:-.015em;margin:0 0 18px;text-wrap:balance;max-width:20ch}
-h1 em{font-style:italic;color:var(--red-ink)}
-.lead{font-size:17px;color:var(--ink-2);max-width:60ch;margin:0 0 28px}
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:56px}.btn.lg{height:42px;padding:0 20px;font-size:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px}
-.card .k{font-family:var(--font-mono);font-size:11px;color:var(--red-ink);letter-spacing:.1em}
-.card h3{font-family:var(--font-display);font-weight:500;font-size:19px;margin:6px 0 6px}.card p{margin:0;color:var(--ink-2);font-size:14px}
-footer{padding:18px 28px;border-top:1px solid var(--border);font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-footer .mono{font-family:var(--font-mono)}
-@media (max-width:640px){header{padding:16px}main{padding:40px 16px}}
+/* Layout: koyu lacivert stüdyo açılışı (ürünün Vibe ekranıyla aynı dünya) → kâğıt beyazı anlatım bantları → koyu vizyon bölümleri. Juris kimliği: Pantone 289C lacivert, 7620C kırmızı; Playfair Display + Inter + JetBrains Mono. */
+:root{
+  --navy:#0A2240; --red:#BC2F2C; --red-ink:#8A1F1D; --coral:#E5574F;
+  --bg:#FAFAF7; --bg-elev:#FFFFFF; --bg-sunken:#F3F2EE;
+  --ink:#0A2240; --ink-2:rgba(10,34,64,.72); --ink-3:rgba(10,34,64,.52); --ink-4:rgba(10,34,64,.36);
+  --border:rgba(10,34,64,.10); --border-strong:rgba(10,34,64,.2); --tint:rgba(10,34,64,.05);
+  --success:#1F7A4E; --warn:#B4701C; --info:#1F5AA8;
+  --d-bg:#06111F; --d-bg-2:#0A1A30; --d-panel:#0E2240; --d-panel-2:#132B4F; --d-line:rgba(255,255,255,.09); --d-line-2:rgba(255,255,255,.17);
+  --d-ink:#F3F1EA; --d-ink-2:rgba(243,241,234,.72); --d-ink-3:rgba(243,241,234,.46);
+  --font-display:"Playfair Display","Times New Roman",Georgia,serif;
+  --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gutter-l:max(16px,env(safe-area-inset-left,0px)); --gutter-r:max(16px,env(safe-area-inset-right,0px));
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0A1628; --bg-elev:#0F1F38; --bg-sunken:#071120;
+  --ink:#F2F0EA; --ink-2:rgba(242,240,234,.74); --ink-3:rgba(242,240,234,.52); --ink-4:rgba(242,240,234,.34);
+  --border:rgba(255,255,255,.09); --border-strong:rgba(255,255,255,.18); --tint:rgba(255,255,255,.05);
+  --red-ink:#E26B68; --success:#4FB07F; --warn:#D9984A; --info:#6FA0E0; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0A1628; --bg-elev:#0F1F38; --bg-sunken:#071120;
+  --ink:#F2F0EA; --ink-2:rgba(242,240,234,.74); --ink-3:rgba(242,240,234,.52); --ink-4:rgba(242,240,234,.34);
+  --border:rgba(255,255,255,.09); --border-strong:rgba(255,255,255,.18); --tint:rgba(255,255,255,.05);
+  --red-ink:#E26B68; --success:#4FB07F; --warn:#D9984A; --info:#6FA0E0; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:500;letter-spacing:-.012em;text-wrap:balance;margin:0}
+.wrap{max-width:1140px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--red-ink)}
+.dark .eyebrow{color:var(--coral)}
+.sec{padding-block:72px}
+.sec-h{max-width:740px;margin-bottom:34px}
+.sec-h h2{font-size:clamp(26px,3.4vw,38px);line-height:1.12;margin:10px 0 12px}
+.sec-h p{margin:0;color:var(--ink-2);font-size:16px;max-width:64ch}
+.dark .sec-h h2{color:var(--d-ink)} .dark .sec-h p{color:var(--d-ink-2)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:10px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--border-strong);color:var(--ink);background:var(--bg-elev);white-space:nowrap}
+.btn:hover{border-color:var(--ink)}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.btn.red:hover{filter:brightness(1.07)}
+.btn.ghost{background:transparent;border-color:var(--d-line-2);color:var(--d-ink)}
+.btn.ghost:hover{background:rgba(255,255,255,.06)}
+.btn kbd{font-family:var(--font-mono);font-size:11px;opacity:.7}
+.mono{font-family:var(--font-mono)}
+
+/* ---------- top bar ---------- */
+.dark{background:var(--d-bg);color:var(--d-ink)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(6,17,31,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--d-line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--d-bg)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo .mark{width:30px;height:30px;border-radius:8px;background:var(--red);display:grid;place-items:center}
+.logo .mark svg{width:16px;height:16px}
+.logo b{font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:-.01em}
+.logo span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--d-ink-3);display:block;line-height:1;margin-top:3px}
+.topnav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.topnav a{font-size:13px;color:var(--d-ink-2);text-decoration:none;padding:7px 10px;border-radius:8px}
+.topnav a:hover{color:var(--d-ink);background:rgba(255,255,255,.06)}
+.ver{font-family:var(--font-mono);font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--d-line-2);color:var(--d-ink-2);white-space:nowrap}
+@media (max-width:860px){.topnav a:not(.cta){display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding-block:72px 84px}
+.hero .glow{position:absolute;inset:-120px 0 auto;height:720px;pointer-events:none;background:radial-gradient(55% 50% at 50% 20%,rgba(229,87,79,.22),transparent 70%),radial-gradient(40% 45% at 15% 50%,rgba(111,160,224,.14),transparent 70%),radial-gradient(35% 40% at 88% 40%,rgba(224,162,90,.10),transparent 70%)}
+.hero .wrap{position:relative;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--d-ink-2);padding:6px 13px;border:1px solid var(--d-line-2);border-radius:999px;background:rgba(255,255,255,.03)}
+.pill i{width:7px;height:7px;border-radius:50%;background:#5CBF8C;box-shadow:0 0 0 3px rgba(92,191,140,.18)}
+.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.04;margin:22px auto 16px;max-width:16ch}
+.hero h1 em{font-style:italic;color:var(--coral)}
+.hero .lede{margin:0 auto;max-width:64ch;color:var(--d-ink-2);font-size:17px}
+.hero .ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.hero .ns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px;font-size:12.5px;color:var(--d-ink-3)}
+.hero .ns b{color:var(--d-ink);font-weight:600}
+
+/* composer demo */
+.demo{max-width:860px;margin:44px auto 0;text-align:left}
+.composer{background:var(--d-panel);border:1px solid var(--d-line-2);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.45);padding:14px 14px 12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:0 4px 8px}
+.chips .lab{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--d-ink-3);font-weight:600;margin-right:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;border:1px solid var(--d-line-2);font-size:12px;color:var(--d-ink-2);white-space:nowrap}
+.chip.on{background:var(--d-ink);color:var(--d-bg);border-color:var(--d-ink);font-weight:600}
+.chip .sw{width:7px;height:7px;border-radius:50%}
+.cq{padding:8px 6px 10px;font-size:15.5px;line-height:1.55;min-height:58px;color:var(--d-ink)}
+.cq .caret{display:inline-block;width:2px;height:1.1em;background:var(--coral);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.cfoot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--d-line)}
+.src{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 9px;border-radius:7px;font-size:11.5px;color:var(--d-ink);border:1px solid var(--d-line-2);background:rgba(255,255,255,.05)}
+.src i{width:11px;height:11px;border-radius:3px;background:var(--coral)}
+.cfoot .send{margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:10px;background:var(--coral);color:#fff;font-weight:600;font-size:13px}
+.answer{margin:14px 10px 0;display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;font-size:14px;color:var(--d-ink-2);line-height:1.6}
+.answer .av{width:28px;height:28px;border-radius:8px;background:rgba(229,87,79,.16);display:grid;place-items:center}
+.answer h4{font-family:var(--font-display);font-weight:500;font-size:16px;color:var(--d-ink);margin:2px 0 6px}
+.answer table{border-collapse:collapse;font-size:12.5px;width:100%;margin:4px 0 8px}
+.answer th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--d-ink-3);text-align:left;padding:5px 8px;border-bottom:1px solid var(--d-line)}
+.answer td{padding:6px 8px;border-bottom:1px solid var(--d-line);vertical-align:top}
+.answer .tw{overflow-x:auto}
+.tag{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--d-line-2);color:var(--d-ink-3);margin-right:4px;white-space:nowrap}
+.tag.b{color:#5CBF8C;border-color:rgba(92,191,140,.4)} .tag.y{color:#E0A25A;border-color:rgba(224,162,90,.4)}
+.demo-tabs{display:flex;gap:4px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.demo-tabs button{height:30px;padding:0 13px;border-radius:999px;font-size:12.5px;color:var(--d-ink-3);border:1px solid transparent}
+.demo-tabs button.on{color:var(--d-ink);border-color:var(--d-line-2);background:rgba(255,255,255,.05)}
+.demo .scene{display:none}.demo .scene.on{display:block}
+.demo-note{text-align:center;font-size:12px;color:var(--d-ink-3);margin-top:12px}
+.strip{border-top:1px solid var(--d-line);border-bottom:1px solid var(--d-line);padding-block:18px}
+.strip .wrap{display:flex;gap:22px;flex-wrap:wrap;align-items:center;justify-content:center;font-size:12.5px;color:var(--d-ink-3)}
+.strip b{color:var(--d-ink-2);font-weight:600}
+.strip .sep{width:1px;height:16px;background:var(--d-line-2)}
+
+/* ---------- north stars ---------- */
+.ns-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.ns-grid{grid-template-columns:1fr}}
+.nscard{background:var(--bg-elev);border:1px solid var(--border);border-radius:16px;padding:22px 22px 20px;min-width:0}
+.nscard .num{font-family:var(--font-display);font-size:40px;line-height:1;color:var(--red-ink)}
+.nscard h3{font-size:19px;margin:10px 0 6px}
+.nscard p{margin:0;color:var(--ink-2);font-size:14px}
+.nscard .feed{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:12.5px;color:var(--ink-3)}
+.nscard .feed b{color:var(--ink);font-weight:600}
+
+/* ---------- flywheel ---------- */
+.fly{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:center}
+@media (max-width:900px){.fly{grid-template-columns:1fr}}
+.fly svg{width:100%;height:auto;display:block;max-width:560px;margin:0 auto}
+.fly .st{font-family:var(--font-body);font-size:12.5px;font-weight:600;fill:var(--ink)}
+.fly .sm{font-family:var(--font-body);font-size:10.5px;fill:var(--ink-3)}
+.fly .num{font-family:var(--font-mono);font-size:10px;fill:var(--red-ink);font-weight:600}
+.fly .ring{fill:none;stroke:var(--border-strong);stroke-width:1.5}
+.fly .arc{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round}
+.fly .node{fill:var(--bg-elev);stroke:var(--border-strong)}
+.fly .node.hot{stroke:var(--red)}
+.fly .core{fill:var(--navy)}
+.fly .coreT{font-family:var(--font-display);font-size:14px;fill:#fff}
+.fly .coreS{font-family:var(--font-body);font-size:9.5px;fill:rgba(255,255,255,.7)}
+.fly ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:f}
+.fly li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:12px}
+.fly li::before{counter-increment:f;content:counter(f,decimal-leading-zero);font-family:var(--font-mono);font-size:12px;color:var(--red-ink);padding-top:3px}
+.fly li b{display:block;font-size:14.5px}
+.fly li span{font-size:13px;color:var(--ink-2)}
+.fly .why{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--navy);color:#fff;font-size:13.5px}
+.fly .why b{color:#fff}
+
+/* ---------- layers (product) ---------- */
+.layers{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:start}
+@media (max-width:900px){.layers{grid-template-columns:1fr}}
+.stack{display:flex;flex-direction:column;gap:10px}
+.layer{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:14px;padding:16px 18px;text-align:left;width:100%;cursor:pointer;transition:border-color .15s}
+.layer:hover{border-color:var(--border-strong)}
+.layer.on{border-color:var(--red);box-shadow:0 0 0 3px rgba(188,47,44,.08)}
+.layer .ico{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-family:var(--font-display);font-size:20px;color:#fff}
+.layer .ico.a{background:linear-gradient(135deg,#E5574F,#8A1F1D)} .layer .ico.b{background:var(--navy)} .layer .ico.c{background:linear-gradient(135deg,#1F5AA8,#0A2240)} .layer .ico.d{background:linear-gradient(135deg,#B4701C,#8A1F1D)}
+.layer h3{font-size:17px;margin:0 0 4px}
+.layer p{margin:0;font-size:13.5px;color:var(--ink-2)}
+.layer .who{margin-top:8px;font-size:12px;color:var(--ink-3)}
+.shot{position:sticky;top:84px;background:var(--d-bg-2);border:1px solid var(--d-line-2);border-radius:18px;overflow:hidden;color:var(--d-ink);box-shadow:0 24px 60px rgba(10,34,64,.25)}
+.shot .bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--d-line);align-items:center}
+.shot .bar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.14)}
+.shot .bar span{margin-left:8px;font-family:var(--font-mono);font-size:11px;color:var(--d-ink-3)}
+.shot .pane{display:none;padding:16px}
+.shot .pane.on{display:block}
+.mini-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mt{background:var(--d-panel);border:1px solid var(--d-line);border-radius:10px;padding:10px 12px;min-width:0}
+.mt .l{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--d-ink-3);font-weight:600}
+.mt .v{font-family:var(--font-display);font-size:22px;line-height:1.1;margin-top:4px}
+.mt .v small{font-family:var(--font-body);font-size:11px;color:var(--d-ink-3);margin-left:3px}
+.mt.acc{background:var(--navy)}
+.rows{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 78px 70px;gap:8px;align-items:center;font-size:12px;padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid var(--d-line)}
+.row b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .st{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:999px;text-align:center}
+.st.g{background:rgba(92,191,140,.16);color:#5CBF8C}.st.a{background:rgba(224,162,90,.16);color:#E0A25A}.st.r{background:rgba(229,87,79,.16);color:#E5574F}.st.n{background:rgba(255,255,255,.08);color:var(--d-ink-3)}
+.row .bar2{height:5px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+.row .bar2 i{display:block;height:100%;background:#6FA0E0}
+.tcards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tc{border-radius:10px;overflow:hidden;border:1px solid var(--d-line);background:var(--d-panel)}
+.tc .art{height:58px;position:relative}
+.tc .art::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:14px 14px;mask-image:linear-gradient(180deg,#000,transparent)}
+.tc .art.a1{background:radial-gradient(70% 90% at 80% 10%,#E5574F,transparent 60%),#0B1E3A}.tc .art.a2{background:conic-gradient(from 210deg at 70% 60%,#0A2240,#BC2F2C,#E0A25A,#0A2240)}.tc .art.a3{background:radial-gradient(50% 60% at 30% 30%,#6FA0E0,transparent 70%),#0A1A30}
+.tc b{display:block;font-size:11.5px;padding:8px 10px 9px}
+.flowline{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:11.5px;color:var(--d-ink-2)}
+.flowline span{padding:3px 8px;border-radius:6px;border:1px solid var(--d-line);background:rgba(255,255,255,.03)}
+.flowline em{color:var(--d-ink-3);font-style:normal}
+.proc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pc{background:var(--d-panel);border:1px solid var(--d-line);border-radius:10px;padding:10px 12px;min-width:0}
+.pc .l{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--d-ink-3);font-weight:600;margin-bottom:6px}
+.pc div{font-size:11.5px;padding:5px 0;border-top:1px solid var(--d-line);color:var(--d-ink-2)}
+.pc div b{color:var(--d-ink);font-weight:600}
+
+/* ---------- MCP ---------- */
+.mcp{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+@media (max-width:900px){.mcp{grid-template-columns:1fr}.mcp .ar{display:none}}
+.mcp .col{background:var(--d-bg-2);border:1px solid var(--d-line);border-radius:16px;padding:18px 18px 16px;min-width:0}
+.mcp .col.core{border-color:rgba(229,87,79,.55);background:linear-gradient(180deg,rgba(229,87,79,.10),transparent 60%),var(--d-bg-2)}
+.mcp .col .l{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--d-ink-3)}
+.mcp .col h3{font-size:18px;color:var(--d-ink);margin:6px 0 10px}
+.mcp .ar{display:grid;place-items:center;color:var(--d-ink-3);font-size:26px}
+.conn{display:flex;flex-direction:column;gap:6px}
+.conn .g{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-top:6px}
+.conn .g:first-child{margin-top:0}
+.conn span{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--d-ink-2);padding:5px 9px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--d-line)}
+.conn span i{font-style:normal;font-family:var(--font-mono);font-size:10px;color:var(--d-ink-3);white-space:nowrap}
+.tools{display:flex;flex-direction:column;gap:6px}
+.tools code{display:block;font-family:var(--font-mono);font-size:11.5px;color:#C9D6EA;background:#040B16;border:1px solid var(--d-line);border-radius:7px;padding:6px 9px;overflow-x:auto;white-space:nowrap}
+.tools code b{color:#E9A39F;font-weight:500}
+.mcp .note{margin-top:12px;font-size:12px;color:var(--d-ink-3)}
+.mcp .out{display:flex;flex-direction:column;gap:6px}
+.mcp .out span{font-size:12.5px;color:var(--d-ink-2);padding:6px 9px;border-radius:7px;border:1px solid var(--d-line);background:rgba(255,255,255,.03)}
+.mcp .out span b{color:var(--d-ink);font-weight:600}
+
+/* ---------- agents ---------- */
+.harness{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:22px}
+@media (max-width:900px){.harness{grid-template-columns:repeat(2,1fr)}} @media (max-width:520px){.harness{grid-template-columns:1fr}}
+.hs{background:var(--d-bg-2);border:1px solid var(--d-line);border-radius:12px;padding:14px;min-width:0;position:relative}
+.hs .n{font-family:var(--font-mono);font-size:10.5px;color:var(--coral)}
+.hs b{display:block;font-size:14px;margin:6px 0 4px;color:var(--d-ink)}
+.hs span{font-size:12px;color:var(--d-ink-2)}
+.agents{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.ag{background:var(--d-bg-2);border:1px solid var(--d-line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.ag .top{display:flex;align-items:center;gap:10px}
+.ag .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:rgba(229,87,79,.14);color:var(--coral);font-family:var(--font-display);font-size:15px}
+.ag h3{font-size:15.5px;color:var(--d-ink)}
+.ag p{margin:0;font-size:13px;color:var(--d-ink-2)}
+.ag .m{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.ag .m em{font-style:normal;font-size:10.5px;color:var(--d-ink-3);border:1px solid var(--d-line);padding:1px 7px;border-radius:999px}
+.ag .m em.v{color:var(--d-ink-2);border-color:var(--d-line-2)}
+.cmp{margin-top:26px;background:var(--d-bg-2);border:1px solid var(--d-line);border-radius:16px;padding:20px 22px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px}
+@media (max-width:860px){.cmp{grid-template-columns:1fr}}
+.cmp h3{font-size:18px;color:var(--d-ink);margin-bottom:8px}
+.cmp p{margin:0 0 8px;font-size:13.5px;color:var(--d-ink-2)}
+.cmp ul{margin:0;padding-left:18px;font-size:13px;color:var(--d-ink-2)}
+.cmp li{margin:3px 0}
+
+/* ---------- matrix ---------- */
+.mtx-wrap{overflow-x:auto}
+.mtx{width:100%;border-collapse:separate;border-spacing:6px;min-width:760px}
+.mtx th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600;text-align:left;padding:6px 10px}
+.mtx th.c{text-align:center}
+.mtx td{vertical-align:top;padding:0}
+.mtx td.rh{padding:12px 12px;background:var(--bg-elev);border:1px solid var(--border);border-radius:10px;min-width:210px}
+.mtx td.rh b{display:block;font-size:14px}
+.mtx td.rh span{font-size:12px;color:var(--ink-3)}
+.cell{height:100%;min-height:86px;border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.45;border:1px solid var(--border);background:var(--bg-elev);color:var(--ink-2)}
+.cell.v1{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cell.v2{background:rgba(31,90,168,.10);border-color:rgba(31,90,168,.3)}
+.cell.v3{background:var(--bg-sunken);border-style:dashed}
+.cell .tg{display:inline-block;font-family:var(--font-mono);font-size:10px;padding:1px 6px;border-radius:999px;margin-bottom:5px;background:rgba(255,255,255,.14)}
+.cell.v2 .tg{background:rgba(31,90,168,.16);color:var(--info)} .cell.v3 .tg{background:var(--tint);color:var(--ink-3)}
+.mtx-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-3);margin-top:10px}
+.mtx-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+
+/* ---------- tiers ---------- */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:900px){.tiers{grid-template-columns:1fr}}
+.tier{background:var(--d-bg-2);border:1px solid var(--d-line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tier.now{border-color:rgba(229,87,79,.6);background:linear-gradient(180deg,rgba(229,87,79,.10),transparent 55%),var(--d-bg-2)}
+.tier .vh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.tier .vh b{font-family:var(--font-display);font-weight:500;font-size:30px;letter-spacing:-.01em}
+.tier .vh span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--d-ink-3)}
+.tier.now .vh span{color:var(--coral)}
+.tier h3{font-size:20px;color:var(--d-ink)}
+.tier .for{font-size:12.5px;color:var(--d-ink-3)}
+.tier .price{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--d-line)}
+.tier .price .l{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--d-ink-3);font-weight:600}
+.tier .price b{display:block;font-size:15px;color:var(--d-ink);margin-top:3px}
+.tier .price span{font-size:12px;color:var(--d-ink-2)}
+.tier .grp{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--coral);margin-top:4px}
+.tier ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.tier li{font-size:13px;color:var(--d-ink-2);display:flex;gap:9px;align-items:flex-start}
+.tier li i{flex:0 0 14px;width:14px;height:14px;border-radius:4px;border:1.5px solid var(--d-line-2);margin-top:3px;position:relative}
+.tier li.ok i{background:#5CBF8C;border-color:#5CBF8C} .tier li.ok i::after{content:"";position:absolute;left:4px;top:1px;width:3px;height:7px;border:solid #06111F;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.tier .ns{margin-top:auto;padding-top:12px;border-top:1px solid var(--d-line);font-size:12px;color:var(--d-ink-3)}
+.tier .ns b{color:var(--d-ink-2);font-weight:600}
+
+/* ---------- principles / audiences / faq ---------- */
+.princ{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.pr{background:var(--bg-elev);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.pr .k{font-family:var(--font-mono);font-size:11px;color:var(--red-ink)}
+.pr h3{font-size:16px;margin:6px 0 6px}
+.pr p{margin:0;font-size:13.5px;color:var(--ink-2)}
+.pr .ex{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+.pr .ex span{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+.ex .belge{background:rgba(31,122,78,.12);color:var(--success)} .ex .beyan{background:rgba(180,112,28,.14);color:var(--warn)} .ex .yok{background:var(--tint);color:var(--ink-3)}
+.aud{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.aud{grid-template-columns:1fr}}
+.au{background:var(--bg-elev);border:1px solid var(--border);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.au .role{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink-3)}
+.au h3{font-size:19px}
+.au p{margin:0;font-size:14px;color:var(--ink-2)}
+.au ul{margin:4px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
+.au .q{margin-top:auto;padding-top:12px;border-top:1px solid var(--border);font-family:var(--font-display);font-style:italic;font-size:15px;color:var(--ink)}
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+@media (max-width:760px){.faq{grid-template-columns:1fr}}
+.faq details{border-top:1px solid var(--border);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--ink-3);font-weight:400}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:8px 0 0;font-size:14px;color:var(--ink-2)}
+.final{padding-block:84px;text-align:center;position:relative;overflow:hidden}
+.final .glow{position:absolute;inset:auto 0 -200px;height:520px;pointer-events:none;background:radial-gradient(50% 60% at 50% 100%,rgba(229,87,79,.22),transparent 70%)}
+.final h2{font-size:clamp(28px,4vw,46px);position:relative}
+.final p{position:relative;color:var(--d-ink-2);max-width:58ch;margin:14px auto 26px}
+.final .ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative}
+footer{border-top:1px solid var(--d-line);padding-block:26px;font-size:12.5px;color:var(--d-ink-3)}
+footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+footer b{color:var(--d-ink-2);font-weight:500}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
-</head>
-<body>
-<header>
-  <div class="mark">M</div><div><div class="name">VIBE Management</div><div class="sub">MTFG Ana Merkez</div></div>
-  <nav><a class="btn" href="/admin/">Admin</a><a class="btn primary" href="/login?next=%2Fapp%2F">Giriş</a></nav>
-</header>
-<main>
-  <div class="eyebrow">Yatırımcıya Dönüşüm 1.0 · Juris Şirketler Hukuku ve Kurumsal Yönetim</div>
-  <h1>Portföyü, müvekkilleri ve kararları <em>tek merkezden</em> yönetin.</h1>
-  <p class="lead">MTFG'nin şirket ve projelerini private equity disipliniyle izleyen portföy kokpiti; her müvekkil için Drive Data Room'una bağlı Kurumsal Yönetim Paneli; ve bağlamı panellerden okuyan Claude tabanlı Vibe stüdyosu.</p>
-  <div class="cta"><a class="btn primary lg" href="/app/">Ana Merkez'i aç</a><a class="btn lg" href="/admin/">Yol haritası ve yönetim</a></div>
-  <div class="grid">
-    <div class="card"><div class="k">01 · PORTFÖY</div><h3>Nakit akışı × değer</h3><p>Her varlık iki eksende; yatırım tezine uyum, risk kaydı, yönetişim takvimi. Belge yoksa değer <b>beyan</b> olarak işaretlenir.</p></div>
-    <div class="card"><div class="k">02 · PANELLER</div><h3>Müvekkil kurumsal yönetim</h3><p>Data Room A–F → fonksiyon → doküman · sorumlu · durum · dayanak. Beş müvekkil, tek master, aynı standart.</p></div>
-    <div class="card"><div class="k">03 · VIBE</div><h3>Claude ile çalışma</h3><p>Brifing, hatırlatma maili, risk radarı, Data Room boşluk analizi — bağlam canlı panellerden, rakam uydurma yok.</p></div>
+
+<div class="dark">
+<header class="top"><div class="wrap">
+  <a class="logo" href="#top"><span class="mark"><svg viewBox="0 0 16 16" fill="#fff" aria-hidden="true"><path d="M8 0l1.6 5.2L15 7l-5.4 1.8L8 14 6.4 8.8 1 7l5.4-1.8z"/></svg></span><div><b>Vibe Management</b><span>MTFG Ana Merkez</span></div></a>
+  <nav class="topnav" aria-label="Sayfa içi"><a href="#northstar">North Star</a><a href="#flywheel">Flywheel</a><a href="#katmanlar">Ürün</a><a href="#mcp">Vibe MCP</a><a href="#ajanlar">Ajanlar</a><a href="#matris">Katmanlar</a><a href="#paketler">Paketler</a><a href="#sss">SSS</a><a class="cta" href="/app/">Ana Merkez'i aç ↗</a></nav>
+  <span class="ver">v1.0</span>
+</div></header>
+
+<section class="hero" id="top">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="pill"><i></i>Yönetim işletim sistemi · Claude ile çalışır · v1.0</span>
+    <h1>Şirketlerinizin verisiyle <em>konuşun</em>, kararı belgeyle alın.</h1>
+    <p class="lede">Vibe Management; yatırım yaptığınız, danışmanlık verdiğiniz ve operatörlüğünü üstlendiğiniz şirketlerin Data Room'unu, panellerini ve süreçlerini tek merkezde toplar. Sorun, özetletin, karar ve aksiyon çıkarın. Her yanıt bir dayanağa bağlanır: belge, beyan ya da "dayanak yok".</p>
+    <div class="ctas"><a class="btn red" href="/app/">Ana Merkez'i aç</a><a class="btn ghost" href="#paketler">Yol haritası ve paketler <kbd>↓</kbd></a></div>
+    <div class="ns"><span><b>Nakit Akışı</b></span><span>·</span><span><b>Networth</b></span><span>·</span><span><b>Yönetilen Risk</b></span><span>— üç North Star, tek ekran</span></div>
+
+    <div class="demo">
+      <div class="demo-tabs" role="tablist"><button class="on" data-scene="s1">Haftalık brifing</button><button data-scene="s2">Müvekkil durum maili</button><button data-scene="s3">Jurisleştir</button></div>
+      <div class="scene on" id="s1">
+      <div class="composer">
+        <div class="chips"><span class="lab">Kapsam</span><span class="chip on"><i class="sw" style="background:#E5574F"></i>Tüm portföy</span><span class="chip">Onscala</span><span class="chip">Codemag</span><span class="chip">Fevup</span><span class="lab" style="margin-left:8px">Alan</span><span class="chip on">Yatırım Yönetimi</span><span class="chip">Hukuk ve Uyum</span></div>
+        <div class="cq">Haftalık portföy brifingi hazırla: 5 öncelik, bekleyen kararlar, kimden ne bekliyoruz, kırmızı bayraklar.<span class="caret"></span></div>
+        <div class="cfoot"><span class="src"><i></i>Portföy kaydı</span><span class="src"><i></i>Risk kaydı</span><span class="src"><i></i>Onscala paneli</span><span class="src"><i></i>Codemag paneli</span><span class="send">Çalıştır</span></div>
+      </div>
+      <div class="answer"><div class="av"><svg width="14" height="14" viewBox="0 0 200 200" aria-hidden="true"><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#E5574F"/></svg></div>
+        <div><h4>Bu haftanın 5 önceliği</h4>
+        <div class="tw"><table><tr><th>#</th><th>Öncelik</th><th>Sahip</th><th>Dayanak</th></tr>
+        <tr><td>1</td><td>Onscala borç protokolü ve pay sahipliği revizyonu</td><td>Juris · Çağrı · Akif</td><td><span class="tag b">belge</span>13.10 tutanağı</td></tr>
+        <tr><td>2</td><td>Codemag 2027 proje bazlı bütçe formatı teslimi</td><td>Juris → Codemag</td><td><span class="tag b">belge</span>kick-off aksiyon 1</td></tr>
+        <tr><td>3</td><td>Ariwon / Katalist cap table doğrulaması</td><td>Juris</td><td><span class="tag y">beyan</span>portföy kaydı</td></tr>
+        <tr><td>4</td><td>Yatırım Tezi v1.0 (IPS) komite onayı</td><td>Yatırım Komitesi</td><td><span class="tag">dayanak yok</span>taslak</td></tr>
+        <tr><td>5</td><td>Key person riski için yetki devri planı</td><td>Ferhan · Gülşah</td><td><span class="tag y">beyan</span>R1 · skor 20</td></tr></table></div>
+        <span style="font-size:12.5px;color:var(--d-ink-3)">Kırmızı bayraklar: R1 key person (20), R7 gate'siz VCP (16). Kaynak: portföy kaydı + 2 panel.</span></div></div>
+      </div>
+      <div class="scene" id="s2">
+      <div class="composer">
+        <div class="chips"><span class="lab">Kapsam</span><span class="chip on"><i class="sw" style="background:#E0A25A"></i>Onscala</span><span class="chip">Tüm portföy</span><span class="lab" style="margin-left:8px">Alan</span><span class="chip on">İletişim</span><span class="chip">Operasyon Yönetimi</span></div>
+        <div class="cq">Onscala yönetimine haftalık durum e-postası yaz: tamamlananlar, beklediklerimiz, sonraki gündem.<span class="caret"></span></div>
+        <div class="cfoot"><span class="src"><i></i>Onscala paneli</span><span class="send">Çalıştır</span></div>
+      </div>
+      <div class="answer"><div class="av"><svg width="14" height="14" viewBox="0 0 200 200" aria-hidden="true"><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#E5574F"/></svg></div>
+        <div><h4>Konu: Onscala · Haftalık durum ve beklenen girdiler</h4>
+        <p style="margin:0 0 8px">Çağrı Bey, Akif Bey; 13.10 toplantısının ardından bu hafta tamamlananlar ve tarafınızda bekleyen kalemler aşağıdadır.</p>
+        <p style="margin:0 0 6px"><b style="color:var(--d-ink)">Tamamlanan:</b> 11. toplantı tutanağı ve 14 maddelik aksiyon listesi Data Room'a yüklendi.</p>
+        <p style="margin:0 0 6px"><b style="color:var(--d-ink)">Sizden beklediklerimiz:</b> güncel borç listesi (Çağrı · Akif · Sinem), proje bütçe mutabakatı (~647 maket), 2027 ciro senaryosu kararı (40 · 55 · 80 mn TL).</p>
+        <p style="margin:0"><b style="color:var(--d-ink)">Sonraki gündem:</b> borç protokolü taslağı, pay sahipliği sözleşmesi, vergi borcu taksit seçenekleri.</p>
+        <span style="font-size:12.5px;color:var(--d-ink-3)">Tek tıkla: Kopyala · Kısalt · Aksiyonlara çevir · Kaydet</span></div></div>
+      </div>
+      <div class="scene" id="s3">
+      <div class="composer">
+        <div class="chips"><span class="lab">Kapsam</span><span class="chip on"><i class="sw" style="background:#5CBF8C"></i>Juris</span><span class="lab" style="margin-left:8px">Alan</span><span class="chip on">İletişim</span></div>
+        <div class="cq">Eklediğim toplantı notunu Juris formatına çevir: Amaç · Kapsam · Tespitler · Aksiyonlar · Dayanak belgeler.<span class="caret"></span></div>
+        <div class="cfoot"><span class="src"><i></i>toplanti-notu-16-10.pdf · 3k</span><span class="src"><i></i>Onscala paneli</span><span class="send">Çalıştır</span></div>
+      </div>
+      <div class="answer"><div class="av"><svg width="14" height="14" viewBox="0 0 200 200" aria-hidden="true"><path d="M40 30Q40 18 52 18L168 18Q180 18 180 30L180 130Q180 142 168 142L90 142L62 172L72 142L52 142Q40 142 40 130Z" fill="#E5574F"/></svg></div>
+        <div><h4>Toplantı Notu · 16.10.2026 · Juris formatı</h4>
+        <p style="margin:0 0 6px"><b style="color:var(--d-ink)">Amaç.</b> Borç yapısının yazılı protokole bağlanması ve 2027 bütçe çerçevesi.</p>
+        <p style="margin:0 0 6px"><b style="color:var(--d-ink)">Tespitler.</b> Ortak cari hesap hareketlerinin ticari dayanağı yok [teyit edilecek]; vergi borcu dökümü bekleniyor.</p>
+        <p style="margin:0 0 6px"><b style="color:var(--d-ink)">Aksiyonlar.</b> Borç protokolü taslağı (Juris · 25.10) · borç listesi güncellemesi (Çağrı · 22.10).</p>
+        <p style="margin:0"><b style="color:var(--d-ink)">Dayanak.</b> 13.10 tutanağı <span class="tag b">belge</span> · borç çizelgesi <span class="tag b">belge</span> · vergi tutarı <span class="tag y">beyan</span></p></div></div>
+      </div>
+      <div class="demo-note">Örnek ekranlar; yanıtlar bağlı panellerin gerçek verisinden üretilir, veride olmayan rakam kullanılmaz.</div>
+    </div>
   </div>
-</main>
-<footer><span>Juris Avukatlık Ortaklığı · MTFG</span><span class="mono" id="v">v…</span></footer>
-<script>fetch("/api/health").then(r=>r.json()).then(h=>{document.getElementById("v").textContent="v"+h.surum}).catch(()=>{});</script>
-</body>
-</html>
+</section>
+
+<div class="strip"><div class="wrap"><span><b>Juris</b> kurumsal yönetim metodolojisi</span><span class="sep"></span><span><b>Claude</b> ile çalışır</span><span class="sep"></span><span>Belge: <b>Data Room</b> · Süreç ve karar: <b>Vibe</b> · İletişim: <b>Mail</b></span><span class="sep"></span><span>Bugün <b>2</b> şirket paneli canlı, <b>9</b> portföy varlığı</span></div></div>
+</div>
+
+<!-- NORTH STAR -->
+<section class="sec" id="northstar"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">North Star</div><h2>Üç çıktı, üç sütun. Geri kalan her şey araçtır.</h2><p>Yatırımcıya Dönüşüm modeli şirketleri bir Private Equity / Family Office gibi yönetir. Girdi sermaye, zaman ve ilişkidir; çıktı her zaman üç ölçüde okunur. Vibe Management'ın her şablonu, ajanı ve bağlayıcısı bu üçünden birine hizmet eder.</p></div>
+  <div class="ns-grid">
+    <div class="nscard"><div class="num">01</div><h3>Nakit Akışı</h3><p>Bugün nakit üreten ve tüketen varlıklar; temettü, yönetim ve danışmanlık ücretleri, hizmet ihracatı gelirleri, teşvikler.</p><div class="feed">Sütun: <b>Beklenti yönetimi</b> · bütçe, hedef, sapma</div></div>
+    <div class="nscard"><div class="num">02</div><h3>Networth</h3><p>Yarın değer biriktiren varlıklar; Σ (pay × varlık değeri) − borçlar + likit varlıklar. Çeyreklik değerleme politikasıyla işaretlenir.</p><div class="feed">Sütun: <b>Dokümantasyon ve iletişim</b> · kayıt yoksa olmamıştır</div></div>
+    <div class="nscard"><div class="num">03</div><h3>Yönetilen Risk</h3><p>Olasılık × etki ile puanlanan risk kaydı; her riskin sahibi ve kapatan dokümanı. Hukuki riskler "yapılmazsa doğacak risk" diliyle.</p><div class="feed">Sütun: <b>Karar ve aksiyon</b> · karar kaydı, görev, review</div></div>
+  </div>
+</div></section>
+
+<!-- FLYWHEEL -->
+<section class="sec" id="flywheel" style="background:var(--bg-sunken)"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">Stratejik flywheel</div><h2>Her belge çarkı bir tur daha döndürür.</h2><p>Değer, tek bir özellikten değil döngüden gelir: belge gelir, panel netleşir, soru keskinleşir, karar hızlanır, toplantı kısalır, yeni belge doğar. Her turda bağlı şirketin veri kalitesi ve metodoloji paketi zenginleşir; bir sonraki şirket daha hızlı bağlanır.</p></div>
+  <div class="fly">
+    <svg viewBox="0 0 560 560" role="img" aria-label="Vibe Management flywheel">
+      <circle class="ring" cx="280" cy="280" r="190"/>
+      <path class="arc" d="M280 90 A190 190 0 0 1 444 185" marker-end="url(#ah)"/>
+      <path class="arc" d="M460 220 A190 190 0 0 1 460 340" marker-end="url(#ah)"/>
+      <path class="arc" d="M444 375 A190 190 0 0 1 280 470" marker-end="url(#ah)"/>
+      <path class="arc" d="M240 466 A190 190 0 0 1 116 375" marker-end="url(#ah)"/>
+      <path class="arc" d="M100 340 A190 190 0 0 1 100 220" marker-end="url(#ah)"/>
+      <path class="arc" d="M116 185 A190 190 0 0 1 240 94" marker-end="url(#ah)"/>
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#BC2F2C"/></marker></defs>
+      <circle class="core" cx="280" cy="280" r="78"/>
+      <text class="coreT" x="280" y="268" text-anchor="middle">Nakit · Networth</text>
+      <text class="coreT" x="280" y="288" text-anchor="middle">Yönetilen Risk</text>
+      <text class="coreS" x="280" y="308" text-anchor="middle">her tur daha görünür</text>
+      <g><rect class="node hot" x="200" y="40" width="160" height="52" rx="10"/><text class="num" x="210" y="56">01</text><text class="st" x="288" y="62" text-anchor="middle">Belge gelir</text><text class="sm" x="288" y="78" text-anchor="middle">Data Room · MCP · dosya</text></g>
+      <g><rect class="node" x="400" y="150" width="160" height="52" rx="10"/><text class="num" x="410" y="166">02</text><text class="st" x="488" y="172" text-anchor="middle">Panel netleşir</text><text class="sm" x="488" y="188" text-anchor="middle">beyan → belge</text></g>
+      <g><rect class="node" x="400" y="358" width="160" height="52" rx="10"/><text class="num" x="410" y="374">03</text><text class="st" x="488" y="380" text-anchor="middle">Soru keskinleşir</text><text class="sm" x="488" y="396" text-anchor="middle">şablon · alan merceği</text></g>
+      <g><rect class="node" x="200" y="468" width="160" height="52" rx="10"/><text class="num" x="210" y="484">04</text><text class="st" x="288" y="490" text-anchor="middle">Karar hızlanır</text><text class="sm" x="288" y="506" text-anchor="middle">karar kaydı · aksiyon</text></g>
+      <g><rect class="node" x="0" y="358" width="160" height="52" rx="10"/><text class="num" x="10" y="374">05</text><text class="st" x="88" y="380" text-anchor="middle">Toplantı kısalır</text><text class="sm" x="88" y="396" text-anchor="middle">gündem · tutanak · mail</text></g>
+      <g><rect class="node" x="0" y="150" width="160" height="52" rx="10"/><text class="num" x="10" y="166">06</text><text class="st" x="88" y="172" text-anchor="middle">Yeni belge doğar</text><text class="sm" x="88" y="188" text-anchor="middle">Data Room büyür</text></g>
+    </svg>
+    <div>
+      <ol>
+        <li><div><b>Belge gelir</b><span>Data Room'a düşen her dosya, bağlı her API, eklenen her PDF girdi olur. v1.0'da elle; v2.0'da Vibe MCP ile otomatik.</span></div></li>
+        <li><div><b>Panel netleşir</b><span>Beyan belgeye döner; tamamlanma, girdi bekleyen ve risk skoru güncellenir. Panel hiçbir sayıyı belgesiz "doğru" göstermez.</span></div></li>
+        <li><div><b>Soru keskinleşir</b><span>Kapsam ve alan merceğiyle sorulan soru, panelin tam verisine iner. Şablonlar tekrar eden soruları saniyeye indirir.</span></div></li>
+        <li><div><b>Karar hızlanır</b><span>Yanıt karar kaydına ve aksiyon listesine dönüşür; sahibi ve termini vardır. Süreç katmanı Vibe'ın içindedir.</span></div></li>
+        <li><div><b>Toplantı kısalır</b><span>Gündem hazır gelir, tutanak otomatik çıkar, mail taslağı bekler. Ritim: haftalık · aylık · çeyreklik.</span></div></li>
+        <li><div><b>Yeni belge doğar</b><span>Tutanak, protokol, bütçe… Data Room büyür; bir sonraki tur daha zengin başlar. Metodoloji paketi başka şirkete taşınır.</span></div></li>
+      </ol>
+      <div class="why"><b>Neden flywheel, neden özellik listesi değil:</b> rakip araçlar tek bir işi hızlandırır. Vibe'ın değeri, şirket sayısı ve belge sayısı arttıkça artar; her yeni şirket önceki şirketlerin şablon ve merceklerinden faydalanır.</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- PRODUCT LAYERS -->
+<section class="sec" id="katmanlar"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">Ürün</div><h2>Bir stüdyo, altında paneller, içinde süreç.</h2><p>Kullanım başladığında açılan ekran Vibe stüdyosudur. Paneller verinin görünümü, süreç katmanı ise görev, karar ve toplantının yaşadığı yerdir. Ayrı bir görev yönetimi aracına ihtiyaç kalmaz: süreç, verinin yanında yönetilir.</p></div>
+  <div class="layers">
+    <div class="stack">
+      <button class="layer on" data-pane="p1"><span class="ico a">V</span><div><h3>Vibe Management Stüdyosu</h3><p>Kapsam ve alan seçin, sorun; şablonlar, oturumlar, dosya ekleri, çıktı kütüphanesi. Claude bağlı panellerin verisiyle yanıtlar.</p><div class="who">Kullanan: yönetici ortak · yatırım komitesi · danışman ekibi</div></div></button>
+      <button class="layer" data-pane="p2"><span class="ico b">P</span><div><h3>Portföy Yönetim Paneli</h3><p>Yatırım tezi, portföy, funnel, venture building gate'leri, sermaye tahsisi, değerleme, risk kaydı, Data Room, yönetişim takvimi.</p><div class="who">Kullanan: family office / holding yönetimi</div></div></button>
+      <button class="layer" data-pane="p3"><span class="ico c">K</span><div><h3>Kurumsal Yönetim Panelleri</h3><p>Her şirket için aynı yapıda: PLAN · İCRA · DENETİM · RAPORLAMA, A–F Data Room, durum değerlendirmesi, onboarding ve rehberler.</p><div class="who">Kullanan: şirket yönetimi · mali müşavir · danışman</div></div></button>
+      <button class="layer" data-pane="p4"><span class="ico d">S</span><div><h3>Süreç Katmanı</h3><p>Görevler, karar kaydı, toplantı döngüsü (gündem → tutanak → aksiyon → sonraki gündem) ve mail kaydı. v1.0'da panel içinde; v2.0'da ortak ve ajan destekli.</p><div class="who">Yerine geçtiği araç: ayrı görev / wiki uygulamaları</div></div></button>
+    </div>
+    <div class="shot">
+      <div class="bar"><i></i><i></i><i></i><span id="shotTitle">Vibe Management · Stüdyo</span></div>
+      <div class="pane on" id="p1">
+        <div class="tcards"><div class="tc"><div class="art a1"></div><b>Haftalık Portföy Brifingi</b></div><div class="tc"><div class="art a2"></div><b>Jurisleştir</b></div><div class="tc"><div class="art a3"></div><b>Risk Radar</b></div></div>
+        <div class="flowline"><span>Kapsam</span><em>→</em><span>Alan</span><em>→</em><span>Kaynaklar</span><em>→</em><span>Dosya</span><em>→</em><span>Claude</span><em>→</em><span>Kaydet · Paylaş</span></div>
+        <div class="rows"><div class="row"><b>Oturum · Onscala 13.10 aksiyon turu</b><span class="st g">3 mesaj</span><span style="font-size:11px;color:var(--d-ink-3)">sabitli</span></div><div class="row"><b>Oturum · MTFG Q4 IC hazırlığı</b><span class="st n">1 mesaj</span><span style="font-size:11px;color:var(--d-ink-3)">10 Eki</span></div><div class="row"><b>Kütüphane · Codemag hatırlatma seti</b><span class="st a">kaydedildi</span><span style="font-size:11px;color:var(--d-ink-3)">e-posta</span></div></div>
+      </div>
+      <div class="pane" id="p2">
+        <div class="mini-tiles"><div class="mt acc"><div class="l">Networth</div><div class="v">—</div></div><div class="mt"><div class="l">Tez uyumu</div><div class="v">7,0<small>/10</small></div></div><div class="mt"><div class="l">Yüksek risk</div><div class="v">3</div></div></div>
+        <div class="rows"><div class="row"><b>Juris Avukatlık Ortaklığı · %100</b><span class="st g">nakit üretir</span><div class="bar2"><i style="width:100%"></i></div></div><div class="row"><b>Marqby · %44,1</b><span class="st a">nakit tüketir</span><div class="bar2"><i style="width:44%"></i></div></div><div class="row"><b>Fevup Brands · %44,1</b><span class="st a">nakit tüketir</span><div class="bar2"><i style="width:44%"></i></div></div><div class="row"><b>D2-X · Gate 1</b><span class="st g">nakit üretir</span><div class="bar2"><i style="width:100%"></i></div></div><div class="row"><b>Ariwon · Gate 1 · cap table</b><span class="st r">doğrulanacak</span><div class="bar2"><i style="width:50%"></i></div></div></div>
+      </div>
+      <div class="pane" id="p3">
+        <div class="mini-tiles"><div class="mt acc"><div class="l">Tamamlanma</div><div class="v">29<small>%</small></div></div><div class="mt"><div class="l">Girdi bekleyen</div><div class="v">27</div></div><div class="mt"><div class="l">Toplantı</div><div class="v">11</div></div></div>
+        <div class="rows"><div class="row"><b>A.3 Pay Sahipliği Sözleşmesi revizyonu</b><span class="st a">devam</span><span style="font-size:11px;color:var(--d-ink-3)">Juris</span></div><div class="row"><b>B.2 Borç nakit akışı → 2027 bütçesi</b><span class="st r">girdi</span><span style="font-size:11px;color:var(--d-ink-3)">Yönetim</span></div><div class="row"><b>C.2 Mizan ve kayıt mutabakatı</b><span class="st r">girdi</span><span style="font-size:11px;color:var(--d-ink-3)">Mali Müşavir</span></div><div class="row"><b>E-1 DD belge checklist</b><span class="st n">4 / 43</span><span style="font-size:11px;color:var(--d-ink-3)">Data Room</span></div></div>
+      </div>
+      <div class="pane" id="p4">
+        <div class="proc"><div class="pc"><div class="l">Görevler</div><div><b>Borç protokolü taslağı</b> · Juris · 25.10</div><div><b>Borç listesi güncelle</b> · Çağrı · 22.10</div><div><b>Vergi dökümü</b> · Tolga · 24.10</div></div><div class="pc"><div class="l">Kararlar</div><div><b>Aselsan alacağı</b> takip edilmeyecek · 03.06</div><div><b>2027 ciro senaryosu</b> · bekliyor</div><div><b>Maket / promosyon bütçe ayrımı</b> · bekliyor</div></div><div class="pc"><div class="l">Toplantı döngüsü</div><div><b>Gündem</b> hazır · 6 madde</div><div><b>Tutanak</b> 13.10 · 14 aksiyon</div><div><b>Mail</b> taslak · onay bekliyor</div></div></div>
+        <div class="flowline" style="margin-top:12px"><span>Gündem</span><em>→</em><span>Toplantı</span><em>→</em><span>Tutanak + Aksiyon</span><em>→</em><span>Teslim / edilemeyen</span><em>→</em><span>Sonraki gündem</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- VIBE MCP -->
+<div class="dark"><section class="sec" id="mcp"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">Vibe MCP · v2.0</div><h2>Her şirket için bir bağlantı sunucusu: API'ler girer, Data Room çıkar.</h2><p>Model Context Protocol, Claude'un araçlara standart biçimde erişmesini sağlar. Vibe MCP bunu tersine de kullanır: muhasebe, banka, e-fatura, e-ticaret ve reklam API'lerini bağlar; her şirketi "araç seti" olarak Claude'a sunar ve gelen veriyi Data Room'un A–F klasörlerine belge olarak yazar. Bir şirket bağlandığı anda paneli dolu, flywheel'i dönüyor olur.</p></div>
+  <div class="mcp">
+    <div class="col"><div class="l">Girdi · bağlayıcılar</div><h3>Şirketin veri kaynakları</h3>
+      <div class="conn">
+        <div class="g">Finans · Muhasebe · Vergi</div><span>Ön muhasebe / ERP (Logo, Mikro, Paraşüt vb.)<i>mizan · fatura</i></span><span>e-Fatura · e-Defter · GİB<i>beyan · borç</i></span><span>Banka hesap hareketleri<i>nakit</i></span>
+        <div class="g">Ticaret · Pazarlama</div><span>Shopify · Trendyol · Amazon<i>ciro · sipariş</i></span><span>Meta · Google Ads<i>harcama · ROAS</i></span><span>CRM (HubSpot vb.)<i>teklif stoğu</i></span>
+        <div class="g">İnsan · Hukuk</div><span>SGK · bordro · İK sistemi<i>kadro</i></span><span>TÜRKPATENT · MERSİS · sicil<i>tescil · yetki</i></span><span>Google Drive Data Room<i>belge</i></span>
+      </div></div>
+    <div class="ar">→</div>
+    <div class="col core"><div class="l">Çekirdek</div><h3>Vibe MCP sunucusu</h3>
+      <div class="tools">
+        <code><b>company.get_data_room</b>(onscala, folder="B")</code>
+        <code><b>company.get_panel</b>(onscala, section="risks")</code>
+        <code><b>finance.pull_trial_balance</b>(period="2026-09")</code>
+        <code><b>commerce.pull_revenue</b>(channels=[…])</code>
+        <code><b>dataroom.file_document</b>(folder="C.2", source=…)</code>
+        <code><b>process.create_action</b>(owner, due, priority)</code>
+        <code><b>process.log_decision</b>(topic, decision, basis)</code>
+      </div>
+      <div class="note">Her çağrı kaynağı ve zamanı ile loglanır; yazdığı belgeye <span class="tag b">belge</span> etiketi, API'den gelen özet rakama kaynak satırı eklenir. Şirket duvarları: bir kiracının aracı diğerinin verisini göremez.</div></div>
+    <div class="ar">→</div>
+    <div class="col"><div class="l">Çıktı · şirket, bu hâliyle</div><h3>Panel dolu, süreç akıyor</h3>
+      <div class="out"><span><b>Data Room A–F</b> otomatik dolar; beyanlar belgeye döner</span><span><b>Kurumsal Yönetim Paneli</b> kaynak satırıyla açılır</span><span><b>Finans / vergi / teşvik</b> katmanı gerçek rakamla</span><span><b>Ajanlar</b> zamanlanmış akışları başlatır</span><span><b>Claude Studio / Cowork</b> ve diğer MCP istemcileri aynı araçları kullanır</span><span><b>API</b>: üçüncü taraf uygulamalar şirketi sorgular</span></div>
+      <div class="note">Bugün bir şirketin bağlanması haftalar süren belge toplama işidir; Vibe MCP ile hedef: <b style="color:var(--d-ink)">bir günde panel, bir haftada tam Data Room</b>.</div></div>
+  </div>
+</div></section>
+
+<!-- AGENTS -->
+<section class="sec" id="ajanlar" style="padding-top:0"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">Ajan orkestrasyonu · v2.0 → v3.0</div><h2>Planlayıcı görevi dağıtır, ajanlar paralel çalışır, insan onaylar.</h2><p>Hukuk alanının kategori liderleri (Harvey, Legora) aynı omurgayı kurdu: bir planlayıcı işi alt-ajanlara böler, plan onaya sunulur, her adım atıf ve denetim iziyle kaydedilir, kurumun bilgi katmanı (playbook, emsal, tercih) her ajanı besler. Vibe aynı omurgayı hukuk işi için değil, <em>şirket yönetimi</em> için kurar; hukuk katmanlardan biridir.</p></div>
+  <div class="harness">
+    <div class="hs"><div class="n">01</div><b>Planla</b><span>İstek alt görevlere bölünür; hangi şirket, hangi kaynak, hangi ajan.</span></div>
+    <div class="hs"><div class="n">02</div><b>Onay kapısı</b><span>Plan ve kapsam gösterilir; dış etki yaratan adımlar (mail, kayıt) onay bekler.</span></div>
+    <div class="hs"><div class="n">03</div><b>Paralel çalıştır</b><span>Alt-ajanlar aynı anda: Data Room tarar, API çeker, tabloyu kurar.</span></div>
+    <div class="hs"><div class="n">04</div><b>Atıf + denetim izi</b><span>Her iddia bir belgeye veya API satırına; her araç çağrısı loglanır.</span></div>
+    <div class="hs"><div class="n">05</div><b>Hafıza + nudge</b><span>Çalışma tercihleri ve metodoloji öğrenilir; insan kararı gereken yer işaretlenir.</span></div>
+  </div>
+  <div class="agents">
+    <div class="ag"><div class="top"><span class="ic">B</span><h3>Brifing Ajanı</h3></div><p>Her Pazartesi 08:45: portföy ve paneller taranır, 5 öncelik, bekleyen kararlar ve kırmızı bayraklar mail taslağı olarak kutuya düşer.</p><div class="m"><em class="v">v2.0</em><em>zamanlanmış</em><em>Beklenti</em></div></div>
+    <div class="ag"><div class="top"><span class="ic">D</span><h3>Data Room Ajanı</h3></div><p>Drive'a düşen belgeyi sınıflandırır, doğru klasöre koyar, panel satırını "beyan → belge" yapar; eksik belgeler için sorumluya talep taslağı yazar.</p><div class="m"><em class="v">v2.0</em><em>olay bazlı</em><em>Dokümantasyon</em></div></div>
+    <div class="ag"><div class="top"><span class="ic">T</span><h3>Toplantı Ajanı</h3></div><p>Toplantı notu veya kaydından tutanak, karar kaydı ve aksiyon listesi çıkarır; teslim edilemeyenleri bir sonraki gündeme taşır.</p><div class="m"><em class="v">v2.0</em><em>olay bazlı</em><em>Karar ve aksiyon</em></div></div>
+    <div class="ag"><div class="top"><span class="ic">F</span><h3>Finans ve Vergi Ajanı</h3></div><p>Mizan, banka ve e-fatura verisinden nakit akışı ve borç takvimini günceller; vergi/SGK vade ve yapılandırma tarihlerini izler, sapmayı raporlar.</p><div class="m"><em class="v">v2.0</em><em>aylık</em><em>Nakit Akışı</em></div></div>
+    <div class="ag"><div class="top"><span class="ic">Tş</span><h3>Teşvik Radarı</h3></div><p>Şirket profiline göre KOSGEB, Teknokent, E-Turquality, Ar-Ge ve ihracat desteklerini tarar; uygunluk, takvim ve gereken belgeleri Data Room ile eşler.</p><div class="m"><em class="v">v3.0</em><em>sürekli</em><em>Nakit Akışı</em></div></div>
+    <div class="ag"><div class="top"><span class="ic">M</span><h3>Mevzuat Radarı</h3></div><p>Şirketin sektörüne ve sözleşmelerine dokunan mevzuat değişikliklerini izler; etkilenen panel satırını ve kapatan aksiyonu önerir.</p><div class="m"><em class="v">v3.0</em><em>sürekli</em><em>Yönetilen Risk</em></div></div>
+    <div class="ag"><div class="top"><span class="ic">DD</span><h3>Due Diligence Ajanı</h3></div><p>DD checklist'ini Data Room ile karşılaştırır, tablo incelemesi (tabular review) ile sözleşme setini tarar, risk haritasını puanlar.</p><div class="m"><em class="v">v3.0</em><em>talep bazlı</em><em>Yönetilen Risk</em></div></div>
+    <div class="ag"><div class="top"><span class="ic">I</span><h3>Intake Ajanı</h3></div><p>Yeni şirket bağlanırken sicil, Data Room ve API'lerden ilk paneli kurar, tez uyum puanını taslaklar, eksik belge listesini çıkarır.</p><div class="m"><em class="v">v3.0</em><em>onboarding</em><em>Networth</em></div></div>
+    <div class="ag"><div class="top"><span class="ic">V</span><h3>Değerleme Ajanı</h3></div><p>Çeyrek sonunda değerleme politikasına göre varlıkları işaretler, NAV / MOIC / IRR'yi hesaplar, yatırım komitesi paketini hazırlar.</p><div class="m"><em class="v">v3.0</em><em>çeyreklik</em><em>Networth</em></div></div>
+  </div>
+  <div class="cmp">
+    <div><h3>Kategori liderleriyle ortak omurga</h3><p>Harvey "Agents" ve Legora "aOS" sayfalarında ilan edilen yapı: planlayıcı ve paralel alt-ajanlar, çalıştırma öncesi plan onayı, atıf ve adım günlüğü, kurum bilgi katmanı (playbook · emsal · tercih), zamanlanmış ajanlar, DMS / Microsoft / MCP bağlayıcıları, intake ürünü, etik duvarlar ve rol bazlı erişim.</p><p>Vibe bu omurgayı benimser; hepsi yol haritasında adıyla var.</p></div>
+    <div><h3>Vibe'ın farkı</h3><ul><li>Nesne hukuki dosya değil, <b>şirket</b>: Data Room + panel + süreç tek varlık.</li><li>Her çıktı üç North Star'a bağlanır; "ilginç" değil, karar üretir.</li><li>Belge / beyan / dayanak yok ayrımı ürünün kuralıdır, prompt tercihi değil.</li><li>Hukuk, finans, vergi, teşvik, pazarlama, İK <b>aynı şirket üzerinde</b> katmanlanır.</li><li>Yatırımcı, danışman ve yönetim aynı masaya oturur; roller ayrı, veri ortak.</li></ul></div>
+  </div>
+</div></section></div>
+
+<!-- MATRIX -->
+<section class="sec" id="matris"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">Yatay × dikey</div><h2>Üç yatay seviye, altı dikey katman.</h2><p>Yatayda şirketin yönetim seviyesi: kurumsal yönetim tabanı, iş geliştirme ve yatırım, yatırım yönetimi. Dikeyde alan katmanları: her biri kendi bağlayıcıları, şablonları ve ajanlarıyla gelir; müşteri bir katmanla başlayıp diğerlerini açar. Hücrelerdeki etiket hangi sürümde dolduğunu gösterir.</p></div>
+  <div class="mtx-wrap"><table class="mtx">
+    <tr><th></th><th class="c">Kurumsal Yönetim tabanı</th><th class="c">İş Geliştirme ve Yatırım</th><th class="c">Yatırım Yönetimi</th></tr>
+    <tr><td class="rh"><b>Hukuk ve Uyum</b><span>sözleşme · DD · KVKK · pay sahipliği</span></td><td><div class="cell v1"><span class="tg">v1.0</span>DD checklist, sözleşme seti, NDA, KVKK, "yapılmazsa" risk haritası</div></td><td><div class="cell v2"><span class="tg">v2.0</span>Term sheet ve hissedarlık yapısı, opsiyon planı, gate belgeleri</div></td><td><div class="cell v3"><span class="tg">v3.0</span>Mevzuat Radarı, çok kiracılı etik duvarlar, denetim izi raporu</div></td></tr>
+    <tr><td class="rh"><b>Finans · Vergi · Teşvik</b><span>bütçe · nakit · mizan · teşvik</span></td><td><div class="cell v1"><span class="tg">v1.0</span>Bütçe / nakit akışı / bilanço şablonları, mali yönetim kuralları</div></td><td><div class="cell v2"><span class="tg">v2.0</span>Vibe MCP: mizan, banka, e-fatura; Finans ve Vergi Ajanı; borç takvimi</div></td><td><div class="cell v2"><span class="tg">v2.0</span>Değerleme politikası, NAV / MOIC / IRR, sermaye tahsisi · <span class="tg">v3.0</span> Teşvik Radarı</div></td></tr>
+    <tr><td class="rh"><b>Operasyon ve Süreç</b><span>görev · karar · toplantı</span></td><td><div class="cell v1"><span class="tg">v1.0</span>Aksiyon ve karar takibi, toplantı döngüsü, oturumlar, kütüphane</div></td><td><div class="cell v2"><span class="tg">v2.0</span>Toplantı Ajanı, ortak oturumlar, zamanlanmış akışlar, roller</div></td><td><div class="cell v2"><span class="tg">v2.0</span>Yatırım komitesi ritmi, IC paketi, Decision Log analitiği</div></td></tr>
+    <tr><td class="rh"><b>Pazarlama ve Satış</b><span>CRM · reklam · e-ticaret</span></td><td><div class="cell v2"><span class="tg">v2.0</span>Teklif stoğu ve dönüşüm, KPI matrisi panelde</div></td><td><div class="cell v2"><span class="tg">v2.0</span>Shopify / Trendyol / Amazon ve Meta / Google Ads bağlayıcıları; ciro ve ROAS satırları</div></td><td><div class="cell v3"><span class="tg">v3.0</span>Kanal bazlı birim ekonomisi, e-ihracat teşvik eşleşmesi</div></td></tr>
+    <tr><td class="rh"><b>İnsan Kaynakları</b><span>kadro · görev tanımı · bordro</span></td><td><div class="cell v1"><span class="tg">v1.0</span>Org şeması, RACI, İK doküman seti, eser/buluş devri</div></td><td><div class="cell v2"><span class="tg">v2.0</span>SGK / bordro bağlayıcısı, kapasite planı, kilit personel riski</div></td><td><div class="cell v3"><span class="tg">v3.0</span>Opsiyon havuzu ve yönetici teşvik planı izleme</div></td></tr>
+    <tr><td class="rh"><b>İş Geliştirme ve Yatırım</b><span>funnel · gate · deal memo</span></td><td><div class="cell v1"><span class="tg">v1.0</span>Funnel: müvekkil → kurumsal yönetim → ortaklık → venture</div></td><td><div class="cell v1"><span class="tg">v1.0</span>Gate 0–2, VCP hattı, deal memo şablonu · <span class="tg">v3.0</span> Intake Ajanı</div></td><td><div class="cell v3"><span class="tg">v3.0</span>Çok kiracılı portföy, metodoloji paketleri, dış yatırımcı erişimi</div></td></tr>
+  </table></div>
+  <div class="mtx-legend"><span><i style="background:var(--navy)"></i>v1.0 bugün çalışıyor</span><span><i style="background:rgba(31,90,168,.25)"></i>v2.0 bağlı sistemler ve ajanlar</span><span><i style="background:var(--bg-sunken);border:1px dashed var(--border-strong)"></i>v3.0 platform</span></div>
+</div></section>
+
+<!-- PRINCIPLES -->
+<section class="sec" id="ilkeler" style="background:var(--bg-sunken)"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">İlkeler</div><h2>Panel hiçbir sayıyı belgesiz "doğru" göstermez.</h2><p>Bu kurallar üründe kod olarak yaşar; şablon istemlerine, ajan talimatlarına ve MCP araçlarına gömülüdür. Üçüncü taraf bir ekip kullandığında da aynı disiplin geçerlidir.</p></div>
+  <div class="princ">
+    <div class="pr"><div class="k">01</div><h3>Dayanak zorunlu</h3><p>Her değer bir belgeye bağlanır; belge yoksa beyan, beyan da yoksa "dayanak yok" olarak işaretlenir ve öyle kalır.</p><div class="ex"><span class="belge">belge</span><span class="beyan">beyan</span><span class="yok">dayanak yok</span></div></div>
+    <div class="pr"><div class="k">02</div><h3>Sorumlu kişi, jenerik rol değil</h3><p>"Müvekkil" yazılmaz. Girdi kimden bekleniyorsa o: Müvekkil Yönetimi, Mali Müşavir, Yazılım Ekibi, Juris, Ortak.</p></div>
+    <div class="pr"><div class="k">03</div><h3>Yapılmazsa doğacak risk</h3><p>Hukuki ve finansal tespitler en sonda, "bu yapılmazsa şu risk açık kalır" diliyle; her risk için kapatan doküman ve sahip.</p></div>
+    <div class="pr"><div class="k">04</div><h3>Veride olmayan rakam yok</h3><p>Claude ve ajanlar yalnızca bağlı kaynakların verisiyle çalışır; eksikse "veride yok" der. Ciro hedefi belirlenmediyse uydurulmaz.</p></div>
+    <div class="pr"><div class="k">05</div><h3>Belge Data Room'da, süreç Vibe'da</h3><p>Belge Drive'da kalır, iletişim mailde; görev, karar ve toplantı Vibe içinde. Kopya veri ve ikinci araç yoktur.</p></div>
+    <div class="pr"><div class="k">06</div><h3>İnsan onayı dış etkiden önce</h3><p>Ajan plan sunar, insan onaylar; mail gönderme, kayıt yazma gibi adımlar onaysız çalışmaz. Her adım günlüğe yazılır.</p></div>
+  </div>
+</div></section>
+
+<!-- TIERS / VERSIONS -->
+<div class="dark"><section class="sec" id="paketler"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">Sürümler ve paketler</div><h2>v1.0 bugün. Her sürüm bir paket, her paket bir ödeme biçimi.</h2><p>Sürümler özellik seti olarak tanımlanır ve kullanıcıların satın alabileceği paketlere karşılık gelir. Fiyat birimi sürümle birlikte değişir: önce çalışma alanı, sonra bağlı şirket, sonra ajan kapasitesi ve platform lisansı.</p></div>
+  <div class="tiers">
+    <div class="tier now"><div class="vh"><b>v1.0</b><span>Şimdi · Stüdyo</span></div><h3>Stüdyo</h3><div class="for">Tek portföy, tek ekip. Paneller elle kurulur, Claude istek anında okur.</div>
+      <div class="price"><div class="l">Ödeme biçimi</div><b>Çalışma alanı başına · aylık</b><span>Sınırsız oturum ve şablon; Claude kullanımı kullanıcının kendi hesabından veya API anahtarından.</span></div>
+      <div class="grp">Dahil</div><ul><li class="ok"><i></i>Vibe stüdyosu: kapsam, alan, kaynak çipleri</li><li class="ok"><i></i>13 şablon · 4 doküman tabanlı (Jurisleştir dahil)</li><li class="ok"><i></i>Dosya ekleme: PDF, metin, görsel</li><li class="ok"><i></i>Oturumlar ve Çıktı Kütüphanesi</li><li class="ok"><i></i>Portföy paneli + kurumsal yönetim panelleri</li><li class="ok"><i></i>Süreç katmanı panel içinde (aksiyon, karar, toplantı)</li><li class="ok"><i></i>Yerel çalıştırma paketi (Claude API köprüsü)</li></ul>
+      <div class="ns">North Star etkisi: <b>Dokümantasyon ve iletişim</b> hızlanır; karar gündemi belgeyle gelir.</div></div>
+    <div class="tier"><div class="vh"><b>v2.0</b><span>Ofis · bağlı sistemler</span></div><h3>Ofis</h3><div class="for">Ekip ve bağlı şirketler. Veri kendiliğinden akar; ajanlar ritmi tutar.</div>
+      <div class="price"><div class="l">Ödeme biçimi</div><b>Çalışma alanı + bağlı şirket başına</b><span>Her bağlı şirket Vibe MCP bağlayıcı kotası ve ajan saatiyle gelir; kullanıcı sayısı değil şirket sayısı ölçeklenir.</span></div>
+      <div class="grp">v1.0 + </div><ul><li><i></i>Vibe MCP: muhasebe, banka, e-fatura, e-ticaret, reklam, SGK bağlayıcıları</li><li><i></i>Data Room Ajanı: belge geldiğinde "beyan → belge"</li><li><i></i>Brifing, Toplantı, Finans ve Vergi ajanları; zamanlanmış akışlar</li><li><i></i>Gmail: durum maili ve hatırlatmalar taslak olarak kutuya</li><li><i></i>Ortak oturumlar, roller (yatırımcı · danışman · yönetim), onay kapıları</li><li><i></i>Değerleme, nakit akışı ve borç tabloları gerçek rakamla</li><li><i></i>Pazarlama ve satış katmanı: ciro, ROAS, teklif stoğu</li></ul>
+      <div class="ns">North Star etkisi: <b>Beklenti yönetimi</b> gerçek rakamla; Nakit Akışı ve Networth ilk kez dolu.</div></div>
+    <div class="tier"><div class="vh"><b>v3.0</b><span>Platform · çok kiracılı</span></div><h3>Platform</h3><div class="for">Danışmanlık firmaları, aile ofisleri ve holdingler kendi müvekkil ve portföylerini aynı metodolojiyle yönetir.</div>
+      <div class="price"><div class="l">Ödeme biçimi</div><b>Platform lisansı + metodoloji paketi + API kullanımı</b><span>Kiracı başına lisans; alan paketleri (Hukuk, Finans-Vergi-Teşvik, Pazarlama-Satış, İK) ayrı açılır; API ve ajan kapasitesi kullanım bazlı.</span></div>
+      <div class="grp">v2.0 + </div><ul><li><i></i>Kiracı başına Data Room, paneller, kütüphane, etik duvarlar</li><li><i></i>Ajan orkestrasyonu: planlayıcı, paralel alt-ajanlar, denetim izi, hafıza</li><li><i></i>Intake, Due Diligence, Değerleme, Teşvik ve Mevzuat ajanları</li><li><i></i>Metodoloji paketleri: şablon + mercek + ajan setleri paylaşılabilir</li><li><i></i>Açık API ve MCP: dış uygulamalar şirketi sorgular, Vibe diğer MCP istemcilerinde çalışır</li><li><i></i>Belge / beyan denetim izi ve yetki devri raporları</li><li><i></i>Çok dilli çıktı (TR · EN), SSO ve kurumsal güvenlik</li></ul>
+      <div class="ns">North Star etkisi: <b>Karar ve aksiyon</b> ölçeklenir; Yönetilen Risk portföy genelinde izlenir.</div></div>
+  </div>
+</div></section></div>
+
+<!-- AUDIENCES -->
+<section class="sec" id="kimler"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">Kimler için</div><h2>Üç koltuk, aynı masa.</h2><p>Aynı veri üzerinde yatırımcı, danışman ve şirket yönetimi farklı sorular sorar. Kapsam ve alan çipleri bunun için var; v2.0'da roller de.</p></div>
+  <div class="aud">
+    <div class="au"><div class="role">Yatırımcı · Family Office</div><h3>Portföyü PE disipliniyle yönetenler</h3><p>Birden fazla şirkette pay, danışman koltuğu veya operatörlük taşıyan kurucular ve aile ofisleri.</p><ul><li>Nakit × değer matrisi, tez uyumu, gate kararları</li><li>Haftalık brifing, IC gündemi, deal memo</li><li>Değerleme ve Teşvik ajanları (v3.0)</li></ul><div class="q">"Bu çeyrek komiteye ne gidiyor, dayanağı var mı?"</div></div>
+    <div class="au"><div class="role">Danışman · Hukuk ve Finans</div><h3>Kurumsal yönetim hizmeti verenler</h3><p>Hizmet planı ve Data Room ile sürekli danışmanlık yürüten hukuk, finans ve yönetim danışmanlığı ekipleri.</p><ul><li>Müvekkil başına aynı yapıda panel; Intake ile bir günde</li><li>Durum maili, girdi hatırlatma seti, Decision Log</li><li>DD ve Mevzuat ajanları; metodoloji paketi satışı (v3.0)</li></ul><div class="q">"Bu hafta hangi müvekkilden ne bekliyoruz?"</div></div>
+    <div class="au"><div class="role">Şirket Yönetimi · Portföy Şirketi</div><h3>Kendi şirketini belgeyle yönetenler</h3><p>Kurucu ortaklar, mali müşavir ve yönetim ekibi; panel onların da ekranıdır.</p><ul><li>Aksiyon ve karar takibi, OKR, bütçe/nakit</li><li>Toplantı notundan karar kaydına</li><li>Muhasebe ve e-ticaret bağlayıcılarıyla canlı rakam (v2.0)</li></ul><div class="q">"Yönetim kurulu için özeti ve kararları çıkar."</div></div>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section class="sec" id="sss" style="background:var(--bg-sunken)"><div class="wrap">
+  <div class="sec-h"><div class="eyebrow">SSS</div><h2>Sık sorulanlar</h2></div>
+  <div class="faq">
+    <details><summary>Claude verimi görüyor mu?</summary><p>Yalnızca istek anında, seçtiğiniz kaynaklar bağlam olarak gönderilir. Panel verisi sayfada kalır; kalıcı olarak Claude'a yüklenmez. İlk çalıştırmada izin istenir. v3.0'da kiracı başına etik duvarlar ve denetim izi eklenir.</p></details>
+    <details><summary>Ayrı bir görev yönetimi aracına gerek var mı?</summary><p>Hayır. Görev, karar ve toplantı döngüsü Vibe'ın süreç katmanında yaşar; belge Data Room'da (Drive), iletişim mailde kalır. Üç yer, tek görünüm.</p></details>
+    <details><summary>Vibe MCP nedir, bize ne kazandırır?</summary><p>Şirketin API'lerini (muhasebe, banka, e-fatura, e-ticaret, reklam, SGK) tek sunucuda toplayan bağlantı katmanı. Gelen veri Data Room'a belge olarak yazılır, panel kaynak satırıyla dolar; aynı araçlar Claude Studio ve diğer MCP istemcilerinden de kullanılır.</p></details>
+    <details><summary>Ajanlar kendi başına mail atar mı?</summary><p>Hayır. Ajan plan sunar ve taslak hazırlar; dış etki yaratan adımlar (gönderme, kayıt yazma) onay kapısından geçer. Her adım günlüğe yazılır.</p></details>
+    <details><summary>Rakamlar güvenilir mi?</summary><p>Veride olmayan rakam üretilmez; eksik veri "veride yok" olarak işaretlenir. Her yanıt dayanağını (belge / beyan / dayanak yok) ve v2.0'dan itibaren API kaynak satırını gösterir.</p></details>
+    <details><summary>Claude dışında çalışır mı?</summary><p>Evet. Yerel çalıştırma paketi, aynı arayüzü kendi Anthropic API anahtarınızla çalıştıran bir köprü içerir. v3.0 açık API ve MCP ile başka istemcilere de açılır.</p></details>
+  </div>
+</div></section>
+
+<div class="dark">
+<section class="final"><div class="glow" aria-hidden="true"></div><div class="wrap">
+  <div class="eyebrow">Başlayın</div>
+  <h2 style="margin-top:10px">Bir sonraki toplantıya belgeyle gidin.</h2>
+  <p>Vibe Management v1.0 bugün MTFG portföyü ve bağlı şirketler için çalışıyor. Kendi portföyünüz veya müvekkilleriniz için erken erişim isteyin; v2.0 bağlayıcılarını birlikte önceliklendirelim.</p>
+  <div class="ctas"><a class="btn red" href="/app/">Ana Merkez'i aç</a><a class="btn ghost" href="#paketler">Paketleri gör</a></div>
+</div></section>
+<footer><div class="wrap"><span><b>Vibe Management</b> · MTFG Ana Merkez · v1.0 · Ekim 2026</span><span>Metodoloji: Juris Şirketler Hukuku ve Kurumsal Yönetim · Yatırımcıya Dönüşüm 1.0</span></div></footer>
+</div>
+
+<script>
+document.querySelectorAll(".demo-tabs button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".demo-tabs button").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll(".demo .scene").forEach(s=>s.classList.toggle("on",s.id===b.dataset.scene));}));
+const titles={p1:"Vibe Management · Stüdyo",p2:"MTFG · Portföy Yönetim Paneli",p3:"Kurumsal Yönetim Paneli · Onscala",p4:"Süreç Katmanı · görev · karar · toplantı"};
+document.querySelectorAll(".layer").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".layer").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll(".shot .pane").forEach(p=>p.classList.toggle("on",p.id===b.dataset.pane));document.getElementById("shotTitle").textContent=titles[b.dataset.pane];}));
+let si=0; const scenes=[...document.querySelectorAll(".demo-tabs button")]; let auto=setInterval(()=>{si=(si+1)%scenes.length;scenes[si].click();},6500);
+document.querySelector(".demo").addEventListener("click",()=>{clearInterval(auto);},{once:true});
+</script>
+
+</body></html>
