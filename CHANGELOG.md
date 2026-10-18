@@ -3,6 +3,21 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.4.0] — 2026-10-18 · Tek servis + admin iskeleti (v1.0 yolu başladı)
+
+### Eklendi
+- `docs/product/V1-PLAN.md`: tam kullanılabilirlik değerlendirmesi (teknik + teknik dışı), ürün UI vs admin, veri mimarisi
+  (Drive gerçek kaynak, SQLite + Volume), v1.0 eksik listesi, v2.0/v3.0 vizyonu. `docs/adr/0002-drive-source-of-truth.md`.
+- `data/roadmap.json`: makine-okunur yol haritası (v1.0 adımları + v2/v3 vizyon) → admin Yol Haritası görünümü.
+- `apps/server` (Fastify, tek servis): `/` landing · `/app/` Ana Merkez · `/admin/` yönetim · `/api/health|roadmap|releases|sample`.
+  Anthropic köprüsü SDK 0.70'e taşındı (Haiku 5.5 / Opus 5.5 / Fable 5.1); anahtar yoksa 503 ile açık mesaj.
+- Admin paneli iskeleti (Juris standardı, tek dosya): Yol Haritası, Sürümler, Sağlık canlı; Geri Bildirim / Paneller & Senkron / Kullanıcılar yer tutucu.
+- Landing yer tutucu (Juris standardı). `railway.json`, `.node-version`, `.env.example`.
+
+### Değişti
+- `apps/ana-merkez` yalnız statik uygulama; eski `server/index.mjs` ve paketi kaldırıldı. `releases.json` → `data/`.
+- Root script'ler: `npm start` (tek servis, 8787) · `npm run dev` · `npm run dev:mrf` (Mr. F konsolu) · `npm run panels` (kit all --deploy).
+
 ## [0.3.0] — 2026-10-18 · Tek panel kiti
 
 ### Değişti

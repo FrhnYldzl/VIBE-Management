@@ -1,5 +1,8 @@
 # Yol Haritası — fazlar ve sürümler
 
+> **Güncel ve bağlayıcı plan:** [V1-PLAN.md](V1-PLAN.md) + [`data/roadmap.json`](../../data/roadmap.json) (admin → Yol Haritası).
+> Aşağıdaki tablolar tarihsel bağlamdır.
+
 ## Ana Merkez (VIBE Management çekirdeği)
 
 | Sürüm | Tema | Kapsam | Durum |

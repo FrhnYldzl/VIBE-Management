@@ -14,11 +14,14 @@ Juris Kurumsal Kimlik (lacivert #0A2240 · kırmızı #BC2F2C · Playfair Displa
 - Tasarım sistemi: [docs/design/DESIGN-SYSTEM.md](docs/design/DESIGN-SYSTEM.md)
 - Mr. F tezi: [docs/kurucu-dokuman.html](docs/kurucu-dokuman.html)
 
+v1.0 planı ve durum: [docs/product/V1-PLAN.md](docs/product/V1-PLAN.md) · yol haritası verisi: [data/roadmap.json](data/roadmap.json) (admin → Yol Haritası).
+
 ## Yapı
 
 ```
-apps/ana-merkez           MTFG Ana Merkez — public/index.html (portföy + Vibe stüdyosu), onscala/codemag panelleri,
-                          server/index.mjs (statik + Anthropic Messages API köprüsü, SSE)   ← ÜRÜNÜN ANA YÜZÜ
+apps/server               TEK SERVİS (Fastify): / landing · /app/ Ana Merkez · /admin/ yönetim · /api/* (health, roadmap,
+                          releases, sample = Claude köprüsü). Railway bunu çalıştırır (railway.json).
+apps/ana-merkez/public    MTFG Ana Merkez — index.html (portföy + Vibe stüdyosu) + 5 müvekkil paneli (kitten üretilir)   ← ÜRÜNÜN ANA YÜZÜ
 packages/juris-panel-kit  TEK PANEL KİTİ: master → src/template.html (ortak kod) + src/clients/<slug>.data.js (5 müvekkil)
                           tools/kit.js: template · extract · build · smoke · compare · all --deploy  (root: npm run panels)
 packages/juris-panels/    Kaynak arşiv — kurucunun paket halinde verdiği Qervan/Zyrone/Onscala kaynakları (birebir, referans)
@@ -36,17 +39,25 @@ Gereken: Node 22.13+.
 npm install
 ```
 
-Ana Merkez (http://localhost:8787 — Vibe stüdyosu için `apps/ana-merkez/.env` içine `ANTHROPIC_API_KEY`):
+Tek servis (http://localhost:8787 → `/` landing · `/app/` Ana Merkez · `/admin/` yönetim). Vibe için `apps/server/.env` içine `ANTHROPIC_API_KEY` (bkz. `.env.example`):
 
 ```bash
-npm run ana-merkez
+npm start
+```
+
+Panelleri kitten yeniden üret ve Ana Merkez'e kopyala:
+
+```bash
+npm run panels
 ```
 
 Mr. F operatör konsolu (web http://localhost:5173 · API 127.0.0.1:4310, `VIBE_API_PORT`):
 
 ```bash
-npm run dev
+npm run dev:mrf
 ```
+
+**Railway:** repo'yu bağla, `railway.json` okunur (`npm start`, health `/api/health`), Variables: `ANTHROPIC_API_KEY`. Tek servis, tek port.
 
 Çalışma zamanı verisi `var/vibe.db` dosyasına yazılır (git dışı).
 
@@ -62,4 +73,4 @@ npm test
 
 ## Sürüm
 
-Güncel: **v0.2.0** (MTFG Ana Merkez + Juris panel kiti repoya birebir alındı; Mr. F konsolu alt modül). Ayrıntı: [CHANGELOG.md](CHANGELOG.md).
+Güncel: **v0.4.0** — tek servis + admin iskeleti; v1.0 yolu `data/roadmap.json`'da izlenir. Ayrıntı: [CHANGELOG.md](CHANGELOG.md).

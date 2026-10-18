@@ -5,7 +5,7 @@ import { z } from "zod";
 import { DURUMLAR, FONKSIYONLAR, TURETILEN_SKORLAR, type ScoredProblem } from "@vibe/core";
 import { normalize, type DataStore } from "./data.ts";
 import { GERI_BILDIRIM_TURLERI, SINYAL_TIPLERI, TRIAGE, type Db } from "./db.ts";
-import releases from "./releases.json" with { type: "json" };
+import releases from "../../../data/releases.json" with { type: "json" };
 
 export interface AppOptions {
   data: DataStore;

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VIBE Admin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Juris Kurumsal Kimlik token'ları — Ana Merkez ve panellerle aynı */
+:root{--navy:#0A2240;--red:#BC2F2C;--red-ink:#8A1F1D;--bg:#FAFAF7;--bg-elev:#FFFFFF;--bg-sunken:#F3F2EE;--bg-nav:#0A2240;--bg-nav-2:#0E2B50;--border:rgba(10,34,64,.09);--border-strong:rgba(10,34,64,.18);--divider:rgba(10,34,64,.06);--ink:#0A2240;--ink-2:rgba(10,34,64,.72);--ink-3:rgba(10,34,64,.52);--ink-4:rgba(10,34,64,.36);--nav-ink:#FFFFFF;--nav-ink-2:rgba(255,255,255,.72);--nav-ink-3:rgba(255,255,255,.45);--nav-hover:rgba(255,255,255,.07);--nav-active:rgba(255,255,255,.12);--nav-accent:#E26B68;--tint-04:rgba(10,34,64,.04);--tint-08:rgba(10,34,64,.08);--success:#1F7A4E;--success-bg:rgba(31,122,78,.10);--warn:#B4701C;--warn-bg:rgba(180,112,28,.11);--info:#1F5AA8;--info-bg:rgba(31,90,168,.10);--neutral:#5A6B82;--neutral-bg:rgba(90,107,130,.12);--accent-bg:rgba(188,47,44,.10);--track:rgba(10,34,64,.10);--font-display:"Playfair Display","Times New Roman",Georgia,serif;--font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;--r-sm:6px;--r-md:10px;--r-lg:14px;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060F1F;--bg-elev:#0D1B33;--bg-sunken:#040A17;--bg-nav:#040A17;--bg-nav-2:#0A1830;--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.16);--divider:rgba(255,255,255,.05);--ink:#F2F0EA;--ink-2:rgba(242,240,234,.72);--ink-3:rgba(242,240,234,.5);--ink-4:rgba(242,240,234,.32);--tint-04:rgba(255,255,255,.03);--tint-08:rgba(255,255,255,.07);--success:#4FB07F;--success-bg:rgba(79,176,127,.14);--warn:#D9984A;--warn-bg:rgba(217,152,74,.14);--info:#6FA0E0;--info-bg:rgba(111,160,224,.14);--neutral:#9AA8BC;--neutral-bg:rgba(154,168,188,.14);--red-ink:#E26B68;--accent-bg:rgba(226,107,104,.14);--track:rgba(255,255,255,.10);color-scheme:dark}}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}a{color:inherit}
+.app{display:flex;height:100%;min-height:100vh}
+.nav{width:276px;flex:0 0 276px;background:var(--bg-nav);color:var(--nav-ink);display:flex;flex-direction:column;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:12px;padding:20px 20px 14px}.brand .mark{width:36px;height:36px;border-radius:9px;background:var(--red);display:grid;place-items:center;font-family:var(--font-display);font-weight:600;color:#fff}
+.brand .name{font-family:var(--font-display);font-size:22px;line-height:1}.brand .sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nav-ink-3);margin-top:4px}
+.client{margin:0 14px 6px;padding:12px 14px;border-radius:var(--r-md);background:var(--bg-nav-2);border:1px solid rgba(255,255,255,.08)}.client .lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--nav-ink-3)}.client .cname{font-weight:600;font-size:14px;margin-top:3px}.client .ents{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.client .ent{font-size:10.5px;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--nav-ink-2)}
+.navsec{padding:12px 14px 2px}.navsec .h{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nav-ink-3);padding:0 8px 6px}
+.ni{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:7px 10px;border-radius:var(--r-sm);color:var(--nav-ink-2);font-size:13px;font-weight:500;text-decoration:none}.ni:hover{background:var(--nav-hover);color:var(--nav-ink)}.ni.active{background:var(--nav-active);color:var(--nav-ink)}
+.ni .k{font-family:var(--font-mono);font-size:11px;color:var(--nav-ink-3);width:22px;flex:0 0 22px}.ni.active .k{color:var(--nav-accent)}.ni .t{flex:1}.ni .pct{font-family:var(--font-mono);font-size:11px;color:var(--nav-ink-3)}
+.navfoot{margin-top:auto;padding:14px 20px 18px;font-size:11px;color:var(--nav-ink-3);line-height:1.5;border-top:1px solid rgba(255,255,255,.07)}
+.main{flex:1;min-width:0;overflow-y:auto;padding:0 24px 48px}.wrap{max-width:1180px;margin:0 auto}
+.topbar{display:flex;align-items:center;gap:12px;padding:14px 0 0;min-height:52px}.crumb{font-size:12px;color:var(--ink-3)}.crumb b{color:var(--ink-2);font-weight:500}.spacer{flex:1}.date{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3)}
+.page-h{padding:22px 0 18px;display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}.page-h h1{font-family:var(--font-display);font-weight:500;font-size:30px;line-height:1.1;margin:0;letter-spacing:-.01em}.page-h .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red-ink);font-weight:600;margin-bottom:6px}.page-h p{margin:8px 0 0;color:var(--ink-2);max-width:66ch}.page-h .right{margin-left:auto;display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:12.5px;font-weight:600;background:var(--bg-elev);color:var(--ink);text-decoration:none}.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{background:#F2F0EA;color:#0A2240;border-color:#F2F0EA}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}.tile{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px 12px}.tile .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}.tile .v{font-family:var(--font-display);font-size:30px;line-height:1.05;margin-top:6px;font-variant-numeric:tabular-nums}.tile .v small{font-family:var(--font-body);font-size:13px;color:var(--ink-3);margin-left:4px}.tile .d{font-size:12px;color:var(--ink-3);margin-top:4px}.tile.accent{border-color:transparent;background:var(--navy);color:#fff}.tile.accent .l,.tile.accent .d{color:rgba(255,255,255,.65)}
+.bar{height:6px;border-radius:999px;background:var(--track);overflow:hidden;display:flex}.bar i{display:block;height:100%}.tile.accent .bar{background:rgba(255,255,255,.18)}
+.sec{margin-top:26px}.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;flex-wrap:wrap}.sec-h h2{font-family:var(--font-display);font-weight:500;font-size:19px;margin:0}.sec-h .meta{font-size:12px;color:var(--ink-3)}
+.card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);min-width:0}.card.pad{padding:16px 18px}
+.tbl-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px;min-width:620px}th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border-strong);font-weight:600;white-space:nowrap}td{padding:10px 12px;border-bottom:1px solid var(--divider);vertical-align:top}tr:last-child td{border-bottom:0}
+td .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin-right:6px}td.doc{font-weight:500;min-width:260px}.owner{font-size:12px;color:var(--ink-2);white-space:nowrap}.muted{color:var(--ink-4);font-size:12px}
+.status{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;font-size:11.5px;font-weight:600;white-space:nowrap}.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.status.done{background:var(--success-bg);color:var(--success)}.status.progress{background:var(--warn-bg);color:var(--warn)}.status.next{background:var(--info-bg);color:var(--info)}.status.planned{background:var(--neutral-bg);color:var(--neutral)}.status.vision{background:var(--accent-bg);color:var(--red-ink)}
+.fnchip{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--tint-08);color:var(--ink-2)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);margin-top:10px}.legend span{display:inline-flex;align-items:center;gap:6px}.legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.note{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:var(--r-md);background:var(--warn-bg);color:var(--ink-2);font-size:13px;margin-top:12px}.note b{color:var(--ink)}
+.vis{border-left:3px solid var(--red-ink)}
+.scrim{display:none}.menu-btn{display:none;width:34px;height:34px;border-radius:var(--r-sm);border:1px solid var(--border);align-items:center;justify-content:center}
+@media (max-width:900px){.nav{position:fixed;left:0;top:0;bottom:0;z-index:10;transform:translateX(-100%);transition:transform .2s}.nav.open{transform:none}.scrim{position:fixed;inset:0;background:rgba(4,10,23,.5);z-index:9}.scrim.open{display:block}.menu-btn{display:inline-flex}.main{padding:0 16px 40px}.page-h h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="app">
+<nav class="nav" id="nav" aria-label="Admin menüsü">
+  <div class="brand"><div class="mark">V</div><div><div class="name">VIBE</div><div class="sub">Admin · Yönetim</div></div></div>
+  <div class="client"><div class="lbl">Ürün</div><div class="cname">VIBE Management</div><div class="ents"><span class="ent" id="ver">v…</span><span class="ent">2 kullanıcı</span><span class="ent" id="vibeState">Vibe: …</span></div></div>
+  <div class="navsec"><div class="h">Ürün yönetimi</div>
+    <button class="ni active" data-view="roadmap"><span class="k">A0</span><span class="t">Yol Haritası</span><span class="pct" id="rmPct"></span></button>
+    <button class="ni" data-view="releases"><span class="k">A1</span><span class="t">Sürümler</span></button>
+    <button class="ni" data-view="feedback"><span class="k">A2</span><span class="t">Geri Bildirim</span><span class="pct">v0.6.1</span></button>
+  </div>
+  <div class="navsec"><div class="h">Veri ve sistem</div>
+    <button class="ni" data-view="panels"><span class="k">A3</span><span class="t">Paneller &amp; Senkron</span><span class="pct">v0.5.0</span></button>
+    <button class="ni" data-view="users"><span class="k">A4</span><span class="t">Kullanıcılar</span><span class="pct">v0.4.1</span></button>
+    <button class="ni" data-view="health"><span class="k">A5</span><span class="t">Sağlık</span></button>
+  </div>
+  <div class="navsec"><div class="h">Yüzeyler</div>
+    <a class="ni" href="/app/"><span class="k">→</span><span class="t">Ana Merkez</span></a>
+    <a class="ni" href="/"><span class="k">→</span><span class="t">Landing</span></a>
+  </div>
+  <div class="navfoot">Kaynak: <b>data/roadmap.json</b> · <b>data/releases.json</b> (Git) · çalışma zamanı verisi v0.4.2'de DB'ye taşınır (ADR 0002). Drive gerçek kaynaktır.</div>
+</nav>
+<div class="scrim" id="scrim"></div>
+<main class="main" id="main"><div class="wrap">
+  <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü">☰</button><div class="crumb">VIBE Admin · <b id="crumb">Yol Haritası</b></div><div class="spacer"></div><div class="date" id="today"></div></div>
+  <div id="view"></div>
+</div></main>
+</div>
+<script>
+const $=s=>document.querySelector(s);const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const titles={roadmap:"Yol Haritası",releases:"Sürümler",feedback:"Geri Bildirim",panels:"Paneller & Senkron",users:"Kullanıcılar",health:"Sağlık"};
+const STATUS={done:"Tamamlandı",progress:"Devam ediyor",next:"Sırada",planned:"Planlı",vision:"Vizyon"};
+const COLOR={done:"var(--success)",progress:"var(--warn)",next:"var(--info)",planned:"var(--neutral)",vision:"var(--red-ink)"};
+let RM=null, REL=null, HEALTH=null, current="roadmap";
+$("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
+
+function stats(steps){const c={done:0,progress:0,next:0,planned:0,vision:0,total:steps.length};steps.forEach(s=>c[s.durum]++);c.pct=c.total?Math.round(100*(c.done+.5*c.progress)/c.total):0;return c;}
+function bar(c){const w=k=>c.total?(100*c[k]/c.total)+"%":"0%";return `<div class="bar">${["done","progress","next","planned","vision"].map(k=>`<i style="width:${w(k)};background:${COLOR[k]}"></i>`).join("")}</div>`;}
+const legend=`<div class="legend">${Object.entries(STATUS).map(([k,t])=>`<span><i style="background:${COLOR[k]}"></i>${t}</span>`).join("")}</div>`;
+function table(steps,vision=false){return `<div class="card ${vision?"vis":""}"><div class="tbl-wrap"><table><thead><tr><th>Sürüm</th><th>Adım</th><th>Alan</th><th>Durum</th>${vision?"":"<th>Kabul kriteri</th>"}</tr></thead><tbody>
+ ${steps.map(s=>`<tr><td><span class="no">v${esc(s.v)}</span></td><td class="doc">${esc(s.ad)}</td><td><span class="fnchip">${esc(s.alan)}</span></td><td><span class="status ${s.durum}">${STATUS[s.durum]}</span></td>${vision?"":`<td class="owner" style="white-space:normal">${esc(s.kabul||"—")}</td>`}</tr>`).join("")}
+</tbody></table></div></div>`;}
+
+function viewRoadmap(){
+  const v1=RM.surumler[0], c=stats(v1.adimlar), cur=v1.adimlar.find(s=>s.durum==="progress"), nxt=v1.adimlar.find(s=>s.durum==="next");
+  return `<div class="page-h"><div><div class="eyebrow">Ürün yönetimi · A0</div><h1>Yol Haritası</h1><p>v1.0 = iki kullanıcının her gün güvenle kullandığı ürün. Sonrası vizyon: v2.0 müvekkil yüzü ve otomasyon, v3.0 platform. Kaynak: <b>docs/product/V1-PLAN.md</b> · güncelleme ${esc(RM.guncelleme)}.</p></div><div class="right"><a class="btn" href="/api/roadmap" target="_blank" rel="noopener">roadmap.json ↗</a></div></div>
+  <div class="tiles"><div class="tile accent"><div class="l">v1.0 ilerleme</div><div class="v">${c.pct}<small>%</small></div><div style="margin-top:10px">${bar(c)}</div></div>
+  <div class="tile"><div class="l">Tamamlanan</div><div class="v">${c.done}<small>/ ${c.total}</small></div><div class="d">adım</div></div>
+  <div class="tile"><div class="l">Devam eden</div><div class="v">${cur?"v"+esc(cur.v):"—"}</div><div class="d">${cur?esc(cur.ad).slice(0,48):"—"}</div></div>
+  <div class="tile"><div class="l">Sırada</div><div class="v">${nxt?"v"+esc(nxt.v):"—"}</div><div class="d">${nxt?esc(nxt.ad).slice(0,48):"—"}</div></div>
+  <div class="tile"><div class="l">Vizyon adımı</div><div class="v">${RM.surumler.slice(1).reduce((a,s)=>a+s.adimlar.length,0)}</div><div class="d">v2.0 + v3.0</div></div></div>${legend}
+  ${RM.surumler.map((s,i)=>`<div class="sec"><div class="sec-h"><h2>v${esc(s.v)} · ${esc(s.ad)}</h2><span class="meta">${esc(s.hedef)}</span></div>${table(s.adimlar,i>0)}</div>`).join("")}
+  <div class="note"><span>▲</span><div><b>Disiplin:</b> bir adım "Tamamlandı" olmadan önce kabul kriteri sağlanır, CHANGELOG + releases.json güncellenir, tag atılır. Yol haritası düzenleme (admin'den) v0.6.1'de; şimdilik roadmap.json Git'ten.</div></div>`;
+}
+function viewReleases(){
+  return `<div class="page-h"><div><div class="eyebrow">Ürün yönetimi · A1</div><h1>Sürümler</h1><p>Güncel sürüm <b>v${esc(REL.guncel)}</b>. Her sürüm bir iterasyon: hedef → yapım → demo → geri bildirim → karar.</p></div></div>
+  ${REL.surumler.map(s=>`<div class="sec"><div class="sec-h"><h2>v${esc(s.surum)} · ${esc(s.baslik)}</h2><span class="meta">${esc(s.tarih)} · ${esc(s.faz)} · <span class="status ${s.durum==="yayinda"?"done":"progress"}">${s.durum==="yayinda"?"Yayında":"Yapımda"}</span></span></div><div class="card pad">${s.degisiklikler.map(d=>`<div style="display:flex;gap:10px;padding:4px 0;font-size:13px"><span class="fnchip">${esc(d.tur)}</span><span style="color:var(--ink-2)">${esc(d.metin)}</span></div>`).join("")}</div></div>`).join("")}
+  ${REL.planli?.length?`<div class="sec"><div class="sec-h"><h2>Planlı</h2></div><div class="card pad">${REL.planli.map(p=>`<div style="padding:6px 0;font-size:13px"><b>v${esc(p.surum)} · ${esc(p.baslik)}</b><div style="color:var(--ink-3)">${esc(p.ozet)}</div></div>`).join("")}</div></div>`:""}`;
+}
+function viewHealth(){
+  const h=HEALTH||{};return `<div class="page-h"><div><div class="eyebrow">Veri ve sistem · A5</div><h1>Sağlık</h1><p>Tek servis: landing · /app · /admin · /api. Railway health check: <b>/api/health</b>.</p></div></div>
+  <div class="tiles"><div class="tile accent"><div class="l">Servis</div><div class="v">${h.ok?"OK":"—"}</div><div class="d">v${esc(h.surum||"?")}</div></div><div class="tile"><div class="l">Vibe (Claude)</div><div class="v">${h.vibe?"Açık":"Kapalı"}</div><div class="d">${h.vibe?"ANTHROPIC_API_KEY tanımlı":"anahtar yok → v0.6.0"}</div></div><div class="tile"><div class="l">Veritabanı</div><div class="v">—</div><div class="d">SQLite + Volume · v0.4.2</div></div><div class="tile"><div class="l">Drive senkronu</div><div class="v">—</div><div class="d">v0.5.0</div></div><div class="tile"><div class="l">Kimlik</div><div class="v">—</div><div class="d">GitHub OAuth · v0.4.1</div></div></div>`;
+}
+function placeholder(k,ver,desc){return `<div class="page-h"><div><div class="eyebrow">${esc(k)}</div><h1>${esc(titles[current])}</h1><p>${esc(desc)}</p></div></div><div class="card pad" style="color:var(--ink-3)">Bu görünüm <b style="color:var(--ink)">${esc(ver)}</b> sürümünde gelir. Kapsam: Yol Haritası → v1.0.</div>`;}
+function render(){
+  const el=$("#view"); $("#crumb").textContent=titles[current]; document.querySelectorAll(".ni[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===current));
+  if(!RM){el.innerHTML='<div class="card pad">Yükleniyor…</div>';return;}
+  el.innerHTML=current==="roadmap"?viewRoadmap():current==="releases"?viewReleases():current==="health"?viewHealth():current==="feedback"?placeholder("Ürün yönetimi · A2","v0.6.1","Uygulama içi geri bildirim gelen kutusu ve triage (şimdi / sonraki / fikir / ret)."):current==="panels"?placeholder("Veri ve sistem · A3","v0.5.0","Beş müvekkil paneli, Drive Data Room senkron durumu, son tarama, farklar ve yeniden üretim."):placeholder("Veri ve sistem · A4","v0.4.1","GitHub OAuth allowlist (2 kişi), parola yedeği, oturumlar.");
+  $("#main").scrollTop=0; $("#nav").classList.remove("open"); $("#scrim").classList.remove("open");
+}
+document.addEventListener("click",e=>{const b=e.target.closest(".ni[data-view]");if(b){current=b.dataset.view;location.hash=current;render();}});
+$("#menuBtn").addEventListener("click",()=>{$("#nav").classList.toggle("open");$("#scrim").classList.toggle("open");});$("#scrim").addEventListener("click",()=>{$("#nav").classList.remove("open");$("#scrim").classList.remove("open");});
+current=titles[location.hash.slice(1)]?location.hash.slice(1):"roadmap"; render();
+Promise.all([fetch("/api/roadmap").then(r=>r.json()),fetch("/api/releases").then(r=>r.json()),fetch("/api/health").then(r=>r.json()).catch(()=>null)]).then(([rm,rel,h])=>{RM=rm;REL=rel;HEALTH=h;$("#ver").textContent="v"+(h?.surum||rel.guncel);$("#vibeState").textContent="Vibe: "+(h?.vibe?"açık":"kapalı");$("#rmPct").textContent=stats(rm.surumler[0].adimlar).pct+"%";render();});
+</script>
+</body>
+</html>

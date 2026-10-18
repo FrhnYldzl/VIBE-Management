@@ -1,0 +1,53 @@
+{
+  "guncelleme": "2026-10-18",
+  "kaynak": "docs/product/V1-PLAN.md",
+  "durumlar": { "done": "Tamamlandı", "progress": "Devam ediyor", "next": "Sırada", "planned": "Planlı", "vision": "Vizyon" },
+  "surumler": [
+    {
+      "v": "1.0", "ad": "Günlük kullanıma hazır", "hedef": "2 kullanıcı · Drive gerçek kaynak · Railway tek servis · landing + uygulama + admin · temel güvenlik",
+      "adimlar": [
+        { "v": "0.1.0", "ad": "Mr. F operatör konsolu temeli", "durum": "done", "alan": "Ürün" },
+        { "v": "0.1.1", "ad": "Juris görsel standardı", "durum": "done", "alan": "Tasarım" },
+        { "v": "0.2.0", "ad": "MTFG Ana Merkez birebir repoda", "durum": "done", "alan": "Ürün" },
+        { "v": "0.2.1", "ad": "Zyrone · Qervan–WeTrade · Meown AI panelleri", "durum": "done", "alan": "Veri" },
+        { "v": "0.2.2", "ad": "Panel kaynak paketleri + canlı okuma", "durum": "done", "alan": "Veri" },
+        { "v": "0.3.0", "ad": "Tek panel kiti (5 müvekkil aynı master'dan)", "durum": "done", "alan": "Altyapı" },
+        { "v": "0.4.0", "ad": "Tek Fastify servis + Railway config + admin iskeleti (Yol Haritası)", "durum": "done", "alan": "Altyapı",
+          "kabul": "npm start tek portta landing/app/admin/api (yerelde doğrulandı); Railway deploy ilk push sonrası" },
+        { "v": "0.4.1", "ad": "Kimlik: GitHub OAuth + parola yedeği, oturum çerezi, 2 kişilik allowlist", "durum": "progress", "alan": "Güvenlik",
+          "kabul": "İki kullanıcı giriş yapıyor; başkası 401" },
+        { "v": "0.4.2", "ad": "Paylaşımlı durum: durum çipleri + Vibe oturumları DB'ye (SQLite + Railway Volume)", "durum": "planned", "alan": "Altyapı",
+          "kabul": "İki cihazda aynı durum" },
+        { "v": "0.5.0", "ad": "Drive senkronu v1: A–F tarama → DATAROOM durum/link → .data.js → build; admin Paneller & Senkron", "durum": "planned", "alan": "Veri",
+          "kabul": "5 müvekkil Drive'dan güncel; fark raporu" },
+        { "v": "0.5.1", "ad": "Veri doğruluğu turu: veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil", "durum": "planned", "alan": "Veri",
+          "kabul": "Checklist %100" },
+        { "v": "0.6.0", "ad": "Vibe üretim: API key, SDK güncel, model kademeleri, token tavanı + sayaç", "durum": "planned", "alan": "Vibe",
+          "kabul": "Vibe canlı, maliyet admin'de görünür" },
+        { "v": "0.6.1", "ad": "Admin tamam: sürümler, geri bildirim, kullanıcılar, sağlık", "durum": "planned", "alan": "Admin" },
+        { "v": "0.7.0", "ad": "Landing + güvenlik taraması (CSP, rate limit, audit) + alan adı", "durum": "planned", "alan": "Ürün",
+          "kabul": "Lighthouse ≥90; dış erişimde login zorunlu" },
+        { "v": "1.0.0", "ad": "Kabul: 2 hafta kesintisiz günlük kullanım, açık hata 0, veri doğrulama tamam", "durum": "planned", "alan": "Yayın" }
+      ]
+    },
+    {
+      "v": "2.0", "ad": "Müvekkil yüzü ve otomasyon", "hedef": "Müvekkil salt-okunur erişim · bildirimler · Notion okuma · Claude ile metin taslağı · Postgres",
+      "adimlar": [
+        { "v": "2.0", "ad": "Müvekkil girişi (salt okunur panel, kendi Data Room'u), e-posta davet", "durum": "vision", "alan": "Ürün" },
+        { "v": "2.0", "ad": "Girdi bekleyen kalemler için haftalık özet bildirimi (Gmail taslağı)", "durum": "vision", "alan": "Otomasyon" },
+        { "v": "2.0", "ad": "Notion Command Center okuma · Toplantı → Decision Log", "durum": "vision", "alan": "Veri" },
+        { "v": "2.0", "ad": "Panel metinlerinin Claude ile taslaklanması (dayanak linkli), insan onayıyla yayın", "durum": "vision", "alan": "Vibe" },
+        { "v": "2.0", "ad": "Postgres'e geçiş (çoklu kullanıcı)", "durum": "vision", "alan": "Altyapı" }
+      ]
+    },
+    {
+      "v": "3.0", "ad": "Platform", "hedef": "Çok firmalı kit · Mr. F entegrasyonu · ajanlar · faturalama",
+      "adimlar": [
+        { "v": "3.0", "ad": "Çok firmalı (Juris dışı danışmanlar) tek kit + şablon pazarı", "durum": "vision", "alan": "Ürün" },
+        { "v": "3.0", "ad": "Mr. F / Problem Pazaryeri entegrasyonu: müvekkil problemleri → çözüm/kanıt", "durum": "vision", "alan": "Ürün" },
+        { "v": "3.0", "ad": "Ajanlar: Drive senkronu + risk tespiti + rapor üretimi zamanlanmış", "durum": "vision", "alan": "Otomasyon" },
+        { "v": "3.0", "ad": "Faturalama ve plan yönetimi", "durum": "vision", "alan": "İş" }
+      ]
+    }
+  ]
+}

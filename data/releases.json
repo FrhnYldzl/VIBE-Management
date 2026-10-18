@@ -1,6 +1,19 @@
 {
   "surumler": [
     {
+      "surum": "0.4.0",
+      "tarih": "2026-10-18",
+      "faz": "v1.0 yolu",
+      "baslik": "Tek servis + admin iskeleti",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "V1-PLAN.md + roadmap.json: tam kullanılabilirlik planı, Drive gerçek kaynak (ADR 0002), v2/v3 vizyonu" },
+        { "tur": "yeni", "metin": "apps/server (Fastify): / landing · /app Ana Merkez · /admin · /api; Railway config; Anthropic SDK 0.70" },
+        { "tur": "yeni", "metin": "Admin paneli: Yol Haritası, Sürümler, Sağlık canlı; diğer görünümler yer tutucu" },
+        { "tur": "iyilestirme", "metin": "ana-merkez yalnız statik; eski sunucu kaldırıldı" }
+      ]
+    },
+    {
       "surum": "0.3.0",
       "tarih": "2026-10-18",
       "faz": "Ana Merkez",
@@ -75,7 +88,9 @@
     }
   ],
   "planli": [
-    { "surum": "0.3.1", "baslik": "Drive senkronu", "ozet": "Data room klasörlerinden durum (done/pending/input) ve dayanak linklerini otomatik okuyup .data.js DATAROOM bloğunu üretme" },
+    { "surum": "0.4.1", "baslik": "Kimlik", "ozet": "GitHub OAuth (2 kişilik allowlist) + parola yedeği, oturum çerezi" },
+    { "surum": "0.4.2", "baslik": "Paylaşımlı durum", "ozet": "Durum çipleri + Vibe oturumları SQLite + Railway Volume'a" },
+    { "surum": "0.5.0", "baslik": "Drive senkronu", "ozet": "Data Room A–F tarama → DATAROOM durum/link → .data.js → build; admin Paneller & Senkron" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

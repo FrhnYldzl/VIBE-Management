@@ -2,15 +2,15 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "ana-merkez",
+      "name": "vibe",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "ana-merkez"],
+      "runtimeArgs": ["start"],
       "port": 8787
     },
     {
-      "name": "vibe-dev",
+      "name": "mrf-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": ["run", "dev:mrf"],
       "port": 5173
     }
   ]

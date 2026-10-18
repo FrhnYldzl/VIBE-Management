@@ -24,12 +24,14 @@ server/
 
 ## Çalıştırma (yerel)
 
+v0.4.0'dan itibaren bu klasör yalnız **statik uygulamadır** (`public/`); sunucu monorepo kökündeki tek servistir (`apps/server`):
+
 ```bash
 npm install
-cp .env.example .env   # ANTHROPIC_API_KEY girin
-ANTHROPIC_API_KEY=sk-ant-... npm start
-# → http://localhost:8787
+npm start          # → http://localhost:8787  ·  /app/ Ana Merkez · /admin/ yönetim · / landing
 ```
+
+`ANTHROPIC_API_KEY` için `apps/server/.env` (yerel) ya da Railway Variables. `server/index.mjs` kaldırıldı; `/api/sample` köprüsü `apps/server/src/sample.ts` içinde.
 
 Tarayıcıda `public/index.html` dosyasını doğrudan (file://) açarsanız sayfa görünür ama Vibe istekleri ve panel-veri okuması çalışmaz (file:// origin kısıtı). Sunucu üzerinden açın.
 

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VIBE Management</title>
+<meta name="description" content="MTFG Ana Merkez — portföy, müvekkil kurumsal yönetim panelleri ve Vibe stüdyosu.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Juris Kurumsal Kimlik token'ları — Ana Merkez ile aynı */
+:root{--navy:#0A2240;--red:#BC2F2C;--red-ink:#8A1F1D;--bg:#FAFAF7;--bg-elev:#FFFFFF;--bg-sunken:#F3F2EE;--border:rgba(10,34,64,.09);--border-strong:rgba(10,34,64,.18);--ink:#0A2240;--ink-2:rgba(10,34,64,.72);--ink-3:rgba(10,34,64,.52);--font-display:"Playfair Display","Times New Roman",Georgia,serif;--font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;--r-sm:6px;--r-lg:14px;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060F1F;--bg-elev:#0D1B33;--bg-sunken:#040A17;--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.16);--ink:#F2F0EA;--ink-2:rgba(242,240,234,.72);--ink-3:rgba(242,240,234,.5);--red-ink:#E26B68;--navy:#F2F0EA;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:20px 28px;border-bottom:1px solid var(--border)}
+.mark{width:36px;height:36px;border-radius:9px;background:var(--red);display:grid;place-items:center;font-family:var(--font-display);font-weight:600;color:#fff}
+.name{font-family:var(--font-display);font-size:20px;line-height:1}.sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
+header nav{margin-left:auto;display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 14px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:13px;font-weight:600;background:var(--bg-elev);color:var(--ink);text-decoration:none}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:var(--bg)}
+main{flex:1;max-width:1080px;margin:0 auto;padding:72px 28px 56px;width:100%}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red-ink);font-weight:600;margin-bottom:12px}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(34px,5vw,54px);line-height:1.06;letter-spacing:-.015em;margin:0 0 18px;text-wrap:balance;max-width:20ch}
+h1 em{font-style:italic;color:var(--red-ink)}
+.lead{font-size:17px;color:var(--ink-2);max-width:60ch;margin:0 0 28px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:56px}.btn.lg{height:42px;padding:0 20px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px}
+.card .k{font-family:var(--font-mono);font-size:11px;color:var(--red-ink);letter-spacing:.1em}
+.card h3{font-family:var(--font-display);font-weight:500;font-size:19px;margin:6px 0 6px}.card p{margin:0;color:var(--ink-2);font-size:14px}
+footer{padding:18px 28px;border-top:1px solid var(--border);font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+footer .mono{font-family:var(--font-mono)}
+@media (max-width:640px){header{padding:16px}main{padding:40px 16px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="mark">M</div><div><div class="name">VIBE Management</div><div class="sub">MTFG Ana Merkez</div></div>
+  <nav><a class="btn" href="/admin/">Admin</a><a class="btn primary" href="/app/">Uygulamaya gir</a></nav>
+</header>
+<main>
+  <div class="eyebrow">Yatırımcıya Dönüşüm 1.0 · Juris Şirketler Hukuku ve Kurumsal Yönetim</div>
+  <h1>Portföyü, müvekkilleri ve kararları <em>tek merkezden</em> yönetin.</h1>
+  <p class="lead">MTFG'nin şirket ve projelerini private equity disipliniyle izleyen portföy kokpiti; her müvekkil için Drive Data Room'una bağlı Kurumsal Yönetim Paneli; ve bağlamı panellerden okuyan Claude tabanlı Vibe stüdyosu.</p>
+  <div class="cta"><a class="btn primary lg" href="/app/">Ana Merkez'i aç</a><a class="btn lg" href="/admin/">Yol haritası ve yönetim</a></div>
+  <div class="grid">
+    <div class="card"><div class="k">01 · PORTFÖY</div><h3>Nakit akışı × değer</h3><p>Her varlık iki eksende; yatırım tezine uyum, risk kaydı, yönetişim takvimi. Belge yoksa değer <b>beyan</b> olarak işaretlenir.</p></div>
+    <div class="card"><div class="k">02 · PANELLER</div><h3>Müvekkil kurumsal yönetim</h3><p>Data Room A–F → fonksiyon → doküman · sorumlu · durum · dayanak. Beş müvekkil, tek master, aynı standart.</p></div>
+    <div class="card"><div class="k">03 · VIBE</div><h3>Claude ile çalışma</h3><p>Brifing, hatırlatma maili, risk radarı, Data Room boşluk analizi — bağlam canlı panellerden, rakam uydurma yok.</p></div>
+  </div>
+</main>
+<footer><span>Juris Avukatlık Ortaklığı · MTFG</span><span class="mono" id="v">v…</span></footer>
+<script>fetch("/api/health").then(r=>r.json()).then(h=>{document.getElementById("v").textContent="v"+h.surum}).catch(()=>{});</script>
+</body>
+</html>
