@@ -149,6 +149,15 @@ button.status:hover{border-color:currentColor}
 .pform .btn{height:32px;justify-content:center}
 .ek{font-family:var(--font-mono);font-size:10px;color:var(--info);background:var(--info-bg);padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
 .docnote{display:block;margin-top:3px;font-size:11.5px;color:var(--ink-3);font-style:italic}
+/* KYS kartı satırları */
+.kys-rows{display:flex;flex-direction:column;gap:10px;padding-top:4px}
+.kys-row{display:grid;grid-template-columns:minmax(150px,200px) 1fr 36px minmax(160px,1.1fr);gap:0 12px;align-items:center;font-size:12.5px}
+.kys-l{display:flex;justify-content:space-between;gap:8px;color:var(--ink);font-weight:500}
+.kys-w{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-4)}
+.kys-p{font-family:var(--font-mono);font-size:12px;text-align:right;font-weight:600}
+.kys-n{font-size:11.5px;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kys-row .bar i{display:block;height:100%;border-radius:999px}
+@media (max-width:760px){.kys-row{grid-template-columns:1fr 1fr 36px}.kys-n{grid-column:1/-1}}
 .pill.green{background:var(--success-bg);color:var(--success)} .pill.amber{background:var(--warn-bg);color:var(--warn)} .pill.red{background:var(--accent-bg);color:var(--red-ink)} .pill.blue{background:var(--info-bg);color:var(--info)}
 .note.blue{background:var(--info-bg)} .note.red{background:var(--accent-bg)}
 .note b{color:var(--ink)}
@@ -366,7 +375,7 @@ function kysCard(){ const s=kysScore();
   return `<div class="sec"><div class="sec-h"><h2>Kurumsal Yönetim Skoru</h2><span class="meta">${s.versiyon} · panel verisinden türetilir · ağırlıklar kriter satırında</span></div>
   <div class="card pad" style="display:grid;grid-template-columns:minmax(180px,220px) 1fr;gap:18px;align-items:start">
    <div style="text-align:center;padding:8px 0"><div class="num" style="font-family:var(--font-display);font-size:56px;line-height:1;color:${s.renk}">${s.toplam}</div><div style="font-size:12px;color:var(--ink-3);margin-top:2px">/ 100</div><div style="margin-top:8px"><span class="pill" style="background:${s.renk};color:#fff;font-size:12px;padding:3px 10px">${s.harf} · ${s.seviye}</span></div><div class="muted" style="margin-top:8px">Veri: ${s.veriTarihi}</div></div>
-   <div>${hbar(s.kriterler.map(k=>[`${k.t} <span class="muted">· %${k.w}</span>`,k.puan,k.puan>=65?"var(--success)":k.puan>=40?"var(--warn)":"var(--red-ink)",`${k.puan} · ${esc(k.not)}`]),100,"")}</div>
+   <div class="kys-rows">${s.kriterler.map(k=>{const col=k.puan>=65?"var(--success)":k.puan>=40?"var(--warn)":"var(--red-ink)";return `<div class="kys-row" title="${esc(k.aciklama)}"><div class="kys-l"><span>${esc(k.t)}</span><span class="kys-w">%${k.w}</span></div><div class="bar" style="height:7px"><i style="width:${k.puan}%;background:${col}"></i></div><div class="kys-p num" style="color:${col}">${k.puan}</div><div class="kys-n">${esc(k.not)}</div></div>`;}).join("")}</div>
   </div></div>`; }
 const SAPI=location.protocol.startsWith("http")?"/api/panels/"+encodeURIComponent(CLIENT.id)+"/score":null;
 let _scoreT=null; function pushScore(){ if(!SAPI)return; clearTimeout(_scoreT); _scoreT=setTimeout(()=>{ try{ const s=kysScore(); fetch(SAPI,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(s)}).catch(()=>{}); }catch(e){} },1200); }
