@@ -39,6 +39,18 @@ export function registerState(app: FastifyInstance, store: Store) {
   });
   app.get<{ Params: { client: string } }>("/api/panels/:client/status/log", async (req) => store.panelStatusRows(client.parse(req.params.client)));
 
+  /* ---- Kurumsal Yönetim Skoru: panel hesaplar ve gönderir; admin ve Ana Merkez son anlık görüntüyü okur ---- */
+  const Score = z.object({
+    toplam: z.number().int().min(0).max(100), harf: z.string().max(2), seviye: z.string().max(40), versiyon: z.string().max(40).optional(), veriTarihi: z.string().max(20).optional(), hesap: z.string().max(40).optional(),
+    kriterler: z.array(z.object({ k: z.string().max(20), t: z.string().max(60), w: z.number(), puan: z.number().min(0).max(100), not: z.string().max(200).optional() })).max(30),
+  });
+  app.get("/api/panels/scores", async () => store.scores());
+  app.put<{ Params: { client: string } }>("/api/panels/:client/score", async (req) => {
+    const c = client.parse(req.params.client); const s = Score.parse(req.body);
+    store.setScore(c, s, who(req));
+    return { ok: true, client: c, toplam: s.toplam, harf: s.harf };
+  });
+
   /* ---- panel düzenlemeleri: aksiyon / karar / toplantı / not (yeniden taramada korunur) ---- */
   app.get<{ Params: { client: string } }>("/api/panels/:client/edits", async (req) => {
     const c = client.parse(req.params.client);

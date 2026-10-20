@@ -73,7 +73,7 @@ const $=s=>document.querySelector(s);const esc=s=>String(s??"").replace(/[&<>"]/
 const titles={roadmap:"Yol Haritası",releases:"Sürümler",feedback:"Geri Bildirim",panels:"Paneller & Senkron",users:"Kullanıcılar",health:"Sağlık"};
 const STATUS={done:"Tamamlandı",progress:"Devam ediyor",next:"Sırada",planned:"Planlı",vision:"Vizyon"};
 const COLOR={done:"var(--success)",progress:"var(--warn)",next:"var(--info)",planned:"var(--neutral)",vision:"var(--red-ink)"};
-let RM=null, REL=null, HEALTH=null, ME=null, AUTHCFG=null, USERS=null, INTAKE=null, PANELS=null, DOGR=null, current="roadmap";
+let RM=null, REL=null, HEALTH=null, ME=null, AUTHCFG=null, USERS=null, INTAKE=null, PANELS=null, DOGR=null, SCORES=null, current="roadmap";
 $("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
 
 function stats(steps){const c={done:0,progress:0,next:0,planned:0,vision:0,total:steps.length};steps.forEach(s=>c[s.durum]++);c.pct=c.total?Math.round(100*(c.done+.5*c.progress)/c.total):0;return c;}
@@ -143,22 +143,37 @@ function viewPanels(){
     <div><button class="btn primary" type="submit" ${st.hazir?"":"disabled"} id="intakeGo">Tara ve paneli üret</button></div>
    </form><div id="intakeOut" class="muted" style="margin-top:10px;font-size:12.5px"></div>
    <div class="muted" style="margin-top:8px;font-size:12px">Klasör, service account e-postasıyla <b>Görüntüleyen</b> olarak paylaşılmış olmalı. Tarama: bölüm klasörleri (A–F) → alt başlıklar → dosyalar (bir seviye derin). Dosyalar panelde "Onay Bekliyor" doküman satırı olur.</div></div></div>
+  ${viewSkor(ps)}
   ${viewDogrulama(ps)}
   <div class="sec"><div class="sec-h"><h2>Intake panelleri</h2><span class="meta">kaynak: veritabanı + Volume/panels</span></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Panel</th><th>Tüzel kişilik</th><th>Drive</th><th>Smoke</th><th>Tarama</th><th>Durum</th><th></th></tr></thead><tbody>
   ${ps.map(p=>`<tr><td><b>${esc(p.name)}</b><div class="muted" style="font-size:11px;font-family:var(--font-mono)">${esc(p.slug)}</div></td><td style="color:var(--ink-2)">${esc(p.entities.join(" · "))}</td><td class="owner">${p.files} dosya · ${p.folders} alt klasör · <a href="${esc(p.drive_root)}" target="_blank" rel="noopener">klasör ↗</a></td><td class="owner">${sm(p)}</td><td class="owner">${fmtD2(p.scanned_at)}<div class="muted" style="font-size:11px">${esc(p.created_by)}</div></td><td><span class="status ${p.status==="ok"?"done":p.status==="warn"?"input":"pending"}">${p.status==="ok"?"Hazır":p.status==="warn"?"Data Room boş":"Hata"}</span>${p.error?`<div class="muted" style="font-size:11px;max-width:260px">${esc(p.error)}</div>`:""}</td><td style="white-space:nowrap"><a class="btn" href="/app/#p-${esc(p.slug)}" target="_blank" rel="noopener">Aç</a> <button class="btn" data-rescan="${esc(p.slug)}">Yeniden tara</button> <button class="btn" data-pdel="${esc(p.slug)}">Sil</button></td></tr>`).join("")}
   ${!ps.length?`<tr><td colspan="7" class="muted">Henüz Intake-lite paneli yok. Onscala · Codemag · Zyrone · Qervan–WeTrade · Meown AI el yapımıdır (packages/juris-panel-kit).</td></tr>`:""}
   </tbody></table></div></div></div>`;
 }
-async function loadPanels(){ try{ [INTAKE,PANELS,DOGR]=await Promise.all([fetch("/api/intake/status",{credentials:"same-origin"}).then(r=>r.ok?r.json():null),fetch("/api/panels",{credentials:"same-origin"}).then(r=>r.ok?r.json():[]),fetch("/api/vibe/state",{credentials:"same-origin"}).then(r=>r.ok?r.json():{}).then(s=>(s.dogrulama&&s.dogrulama.value)||[])]); $("#navPanelCnt").textContent=PANELS?String(5+PANELS.length):""; }catch(e){} if(current==="panels")render(); }
+async function loadPanels(){ try{ [INTAKE,PANELS,DOGR,SCORES]=await Promise.all([fetch("/api/intake/status",{credentials:"same-origin"}).then(r=>r.ok?r.json():null),fetch("/api/panels",{credentials:"same-origin"}).then(r=>r.ok?r.json():[]),fetch("/api/vibe/state",{credentials:"same-origin"}).then(r=>r.ok?r.json():{}).then(s=>(s.dogrulama&&s.dogrulama.value)||[]),fetch("/api/panels/scores",{credentials:"same-origin"}).then(r=>r.ok?r.json():{})]); $("#navPanelCnt").textContent=PANELS?String(5+PANELS.length):""; }catch(e){} if(current==="panels")render(); }
+/* Kurumsal Yönetim Skoru (v0.5.6): paneller hesaplar (KYS v1), sunucu son anlık görüntüyü tutar; panel açılınca güncellenir */
+function viewSkor(ps){
+  const rows=KIT_PANELS.concat((ps||[]).map(p=>[p.slug,p.name+" (intake)"])); const S=SCORES||{};
+  const col=t=>t>=80?"var(--success)":t>=65?"var(--info)":t>=50?"var(--warn)":"var(--red-ink)";
+  const have=rows.filter(([p])=>S[p]); const avg=have.length?Math.round(have.reduce((a,[p])=>a+S[p].toplam,0)/have.length):null;
+  const krit=(have[0]&&S[have[0][0]].kriterler)||[];
+  return `<div class="sec"><div class="sec-h"><h2>Kurumsal Yönetim Skoru</h2><span class="meta">KYS v1 · 7 kriter, ağırlıklı 0–100 · A ≥80 Olgun · B ≥65 İyi · C ≥50 Gelişen · D ≥35 Başlangıç · E Kritik · panel açıldığında yeniden hesaplanır${avg!==null?` · <b>portföy ortalaması ${avg}</b>`:""}</span></div>
+  <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Panel</th><th style="text-align:right">Skor</th><th>Seviye</th>${krit.map(k=>`<th style="text-align:center;font-size:10.5px" title="${esc(k.t)} · ağırlık %${k.w}">${esc(k.t.split(" ")[0])}<br><span style="font-weight:400">%${k.w}</span></th>`).join("")}<th>Güncelleme</th></tr></thead><tbody>
+  ${rows.map(([p,n])=>{const s=S[p]; if(!s) return `<tr><td><b>${esc(n)}</b></td><td colspan="${3+krit.length}" class="muted" style="font-size:12px">Henüz hesaplanmadı — paneli bir kez açın (Ana Merkez → ${esc(n)}).</td></tr>`;
+    return `<tr><td><b>${esc(n)}</b></td><td style="text-align:right;font-family:var(--font-display);font-size:22px;color:${col(s.toplam)}">${s.toplam}</td><td><span class="pill" style="background:${col(s.toplam)};color:#fff">${esc(s.harf)} · ${esc(s.seviye)}</span></td>${(s.kriterler||[]).map(k=>`<td style="text-align:center" title="${esc(k.not||"")}"><div style="font-family:var(--font-mono);font-size:12px;color:${col(k.puan)}">${k.puan}</div><div class="bar" style="height:4px;margin-top:3px"><i style="width:${k.puan}%;background:${col(k.puan)};display:block;height:100%"></i></div></td>`).join("")}<td class="owner">${fmtD2(s.updated_at)}<div class="muted" style="font-size:11px">${esc(s.updated_by||"")} · veri ${esc(s.veriTarihi||"")}</div></td></tr>`;}).join("")}
+  </tbody></table></div></div>
+  <div class="note" style="margin-top:10px"><span>ℹ</span><div><b>Kriterler (v1):</b> Dokümantasyon %25 · Dayanak kalitesi %10 · Yönetişim ritmi (90 günde tutanaklı toplantı) %15 · Karar ve aksiyon disiplini %15 · KPI/OKR ilerlemesi %15 · DD %12 · Risk yönetimi %8. Resmi skorlama geldiğinde kriter seti ve ağırlıklar panel master'ındaki <code>KYS.kriterler</code>'den tek yerde değişir; geçmiş anlık görüntüler sürüm etiketiyle ayrışır.</div></div></div>`;
+}
 /* Doğrulama turu (v0.5.5): panel × kontrol — iki kullanıcıda ortak (vibe_state: dogrulama) */
-const KIT_PANELS=[["onscala","Onscala"],["codemag","Codemag"],["zyrone","Zyrone"],["qervan","Qervan–WeTrade"],["meown","Meown AI"]];
+const KIT_PANELS=[["onscala","Onscala"],["codemag","Codemag"],["zyrone","Zyrone"],["qervan-wetrade","Qervan–WeTrade","qervan"],["meown","Meown AI"]]; /* [CLIENT.id, ad, Ana Merkez görünüm anahtarı] */
+const panelView=p=>p[2]||p[0];
 const CHECKS=[["kunye","Künye & kişiler"],["links","Data Room linkleri"],["okr","OKR hedefleri"],["fin","Finans (B)"],["dd","DD checklist (E-1)"],["risk","Riskler"],["proc","Toplantı & aksiyon"],["tarih","Veri tarihi"]];
 function viewDogrulama(ps){
   const rows=KIT_PANELS.concat((ps||[]).map(p=>[p.slug,p.name+" (intake)"])); const d=DOGR||[]; const ok=(p,c)=>d.find(x=>x.panel===p&&x.check===c&&x.ok);
   const tot=rows.length*CHECKS.length, done=rows.reduce((a,[p])=>a+CHECKS.filter(([c])=>ok(p,c)).length,0);
   return `<div class="sec"><div class="sec-h"><h2>Doğrulama turu</h2><span class="meta">Gülşah ile panel panel: hücreye tıkla → doğrulandı (kim · ne zaman). Toplam ${done}/${tot} · %${tot?Math.round(done/tot*100):0}</span></div>
   <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Panel</th>${CHECKS.map(([,t])=>`<th style="text-align:center;font-size:10.5px">${esc(t)}</th>`).join("")}<th style="text-align:right">%</th></tr></thead><tbody>
-  ${rows.map(([p,n])=>{const k=CHECKS.filter(([c])=>ok(p,c)).length;return `<tr><td><b>${esc(n)}</b> <a class="btn" style="height:22px;padding:0 8px;font-size:11px;margin-left:6px" href="/app/#p-${esc(p)}" target="_blank" rel="noopener">aç</a></td>${CHECKS.map(([c])=>{const r=ok(p,c);return `<td style="text-align:center"><button class="status ${r?"done":"pending"}" data-dogr="${p}:${c}" title="${r?esc((r.by||"")+" · "+(r.date||"").slice(0,10)):"doğrula"}" style="cursor:pointer;min-width:34px">${r?"✓":"·"}</button></td>`;}).join("")}<td style="text-align:right;font-family:var(--font-mono)">${Math.round(k/CHECKS.length*100)}</td></tr>`;}).join("")}
+  ${rows.map((row)=>{const [p,n]=row;const k=CHECKS.filter(([c])=>ok(p,c)).length;return `<tr><td><b>${esc(n)}</b> <a class="btn" style="height:22px;padding:0 8px;font-size:11px;margin-left:6px" href="/app/#p-${esc(panelView(row))}" target="_blank" rel="noopener">aç</a></td>${CHECKS.map(([c])=>{const r=ok(p,c);return `<td style="text-align:center"><button class="status ${r?"done":"pending"}" data-dogr="${p}:${c}" title="${r?esc((r.by||"")+" · "+(r.date||"").slice(0,10)):"doğrula"}" style="cursor:pointer;min-width:34px">${r?"✓":"·"}</button></td>`;}).join("")}<td style="text-align:right;font-family:var(--font-mono)">${Math.round(k/CHECKS.length*100)}</td></tr>`;}).join("")}
   </tbody></table></div></div></div>`;
 }
 async function toggleDogr(key){ const [panel,check]=key.split(":"); DOGR=DOGR||[]; const i=DOGR.findIndex(x=>x.panel===panel&&x.check===check);

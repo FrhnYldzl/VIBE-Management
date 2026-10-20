@@ -3,6 +3,20 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.6] — 2026-10-20 · Kurumsal Yönetim Skoru (KYS v1)
+
+### Eklendi
+- Panel master: **KYS v1** — `KYS.kriterler` (tek yer): Dokümantasyon %25 (Data Room doluluğu) · Dayanak kalitesi %10 (belge/beyan/yok) ·
+  Yönetişim ritmi %15 (son 90 günde toplantı, tutanaklı bonus) · Karar ve aksiyon disiplini %15 (aksiyon kapanma + karar alınma) ·
+  KPI/OKR ilerlemesi %15 (KR ortalaması) · DD %12 (checklist) · Risk yönetimi %8 (kayıt var mı, kritik sayısı). Toplam 0–100; seviye
+  A ≥80 Olgun · B ≥65 İyi · C ≥50 Gelişen · D ≥35 Başlangıç · E Kritik. `kysScore()` panel verisinden (durum çipleri ve Süreç Kaydı
+  eklemeleri dahil) hesaplar; Genel Bakış'ta skor kartı; açılışta ve her durum değişiminde `PUT /api/panels/:client/score`.
+- Sunucu: `panel_scores` tablosu, `GET /api/panels/scores`, `PUT /api/panels/:client/score` (zod).
+- Ana Merkez: portföy kartlarında **KYS rozeti**; `PANEL_EXTRACT`'a `kurumsalYonetimSkoru` (Vibe bağlamı). Admin → Paneller & Senkron →
+  **Kurumsal Yönetim Skoru** tablosu (kriter bazında, güncelleme/kim, portföy ortalaması, kriter açıklaması).
+- İlk ölçüm (18.10 verisi): Codemag 35 D · Meown 33 E · Zyrone 32 E · Qervan–WeTrade 30 E · Onscala 24 E — Data Room'lar boş,
+  aksiyonlar açık; skor veri boşluğunu dürüstçe gösterir.
+
 ## [0.5.5] — 2026-10-20 · Süreç Kaydı (düzenlenebilir panel) + doğrulama checklist'i
 
 ### Eklendi

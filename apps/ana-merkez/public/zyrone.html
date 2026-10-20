@@ -752,10 +752,52 @@ function mergeEdits(){ /* veri dosyasındaki sabit dizilere eklenen kayıtları 
   EDITS.meeting.forEach(e=>{const r={d:e.d||"",t:e.t||"",who:e.who||"",agenda:e.agenda?e.agenda.split(/\s*;\s*/):[],delivered:e.delivered?e.delivered.split(/\s*;\s*/):[],undelivered:e.undelivered?e.undelivered.split(/\s*;\s*/):[],url:e.url||"",st:e.st||"done",_ek:e.id};MEETINGS.push(r);});
   MEETINGS.sort((a,b)=>String(b.d).localeCompare(String(a.d)));
   const n=EDITS.action.length+EDITS.decision.length+EDITS.meeting.length; const c=document.getElementById("procCnt"); if(c)c.textContent=n?"+"+n:""; }
-async function syncEdits(){ if(!EAPI)return; try{ const r=await fetch(EAPI,{credentials:"same-origin"}); if(!r.ok)return; const d=await r.json(); EDITS={action:d.action||[],decision:d.decision||[],meeting:d.meeting||[],note:d.note||[]}; mergeEdits(); render(); }catch(e){} }
+async function syncEdits(){ if(!EAPI)return; try{ const r=await fetch(EAPI,{credentials:"same-origin"}); if(!r.ok)return; const d=await r.json(); EDITS={action:d.action||[],decision:d.decision||[],meeting:d.meeting||[],note:d.note||[]}; mergeEdits(); render(); pushScore(); }catch(e){} }
 async function saveEdit(kind,data){ if(!EAPI){alert("Düzenleme için panelin Ana Merkez içinden açılması gerekir.");return;} const r=await fetch(EAPI+"/"+kind,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(data)}); if(!r.ok){alert("Kaydedilemedi: "+(await r.text()));return;} await syncEdits(); }
 async function delEdit(kind,id){ if(!EAPI)return; await fetch(EAPI+"/"+kind+"/"+encodeURIComponent(id),{method:"DELETE",credentials:"same-origin"}); await syncEdits(); }
 const dataDateStr=()=>{const d=(CLIENT.dataDate||(typeof DRIVE_META!=="undefined"&&DRIVE_META.scannedAt)||"").slice(0,10);return d?d.split("-").reverse().join("."):"—";};
+
+/* ---------- Kurumsal Yönetim Skoru (KYS v1 · 2026-10) ----------
+   Paneldeki veriden türetilir; kriter ve ağırlıklar tek yerde (KYS.kriterler). Resmi skorlama geldiğinde kriter eklenir / ağırlık değişir, hesap aynı kalır.
+   Her kriter 0–100 puan; toplam = Σ puan × ağırlık / 100. Seviye: A ≥80 Olgun · B ≥65 İyi · C ≥50 Gelişen · D ≥35 Başlangıç · E Kritik. */
+const KYS={versiyon:"v1 · 2026-10",kriterler:[
+  {k:"dok",t:"Dokümantasyon",w:25,aciklama:"Data Room A–F doluluğu (tamamlandı = 1 · onay/devam = ½)"},
+  {k:"dayanak",t:"Dayanak kalitesi",w:10,aciklama:"Panellerin belgeye dayanma oranı (belge / belge+beyan+yok)"},
+  {k:"ritim",t:"Yönetişim ritmi",w:15,aciklama:"Son 90 günde tutanaklı toplantı sayısı (≥3 tam puan)"},
+  {k:"karar",t:"Karar ve aksiyon disiplini",w:15,aciklama:"Aksiyonların kapanma oranı ve kararların alınma oranı"},
+  {k:"kpi",t:"KPI / OKR ilerlemesi",w:15,aciklama:"İş planı anahtar sonuçlarının ortalama ilerlemesi"},
+  {k:"dd",t:"Hukuki durum tespiti (DD)",w:12,aciklama:"DD checklist tamamlanma oranı"},
+  {k:"risk",t:"Risk yönetimi",w:8,aciklama:"Risk kaydı var mı; kritik (O×E ≥16) risk sayısı"},
+]};
+const parseD=s=>{if(!s)return null;const m=String(s).match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);if(m)return new Date(+m[3],+m[2]-1,+m[1]);const d=new Date(String(s).slice(0,10));return isNaN(d)?null:d;};
+const kysLevel=p=>p>=80?["A","Olgun","var(--success)"]:p>=65?["B","İyi","var(--info)"]:p>=50?["C","Gelişen","var(--warn)"]:p>=35?["D","Başlangıç","var(--red-ink)"]:["E","Kritik","var(--red-ink)"];
+function kysScore(){
+  const clamp=v=>Math.max(0,Math.min(100,Math.round(v)));
+  const c=stats(allItems()); const dok=c.pct;
+  const b=typeof BASIS_COUNT!=="undefined"?BASIS_COUNT:{doc:[],beyan:[],none:[]}; const bt=b.doc.length+b.beyan.length+b.none.length; const dayanak=bt?100*(b.doc.length+0.4*b.beyan.length)/bt:0;
+  const now=new Date(), d90=new Date(now.getTime()-90*86400000); const recent=MEETINGS.filter(m=>{const d=parseD(m.d);return d&&d>=d90&&d<=now;}); const withMin=recent.filter(m=>m.url||(m.delivered&&m.delivered.length)).length;
+  const ritim=Math.min(100,recent.length*30+withMin*10);
+  const aw=s=>s==="done"?1:(s==="progress"||s==="review")?.5:0; const aks=ACTIONS.length?100*ACTIONS.reduce((a,r)=>a+aw(r[4]),0)/ACTIONS.length:null; const kar=DECISIONS.length?100*DECISIONS.filter(d=>d[2]==="done").length/DECISIONS.length:null;
+  const karar=aks===null&&kar===null?0:aks===null?kar:kar===null?aks:(aks+kar)/2;
+  let krs=[]; try{const o=typeof OKR==="undefined"?null:(Array.isArray(OKR)?OKR:Object.values(OKR).flat()); (o||[]).forEach(x=>(x.kr||[]).forEach(k=>krs.push(+k[2]||0)));}catch(e){} const kpi=krs.length?krs.reduce((a,v)=>a+v,0)/krs.length:0;
+  let ddR={ok:0,tot:0}; try{ddR=ddAll();}catch(e){ try{const D=typeof DD!=="undefined"?DD:{},DN=typeof DD_DONE!=="undefined"?DD_DONE:{}; ddR={tot:Object.values(D).flat().reduce((a,g)=>a+((g&&g[1])||[]).length,0),ok:Object.values(DN).flat().length};}catch(x){} } const dd=ddR.tot?100*ddR.ok/ddR.tot:0;
+  const R=typeof RISKS!=="undefined"?RISKS:[]; const kritik=R.filter(r=>r.p*r.i>=16).length; const risk=R.length?Math.max(20,100-kritik*20):30;
+  const puan={dok,dayanak,ritim,karar,kpi,dd,risk};
+  const kriterler=KYS.kriterler.map(k=>({...k,puan:clamp(puan[k.k])}));
+  const toplam=Math.round(kriterler.reduce((a,k)=>a+k.puan*k.w,0)/kriterler.reduce((a,k)=>a+k.w,0));
+  const [harf,ad,renk]=kysLevel(toplam);
+  const not={dok:`${c.done}/${c.total} doküman tamamlandı`,dayanak:`${b.doc.length} belge · ${b.beyan.length} beyan · ${b.none.length} dayanak yok`,ritim:`${recent.length} toplantı (90 gün) · ${withMin} tutanaklı`,karar:`${ACTIONS.filter(r=>r[4]==="done").length}/${ACTIONS.length} aksiyon kapandı · ${DECISIONS.filter(d=>d[2]==="done").length}/${DECISIONS.length} karar`,kpi:`${krs.length} KR · ort. %${Math.round(kpi)}`,dd:ddR.tot?`${ddR.ok}/${ddR.tot} DD belgesi`:"DD listesi yok",risk:R.length?`${R.length} risk · ${kritik} kritik`:"risk kaydı yok"};
+  kriterler.forEach(k=>k.not=not[k.k]);
+  return {toplam,harf,seviye:ad,renk,kriterler,versiyon:KYS.versiyon,veriTarihi:dataDateStr(),hesap:new Date().toISOString()};
+}
+function kysCard(){ const s=kysScore();
+  return `<div class="sec"><div class="sec-h"><h2>Kurumsal Yönetim Skoru</h2><span class="meta">${s.versiyon} · panel verisinden türetilir · ağırlıklar kriter satırında</span></div>
+  <div class="card pad" style="display:grid;grid-template-columns:minmax(180px,220px) 1fr;gap:18px;align-items:start">
+   <div style="text-align:center;padding:8px 0"><div class="num" style="font-family:var(--font-display);font-size:56px;line-height:1;color:${s.renk}">${s.toplam}</div><div style="font-size:12px;color:var(--ink-3);margin-top:2px">/ 100</div><div style="margin-top:8px"><span class="pill" style="background:${s.renk};color:#fff;font-size:12px;padding:3px 10px">${s.harf} · ${s.seviye}</span></div><div class="muted" style="margin-top:8px">Veri: ${s.veriTarihi}</div></div>
+   <div>${hbar(s.kriterler.map(k=>[`${k.t} <span class="muted">· %${k.w}</span>`,k.puan,k.puan>=65?"var(--success)":k.puan>=40?"var(--warn)":"var(--red-ink)",`${k.puan} · ${esc(k.not)}`]),100,"")}</div>
+  </div></div>`; }
+const SAPI=location.protocol.startsWith("http")?"/api/panels/"+encodeURIComponent(CLIENT.id)+"/score":null;
+let _scoreT=null; function pushScore(){ if(!SAPI)return; clearTimeout(_scoreT); _scoreT=setTimeout(()=>{ try{ const s=kysScore(); fetch(SAPI,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(s)}).catch(()=>{}); }catch(e){} },1200); }
 let current="home", assessTab="A", assessEnt=CLIENT.short[0];
 try{assessTab=localStorage.getItem(LS+":atab")||"A";assessEnt=localStorage.getItem(LS+":aent")||CLIENT.short[0];}catch(e){}
 const openSections=new Set(["A","E"]);
@@ -763,7 +805,8 @@ const allItems=()=>DATAROOM.flatMap(s=>s.items.map(it=>({...it,section:s})));
 const docKey=(it,i)=>it.id+":"+i;
 const stOf=(it,i)=>overrides[docKey(it,i)]||it.docs[i].status;
 function setStatus(it,i,s){overrides[docKey(it,i)]=s;try{localStorage.setItem(LS,JSON.stringify(overrides));}catch(e){}
-  if(API){fetch(API,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({key:docKey(it,i),status:s})}).catch(()=>{});}}
+  if(API){fetch(API,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({key:docKey(it,i),status:s})}).catch(()=>{});}
+  if(typeof pushScore==="function")pushScore();}
 function stats(items){const c={done:0,review:0,progress:0,input:0,pending:0,total:0};items.forEach(it=>it.docs.forEach((d,i)=>{c[stOf(it,i)]++;c.total++;}));c.pct=c.total?Math.round(100*(c.done+.5*(c.review+c.progress))/c.total):0;return c;}
 const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 function bar(c){const w=k=>c.total?(100*c[k]/c.total)+"%":"0%";return `<div class="bar"><i class="s-done" style="width:${w("done")}"></i><i class="s-review" style="width:${w("review")}"></i><i class="s-progress" style="width:${w("progress")}"></i><i class="s-input" style="width:${w("input")}"></i></div>`;}
@@ -794,6 +837,7 @@ function viewHome(){
   return `<div class="page-h"><div><div class="eyebrow">Genel Bakış</div><h1>${esc(CLIENT.name)}</h1><p>Hizmet planının dört fonksiyonu, A–F Data Room sırası ve Durum Değerlendirmesi çıktıları tek ekranda. Danışmanlık başlangıcı: ${CLIENT.kickoff}.</p></div>
    <div class="right"><a class="btn" href="${CLIENT.planSheet}" target="_blank" rel="noopener">${esc(CLIENT.planLabel||"Hizmet Planı")} ↗</a><a class="btn primary" href="${CLIENT.driveRoot}" target="_blank" rel="noopener">Data Room ↗</a></div></div>
   ${tiles(c)}${legend}
+  ${kysCard()}
   <div class="sec"><button class="card area" data-view="insights" style="flex-direction:row;align-items:center;gap:14px"><span class="code">◈</span><span class="ttl">Insights – iş planı metrikleri ve genel durum grafikleri</span><span class="pct">Aç →</span></button></div>
   <div class="sec"><div class="sec-h"><h2>Dayanak durumu</h2><span class="meta">Panellerin dokümana mı beyana mı dayandığı</span></div><div class="grid3">
    ${[["doc","Dokümana dayalı","green"],["beyan","Beyana dayalı",  "amber"],["none","Dayanak yok","red"]].map(([k,t,col])=>`<div class="card pad"><div class="row" style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:13.5px">${t}</b><span class="pill ${col}">${BASIS_COUNT[k].length}</span></div><ul style="margin:8px 0 0;padding-left:16px;font-size:12.5px;color:var(--ink-2)">${li(BASIS_COUNT[k])}</ul></div>`).join("")}

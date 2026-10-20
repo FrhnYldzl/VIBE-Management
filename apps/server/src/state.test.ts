@@ -46,6 +46,13 @@ describe("paylaşımlı durum", () => {
     expect((await app.inject({ method: "DELETE", url: `/api/panels/qervan/edits/action/${id}` })).statusCode).toBe(200);
     expect((await app.inject({ method: "DELETE", url: `/api/panels/qervan/edits/action/${id}` })).statusCode).toBe(404);
   });
+  it("kurumsal yönetim skoru: panel gönderir, toplu okunur, geçersiz reddedilir", async () => {
+    const s = { toplam: 62, harf: "C", seviye: "Gelişen", versiyon: "v1 · 2026-10", veriTarihi: "18.10.2026", kriterler: [{ k: "dok", t: "Dokümantasyon", w: 25, puan: 40, not: "10/25" }, { k: "kpi", t: "KPI", w: 15, puan: 80 }] };
+    expect((await app.inject({ method: "PUT", url: "/api/panels/onscala/score", payload: s })).json()).toMatchObject({ ok: true, toplam: 62, harf: "C" });
+    const all = (await app.inject("/api/panels/scores")).json();
+    expect(all.onscala.toplam).toBe(62); expect(all.onscala.kriterler).toHaveLength(2); expect(all.onscala.updated_by).toBe("dev");
+    expect((await app.inject({ method: "PUT", url: "/api/panels/onscala/score", payload: { toplam: 140, harf: "Z", seviye: "x", kriterler: [] } })).statusCode).toBe(400);
+  });
   it("istatistik + health db", async () => {
     expect((await app.inject("/api/state/stats")).json()).toMatchObject({ panelOverrides: 3, panelClients: 1 });
     expect((await app.inject("/api/health")).json().db).toBe("bellek");

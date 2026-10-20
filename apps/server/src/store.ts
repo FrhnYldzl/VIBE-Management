@@ -42,6 +42,11 @@ export function openStore(path: string) {
       updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
       PRIMARY KEY (client, kind, id)
     );
+    -- Kurumsal Yönetim Skoru (v0.5.6): panel kendi verisinden hesaplar, son anlık görüntü burada (admin / Ana Merkez okur)
+    CREATE TABLE IF NOT EXISTS panel_scores (
+      client TEXT PRIMARY KEY, json TEXT NOT NULL,
+      updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+    );
     -- Intake-lite panelleri: Drive linki → üretilen .data.js + HTML (dosyalar Volume'de, kayıt burada)
     CREATE TABLE IF NOT EXISTS panels (
       slug TEXT PRIMARY KEY, name TEXT NOT NULL, short TEXT NOT NULL, entities TEXT NOT NULL, drive_root TEXT NOT NULL,
@@ -61,6 +66,9 @@ export function openStore(path: string) {
   const uEdit = db.prepare(`INSERT INTO panel_edits (client, kind, id, json, updated_by) VALUES (?, ?, ?, ?, ?)
     ON CONFLICT(client, kind, id) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
   const dEdit = db.prepare("DELETE FROM panel_edits WHERE client = ? AND kind = ? AND id = ?");
+  const qScores = db.prepare("SELECT client, json, updated_by, updated_at FROM panel_scores ORDER BY client");
+  const uScore = db.prepare(`INSERT INTO panel_scores (client, json, updated_by) VALUES (?, ?, ?)
+    ON CONFLICT(client) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
   const qUser = db.prepare("SELECT email, name, hash, created_at, password_changed_at, last_login_at FROM users WHERE email = ?");
   const qUsers = db.prepare("SELECT email, name, created_at, password_changed_at, last_login_at FROM users ORDER BY email");
   const iUser = db.prepare("INSERT OR IGNORE INTO users (email, name, hash) VALUES (?, ?, ?)");
@@ -106,6 +114,13 @@ export function openStore(path: string) {
     },
     setPanelEdit(client: string, kind: string, id: string, data: Record<string, unknown>, by: string) { uEdit.run(client, kind, id, JSON.stringify(data), by); },
     deletePanelEdit: (client: string, kind: string, id: string) => dEdit.run(client, kind, id).changes > 0,
+    /* ---- Kurumsal Yönetim Skoru ---- */
+    setScore(client: string, score: Record<string, unknown>, by: string) { uScore.run(client, JSON.stringify(score), by); },
+    scores(): Record<string, Record<string, unknown> & { updated_by: string; updated_at: string }> {
+      const out: Record<string, Record<string, unknown> & { updated_by: string; updated_at: string }> = {};
+      for (const r of qScores.all() as unknown as { client: string; json: string; updated_by: string; updated_at: string }[]) out[r.client] = { ...JSON.parse(r.json), updated_by: r.updated_by, updated_at: r.updated_at };
+      return out;
+    },
     stats() {
       const p = db.prepare("SELECT COUNT(*) AS n, COUNT(DISTINCT client) AS c FROM panel_status").get() as { n: number; c: number };
       const v = db.prepare("SELECT key, length(json) AS bytes, updated_at FROM vibe_state").all() as { key: string; bytes: number; updated_at: string }[];

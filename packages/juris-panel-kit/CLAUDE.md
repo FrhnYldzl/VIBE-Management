@@ -36,6 +36,11 @@ Compare: eski panelle görünüm bazında kelime benzerliği; %90 altı görün�
   üretim/tarama bunları silmez. `file://` açılışta salt okunur.
 - `CLIENT.dataDate` (YYYY-MM-DD) veri tarihi damgasıdır; veri dosyası güncellenince değiştirin. Intake panellerinde tarama tarihi kullanılır.
 
+## Kurumsal Yönetim Skoru (KYS v1 · v0.5.6)
+- `KYS.kriterler` (master) tek kaynaktır: `{k,t,w,aciklama}`; `kysScore()` her kriter için 0–100 puan üretir, toplam ağırlıklı ortalamadır.
+  Yeni kriter eklemek = `KYS.kriterler`'e satır + `kysScore()` içinde `puan[k]` hesabı; `versiyon` etiketini güncelleyin (admin ve anlık görüntüler ayrışır).
+- Skor panel açıldığında ve durum değiştiğinde `PUT /api/panels/<client>/score` ile sunucuya yazılır; admin ve Ana Merkez son anlık görüntüyü okur.
+
 ## Kurallar
 - Her panel bir dayanak gösterir: Belge (linkli) / Beyan / Dayanak yok. Beyanı belge gibi gösterme.
 - "Müvekkil" jenerik sorumlu kullanma: Müvekkil Yönetimi · Mali Müşavir · Yazılım Ekibi · Juris · Ortak.

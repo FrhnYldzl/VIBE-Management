@@ -1,6 +1,19 @@
 {
   "surumler": [
     {
+      "surum": "0.5.6",
+      "tarih": "2026-10-20",
+      "faz": "v1.0 yolu",
+      "baslik": "Kurumsal Yönetim Skoru (KYS v1)",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "KYS v1: Dokümantasyon %25 · Dayanak kalitesi %10 · Yönetişim ritmi (90 günde tutanaklı toplantı) %15 · Karar ve aksiyon disiplini %15 · KPI/OKR ilerlemesi %15 · DD %12 · Risk yönetimi %8 → 0–100, seviye A Olgun ≥80 · B İyi ≥65 · C Gelişen ≥50 · D Başlangıç ≥35 · E Kritik" },
+        { "tur": "yeni", "metin": "Panel Genel Bakış'ta skor kartı (kriter çubukları ve dayanak notları); panel açılınca ve durum değişince yeniden hesaplanır, /api/panels/:client/score ile sunucuya yazılır" },
+        { "tur": "yeni", "metin": "Ana Merkez portföy kartlarında 'KYS 35 · D' rozeti; Vibe canlı okumasına kurumsalYonetimSkoru; Admin → Paneller & Senkron → skor tablosu (kriter bazında, portföy ortalaması)" },
+        { "tur": "iyilestirme", "metin": "Kriter seti ve ağırlıklar panel master'ında tek yerde (KYS.kriterler); anlık görüntüler sürüm etiketli — resmi skorlama geldiğinde genişletilir" }
+      ]
+    },
+    {
       "surum": "0.5.5",
       "tarih": "2026-10-20",
       "faz": "v1.0 yolu",
@@ -202,7 +215,7 @@
     }
   ],
   "planli": [
-    { "surum": "0.5.6", "baslik": "Doğrulama turu (Gülşah ile 5 panel)", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
+    { "surum": "0.5.7", "baslik": "Doğrulama turu (Gülşah ile 5 panel)", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

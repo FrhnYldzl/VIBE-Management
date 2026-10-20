@@ -918,6 +918,9 @@ const PANELS = {
 
 /* ======= MTFG RENDER ======= */
 const $=s=>document.querySelector(s);
+/* Kurumsal Yönetim Skoru (v0.5.6): paneller hesaplayıp sunucuya yazar; portföy kartları son anlık görüntüyü gösterir */
+let SCORES={};
+async function loadScores(){ try{ const r=await fetch("/api/panels/scores",{credentials:"same-origin"}); if(r.ok){ SCORES=await r.json(); if(SCORES["qervan-wetrade"]&&!SCORES.qervan)SCORES.qervan=SCORES["qervan-wetrade"]; /* panel CLIENT.id ile Ana Merkez anahtarı farklı */ renderHome(); } }catch(e){} }
 const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const avg=a=>a.reduce((x,y)=>x+y,0)/a.length;
 const fitScore=a=>+avg(a.fit).toFixed(1);
@@ -935,7 +938,7 @@ function renderHome(){
   const docd=DOCS.filter(d=>d[4]==="belge").length; $("#t-doc").innerHTML=`${Math.round(docd/DOCS.length*100)}<small>%</small>`;
   $("#t-assets").textContent=ASSETS.length; $("#t-assets-d").textContent=`${nCo} şirket · ${nVcp} VCP projesi`;
   $("#pf-count").textContent=ASSETS.length;
-  $("#pcards").innerHTML=Object.entries(PANELS).map(([id,p])=>`<button class="card pcard" data-view="p-${id}"><div class="top"><b>${esc(p.name)}</b><span class="pill ${p.intake?"blue":"red"}">${p.intake?"Intake-lite":"Danışmanlık"}</span></div><div class="muted" style="font-size:12.5px">${esc(p.entity)} · başlangıç ${p.since}</div><div style="font-size:12.5px;color:var(--ink-2)">${esc(p.line)}</div><div class="facts">${p.facts.map(f=>`<span>${esc(f)}</span>`).join("")}</div><span class="go">Paneli aç →</span></button>`).join("");
+  $("#pcards").innerHTML=Object.entries(PANELS).map(([id,p])=>`<button class="card pcard" data-view="p-${id}"><div class="top"><b>${esc(p.name)}</b>${SCORES[id]?`<span class="pill ${SCORES[id].toplam>=65?"ok":SCORES[id].toplam>=50?"warn":"red"}" title="Kurumsal Yönetim Skoru · ${esc(SCORES[id].versiyon||"")} · ${esc((SCORES[id].updated_at||"").slice(0,10))}">KYS ${SCORES[id].toplam} · ${esc(SCORES[id].harf)}</span>`:""}<span class="pill ${p.intake?"blue":"red"}">${p.intake?"Intake-lite":"Danışmanlık"}</span></div><div class="muted" style="font-size:12.5px">${esc(p.entity)} · başlangıç ${p.since}</div><div style="font-size:12.5px;color:var(--ink-2)">${esc(p.line)}</div><div class="facts">${p.facts.map(f=>`<span>${esc(f)}</span>`).join("")}</div><span class="go">Paneli aç →</span></button>`).join("");
   $("#cfv").innerHTML=`<tr><th>Varlık</th><th>Sınıf</th><th>Nakit akışı (bugün)</th><th>Değer (yarın)</th><th class="r">Tez uyumu</th><th>Dayanak</th></tr>`+
     ASSETS.map(a=>`<tr class="row"><td><span class="nm">${a.name}</span> <span class="code">${a.code}</span></td><td class="sm">${a.cls}</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill ${eqLabel[a.eq][0]}">${eqLabel[a.eq][1]}</span></td><td class="r"><span class="score ${scoreCls(fitScore(a))}">${fitScore(a)}</span></td><td>${docPill(a.doc)}</td></tr>`).join("");
   $("#agenda").innerHTML=[["Yatırım Tezi v1.0'ı onayla (IPS)","Strateji"],["Ariwon ve Katalist cap table'ını doğrula","Yapı"],["D2-X ve EuroStep yapı kararı (Gate 1)","Venture"],["Değerleme politikası + ilk NAV işaretlemesi","Finans"],["2027 bütçesi ve sermaye tahsis tavanları","Finans"],["Onscala ve Codemag: girdi gecikmesi ve ücret/değer dengesi","Danışmanlık"],["Yetki devri planı (key person)","Risk"]]
@@ -1274,6 +1277,7 @@ riskler:(typeof RISKS!=="undefined"?RISKS:[]).map(r=>({id:r.id,risk:r.t,skor:r.p
 aksiyonlar:(typeof ACTIONS!=="undefined"?ACTIONS:[]).map(a=>({sahip:a[0],aksiyon:a[1],oncelik:a[2],durum:STATUS[a[4]]})),
 kararlar:(typeof DECISIONS!=="undefined"?DECISIONS:[]).map(d=>({konu:d[0],karar:d[1],durum:d[2]==="done"?"alındı":"bekliyor"})),
 sonToplantilar:(typeof MEETINGS!=="undefined"?MEETINGS:[]).slice(0,3).map(m=>({tarih:m.d,baslik:m.t,teslimEdilemeyen:m.undelivered})),
+kurumsalYonetimSkoru:(()=>{try{if(typeof kysScore!=="function")return null;const s=kysScore();return {toplam:s.toplam,seviye:s.harf+" · "+s.seviye,versiyon:s.versiyon,kriterler:s.kriterler.map(k=>k.t+" ("+k.w+"%): "+k.puan+" — "+k.not)};}catch(e){return null;}})(),
 okr:(()=>{try{const o=typeof OKR==="undefined"?null:(Array.isArray(OKR)?OKR:(OKR[typeof E0!=="undefined"?E0:CLIENT.short[0]]||Object.values(OKR)[0]));return (o||[]).map(o=>({bolum:o.t,hedef:o.o,kr:o.kr.map(k=>k[0]+" ("+k[1]+", %"+k[2]+")")}));}catch(e){return [];}})()};return JSON.stringify(out);})()`;
 async function panelData(id){
   try{const f=await ensureFrame(id);const txt=f.contentWindow.eval(PANEL_EXTRACT);if(txt)return {src:"canlı panel",txt};}catch(e){}
@@ -1651,6 +1655,7 @@ renderHome();renderThesis();renderPortfolio();renderFunnel();renderVB();renderCa
 /* açılış görünümü: #p-<slug> (admin "Aç" linki) > son görünüm > vibe */
 let v0="vibe"; try{v0=(location.hash.startsWith("#p-")?location.hash.slice(1):"")||localStorage.getItem("mtfg-view")||"vibe"}catch(e){} go(titles[v0]?v0:"vibe");
 pullState();
+loadScores();
 loadDynamicPanels().then(()=>{ if(v0.startsWith("p-")&&titles[v0]&&current!==v0) go(v0); $("#vstatus").textContent=$("#vstatus").textContent.replace(/\d+ panel/,`${PANEL_IDS.length} panel`); });
 getSample().then(s=>{ $("#vdot").classList.toggle("off",!s); $("#vstatus").textContent=s?`Vibe Management · Claude bağlı · ${PANEL_IDS.length} panel canlı`:"Vibe Management · Claude bu görünümde yok"; $("#vnote").textContent=s?"Panel verisi sadece istek anında okunur ve Claude'a bağlam olarak gönderilir; ilk çalıştırmada izin istenir.":"Şablonlar istemi hazırlar; Claude bağlantısı claude.ai görünümünde açılır."; });
 </script>
