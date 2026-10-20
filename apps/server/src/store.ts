@@ -10,6 +10,7 @@ export interface PanelRow {
   status: "ok" | "warn" | "error"; files: number; folders: number; smoke: { ok: boolean; bad: string[]; views: number; items: number; docs: number; pct: number } | null;
   created_by: string; created_at: string; scanned_at: string | null; error: string | null;
 }
+export interface PanelEdit { kind: string; id: string; updated_by: string; updated_at: string; [k: string]: unknown }
 type PanelRaw = Omit<PanelRow, "short" | "entities" | "smoke"> & { short: string; entities: string; smoke: string | null };
 const panelRow = (r: PanelRaw): PanelRow => ({ ...r, short: JSON.parse(r.short), entities: JSON.parse(r.entities), smoke: r.smoke ? JSON.parse(r.smoke) : null });
 
@@ -35,6 +36,12 @@ export function openStore(path: string) {
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
       password_changed_at TEXT, last_login_at TEXT
     );
+    -- panel düzenlemeleri (v0.5.5): kullanıcı eklediği aksiyon / karar / toplantı / not — .data.js'e dokunmaz, yeniden taramada korunur
+    CREATE TABLE IF NOT EXISTS panel_edits (
+      client TEXT NOT NULL, kind TEXT NOT NULL, id TEXT NOT NULL, json TEXT NOT NULL,
+      updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      PRIMARY KEY (client, kind, id)
+    );
     -- Intake-lite panelleri: Drive linki → üretilen .data.js + HTML (dosyalar Volume'de, kayıt burada)
     CREATE TABLE IF NOT EXISTS panels (
       slug TEXT PRIMARY KEY, name TEXT NOT NULL, short TEXT NOT NULL, entities TEXT NOT NULL, drive_root TEXT NOT NULL,
@@ -50,6 +57,10 @@ export function openStore(path: string) {
     ON CONFLICT(slug) DO UPDATE SET name = excluded.name, short = excluded.short, entities = excluded.entities, drive_root = excluded.drive_root,
       status = excluded.status, files = excluded.files, folders = excluded.folders, smoke = excluded.smoke, scanned_at = excluded.scanned_at, error = excluded.error`);
   const dPanel = db.prepare("DELETE FROM panels WHERE slug = ?");
+  const qEdits = db.prepare("SELECT kind, id, json, updated_by, updated_at FROM panel_edits WHERE client = ? ORDER BY updated_at");
+  const uEdit = db.prepare(`INSERT INTO panel_edits (client, kind, id, json, updated_by) VALUES (?, ?, ?, ?, ?)
+    ON CONFLICT(client, kind, id) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
+  const dEdit = db.prepare("DELETE FROM panel_edits WHERE client = ? AND kind = ? AND id = ?");
   const qUser = db.prepare("SELECT email, name, hash, created_at, password_changed_at, last_login_at FROM users WHERE email = ?");
   const qUsers = db.prepare("SELECT email, name, created_at, password_changed_at, last_login_at FROM users ORDER BY email");
   const iUser = db.prepare("INSERT OR IGNORE INTO users (email, name, hash) VALUES (?, ?, ?)");
@@ -88,6 +99,13 @@ export function openStore(path: string) {
       uPanel.run(p.slug, p.name, JSON.stringify(p.short), JSON.stringify(p.entities), p.drive_root, p.status, p.files, p.folders, p.smoke ? JSON.stringify(p.smoke) : null, p.created_by, p.scanned_at, p.error);
     },
     deletePanel: (slug: string) => dPanel.run(slug).changes > 0,
+    /* ---- panel düzenlemeleri ---- */
+    panelEdits(client: string): PanelEdit[] {
+      return (qEdits.all(client) as unknown as { kind: string; id: string; json: string; updated_by: string; updated_at: string }[])
+        .map((r) => ({ kind: r.kind, id: r.id, ...JSON.parse(r.json), updated_by: r.updated_by, updated_at: r.updated_at }));
+    },
+    setPanelEdit(client: string, kind: string, id: string, data: Record<string, unknown>, by: string) { uEdit.run(client, kind, id, JSON.stringify(data), by); },
+    deletePanelEdit: (client: string, kind: string, id: string) => dEdit.run(client, kind, id).changes > 0,
     stats() {
       const p = db.prepare("SELECT COUNT(*) AS n, COUNT(DISTINCT client) AS c FROM panel_status").get() as { n: number; c: number };
       const v = db.prepare("SELECT key, length(json) AS bytes, updated_at FROM vibe_state").all() as { key: string; bytes: number; updated_at: string }[];

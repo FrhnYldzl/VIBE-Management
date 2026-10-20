@@ -28,7 +28,7 @@ const CLIENT = {
   entities:["Qervan Yazılım Teknoloji A.Ş.","WeTrade Dış Ticaret Ltd. Şti."], short:["Qervan","WeTrade"],
   driveRoot:"https://drive.google.com/drive/folders/1o_mTaK-m94G_dP_iaRal6RKCiTxXWqAg",
   planSheet:"https://docs.google.com/spreadsheets/d/1tZ1NhwTiqgvoMl6mt_eEAYstZlls6zt7yqOTSa8fT8/edit?gid=1679663399#gid=1679663399",
-  kickoff:"15.09.2026", rhythm:[["2 haftada 1","Toplantı"],["Haftada 1","Doküman"],["Haftada 1","Arama"]],
+  dataDate:"2026-10-18", kickoff:"15.09.2026", rhythm:[["2 haftada 1","Toplantı"],["Haftada 1","Doküman"],["Haftada 1","Arama"]],
   startDocs:[["1","Juris Avukatlık Ortaklığı Tanıtım Sunumu","15.06.2026"],["2","Şirketler Hukuku ve Kurumsal Yönetim Hizmet Teklifi","15.06.2026"],["3","Şirketler Hukuku ve Kurumsal Yönetim Danışmanlık Sözleşmesi","15.06.2026"],["3.1","EK-1: Mali Yapı, Finansman ve Teşvik Süreçleri Danışmanlığı","15.06.2026"],["4","Kick-off: Hizmet Planı ve Doküman Haritası Sunumu","15.09.2026"]],
   scopeIn:["Şirket Stratejisinin Analizi ve Geliştirilmesi","Hukuki Denetim ve Risk Analizi","Şirket İçi Hukuki Süreçlerin Geliştirilmesi","Kurumsal Yönetim ve Organizasyon Yapısının Geliştirilmesi","Uyuşmazlık ve Hukuki Süreç Danışmanlığı"],
   scopeOut:["İdari, ceza ve vergi davaları","Uluslararası tahkim","Birleşme ve devralma, yatırım süreçleri","Ruhsat, lisans, izin ve sertifika","Halka arz ve sermaye piyasası","FM başvuruları, itirazlar ve KVKK uyum projeleri (Mini KVKK hariç)","Proje finansmanı","Mali yapı, finansman ve teşvik danışmanlığı (EK-1 ile ayrıca)"],

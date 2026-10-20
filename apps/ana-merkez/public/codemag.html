@@ -142,6 +142,14 @@ button.status:hover{border-color:currentColor}
 .linkbtn:hover{text-decoration:underline}
 .muted{color:var(--ink-4);font-size:12px}
 .note{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:var(--r-md);background:var(--warn-bg);color:var(--ink-2);font-size:13px;margin-top:12px}
+/* Süreç Kaydı (v0.5.5): kullanıcı eklemeleri ve doküman notları */
+.pform{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;padding:12px 14px;border-top:1px solid var(--divider);align-items:end}
+.pform input,.pform select{width:100%;padding:7px 9px;border:1px solid var(--border);border-radius:7px;font:inherit;font-size:12.5px;background:var(--bg);color:var(--ink)}
+.pform label{font-size:11px;color:var(--ink-3);display:block}
+.pform .btn{height:32px;justify-content:center}
+.ek{font-family:var(--font-mono);font-size:10px;color:var(--info);background:var(--info-bg);padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.docnote{display:block;margin-top:3px;font-size:11.5px;color:var(--ink-3);font-style:italic}
+.pill.green{background:var(--success-bg);color:var(--success)} .pill.amber{background:var(--warn-bg);color:var(--warn)} .pill.red{background:var(--accent-bg);color:var(--red-ink)} .pill.blue{background:var(--info-bg);color:var(--info)}
 .note.blue{background:var(--info-bg)} .note.red{background:var(--accent-bg)}
 .note b{color:var(--ink)}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);margin-top:10px}
@@ -267,12 +275,12 @@ button.status:hover{border-color:currentColor}
       <div><div class="name">Juris</div><div class="sub">Kurumsal Yönetim Paneli</div></div>
     </div>
     <div class="client" id="clientBox"></div>
-    <div class="navsec"><button class="ni" data-view="home"><span class="k">◌</span><span class="t">Genel Bakış</span></button><button class="ni" data-view="insights"><span class="k">◈</span><span class="t">Insights</span></button></div>
+    <div class="navsec"><button class="ni" data-view="home"><span class="k">◌</span><span class="t">Genel Bakış</span></button><button class="ni" data-view="insights"><span class="k">◈</span><span class="t">Insights</span></button><button class="ni" data-view="process"><span class="k">≡</span><span class="t">Süreç Kaydı</span><span class="pct num" id="procCnt"></span></button></div>
     <div class="navsec"><div class="h">Fonksiyonlar</div><div id="fnNav"></div></div>
     <div class="navsec"><div class="h">Durum Değerlendirmesi</div><div id="asNav"></div></div>
     <div class="navsec"><div class="h">Data Room</div><div id="drNav"></div></div>
     <div class="navsec"><div class="h">Onboard &amp; Learn</div><div id="obNav"></div></div>
-    <div class="navfoot">Şirketler Hukuku ve Kurumsal Yönetim Danışmanlığı · Doküman Haritası<br>Durum verisi: Google Drive Data Room + yazışmalar (18.10.2026)</div>
+    <div class="navfoot" id="navfoot">Şirketler Hukuku ve Kurumsal Yönetim Danışmanlığı · Doküman Haritası<br>Durum verisi: Google Drive Data Room + yazışmalar (<span id="dataDate">—</span>)</div>
   </nav>
   <div class="scrim" id="scrim"></div>
   <main class="main" id="main"><div class="wrap">
@@ -301,7 +309,7 @@ const CLIENT = {
   entities:["Codemag Yazılım Hizmetleri Ticaret Ltd. Şti."], short:["Codemag"],
   driveRoot:"https://drive.google.com/drive/folders/1MmlPT_B9qx4k-Tn41KJgVhfkUJu0noDu",
   planSheet:"https://docs.google.com/spreadsheets/d/1Wa7sEaJg4hkgDLEXaE7FViaPbqYDA6Ek6R0otjh6-is/edit", planLabel:"Hizmet Planı (14.10.2026)",
-  kickoff:"04.09.2026", rhythm:[["Aylık","Hizmet bedeli · ayın 1–5'i (01.09.2026 – 31.08.2027)"],["Ekim 2026","Bütünleşik yönetim sistemi sunumu (1 aylık hedef)"],["Talep bazlı","Toplantı · son: 15.10.2026"]],
+  dataDate:"2026-10-18", kickoff:"04.09.2026", rhythm:[["Aylık","Hizmet bedeli · ayın 1–5'i (01.09.2026 – 31.08.2027)"],["Ekim 2026","Bütünleşik yönetim sistemi sunumu (1 aylık hedef)"],["Talep bazlı","Toplantı · son: 15.10.2026"]],
   startDocs:[["Ç3","Juris–Codemag Gizlilik Sözleşmesi (NDA) – taslak + 08.04 imzalı tarama bildirimi","07.04.2026"],["Ç4","Hizmet Kapsam Dokümanı","27.04.2026"],["Ç1","Şirketler Hukuku ve Kurumsal Yönetim Hizmet Teklifi – 23.08'de mail ile kabul","04.08.2026"],["Ç2","Danışmanlık Sözleşmesi (01.09.2026 yürürlük) – 11.09 unvanı güncel sürüm; imzalı nüsha teyitsiz","26.08 / 11.09.2026"],["Ç5","Kick-off Toplantı Notları ve İş Listesi (tutanak 04.09 · takvim 09.09)","16.09.2026"],["Ç6","Ortak Drive dosya planı / Data Room erişimi","16.09.2026"]],
   scopeIn:["1. Şirket Stratejisinin Analizi ve Geliştirilmesi – iş modeli, SaaS, Asset/vendor leasing, yatırımcı perspektifi","2. Performans İzleme ve Raporlama – 10 faaliyet + 5 finansal KPI, proje P&L, yönetim raporu","3. Hukuki Denetim ve Risk Analizi – DD, Data Room, risk haritası, DPP mevzuat görüşü","4. Şirket İçi Hukuki Süreçler – standart proje paketi, satış sonrası/SaaS, operasyon sözleşmeleri, İK","5. Kurumsal Yönetim ve Organizasyon – org şeması, görev/yetki matrisi, karar ve aksiyon sistemi","6. Uyuşmazlık ve Hukuki Süreç Danışmanlığı – marka ihlali, dosya bazlı görüş"],
   scopeOut:["Almanya GmbH kuruluşu, Handelsregister/Finanzamt tescilleri – ayrı yazılı mutabakat","Yatırım turu, GmbH → TR sermaye aktarımı, M&A yürütümü – kapsam dışı (stratejik görüş dahil)","Marka/patent/tasarım tescil, itiraz ve yenileme işlemleri – kapsam dışı (ihlal değerlendirmesi dahil)","Kapsamlı KVKK uyum projesi – yalnızca mini set dahil","Teknokent başvurusu ve mali sürdürme – Teşvik Danışmanı (Tolga Polat)","İşe alım ve 3 aylık İK süreç danışmanlığı – The Hire Factory (Juris hukuki koordinasyon)","Halka arz (BIST Büyüme Pazarı hedefi) ve sermaye piyasası işlemleri"],
@@ -728,6 +736,25 @@ async function syncOverrides(){ if(!API)return; try{ const r=await fetch(API,{cr
   const local=Object.keys(overrides); if(!Object.keys(srv).length&&local.length){ await fetch(API+"/bulk",{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(overrides)}); } /* tek seferlik taşıma: sunucu boş, tarayıcı dolu */
   else { overrides=Object.assign({},overrides,srv); try{localStorage.setItem(LS,JSON.stringify(overrides));}catch(e){} }
   if(typeof render==="function"&&typeof current!=="undefined"){render(); if(typeof renderNav==="function")renderNav();} }catch(e){} }
+/* Panel düzenlemeleri (v0.5.5): kullanıcı eklediği aksiyon / karar / toplantı / doküman notu sunucuda (/api/panels/<client>/edits);
+   .data.js'e dokunmaz, yeniden taramada / yeniden üretimde korunur. file:// açılışta salt okunur. */
+const EAPI=location.protocol.startsWith("http")?"/api/panels/"+encodeURIComponent(CLIENT.id)+"/edits":null;
+let EDITS={action:[],decision:[],meeting:[],note:[]};
+if(typeof ACTIONS==="undefined")globalThis.ACTIONS=[]; if(typeof DECISIONS==="undefined")globalThis.DECISIONS=[]; if(typeof MEETINGS==="undefined")globalThis.MEETINGS=[];
+const PRIO=["Kritik","Yüksek","Orta","Düşük"];
+const noteOf=k=>{const n=EDITS.note.find(x=>x.key===k);return n?n.text:"";};
+function mergeEdits(){ /* veri dosyasındaki sabit dizilere eklenen kayıtları (işaretli) ekler; tekrar çağrılınca yeniler */
+  const strip=a=>{for(let i=a.length-1;i>=0;i--)if(a[i]&&a[i]._ek)a.splice(i,1);};
+  strip(ACTIONS);strip(DECISIONS);strip(MEETINGS);
+  EDITS.action.forEach(e=>{const r=[e.owner||"—",e.action||"",e.prio||"Orta",e.output||"",e.status||"pending"];r._ek=e.id;ACTIONS.push(r);});
+  EDITS.decision.forEach(e=>{const r=[e.topic||"",e.decision||"",e.status||"pending"];r._ek=e.id;DECISIONS.push(r);});
+  EDITS.meeting.forEach(e=>{const r={d:e.d||"",t:e.t||"",who:e.who||"",agenda:e.agenda?e.agenda.split(/\s*;\s*/):[],delivered:e.delivered?e.delivered.split(/\s*;\s*/):[],undelivered:e.undelivered?e.undelivered.split(/\s*;\s*/):[],url:e.url||"",st:e.st||"done",_ek:e.id};MEETINGS.push(r);});
+  MEETINGS.sort((a,b)=>String(b.d).localeCompare(String(a.d)));
+  const n=EDITS.action.length+EDITS.decision.length+EDITS.meeting.length; const c=document.getElementById("procCnt"); if(c)c.textContent=n?"+"+n:""; }
+async function syncEdits(){ if(!EAPI)return; try{ const r=await fetch(EAPI,{credentials:"same-origin"}); if(!r.ok)return; const d=await r.json(); EDITS={action:d.action||[],decision:d.decision||[],meeting:d.meeting||[],note:d.note||[]}; mergeEdits(); render(); }catch(e){} }
+async function saveEdit(kind,data){ if(!EAPI){alert("Düzenleme için panelin Ana Merkez içinden açılması gerekir.");return;} const r=await fetch(EAPI+"/"+kind,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(data)}); if(!r.ok){alert("Kaydedilemedi: "+(await r.text()));return;} await syncEdits(); }
+async function delEdit(kind,id){ if(!EAPI)return; await fetch(EAPI+"/"+kind+"/"+encodeURIComponent(id),{method:"DELETE",credentials:"same-origin"}); await syncEdits(); }
+const dataDateStr=()=>{const d=(CLIENT.dataDate||(typeof DRIVE_META!=="undefined"&&DRIVE_META.scannedAt)||"").slice(0,10);return d?d.split("-").reverse().join("."):"—";};
 let current="home", assessTab="A", assessEnt=CLIENT.short[0];
 try{assessTab=localStorage.getItem(LS+":atab")||"A";assessEnt=localStorage.getItem(LS+":aent")||CLIENT.short[0];}catch(e){}
 const openSections=new Set(["A","E"]);
@@ -753,7 +780,7 @@ function tiles(c){return `<div class="tiles">
   <div class="tile"><div class="l">Başlamadı</div><div class="v num">${c.pending}</div><div class="d">planlı</div></div></div>`;}
 
 function docTable(it){return `<div class="tbl-wrap"><table><thead><tr><th>Doküman</th><th>Sorumlu</th><th>Durum</th><th>Drive</th></tr></thead><tbody>
- ${it.docs.map((d,i)=>{const s=stOf(it,i);return `<tr><td class="doc"><span class="no">${esc(d.no)}</span>${esc(d.t)}${d.ent?`<span class="ent">· ${esc(d.ent)}</span>`:""}</td><td class="owner">${esc(d.owner)}</td><td><button class="status ${s}" data-item="${it.id}" data-i="${i}" title="Durumu değiştirmek için tıklayın">${STATUS[s]}</button></td><td>${d.url?`<a class="linkbtn" href="${d.url}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}</td></tr>`;}).join("")}
+ ${it.docs.map((d,i)=>{const s=stOf(it,i),n=noteOf(docKey(it,i));return `<tr><td class="doc"><span class="no">${esc(d.no)}</span>${esc(d.t)}${d.ent?`<span class="ent">· ${esc(d.ent)}</span>`:""}${n?`<span class="docnote">✎ ${esc(n)}</span>`:""}</td><td class="owner">${esc(d.owner)}</td><td><button class="status ${s}" data-item="${it.id}" data-i="${i}" title="Durumu değiştirmek için tıklayın">${STATUS[s]}</button></td><td style="white-space:nowrap">${d.url?`<a class="linkbtn" href="${d.url}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}${EAPI?` <button class="linkbtn" data-note="${docKey(it,i)}" title="${n?"Notu düzenle":"Not ekle"}" style="margin-left:8px;color:var(--ink-3)">✎</button>`:""}</td></tr>`;}).join("")}
  </tbody></table></div>`;}
 function areaCard(it){const c=stats([it]);return `<button class="card area" data-view="${it.id}"><div class="top"><span class="code">${esc(it.id.replace(/(\D)(\d)/,"$1.$2"))}</span><span class="ttl">${esc(shortTitle(it.title))}</span><span class="pct num">${c.pct}%</span></div>${bar(c)}<div class="foot"><span class="fnchip ${it.fn}">${it.fn}</span><span>${c.done}/${c.total} tamamlandı</span>${c.input?`<span>· ${c.input} girdi</span>`:""}${it.noFolder?`<span>· Drive klasörü yok</span>`:""}</div></button>`;}
 
@@ -849,9 +876,35 @@ function viewLearn(){const ob=onboardStats();
 function hbar(rows,max=100,unit="%"){ return `<div style="display:flex;flex-direction:column;gap:8px">${rows.map(r=>`<div style="display:grid;grid-template-columns:minmax(120px,1fr) 2fr auto;gap:10px;align-items:center;font-size:12.5px"><span style="color:var(--ink-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(r[0])}">${esc(r[0])}</span><div class="bar" style="height:8px"><i style="width:${Math.min(100,100*r[1]/max)}%;background:${r[2]||"var(--navy)"}"></i></div><span class="num" style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2);min-width:48px;text-align:right">${r[3]!=null?r[3]:(Math.round(r[1])+unit)}</span></div>`).join("")}</div>`;}
 function stackRow(label,c){return `<div style="display:grid;grid-template-columns:minmax(110px,1fr) 3fr auto;gap:10px;align-items:center;font-size:12.5px"><span style="color:var(--ink-2)">${label}</span>${bar(c)}<span class="num" style="font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2)">${c.done}/${c.total}</span></div>`;}
 
-function crumbFor(v){const n=`<b>${esc(CLIENT.name)}</b>`;if(v==="home")return n+" · Genel Bakış";if(v==="insights")return n+" · Genel Bakış · Insights";if(v.startsWith("fn-"))return n+" · Fonksiyonlar · "+v.slice(3);if(v.startsWith("as-"))return n+" · Durum Değerlendirmesi · "+v.slice(3);if(v==="ob-onboarding")return n+" · Onboard &amp; Learn · Onboarding";if(v==="ob-learn")return n+" · Onboard &amp; Learn · Learn";const it=allItems().find(i=>i.id===v);return it?n+` · Data Room · ${esc(it.section.title)} · ${esc(it.title)}`:n;}
+function viewProcess(){
+  const ro=!EAPI; const ek=r=>r._ek?`<span class="ek">eklendi</span>`:"";
+  const del=(k,r)=>r._ek&&!ro?`<button class="linkbtn" data-ek-del="${k}:${r._ek}" style="color:var(--ink-3)">sil</button>`:"";
+  const stBtn=(r,i)=>r._ek?`<button class="status ${r[4]}" data-ek-status="${r._ek}" data-cur="${r[4]}" title="Durumu değiştir">${STATUS[r[4]]}</button>`:`<span class="status ${r[4]}">${STATUS[r[4]]}</span>`;
+  const open=ACTIONS.filter(a=>a[4]!=="done").length, dec=DECISIONS.filter(d=>d[2]!=="done").length;
+  return `<div class="page-h"><div><div class="eyebrow">Süreç Kaydı</div><h1>Aksiyon · Karar · Toplantı</h1><p>Hizmet planının süreç katmanı. Veri dosyasındaki kayıtlar + buradan eklenenler (<span class="ek" style="margin:0">eklendi</span>) tek listede; eklenenler sunucuda saklanır, panel yeniden üretildiğinde kaybolmaz. Veri tarihi: <b>${dataDateStr()}</b>.</p></div>
+   <div class="right"><span class="pill ${open?"red":"green"}">${open} açık aksiyon</span><span class="pill ${dec?"amber":"green"}">${dec} bekleyen karar</span><span class="pill blue">${MEETINGS.length} toplantı</span></div></div>
+  ${ro?ghost("Bu panel Ana Merkez dışında (dosya olarak) açıldı: kayıtlar salt okunur. Eklemek için Ana Merkez → Kurumsal Yönetim Panelleri'nden açın."):""}
+  ${sec("Aksiyon Takibi","Sahibi · öncelik · çıktı · durum")}
+  <div class="card"><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Sahibi</th><th>Aksiyon</th><th>Öncelik</th><th>Çıktı</th><th>Durum</th><th></th></tr></thead><tbody>
+   ${ACTIONS.map((r,i)=>`<tr><td class="num muted">${i+1}</td><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}${ek(r)}</td><td><span class="pill ${r[2]==="Kritik"?"red":r[2]==="Yüksek"?"amber":""}">${esc(r[2])}</span></td><td style="color:var(--ink-2)">${esc(r[3])}</td><td>${stBtn(r,i)}</td><td>${del("action",r)}</td></tr>`).join("")}
+   ${!ACTIONS.length?`<tr><td colspan="7" class="muted">Aksiyon kaydı yok.</td></tr>`:""}</tbody></table></div>
+   ${ro?"":`<form class="pform" data-pform="action"><label>Sahibi<input name="owner" required placeholder="Juris · Müvekkil Yönetimi · Mali Müşavir"></label><label style="grid-column:span 2">Aksiyon<input name="action" required placeholder="Ne yapılacak"></label><label>Öncelik<select name="prio">${PRIO.map(p=>`<option${p==="Yüksek"?" selected":""}>${p}</option>`).join("")}</select></label><label>Çıktı<input name="output" placeholder="Belge / karar / toplantı"></label><label>Durum<select name="status">${CYCLE.map(s=>`<option value="${s}">${STATUS[s]}</option>`).join("")}</select></label><button class="btn primary" type="submit">＋ Aksiyon</button></form>`}</div>
+  ${sec("Kararlar","Alınan ve bekleyen kararlar")}
+  <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Konu</th><th>Karar</th><th>Durum</th><th></th></tr></thead><tbody>
+   ${DECISIONS.map(r=>`<tr><td><b>${esc(r[0])}</b>${ek(r)}</td><td style="color:var(--ink-2)">${esc(r[1])}</td><td><span class="status ${r[2]==="done"?"done":"pending"}">${r[2]==="done"?"Karar alındı":"Karar bekliyor"}</span></td><td>${del("decision",r)}</td></tr>`).join("")}
+   ${!DECISIONS.length?`<tr><td colspan="4" class="muted">Karar kaydı yok.</td></tr>`:""}</tbody></table></div>
+   ${ro?"":`<form class="pform" data-pform="decision"><label>Konu<input name="topic" required></label><label style="grid-column:span 2">Karar<input name="decision" required placeholder="Alınan karar ya da bekleyen soru"></label><label>Durum<select name="status"><option value="pending">Karar bekliyor</option><option value="done">Karar alındı</option></select></label><button class="btn primary" type="submit">＋ Karar</button></form>`}</div>
+  ${sec("Toplantılar","Gündem → tutanak → teslim edilen / edilemeyen")}
+  <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Tarih</th><th>Toplantı</th><th>Katılımcı</th><th>Gündem</th><th>Teslim edilemeyen</th><th>Tutanak</th><th></th></tr></thead><tbody>
+   ${MEETINGS.map(m=>`<tr><td class="num" style="font-family:var(--font-mono);font-size:11.5px;white-space:nowrap">${esc(m.d)}</td><td><b>${esc(m.t)}</b>${ek(m)}</td><td class="muted">${esc(m.who)}</td><td style="color:var(--ink-2);font-size:12.5px">${(m.agenda||[]).map(esc).join(" · ")}</td><td style="color:var(--red-ink);font-size:12.5px">${(m.undelivered||[]).map(esc).join(" · ")}</td><td>${m.url?`<a class="linkbtn" href="${esc(m.url)}" target="_blank" rel="noopener">Aç ↗</a>`:`<span class="muted">—</span>`}</td><td>${del("meeting",m)}</td></tr>`).join("")}
+   ${!MEETINGS.length?`<tr><td colspan="7" class="muted">Toplantı kaydı yok.</td></tr>`:""}</tbody></table></div>
+   ${ro?"":`<form class="pform" data-pform="meeting"><label>Tarih<input name="d" type="date" required></label><label style="grid-column:span 2">Toplantı<input name="t" required placeholder="Aylık yönetim toplantısı"></label><label>Katılımcı<input name="who" placeholder="Müvekkil Yönetimi · Juris"></label><label style="grid-column:span 2">Gündem (; ile ayırın)<input name="agenda"></label><label style="grid-column:span 2">Teslim edilemeyen (; ile)<input name="undelivered"></label><label>Tutanak linki<input name="url" type="url" placeholder="https://docs.google.com/…"></label><button class="btn primary" type="submit">＋ Toplantı</button></form>`}</div>`;
+}
+
+/* ---------- router / nav ---------- */
+function crumbFor(v){const n=`<b>${esc(CLIENT.name)}</b>`;if(v==="home")return n+" · Genel Bakış";if(v==="insights")return n+" · Genel Bakış · Insights";if(v==="process")return n+" · Süreç Kaydı";if(v.startsWith("fn-"))return n+" · Fonksiyonlar · "+v.slice(3);if(v.startsWith("as-"))return n+" · Durum Değerlendirmesi · "+v.slice(3);if(v==="ob-onboarding")return n+" · Onboard &amp; Learn · Onboarding";if(v==="ob-learn")return n+" · Onboard &amp; Learn · Learn";const it=allItems().find(i=>i.id===v);return it?n+` · Data Room · ${esc(it.section.title)} · ${esc(it.title)}`:n;}
 function render(){const v=current,el=document.getElementById("view");
- el.innerHTML=v==="home"?viewHome():v.startsWith("fn-")?viewFn(v.slice(3)):v.startsWith("as-")?viewAssess(v.slice(3)):v==="insights"?viewInsights():v==="ob-onboarding"?viewOnboard():v==="ob-learn"?viewLearn():viewItem(v);
+ el.innerHTML=v==="home"?viewHome():v.startsWith("fn-")?viewFn(v.slice(3)):v.startsWith("as-")?viewAssess(v.slice(3)):v==="insights"?viewInsights():v==="process"?viewProcess():v==="ob-onboarding"?viewOnboard():v==="ob-learn"?viewLearn():viewItem(v);
  document.getElementById("crumb").innerHTML=crumbFor(v);renderNav();}
 function hashFor(v){return v.startsWith("fn-")?"fn"+FUNCTIONS[v.slice(3)].k:v.replace(/[^\w\-]/g,"");}
 function go(v){current=v;try{history.replaceState(null,"","#"+hashFor(v));}catch(e){}render();document.getElementById("main").scrollTop=0;closeNav();}
@@ -861,13 +914,19 @@ function renderNav(){const items=allItems();
  document.getElementById("asNav").innerHTML=ASSESS_TABS.map(([k,t])=>`<button class="ni ${current==="as-"+k?"active":""}" data-view="as-${k}"><span class="k">${k}</span><span class="t">${t}</span></button>`).join("");
  document.getElementById("drNav").innerHTML=DATAROOM.filter(s=>!s.virtual).map(s=>{const open=openSections.has(s.id)||s.items.some(i=>i.id===current),c=stats(s.items);return `<button class="ni" data-toggle="${s.id}" aria-expanded="${open}"><span class="k">${s.id}</span><span class="t">${esc(s.title.replace(/^[A-F]\.\s*/,""))}</span><span class="pct num">${c.pct}%</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3l5 5-5 5"/></svg></button><div class="sub-list ${open?"open":""}">${s.items.map(it=>{const cc=stats([it]),col=cc.pct===100?"var(--success)":cc.pct>0?"var(--warn)":"var(--nav-ink-3)";return `<button class="ni sub ${current===it.id?"active":""}" data-view="${it.id}"><span class="dot" style="background:${col}"></span><span class="t">${esc(shortTitle(it.title))}</span><span class="pct num">${cc.pct}%</span></button>`;}).join("")}</div>`;}).join("");
  const ob=onboardStats();document.getElementById("obNav").innerHTML=`<button class="ni ${current==="ob-onboarding"?"active":""}" data-view="ob-onboarding"><span class="k">OB</span><span class="t">Onboarding</span><span class="pct num">${ob.obPct}%</span></button><button class="ni ${current==="ob-learn"?"active":""}" data-view="ob-learn"><span class="k">LN</span><span class="t">Learn</span><span class="pct num">${ob.lnPct}%</span></button>`;
- document.querySelectorAll('.ni[data-view="home"]').forEach(b=>b.classList.toggle("active",current==="home"));document.querySelectorAll('.ni[data-view="insights"]').forEach(b=>b.classList.toggle("active",current==="insights"));}
+ document.querySelectorAll('.ni[data-view="home"]').forEach(b=>b.classList.toggle("active",current==="home"));document.querySelectorAll('.ni[data-view="insights"]').forEach(b=>b.classList.toggle("active",current==="insights"));document.querySelectorAll('.ni[data-view="process"]').forEach(b=>b.classList.toggle("active",current==="process"));
+ const dd=document.getElementById("dataDate"); if(dd)dd.textContent=dataDateStr();}
 document.addEventListener("click",e=>{
  const en=e.target.closest("[data-ent]");if(en){assessEnt=en.dataset.ent;try{localStorage.setItem(LS+":aent",assessEnt);}catch(x){}const y=document.getElementById("main").scrollTop;render();document.getElementById("main").scrollTop=y;return;}
  const v=e.target.closest("[data-view]");if(v){go(v.dataset.view);return;}
  const t=e.target.closest("[data-toggle]");if(t){const id=t.dataset.toggle;openSections.has(id)?openSections.delete(id):openSections.add(id);renderNav();return;}
  const s=e.target.closest("button.status[data-item]");if(s){const it=allItems().find(i=>i.id===s.dataset.item),i=+s.dataset.i,cur=stOf(it,i);setStatus(it,i,CYCLE[(CYCLE.indexOf(cur)+1)%CYCLE.length]);const y=document.getElementById("main").scrollTop;render();document.getElementById("main").scrollTop=y;return;}
+ /* Süreç Kaydı düzenlemeleri */
+ const es=e.target.closest("[data-ek-status]");if(es){const nx=CYCLE[(CYCLE.indexOf(es.dataset.cur)+1)%CYCLE.length];const rec=EDITS.action.find(x=>x.id===es.dataset.ekStatus)||{};saveEdit("action",{...rec,id:es.dataset.ekStatus,status:nx});return;}
+ const ed=e.target.closest("[data-ek-del]");if(ed){if(ed.dataset.arm){const [k,id]=ed.dataset.ekDel.split(/:(.+)/);delEdit(k,id);}else{ed.dataset.arm="1";ed.textContent="Emin misiniz?";setTimeout(()=>{delete ed.dataset.arm;ed.textContent="sil";},2500);}return;}
+ const nt=e.target.closest("[data-note]");if(nt){const k=nt.dataset.note;const cur=noteOf(k);const txt=prompt("Doküman notu (boş bırakılırsa silinir):",cur);if(txt===null)return;if(txt.trim())saveEdit("note",{id:k,key:k,text:txt.trim()});else delEdit("note",k);return;}
 });
+document.addEventListener("submit",e=>{const f=e.target.closest("form[data-pform]");if(!f)return;e.preventDefault();const data={};new FormData(f).forEach((v,k)=>{if(String(v).trim())data[k]=String(v).trim();});saveEdit(f.dataset.pform,data).then(()=>{try{f.reset();}catch(x){}});});
 const navEl=document.getElementById("nav"),scrim=document.getElementById("scrim");
 function closeNav(){navEl.classList.remove("open");scrim.classList.remove("open");}
 document.getElementById("menuBtn").addEventListener("click",()=>{navEl.classList.toggle("open");scrim.classList.toggle("open");});
@@ -875,9 +934,10 @@ scrim.addEventListener("click",closeNav);
 document.getElementById("today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
 const h=(location.hash||"").slice(1);
 if(/^fn\d$/.test(h)){const k=Object.keys(FUNCTIONS).find(k=>FUNCTIONS[k].k===h[2]);if(k)current="fn-"+k;}
-else if(/^as-[A-F]$/.test(h)||h==="home"||h==="insights"||h==="ob-onboarding"||h==="ob-learn"||allItems().some(i=>i.id===h))current=h;
+else if(/^as-[A-F]$/.test(h)||h==="home"||h==="insights"||h==="process"||h==="ob-onboarding"||h==="ob-learn"||allItems().some(i=>i.id===h))current=h;
 render();
 syncOverrides();
+syncEdits();
 </script>
 
 </body></html>

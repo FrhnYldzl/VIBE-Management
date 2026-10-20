@@ -52,6 +52,14 @@ export function registerIntake(app: FastifyInstance, store: Store, panelsDir: st
   mkdirSync(clientsDir, { recursive: true });
   const who = (req: { session: { u: string } | null }) => req.session?.u ?? "anon";
   const publicRow = (p: PanelRow) => ({ ...p, file: `p/${p.slug}.html`, data: `/api/panels/${p.slug}/data` });
+  // Açılışta: kayıtlı panelleri güncel template ile yeniden derle (tasarım/şablon değişince Drive'a gitmeden yenilenir; durum ve düzenlemeler sunucuda zaten)
+  let rebuilt = 0;
+  for (const p of store.listPanels()) {
+    const df = join(clientsDir, `${p.slug}.data.js`);
+    if (!existsSync(df)) continue;
+    try { kit.buildFile(df, join(panelsDir, `${p.slug}.html`), `${p.name} · Kurumsal Yönetim Paneli`); rebuilt++; } catch (e) { app.log.warn({ slug: p.slug, err: (e as Error).message }, "panel yeniden derlenemedi"); }
+  }
+  if (rebuilt) app.log.info({ rebuilt }, "intake panelleri güncel template ile yeniden derlendi");
 
   app.get("/api/intake/status", async () => ({
     hazir: Boolean(getDrive), serviceAccount: serviceAccountEmail(), dizin: panelsDir, panel: store.listPanels().length, hata: driveConfigError,

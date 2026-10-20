@@ -30,6 +30,12 @@ Compare: eski panelle görünüm bazında kelime benzerliği; %90 altı görün�
 5. `node tools/kit.js build <slug> && node tools/kit.js smoke <slug>` → "OK". Sonra Ana Merkez `index.html`: `PANELS`, sol menü, `titles`, `SCOPES/SOURCES`, `COS`, funnel.
 6. HTML'i artifact olarak yayımla; Drive'a HTML koyma, A.5 klasörüne linki içeren kısa Doc koy.
 
+## Süreç Kaydı ve düzenlemeler (v0.5.5)
+- Panelde **Süreç Kaydı** görünümü: `ACTIONS/DECISIONS/MEETINGS` + kullanıcı eklemeleri. Eklemeler ve doküman notları `.data.js`'e yazılmaz;
+  sunucuda `panel_edits` (`/api/panels/<client>/edits`) tutulur ve `mergeEdits()` ile açılışta dizilere eklenir (`_ek` işaretli). Yeniden
+  üretim/tarama bunları silmez. `file://` açılışta salt okunur.
+- `CLIENT.dataDate` (YYYY-MM-DD) veri tarihi damgasıdır; veri dosyası güncellenince değiştirin. Intake panellerinde tarama tarihi kullanılır.
+
 ## Kurallar
 - Her panel bir dayanak gösterir: Belge (linkli) / Beyan / Dayanak yok. Beyanı belge gibi gösterme.
 - "Müvekkil" jenerik sorumlu kullanma: Müvekkil Yönetimi · Mali Müşavir · Yazılım Ekibi · Juris · Ortak.

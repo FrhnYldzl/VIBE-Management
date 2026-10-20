@@ -23,6 +23,7 @@ const TEMPLATE_NAMES = new Set([
   "basisLine","docH","entTabs","blk","docbar","canvas","okrGrid","barChart","STAGES","stagesEl","ddList","ddAll","heatmap",
   "assessHead","viewAssess","sec","lbl","LSTAT","onboardStats","viewOnboard","viewLearn","hbar","stackRow",
   "crumbFor","render","hashFor","go","renderNav","navEl","closeNav","h",
+  "EAPI","EDITS","PRIO","noteOf","mergeEdits","syncEdits","saveEdit","delEdit","dataDateStr","viewProcess",
 ]);
 const DECL = /^(?:const|let|var|function|async function)\s+([A-Za-z_$][\w$]*)/;
 

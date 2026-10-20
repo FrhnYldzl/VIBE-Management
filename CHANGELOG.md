@@ -3,6 +3,21 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.5] — 2026-10-20 · Süreç Kaydı (düzenlenebilir panel) + doğrulama checklist'i
+
+### Eklendi
+- Panel master: **Süreç Kaydı** görünümü (Genel Bakış altında) — `ACTIONS/DECISIONS/MEETINGS` + kullanıcı eklemeleri (`eklendi` rozeti) tek listede;
+  aksiyon/karar/toplantı ekleme formları, eklenen aksiyonda durum döngüsü, silme; doküman satırında **not** (✎). Kayıtlar
+  `panel_edits` tablosunda (`GET/PUT/DELETE /api/panels/:client/edits[/:kind[/:id]]`), `.data.js`'e dokunmaz → yeniden tarama /
+  yeniden üretimde korunur. `file://` açılışta salt okunur. Veri tarihi damgası (`CLIENT.dataDate` ya da `DRIVE_META.scannedAt`) alt bilgide.
+- Admin → Paneller & Senkron → **Doğrulama turu**: 5 kit + intake panelleri × 8 kontrol (künye, Data Room linkleri, OKR, finans, DD,
+  riskler, toplantı/aksiyon, veri tarihi); hücreye tıkla → kim · ne zaman (`vibe_state: dogrulama`, paylaşımlı).
+- Funnel: 0. aşamadaki aday **→ Müvekkil** terfi (eğitimden gelen ilişki 1. aşamaya geçer).
+- Intake panelleri sunucu açılışında güncel template ile yeniden derlenir (Drive'a gitmeden şablon güncellemesi).
+
+### Değişti
+- 5 müvekkil `.data.js`: `dataDate:"2026-10-18"`; intake üreticisi `dataDate` = tarama tarihi. `TEMPLATE_NAMES` güncellendi.
+
 ## [0.5.4] — 2026-10-18 · Eğitim tasarla · Claude + Design brief
 
 ### Eklendi

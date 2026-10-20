@@ -1,6 +1,20 @@
 {
   "surumler": [
     {
+      "surum": "0.5.5",
+      "tarih": "2026-10-20",
+      "faz": "v1.0 yolu",
+      "baslik": "Süreç Kaydı (düzenlenebilir panel) + doğrulama checklist'i",
+      "durum": "yayinda",
+      "degisiklikler": [
+        { "tur": "yeni", "metin": "Panelde 'Süreç Kaydı' görünümü: veri dosyasındaki aksiyon/karar/toplantı + kullanıcı eklemeleri tek listede; ekle, durum değiştir, sil; doküman satırına not (✎). Kayıtlar sunucuda (/api/panels/:client/edits) — .data.js'e dokunmaz, yeniden tarama ve yeniden üretimde korunur" },
+        { "tur": "yeni", "metin": "Veri tarihi damgası (CLIENT.dataDate / Drive tarama tarihi) panel alt bilgisinde ve Süreç Kaydı'nda" },
+        { "tur": "yeni", "metin": "Admin → Paneller & Senkron → Doğrulama turu: 5 kit + intake panelleri × 8 kontrol; hücreye tıkla → kim/ne zaman; paylaşımlı" },
+        { "tur": "yeni", "metin": "Funnel: Aday → 'Müvekkil' terfi; intake panelleri açılışta güncel template ile yeniden derlenir" },
+        { "tur": "test", "metin": "40 test yeşil; 5 panel yeniden üretildi (35–47 görünüm temiz)" }
+      ]
+    },
+    {
       "surum": "0.5.4",
       "tarih": "2026-10-18",
       "faz": "v1.0 yolu",
@@ -188,7 +202,7 @@
     }
   ],
   "planli": [
-    { "surum": "0.5.5", "baslik": "Veri doğruluğu turu", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
+    { "surum": "0.5.6", "baslik": "Doğrulama turu (Gülşah ile 5 panel)", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
     { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
     { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
   ]

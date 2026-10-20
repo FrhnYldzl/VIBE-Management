@@ -55,7 +55,7 @@ function generateDataJs(spec) {
   entities:${J(ents)}, short:${J(shortList)},
   driveRoot:${J(c.driveRoot ?? "")},
   planSheet:${J(c.planSheet ?? c.driveRoot ?? "")}, planLabel:"Hizmet Planı (hazırlanacak)",
-  kickoff:${J(kickoff)}, rhythm:[["Aylık","Yönetim toplantısı + raporlama (kurulacak)"],["Haftalık","Doküman teslim ve girdi takibi"],["Talep bazlı","Dosya bazlı görüş"]],
+  dataDate:${J(scanned)}, kickoff:${J(kickoff)}, rhythm:[["Aylık","Yönetim toplantısı + raporlama (kurulacak)"],["Haftalık","Doküman teslim ve girdi takibi"],["Talep bazlı","Dosya bazlı görüş"]],
   startDocs:[["DR","Drive Data Room A–F açılışı ve ilk tarama (Intake-lite)",${J(scanned)}],["Ç1","Hizmet Teklifi (yüklenecek)","—"],["Ç2","Danışmanlık Sözleşmesi (yüklenecek)","—"]],
   scopeIn:["Şirket Stratejisinin Analizi ve Geliştirilmesi","Hukuki Denetim ve Risk Analizi","Şirket İçi Hukuki Süreçlerin Geliştirilmesi","Kurumsal Yönetim ve Organizasyon Yapısının Geliştirilmesi","Uyuşmazlık ve Hukuki Süreç Danışmanlığı"],
   scopeOut:["İdari, ceza ve vergi davaları","Uluslararası tahkim","Birleşme ve devralma işlemlerinin yürütülmesi","Ruhsat, lisans, izin ve sertifika","Halka arz ve sermaye piyasası","Marka tescil / itiraz işlemleri","Mali yapı, finansman ve teşvik danışmanlığı (EK-1 ile ayrıca)"],
