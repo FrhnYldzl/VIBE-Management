@@ -355,7 +355,7 @@
         },
         {
           "v": "0.6.5",
-          "ad": "Vibe oturumları ayrı çalışma alanında (kurucu geri bildirimi): Claude tarzı — sol oturum listesi (ara, süz, sabitle, sil; Sabitli · Bugün · Dün · Son 7 gün gruplu), ortada sohbet ve alta sabit komut satırı (Enter gönderir), sağda bağlam (kapsam · alan · kaynaklar · kaydedilen çıktılar · ekler); Vibe sayfası başlatıcı + son oturumlar; oturumun tamamı Word / PDF",
+          "ad": "Vibe oturumları ayrı çalışma alanında (kurucu geri bildirimi): Claude tarzı — sol oturum listesi (ara, süz, sabitle, sil; Sabitli · Bugün · Dün · Son 7 gün gruplu), ortada sohbet ve alta sabit komut satırı (Enter gönderir), sağda bağlam (kapsam · alan · kaynaklar · kaydedilen çıktılar · ekler); Vibe sayfası başlatıcı + son oturumlar; oturumun tamamı Word / PDF; tema tercihi (Açık · Sistem · Koyu) üst çubukta, Vibe dahil tüm sayfalar ve Admin",
           "durum": "done",
           "alan": "Vibe",
           "dikey": "VM",

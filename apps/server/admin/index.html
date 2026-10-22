@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
+<script>/* v0.6.6 tema tercihi: boyamadan önce uygula (yanıp sönme olmasın) */try{var __t=localStorage.getItem("mtfg-theme");if(__t==="light"||__t==="dark")document.documentElement.setAttribute("data-theme",__t);}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>VIBE Admin</title>
@@ -9,6 +10,11 @@
 /* Juris Kurumsal Kimlik token'ları — Ana Merkez ve panellerle aynı */
 :root{--navy:#0A2240;--red:#BC2F2C;--red-ink:#8A1F1D;--bg:#FAFAF7;--bg-elev:#FFFFFF;--bg-sunken:#F3F2EE;--bg-nav:#0A2240;--bg-nav-2:#0E2B50;--border:rgba(10,34,64,.09);--border-strong:rgba(10,34,64,.18);--divider:rgba(10,34,64,.06);--ink:#0A2240;--ink-2:rgba(10,34,64,.72);--ink-3:rgba(10,34,64,.52);--ink-4:rgba(10,34,64,.36);--nav-ink:#FFFFFF;--nav-ink-2:rgba(255,255,255,.72);--nav-ink-3:rgba(255,255,255,.45);--nav-hover:rgba(255,255,255,.07);--nav-active:rgba(255,255,255,.12);--nav-accent:#E26B68;--tint-04:rgba(10,34,64,.04);--tint-08:rgba(10,34,64,.08);--success:#1F7A4E;--success-bg:rgba(31,122,78,.10);--warn:#B4701C;--warn-bg:rgba(180,112,28,.11);--info:#1F5AA8;--info-bg:rgba(31,90,168,.10);--neutral:#5A6B82;--neutral-bg:rgba(90,107,130,.12);--accent-bg:rgba(188,47,44,.10);--track:rgba(10,34,64,.10);--font-display:"Playfair Display","Times New Roman",Georgia,serif;--font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;--r-sm:6px;--r-md:10px;--r-lg:14px;color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060F1F;--bg-elev:#0D1B33;--bg-sunken:#040A17;--bg-nav:#040A17;--bg-nav-2:#0A1830;--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.16);--divider:rgba(255,255,255,.05);--ink:#F2F0EA;--ink-2:rgba(242,240,234,.72);--ink-3:rgba(242,240,234,.5);--ink-4:rgba(242,240,234,.32);--tint-04:rgba(255,255,255,.03);--tint-08:rgba(255,255,255,.07);--success:#4FB07F;--success-bg:rgba(79,176,127,.14);--warn:#D9984A;--warn-bg:rgba(217,152,74,.14);--info:#6FA0E0;--info-bg:rgba(111,160,224,.14);--neutral:#9AA8BC;--neutral-bg:rgba(154,168,188,.14);--red-ink:#E26B68;--accent-bg:rgba(226,107,104,.14);--track:rgba(255,255,255,.10);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#060F1F;--bg-elev:#0D1B33;--bg-sunken:#040A17;--bg-nav:#040A17;--bg-nav-2:#0A1830;--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.16);--divider:rgba(255,255,255,.05);--ink:#F2F0EA;--ink-2:rgba(242,240,234,.72);--ink-3:rgba(242,240,234,.5);--ink-4:rgba(242,240,234,.32);--tint-04:rgba(255,255,255,.03);--tint-08:rgba(255,255,255,.07);--success:#4FB07F;--success-bg:rgba(79,176,127,.14);--warn:#D9984A;--warn-bg:rgba(217,152,74,.14);--info:#6FA0E0;--info-bg:rgba(111,160,224,.14);--neutral:#9AA8BC;--neutral-bg:rgba(154,168,188,.14);--red-ink:#E26B68;--accent-bg:rgba(226,107,104,.14);--track:rgba(255,255,255,.10);color-scheme:dark}
+:root[data-theme="dark"] .btn.primary{background:#F2F0EA;color:#0A2240;border-color:#F2F0EA}
+.themesw{display:inline-flex;align-items:center;gap:2px;padding:2px;border:1px solid var(--border-strong);border-radius:999px;background:var(--bg-elev)}
+.themesw button{width:28px;height:24px;border-radius:999px;display:grid;place-items:center;color:var(--ink-3);background:none;border:0;cursor:pointer}
+.themesw button:hover{color:var(--ink)} .themesw button.on{background:var(--ink);color:var(--bg)}
 *{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}a{color:inherit}
 .app{display:flex;height:100%;min-height:100vh}
@@ -66,7 +72,7 @@ td .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin-rig
 </nav>
 <div class="scrim" id="scrim"></div>
 <main class="main" id="main"><div class="wrap">
-  <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü">☰</button><div class="crumb">VIBE Admin · <b id="crumb">Yol Haritası</b></div><div class="spacer"></div><a class="btn" href="/hesap" id="who" hidden></a><a class="btn" href="/auth/logout" id="logout" hidden>Çıkış</a><div class="date" id="today"></div></div>
+  <div class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Menü">☰</button><div class="crumb">VIBE Admin · <b id="crumb">Yol Haritası</b></div><div class="spacer"></div><div class="themesw" role="radiogroup" aria-label="Tema"><button type="button" data-theme-set="light" role="radio" title="Açık tema"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9L13 13M3 13l1.1-1.1M11.9 4.1L13 3"/></svg></button><button type="button" data-theme-set="system" role="radio" title="Sistem teması (cihaz ayarı)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="9" rx="1.5"/><path d="M5.5 14h5M8 11.5V14"/></svg></button><button type="button" data-theme-set="dark" role="radio" title="Koyu tema"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M13.5 10.2A6 6 0 015.8 2.5a6 6 0 107.7 7.7z"/></svg></button></div><a class="btn" href="/hesap" id="who" hidden></a><a class="btn" href="/auth/logout" id="logout" hidden>Çıkış</a><div class="date" id="today"></div></div>
   <div id="view"></div>
 </div></main>
 </div>
@@ -260,6 +266,13 @@ document.addEventListener("submit",e=>{ if(e.target.id==="intakeForm"){e.prevent
 $("#menuBtn").addEventListener("click",()=>{$("#nav").classList.toggle("open");$("#scrim").classList.toggle("open");});$("#scrim").addEventListener("click",()=>{$("#nav").classList.remove("open");$("#scrim").classList.remove("open");});
 current=titles[location.hash.slice(1)]?location.hash.slice(1):"roadmap"; render();
 Promise.all([fetch("/api/roadmap").then(r=>r.json()),fetch("/api/releases").then(r=>r.json()),fetch("/api/health").then(r=>r.json()).catch(()=>null),fetch("/api/me").then(r=>r.json()).catch(()=>null),fetch("/api/auth/config").then(r=>r.json()).catch(()=>null)]).then(([rm,rel,h,me,ac])=>{RM=rm;REL=rel;HEALTH=h;ME=me;AUTHCFG=ac;$("#ver").textContent="v"+(h?.surum||rel.guncel);$("#vibeState").textContent="Vibe: "+(h?.vibe?"açık":"kapalı");$("#rmPct").textContent=stats(rm.surumler[0].adimlar).pct+"%";if(me&&!ac?.disabled){$("#who").textContent=me.name;$("#who").hidden=false;$("#logout").hidden=false;}render();loadUsers();loadPanels();loadJournal();loadUsage();});
+
+/* v0.6.6 tema tercihi: Açık · Sistem · Koyu — localStorage "mtfg-theme"; panel iframe'leri data-theme gözlemcisiyle eşitlenir */
+function applyTheme(t){ const r=document.documentElement; if(t==="light"||t==="dark") r.setAttribute("data-theme",t); else { r.removeAttribute("data-theme"); t="system"; }
+  try{ localStorage.setItem("mtfg-theme",t); }catch(e){}
+  document.querySelectorAll("[data-theme-set]").forEach(b=>{ const on=b.dataset.themeSet===t; b.classList.toggle("on",on); b.setAttribute("aria-checked",String(on)); }); }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-theme-set]"); if(b) applyTheme(b.dataset.themeSet); });
+(()=>{ let t="system"; try{ t=localStorage.getItem("mtfg-theme")||"system"; }catch(e){} applyTheme(t); })();
 </script>
 </body>
 </html>

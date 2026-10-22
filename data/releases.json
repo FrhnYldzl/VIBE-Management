@@ -4,7 +4,7 @@
       "surum": "0.6.5",
       "tarih": "2026-10-22",
       "faz": "v1.0 yolu",
-      "baslik": "Vibe oturumları ayrı çalışma alanında (Claude tarzı)",
+      "baslik": "Vibe oturumları ayrı çalışma alanında (Claude tarzı) · tema tercihi",
       "durum": "yayinda",
       "degisiklikler": [
         {
@@ -26,6 +26,10 @@
         {
           "tur": "iyilestirme",
           "metin": "Yeni oturum boş açılır ve ilk mesajla oluşur (boş oturum birikmez); mesaj başlığında kaynak listesi yerine kaynak sayısı"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Tema tercihi: üst çubukta her sayfada Açık · Sistem · Koyu; Ana Merkez, Vibe ve oturum çalışma alanı, paneller ve Admin aynı tercihi kullanır (tarayıcıda saklanır)"
         }
       ]
     },

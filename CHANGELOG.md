@@ -3,7 +3,12 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
-## [0.6.5] — 2026-10-22 · Vibe oturumları ayrı çalışma alanında
+## [0.6.5] — 2026-10-22 · Vibe oturumları ayrı çalışma alanında · tema tercihi
+
+### Eklendi (ek · tema)
+- Üst çubukta tema seçici (Açık · Sistem · Koyu), `localStorage["mtfg-theme"]`; boyamadan önce uygulanır. Ana Merkez ve Admin'de aynı tercih;
+  panel iframe'leri mevcut `data-theme` gözlemcisiyle eşitlenir. Vibe artık tema bağımsız değil: varsayılan koyu stüdyo, "Açık" seçilince
+  kağıt zemin (`--v-*` açık değerleri, `--v-wash` / `--v-shadow`). Admin'e `:root[data-theme="dark"]` bloğu eklendi.
 
 ### Eklendi
 - Ana Merkez `#v-oturum` görünümü (rota `oturum`): `.sx` üç sütun — oturum listesi (`renderSx`: arama, kapsam süzgeci, gruplar, sabitle/sil),
