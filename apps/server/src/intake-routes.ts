@@ -123,4 +123,12 @@ export function registerIntake(app: FastifyInstance, store: Store, panelsDir: st
     for (const f of [join(panelsDir, `${slug}.html`), join(clientsDir, `${slug}.data.js`)]) rmSync(f, { force: true });
     return { ok: true, slug };
   });
+  // günlük senkron (sync-job.ts) intake panellerini aynı akışla yeniden tarar
+  return {
+    rescan: (slug: string, by: string) => {
+      const p = store.getPanel(slug);
+      if (!p) throw new Error("Panel yok");
+      return runIntake({ name: p.name, slug: p.slug, short: p.short[0], entities: p.entities, driveRoot: p.drive_root }, by);
+    },
+  };
 }

@@ -58,6 +58,11 @@ export function openStore(path: string) {
       client TEXT PRIMARY KEY, json TEXT NOT NULL,
       updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
     );
+    -- Journal (v0.6.0): günlük senkron ve sistem olayları — admin'de izlenir
+    CREATE TABLE IF NOT EXISTS journal (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      run TEXT NOT NULL, tur TEXT NOT NULL, hedef TEXT, durum TEXT NOT NULL, mesaj TEXT NOT NULL, detay TEXT
+    );
     -- Intake-lite panelleri: Drive linki → üretilen .data.js + HTML (dosyalar Volume'de, kayıt burada)
     CREATE TABLE IF NOT EXISTS panels (
       slug TEXT PRIMARY KEY, name TEXT NOT NULL, short TEXT NOT NULL, entities TEXT NOT NULL, drive_root TEXT NOT NULL,
@@ -77,6 +82,9 @@ export function openStore(path: string) {
   const uEdit = db.prepare(`INSERT INTO panel_edits (client, kind, id, json, updated_by) VALUES (?, ?, ?, ?, ?)
     ON CONFLICT(client, kind, id) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
   const dEdit = db.prepare("DELETE FROM panel_edits WHERE client = ? AND kind = ? AND id = ?");
+  const iJournal = db.prepare("INSERT INTO journal (run, tur, hedef, durum, mesaj, detay) VALUES (?, ?, ?, ?, ?, ?)");
+  const qJournal = db.prepare("SELECT id, ts, run, tur, hedef, durum, mesaj, detay FROM journal ORDER BY id DESC LIMIT ?");
+  const qLastRun = db.prepare("SELECT run, ts FROM journal WHERE tur = 'gunluk' AND durum != 'basladi' ORDER BY id DESC LIMIT 1");
   const qPerf = db.prepare("SELECT json, updated_by, updated_at FROM panel_perf WHERE client = ?");
   const uPerf = db.prepare(`INSERT INTO panel_perf (client, json, updated_by) VALUES (?, ?, ?)
     ON CONFLICT(client) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
@@ -129,6 +137,13 @@ export function openStore(path: string) {
     },
     setPanelEdit(client: string, kind: string, id: string, data: Record<string, unknown>, by: string) { uEdit.run(client, kind, id, JSON.stringify(data), by); },
     deletePanelEdit: (client: string, kind: string, id: string) => dEdit.run(client, kind, id).changes > 0,
+    /* ---- Journal ---- */
+    journal(run: string, tur: string, hedef: string | null, durum: "ok" | "uyari" | "hata" | "basladi", mesaj: string, detay?: unknown) {
+      iJournal.run(run, tur, hedef, durum, mesaj.slice(0, 500), detay === undefined ? null : JSON.stringify(detay).slice(0, 20000));
+    },
+    journalList: (limit = 200) => (qJournal.all(limit) as unknown as { id: number; ts: string; run: string; tur: string; hedef: string | null; durum: string; mesaj: string; detay: string | null }[])
+      .map((r) => ({ ...r, detay: r.detay ? JSON.parse(r.detay) : null })),
+    lastDailyRun: () => qLastRun.get() as { run: string; ts: string } | undefined,
     /* ---- Performans İzleme ---- */
     getPerf(client: string): { model: PerfModel; updated_by: string; updated_at: string } | null {
       const r = qPerf.get(client) as { json: string; updated_by: string; updated_at: string } | undefined;

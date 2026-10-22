@@ -55,6 +55,7 @@ td .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin-rig
     <button class="ni" data-view="panels"><span class="k">A3</span><span class="t">Paneller &amp; Senkron</span><span class="pct" id="navPanelCnt"></span></button>
     <button class="ni" data-view="users"><span class="k">A4</span><span class="t">Kullanıcılar</span></button>
     <button class="ni" data-view="health"><span class="k">A5</span><span class="t">Sağlık</span></button>
+    <button class="ni" data-view="journal"><span class="k">A6</span><span class="t">Journal</span><span class="pct" id="navJournal"></span></button>
   </div>
   <div class="navsec"><div class="h">Yüzeyler</div>
     <a class="ni" href="/app/"><span class="k">→</span><span class="t">Ana Merkez</span></a>
@@ -70,7 +71,19 @@ td .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-4);margin-rig
 </div>
 <script>
 const $=s=>document.querySelector(s);const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-const titles={roadmap:"Yol Haritası",releases:"Sürümler",feedback:"Geri Bildirim",panels:"Paneller & Senkron",users:"Kullanıcılar",health:"Sağlık"};
+const titles={roadmap:"Yol Haritası",releases:"Sürümler",feedback:"Geri Bildirim",panels:"Paneller & Senkron",users:"Kullanıcılar",health:"Sağlık",journal:"Journal"};
+let JOURNAL=null;
+async function loadJournal(){ try{ JOURNAL=await fetch("/api/journal?limit=300",{credentials:"same-origin"}).then(r=>r.ok?r.json():null); }catch(e){JOURNAL=null;} const s=JOURNAL&&JOURNAL.kayitlar.find(x=>x.tur==="gunluk"&&x.durum!=="basladi"); const n=document.getElementById("navJournal"); if(n) n.innerHTML=s?`<span style="color:${s.durum==="ok"?"var(--success)":s.durum==="uyari"?"var(--warn)":"var(--red-ink)"}">●</span>`:""; if(current==="journal")render(); }
+function viewJournal(){ const J=JOURNAL||{kayitlar:[]}; const runs=[]; J.kayitlar.forEach(x=>{ let r=runs.find(y=>y.run===x.run); if(!r){r={run:x.run,items:[]};runs.push(r);} r.items.push(x); });
+  const col=d=>d==="ok"?"done":d==="uyari"?"input":d==="hata"?"pending":"review"; const lbl={ok:"OK",uyari:"Uyarı",hata:"Hata",basladi:"Başladı"};
+  const last=runs[0]; const fin=last&&last.items.find(x=>x.tur==="gunluk"&&x.durum!=="basladi");
+  const cnt=k=>last?last.items.filter(x=>x.durum===k&&x.tur!=="gunluk").length:0;
+  return `<div class="page-h"><div><div class="eyebrow">Veri ve sistem · A6</div><h1>Journal</h1><p>Her gün bir kez (06:00 sonrası) <b>Drive ↔ paneller</b> senkronu: intake panelleri yeniden taranır ve derlenir, kit panellerinin Data Room klasörleri kontrol edilir (erişim, eşleşen dosya, durum önerisi), skor tazeliği denetlenir. Hata ve uyarılar burada.</p></div><div class="right"><button class="btn primary" id="jRun" ${J.calisiyor?"disabled":""}>${J.calisiyor?"Çalışıyor…":"Şimdi çalıştır"}</button></div></div>
+  <div class="tiles"><div class="tile accent"><div class="l">Son senkron</div><div class="v" style="font-size:20px">${fin?fmtD2(fin.ts):"—"}</div><div class="d">${fin?esc(fin.mesaj):"henüz çalışmadı"}</div></div>
+   <div class="tile"><div class="l">OK</div><div class="v" style="color:var(--success)">${cnt("ok")}</div><div class="d">son çalışmada</div></div>
+   <div class="tile"><div class="l">Uyarı</div><div class="v" style="color:var(--warn)">${cnt("uyari")}</div><div class="d">erişim yok · boş Data Room · eski skor</div></div>
+   <div class="tile"><div class="l">Hata</div><div class="v" style="color:var(--red-ink)">${cnt("hata")}</div><div class="d">tarama / derleme başarısız</div></div></div>
+  ${runs.slice(0,10).map(r=>`<div class="sec"><div class="sec-h"><h2>${fmtD2(r.run)}</h2><span class="meta">${r.items.length} kayıt</span></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Saat</th><th>Tür</th><th>Hedef</th><th>Durum</th><th>Mesaj</th></tr></thead><tbody>${r.items.slice().reverse().map(x=>`<tr><td class="owner">${esc(String(x.ts).slice(11,19))}</td><td><span class="fnchip">${esc(x.tur)}</span></td><td class="doc">${esc(x.hedef||"—")}</td><td><span class="status ${col(x.durum)}">${lbl[x.durum]||esc(x.durum)}</span></td><td style="white-space:normal;font-size:12.5px">${esc(x.mesaj)}${x.detay&&x.detay.hatalar&&x.detay.hatalar.length?`<div class="muted" style="font-size:11px">${x.detay.hatalar.slice(0,3).map(e=>esc(e.where+": "+String(e.error).slice(0,80))).join(" · ")}</div>`:""}</td></tr>`).join("")}</tbody></table></div></div></div>`).join("")||`<div class="card pad muted">Journal boş — "Şimdi çalıştır" ile ilk senkronu başlatın.</div>`}`; }
 const STATUS={done:"Tamamlandı",progress:"Devam ediyor",next:"Sırada",planned:"Planlı",vision:"Vizyon"};
 const COLOR={done:"var(--success)",progress:"var(--warn)",next:"var(--info)",planned:"var(--neutral)",vision:"var(--red-ink)"};
 let RM=null, REL=null, HEALTH=null, ME=null, AUTHCFG=null, USERS=null, INTAKE=null, PANELS=null, DOGR=null, SCORES=null, current="roadmap";
@@ -206,7 +219,7 @@ function placeholder(k,ver,desc){return `<div class="page-h"><div><div class="ey
 function render(){
   const el=$("#view"); $("#crumb").textContent=titles[current]; document.querySelectorAll(".ni[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===current));
   if(!RM){el.innerHTML='<div class="card pad">Yükleniyor…</div>';return;}
-  el.innerHTML=current==="roadmap"?viewRoadmap():current==="releases"?viewReleases():current==="health"?viewHealth():current==="feedback"?placeholder("Ürün yönetimi · A2","v0.6.1","Uygulama içi geri bildirim gelen kutusu ve triage (şimdi / sonraki / fikir / ret)."):current==="panels"?viewPanels():viewUsers();
+  el.innerHTML=current==="journal"?viewJournal():current==="roadmap"?viewRoadmap():current==="releases"?viewReleases():current==="health"?viewHealth():current==="feedback"?placeholder("Ürün yönetimi · A2","v0.6.1","Uygulama içi geri bildirim gelen kutusu ve triage (şimdi / sonraki / fikir / ret)."):current==="panels"?viewPanels():viewUsers();
   $("#main").scrollTop=0; $("#nav").classList.remove("open"); $("#scrim").classList.remove("open");
 }
 document.addEventListener("click",e=>{const b=e.target.closest(".ni[data-view]");if(b){current=b.dataset.view;location.hash=current;render();return;}
@@ -214,11 +227,12 @@ document.addEventListener("click",e=>{const b=e.target.closest(".ni[data-view]")
   const rs=e.target.closest("[data-rescan]"); if(rs){rs.disabled=true;rs.textContent="Taranıyor…";rescanPanel(rs.dataset.rescan);return;}
   const pd=e.target.closest("[data-pdel]"); if(pd){deletePanel(pd.dataset.pdel);return;}
   const dg=e.target.closest("[data-dogr]"); if(dg){toggleDogr(dg.dataset.dogr);return;}
+  if(e.target.closest("#jRun")){ const b=e.target.closest("#jRun"); b.disabled=true; b.textContent="Çalışıyor…"; fetch("/api/journal/run",{method:"POST",credentials:"same-origin"}).then(()=>loadJournal()); return; }
   const dk=e.target.closest("[data-dikey]"); if(dk){e.preventDefault(); DIKEY=dk.dataset.dikey&&DIKEY!==dk.dataset.dikey?dk.dataset.dikey:null; const y=$("#main").scrollTop; render(); $("#main").scrollTop=y; return;} });
 document.addEventListener("submit",e=>{ if(e.target.id==="intakeForm"){e.preventDefault();runIntake(e.target);} });
 $("#menuBtn").addEventListener("click",()=>{$("#nav").classList.toggle("open");$("#scrim").classList.toggle("open");});$("#scrim").addEventListener("click",()=>{$("#nav").classList.remove("open");$("#scrim").classList.remove("open");});
 current=titles[location.hash.slice(1)]?location.hash.slice(1):"roadmap"; render();
-Promise.all([fetch("/api/roadmap").then(r=>r.json()),fetch("/api/releases").then(r=>r.json()),fetch("/api/health").then(r=>r.json()).catch(()=>null),fetch("/api/me").then(r=>r.json()).catch(()=>null),fetch("/api/auth/config").then(r=>r.json()).catch(()=>null)]).then(([rm,rel,h,me,ac])=>{RM=rm;REL=rel;HEALTH=h;ME=me;AUTHCFG=ac;$("#ver").textContent="v"+(h?.surum||rel.guncel);$("#vibeState").textContent="Vibe: "+(h?.vibe?"açık":"kapalı");$("#rmPct").textContent=stats(rm.surumler[0].adimlar).pct+"%";if(me&&!ac?.disabled){$("#who").textContent=me.name;$("#who").hidden=false;$("#logout").hidden=false;}render();loadUsers();loadPanels();});
+Promise.all([fetch("/api/roadmap").then(r=>r.json()),fetch("/api/releases").then(r=>r.json()),fetch("/api/health").then(r=>r.json()).catch(()=>null),fetch("/api/me").then(r=>r.json()).catch(()=>null),fetch("/api/auth/config").then(r=>r.json()).catch(()=>null)]).then(([rm,rel,h,me,ac])=>{RM=rm;REL=rel;HEALTH=h;ME=me;AUTHCFG=ac;$("#ver").textContent="v"+(h?.surum||rel.guncel);$("#vibeState").textContent="Vibe: "+(h?.vibe?"açık":"kapalı");$("#rmPct").textContent=stats(rm.surumler[0].adimlar).pct+"%";if(me&&!ac?.disabled){$("#who").textContent=me.name;$("#who").hidden=false;$("#logout").hidden=false;}render();loadUsers();loadPanels();loadJournal();});
 </script>
 </body>
 </html>

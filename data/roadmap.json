@@ -307,6 +307,14 @@
           "kabul": "Drive'daki üç tablo tohum; düzenleme sunucuda; Vibe kaynak çipi 'Gelir hedefleri · sorunlar · OKR' (yerelde doğrulandı)"
         },
         {
+          "v": "0.5.10",
+          "durum": "done",
+          "alan": "Ürün",
+          "dikey": "AD",
+          "ad": "Kurucu geri bildirimi (22.10, 6 madde): Haftalık Odak'ta haftalar yan yana (biten / devreden / ertelenen) ve hatırlatıcılar (ritim, eğitim, OKR ölçümü, teyit, panel tutanakları); gelir verisinde beyan → belge → teyit (dört göz) ve panel bağı; portföy kaydında şirket/proje ekle-düzenle-sil; günlük Drive ↔ panel senkronu + admin Journal; performans standardı tüm panellerde (standart şablon, hedef hücreden girilir)",
+          "kabul": "Yerelde doğrulandı: yan yana görünüm, 27 hatırlatıcı (20'si panel tutanaklarından), varlık ekle/sil tüm görünümlere yansıyor, teyit girenden farklı kişiyle, Journal elle ve 06:00 sonrası otomatik"
+        },
+        {
           "v": "0.6.0",
           "ad": "Çıktı dışa aktarma (kurucu önerisi 2): Word (docx) · Excel (xlsx) · PDF, Juris Kurumsal Yönetim anteti; önce antetli yazdırma stili",
           "durum": "planned",

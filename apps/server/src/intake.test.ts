@@ -70,6 +70,18 @@ describe("intake-lite", () => {
     expect((await noDrive.inject({ method: "POST", url: "/api/intake", payload: { name: "X Y", driveRoot: "https://drive.google.com/drive/folders/ROOTFOLDER12345" } })).statusCode).toBe(503);
     await noDrive.close();
   });
+  it("günlük senkron: intake + kit taraması Journal'a yazılır, elle çalıştırılır", async () => {
+    await app.inject({ method: "POST", url: "/api/intake", payload: { name: "Journal Test A.Ş.", short: "JT", driveRoot: "https://drive.google.com/drive/folders/ROOTFOLDER12345" } });
+    const r = await app.inject({ method: "POST", url: "/api/journal/run" });
+    expect(r.statusCode).toBe(200); expect(r.json().sonuc).toMatch(/ok|uyari|hata/);
+    const j = (await app.inject("/api/journal")).json();
+    expect(j.son).not.toBeNull();
+    const kinds = new Set(j.kayitlar.map((x: { tur: string }) => x.tur));
+    expect(kinds.has("gunluk")).toBe(true); expect(kinds.has("intake")).toBe(true); expect(kinds.has("kit")).toBe(true);
+    const it1 = j.kayitlar.find((x: { tur: string; hedef: string }) => x.tur === "intake" && x.hedef === "journal-test-a-s");
+    expect(it1.durum).toBe("ok");
+    await app.inject({ method: "DELETE", url: "/api/panels/journal-test-a-s" });
+  });
   it("bozuk GOOGLE_SERVICE_ACCOUNT_JSON sunucuyu düşürmez; hata health ve status'ta görünür", async () => {
     const prev = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
     process.env.GOOGLE_SERVICE_ACCOUNT_JSON = '{"type":"service_account","project_id":"x","private_key":"-----BEGIN'; // yarım yapıştırma

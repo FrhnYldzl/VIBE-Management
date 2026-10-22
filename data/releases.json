@@ -1,6 +1,35 @@
 {
   "surumler": [
     {
+      "surum": "0.5.10",
+      "tarih": "2026-10-22",
+      "faz": "v1.0 yolu",
+      "baslik": "Haftalar yan yana · hatırlatıcılar · teyit · Journal",
+      "durum": "yayinda",
+      "degisiklikler": [
+        {
+          "tur": "yeni",
+          "metin": "Haftalık Odak: 'Haftalar yan yana' (son 4 hafta; biten · devreden / açık kalan · ertelenen; başlığa tıkla → hafta detayı) ve Hatırlatıcılar: ritim (haftalık aksiyon kontrolü, ay sonu nakit kapanışı, çeyrek review), eğitim oturumları, ölçümü girilmemiş kritik OKR'ler, teyit bekleyen gelir verisi; 'Panel tutanaklarını tara' ile açık aksiyonlar ve 30 günü geçen toplantı ritmi; tek tek ya da 'Tümünü ekle'"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Gelir hedefleri: her mevcut değerde dayanak rozeti — Beyan → Belge (Drive linki) → Teyitli ✓ (dört göz: giren kişi teyit edemez); elle değiştirilen değer beyana döner; 'Teyitli veri %' kutucuğu; şirketin Kurumsal Yönetim Paneli linki ve KYS'si"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Portföy kaydı düzenlenebilir: şirket/proje ekle, düzenle, sil (ad, kod, sınıf, kategori, MTFG payı, paydaşlar, nakit/değer profili, dayanak, not) — Genel Bakış, Tez, Funnel, Değerleme dahil tüm görünümlere yansır; Vibe ile de düzenlenir"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Günlük senkron (06:00 sonrası günde bir): intake panelleri yeniden taranır ve derlenir, kit panellerinin Data Room'u kontrol edilir (paylaşım, eşleşen dosya, durum önerisi), skor tazeliği; Admin → Journal (A6): son çalışma, OK / uyarı / hata, 'Şimdi çalıştır'"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Performans İzleme tüm panellerde: KPI seti olmayan şirket standart şablonla açılır (GM 6 · Yönetim 5 KPI, H1–H4, YO-01…04); KPI hedefi ve hedef kartı değeri hücreye tıklayarak girilir"
+        }
+      ]
+    },
+    {
       "surum": "0.5.9",
       "tarih": "2026-10-22",
       "faz": "v1.0 yolu",

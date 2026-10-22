@@ -7,11 +7,11 @@ import { DATA_DIR } from "./paths.ts";
 import type { PerfModel, Store } from "./store.ts";
 
 /** Performans tohumları: CLIENT.id deseni → data/perf/<dosya>. Sunucuda kayıt yoksa panel tohumu görür; ilk düzenlemede sunucuya kopyalanır. */
-const PERF_SEEDS: [RegExp, string][] = [[/^fevup/, "fevup.json"]];
+const PERF_SEEDS: [RegExp, string][] = [[/^fevup/, "fevup.json"], [/.*/, "standart.json"]]; // v0.6.0: tanımsız şirket standart şablonla açılır
 
 const STATUSES = ["done", "review", "progress", "input", "pending"] as const;
 const client = z.string().regex(/^[a-z0-9-]{1,40}$/);
-const VIBE_KEYS = ["sessions", "library", "egitim", "dogrulama", "gelir", "kriter", "sorunlar", "odak"] as const; // v0.5.9: portföy standartları + haftalık odak // egitim: oturum durum/doküman (v0.5.2) · dogrulama: panel doğrulama checklist'i (v0.5.5)
+const VIBE_KEYS = ["sessions", "library", "egitim", "dogrulama", "gelir", "kriter", "sorunlar", "odak", "varlik"] as const; // v0.5.9: portföy standartları + haftalık odak // egitim: oturum durum/doküman (v0.5.2) · dogrulama: panel doğrulama checklist'i (v0.5.5)
 /* panel düzenlemeleri: tür başına izin verilen alanlar (metin, ≤ 600 karakter) */
 const EDIT_KINDS = {
   action: ["owner", "action", "prio", "output", "status"],
@@ -81,11 +81,17 @@ export function registerState(app: FastifyInstance, store: Store) {
   });
   app.delete<{ Params: { client: string } }>("/api/panels/:client/perf", async (req) => ({ ok: store.deletePerf(client.parse(req.params.client)) }));
   // tek hücre girişi: gerçekleşen (kpi × hafta) ya da YO doküman yüklendi (dok × hafta); null → sil
-  const Cell = z.object({ kind: z.enum(["actual", "doc"]), id: z.string().max(20), week: z.string().max(12), value: z.number().finite().nullable() });
+  const Cell = z.object({ kind: z.enum(["actual", "doc", "hedef"]), id: z.string().max(20), week: z.string().max(12).optional().default(""), value: z.number().finite().nullable() });
   app.put<{ Params: { client: string } }>("/api/panels/:client/perf/cell", async (req, reply) => {
     const c = client.parse(req.params.client); const b = Cell.parse(req.body);
     const cur = perfOf(c); if (!cur) return reply.status(404).send({ hata: "KPI seti yok" });
     const m = cur.model;
+    if (b.kind === "hedef") { // KPI hedefi ya da YK hedef kartı değeri (H…)
+      const k = Object.values(m.kpis).flat().find((x) => x.id === b.id) as Record<string, unknown> | undefined;
+      const t = (m.targets as Record<string, unknown>[] | undefined)?.find((x) => x.id === b.id);
+      if (k) k.hedef = b.value; else if (t) t.deger = b.value; else return reply.status(400).send({ hata: "Kimlik tanımsız" });
+      store.setPerf(c, m, who(req)); return { ok: true };
+    }
     if (!m.weeks.some((w) => w.id === b.week)) return reply.status(400).send({ hata: "Hafta tanımsız" });
     const known = b.kind === "actual" ? Object.values(m.kpis).flat().some((k) => k.id === b.id) : (m.documents ?? []).some((d) => d.id === b.id);
     if (!known) return reply.status(400).send({ hata: "Kimlik tanımsız" });

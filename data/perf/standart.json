@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "client": "Standart",
+    "version": "standart v1 · 2026-10-22",
+    "kaynak": "Fevup performans paketi (v3) şemasından türetilmiş standart şablon — Görevler yok",
+    "order": ["gm", "ik", "yk"],
+    "sampleData": "Standart şablon: hedefler ve sorumlular şirketle birlikte girilecek (hedef hücresine tıklayın); gerçekleşen haftalık girilir"
+  },
+  "weeks": [
+    { "id": "W43", "start": "2026-10-19" }, { "id": "W44", "start": "2026-10-26" }, { "id": "W45", "start": "2026-11-02" },
+    { "id": "W46", "start": "2026-11-09" }, { "id": "W47", "start": "2026-11-16" }, { "id": "W48", "start": "2026-11-23" },
+    { "id": "W49", "start": "2026-11-30" }, { "id": "W50", "start": "2026-12-07" }, { "id": "W51", "start": "2026-12-14" },
+    { "id": "W52", "start": "2026-12-21" }, { "id": "W53", "start": "2026-12-28" }, { "id": "W01/27", "start": "2027-01-04" }
+  ],
+  "governance": {
+    "gm": { "label": "Genel Müdür", "members": ["teyit edilecek"], "rhythm": "Haftalık — 6 KPI · Yönetime raporlar" },
+    "ik": { "label": "Yönetim / İcra", "members": ["Müvekkil Yönetimi", "Juris"], "rhythm": "Haftalık — 5 KPI · aylık yönetim toplantısı" },
+    "yk": { "label": "Yönetim Kurulu", "members": ["teyit edilecek"], "rhythm": "Aylık — hedef kartı (H1–H4)" }
+  },
+  "assumptions": { "thresholds": { "green": 1, "amber": 0.8 }, "docDeadline": "Salı 18:00" },
+  "staff": [],
+  "targets": [
+    { "id": "H1", "hedef": "Yıllık ciro hedefi", "birim": "TL", "deger": null, "termin": "Yıl sonu", "sahip": "YK → Yönetim", "src": "IK01", "kpis": ["IK01", "GM01"], "dayanak": "Bütçe / iş planı", "yon": "↑" },
+    { "id": "H2", "hedef": "Nakit akışının pozitif kalması", "birim": "TL", "deger": 0, "termin": "Her hafta", "sahip": "Yönetim", "src": "GM04", "kpis": ["GM04", "IK03"], "dayanak": "13 haftalık nakit akışı", "yon": "↑" },
+    { "id": "H3", "hedef": "Tahsilat disiplini", "birim": "%", "deger": 0.9, "termin": "Her ay", "sahip": "Yönetim → Finans", "src": "GM03", "kpis": ["GM03"], "dayanak": "Tahsilat / ödeme planı", "yon": "↑" },
+    { "id": "H4", "hedef": "Yönetişim ritmi: raporlama ve toplantı", "birim": "%", "deger": 1, "termin": "Her hafta", "sahip": "Yönetim", "src": "GM06", "kpis": ["GM06", "IK05"], "dayanak": "Yönetici özeti dokümanları", "yon": "↑" }
+  ],
+  "kpis": {
+    "gm": [
+      { "id": "GM01", "kpi": "Haftalık ciro / satış", "birim": "TL", "yon": "↑", "hedef": null, "hedefId": "H1", "dokId": "YO-01", "sorumlu": "Genel Müdür", "seviye": "Genel Müdür" },
+      { "id": "GM02", "kpi": "Brüt kâr marjı", "birim": "%", "yon": "↑", "hedef": null, "hedefId": "H1", "dokId": "YO-01", "sorumlu": "Genel Müdür", "seviye": "Genel Müdür" },
+      { "id": "GM03", "kpi": "Tahsilat oranı (vadesi gelen / tahsil edilen)", "birim": "%", "yon": "↑", "hedef": 0.9, "hedefId": "H3", "dokId": "YO-03", "sorumlu": "Genel Müdür", "seviye": "Genel Müdür" },
+      { "id": "GM04", "kpi": "Hafta sonu nakit pozisyonu", "birim": "TL", "yon": "↑", "hedef": null, "hedefId": "H2", "dokId": "YO-02", "sorumlu": "Genel Müdür", "seviye": "Genel Müdür" },
+      { "id": "GM05", "kpi": "Teklif / sipariş stoğu", "birim": "TL", "yon": "↑", "hedef": null, "hedefId": "H1", "dokId": "YO-01", "sorumlu": "Genel Müdür", "seviye": "Genel Müdür" },
+      { "id": "GM06", "kpi": "Yönetici özeti dokümanlarının zamanında yüklenme oranı", "birim": "%", "yon": "↑", "hedef": 1, "hedefId": "H4", "dokId": "*", "calc": "DOC_RATE", "sorumlu": "Genel Müdür", "seviye": "Genel Müdür" }
+    ],
+    "ik": [
+      { "id": "IK01", "kpi": "Yıl başından kümülatif ciro", "birim": "TL", "yon": "↑", "hedef": null, "uye": "Müvekkil Yönetimi", "src": "CUM", "hedefId": "H1", "dokId": "YO-01", "seviye": "Yönetim / İcra" },
+      { "id": "IK02", "kpi": "OPEX karşılama oranı (gelir / sabit gider)", "birim": "%", "yon": "↑", "hedef": 1, "uye": "Müvekkil Yönetimi", "src": null, "hedefId": "H2", "dokId": "YO-02", "seviye": "Yönetim / İcra" },
+      { "id": "IK03", "kpi": "Vadesi geçmiş borç", "birim": "TL", "yon": "↓", "hedef": null, "uye": "Müvekkil Yönetimi", "src": null, "hedefId": "H2", "dokId": "YO-03", "seviye": "Yönetim / İcra" },
+      { "id": "IK04", "kpi": "Açık kritik aksiyon sayısı", "birim": "adet", "yon": "↓", "hedef": 3, "uye": "Juris", "src": null, "hedefId": "H4", "dokId": "YO-04", "seviye": "Yönetim / İcra" },
+      { "id": "IK05", "kpi": "Yönetim toplantısı yapıldı ve tutanak paylaşıldı", "birim": "adet", "yon": "↑", "hedef": 1, "uye": "Juris", "src": null, "hedefId": "H4", "dokId": "YO-04", "seviye": "Yönetim / İcra" }
+    ]
+  },
+  "documents": [
+    { "id": "YO-01", "ad": "Haftalık Satış Raporu", "icerik": "Ciro, brüt kâr, teklif stoğu", "sorumlu": "Genel Müdür", "format": "Sheet", "dataRoom": "A.5 / 01-Satis", "kpis": ["GM01", "GM02", "GM05", "IK01"], "siklik": "Haftalık · Salı 18:00" },
+    { "id": "YO-02", "ad": "13 Haftalık Nakit Akışı", "icerik": "Hafta sonu nakit, tahsilat / ödeme tahmini", "sorumlu": "Finans · Mali Müşavir", "format": "Sheet", "dataRoom": "A.5 / 02-Nakit", "kpis": ["GM04", "IK02"], "siklik": "Haftalık · Salı 18:00" },
+    { "id": "YO-03", "ad": "Tahsilat ve Ödeme Planı", "icerik": "Vadesi gelen alacak / borç, gecikmeler", "sorumlu": "Finans", "format": "Sheet", "dataRoom": "A.5 / 03-Tahsilat", "kpis": ["GM03", "IK03"], "siklik": "Haftalık · Salı 18:00" },
+    { "id": "YO-04", "ad": "Yönetim Toplantısı Tutanağı", "icerik": "Kararlar, aksiyonlar, teslim edilemeyenler", "sorumlu": "Juris", "format": "Doc", "dataRoom": "F / Toplantı Tutanakları", "kpis": ["IK04", "IK05"], "siklik": "Haftalık / aylık" }
+  ],
+  "docUploads": {},
+  "actuals": {}
+}

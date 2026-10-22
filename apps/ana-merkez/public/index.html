@@ -740,7 +740,8 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
   <!-- 02 PORTFÖY -->
   <section class="view" id="v-portfolio">
     <div class="page-h"><div><div class="eyebrow">02 · Strateji</div><h1>Portföy</h1><p>Stratejik portföy kaydı. Pay oranları ve paydaşlar cap table belgelerinden; nakit/değer katkısı ve dayanak belgeler buradan izlenir.</p></div></div>
-    <div class="card pad"><div class="scroll"><table class="tbl" id="pf"></table></div></div>
+    <div id="pfHead"></div>
+    <div class="card pad"><div class="scroll"><table class="tbl" id="pf"></table></div><div id="pfAdd"></div></div>
     <div class="sec grid2">
       <div class="card pad"><h3>Sahiplik yoğunlaşması</h3><div class="sub">MTFG payı × varlık (cap table'dan)</div><div id="own"></div></div>
       <div class="card pad"><h3>Kategori dağılımı</h3><div class="sub">Tez tabanına göre</div><div id="cat"></div></div>
@@ -974,7 +975,7 @@ const docPill=d=>`<span class="pill ${d}">${d}</span>`;
 const cfLabel={produce:["ok","Nakit üretir"],consume:["warn","Nakit tüketir"],none:["neu","Veri yok"]};
 const eqLabel={build:["info","Değer biriktirir"],hold:["ok","Değer korur"],none:["neu","Veri yok"]};
 const bar=(v,col)=>`<div class="meter"><div class="bar"><i style="width:${v||0}%;background:${col}"></i></div><span class="n">${v==null?"—":"%"+v.toLocaleString("tr-TR")}</span></div>`;
-const nCo=ASSETS.filter(a=>a.cls==="Şirket").length, nVcp=ASSETS.length-nCo;
+let nCo=0, nVcp=0; const refreshAssetMeta=()=>{ nCo=ASSETS.filter(a=>a.cls==="Şirket").length; nVcp=ASSETS.length-nCo; }; refreshAssetMeta();
 
 function renderHome(){
   $("#progEnts").innerHTML=`<span class="ent">PE / Family Office</span><span class="ent">${nCo} şirket</span><span class="ent">${nVcp} VCP</span><span class="ent">${Object.keys(PANELS).length} panel</span>`;
@@ -998,6 +999,13 @@ function renderThesis(){
     `<tr><td colspan="9" class="sm muted">Puanlar taslaktır (beyan). Yatırım Komitesi'nde kriter başına tartışılıp sabitlenir.</td></tr>`;
 }
 function renderPortfolio(){
+  const ed=typeof PS_EDIT!=="undefined"&&PS_EDIT.varlik;
+  if(typeof psHead==="function") $("#pfHead").innerHTML=psHead("varlik","Portföy kaydı",`${ASSETS.length} varlık · şirket ve projeler eklenebilir, düzenlenebilir, silinebilir · pay oranları cap table belgelerinden`);
+  if(ed){ const V=psGet("varlik");
+    $("#pf").innerHTML=`<tr><th>#</th><th>Varlık · kod</th><th>Sınıf</th><th>Kategori</th><th class="r">MTFG payı %</th><th>Diğer paydaşlar</th><th>Nakit</th><th>Değer</th><th>Dayanak</th><th>Not</th><th></th></tr>`+
+      V.map((a,i)=>`<tr class="row"><td class="mono muted">${i+1}</td><td>${psIn("varlik",`${i}.name`,a.name)}${psIn("varlik",`${i}.code`,a.code,{ph:"kod"})}</td><td>${psIn("varlik",`${i}.cls`,a.cls,{sel:["Şirket","VCP Projesi","Proje","Fikir"]})}</td><td>${psIn("varlik",`${i}.cat`,a.cat,{sel:["Mal İhracatı","Hizmet İhracatı","Kurumsal Yönetim","Yatırım","Teknoloji"]})}</td><td>${psIn("varlik",`${i}.stake`,a.stake,{num:1})}</td><td>${psIn("varlik",`${i}.others`,a.others,{area:1})}</td><td>${psIn("varlik",`${i}.cf`,a.cf,{sel:[["produce","Nakit üretir"],["consume","Nakit tüketir"],["none","Veri yok"]]})}</td><td>${psIn("varlik",`${i}.eq`,a.eq,{sel:[["build","Değer biriktirir"],["hold","Değer korur"],["none","Veri yok"]]})}</td><td>${psIn("varlik",`${i}.doc`,a.doc,{sel:["belge","beyan","yok"]})}${psIn("varlik",`${i}.docName`,a.docName,{ph:"belge adı"})}</td><td>${psIn("varlik",`${i}.note`,a.note,{area:1})}</td><td><button class="ps-x" data-psdel="varlik||${i}" title="Varlığı sil">×</button></td></tr>`).join("");
+    $("#pfAdd").innerHTML=`<div style="margin-top:10px"><button class="btn" data-psadd="varlik|varlik">＋ Şirket / proje</button></div>`; return; }
+  $("#pfAdd").innerHTML="";
   $("#pf").innerHTML=`<tr><th>#</th><th>Varlık</th><th>Sınıf</th><th>Kategori</th><th class="r">MTFG payı</th><th>Diğer paydaşlar</th><th>Nakit</th><th>Değer</th><th>Dayanak</th><th>Not</th></tr>`+
     ASSETS.map((a,i)=>`<tr class="row"><td class="mono muted">${i+1}</td><td><span class="nm">${a.name}</span><br><span class="code">${a.code}</span></td><td class="sm">${a.cls}</td><td class="sm">${a.cat}</td><td class="r mono">${a.stake==null?"—":"%"+a.stake.toLocaleString("tr-TR")}</td><td class="sm">${a.others}</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill ${eqLabel[a.eq][0]}">${eqLabel[a.eq][1]}</span></td><td>${docPill(a.doc)}<div class="sm">${a.docName}</div></td><td class="sm">${a.note}</td></tr>`).join("");
   $("#own").innerHTML=ASSETS.filter(a=>a.stake!=null).sort((x,y)=>y.stake-x.stake).map(a=>`<div style="margin-bottom:8px"><div style="font-size:12.5px">${a.name}</div>${bar(a.stake,"var(--chart-1)")}</div>`).join("")+`<div class="sm muted" style="font-size:11.5px">Pay oranları portföy kaydından; değer ağırlığı değerleme sonrası eklenir.</div>`;
@@ -1302,16 +1310,25 @@ document.addEventListener("submit",e=>{
    Kaynak: portfoy.data.js (Drive tabloları tohum). Düzenleme: ekrandan (Düzenle → Kaydet) ya da Vibe'dan (✦ Vibe ile düzenle).
    Sunucu: vibe_state anahtarları gelir · kriter · sorunlar · odak (nesneler [{data}] sarmalında). */
 const PS={}, PS_EDIT={}, PS_BAK={};
+let ME_NAME=""; fetch("/api/me",{credentials:"same-origin"}).then(r=>r.ok?r.json():null).then(m=>{ME_NAME=(m&&(m.name||m.u))||"";}).catch(()=>{});
+/* Gelir verisi dayanağı (v0.6.0): beyan → belge (Drive linki) → teyitli (dört göz: girenden farklı kişi). Elle girilen sayı teyitsiz sayılır. */
+const GT={beyan:["warn","Beyan"],belge:["info","Belge"],teyitli:["ok","Teyitli ✓"]};
+const gtOf=(r,ck)=>(r.teyit&&r.teyit[ck])||{durum:"beyan",giren:"Drive tablosu (04. Gelir Hedefleri)"};
+const gtPanel=ad=>{ const w=String(ad).toLocaleLowerCase("tr").split(/s+/)[0]; const e=Object.entries(typeof PANELS!=="undefined"?PANELS:{}).find(([id,p])=>id.startsWith(w.slice(0,5))||String(p.name).toLocaleLowerCase("tr").startsWith(w)); return e?e[0]:null; };
 const psClone=o=>JSON.parse(JSON.stringify(o));
-function psSeed(k){ const s=psClone(PORTFOY_SEED[k]);
+const ASSETS0=JSON.parse(JSON.stringify(ASSETS)); /* portföy kaydı tohumu (kod içindeki liste) */
+function psSeed(k){ if(k==="varlik") return psClone(ASSETS0); const s=psClone(PORTFOY_SEED[k]);
   if(k==="odak") s.forEach(w=>w.items=w.items.map((r,i)=>Array.isArray(r)?{id:w.w+"-"+(i+1),grup:r[0],sirket:r[1],alan:r[2],baslik:r[3],sorumlu:r[4]||"",durum:r[5]||"acik",tutar:r[6]??null,para:r[7]||null}:r));
   return s; }
 const psGet=k=>(PS[k]??=psSeed(k));
 const psWrap=(k,v)=>Array.isArray(v)?v:[{data:v}];
 const psUnwrap=(k,arr)=>(k==="gelir"||k==="kriter")?(arr[0]&&arr[0].data):arr;
 async function psSave(k){ try{ const r=await fetch(VAPI+"/"+k,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(psWrap(k,PS[k]))}); if(!r.ok) $("#vnote").textContent="Kaydedilemedi: "+(await r.text()); }catch(e){} }
-function psPull(st){ let any=false; for(const k of ["gelir","kriter","sorunlar","odak"]){ const v=st[k]&&st[k].value; if(Array.isArray(v)&&v.length){ const u=psUnwrap(k,v); if(u){PS[k]=u;any=true;} } } if(any) psRenderAll(); }
-function psRenderAll(){ renderGelir(); renderSorunlar(); renderGecis(); renderOdak(); }
+function psPull(st){ let any=false; for(const k of ["gelir","kriter","sorunlar","odak","varlik"]){ const v=st[k]&&st[k].value; if(Array.isArray(v)&&v.length){ const u=psUnwrap(k,v); if(u){PS[k]=u;any=true;} } } if(any) psRenderAll(); }
+/* portföy kaydı (ASSETS) tüm MTFG görünümlerini besler: kayıtlı liste yerine koyulur ve hepsi yeniden çizilir */
+function psSyncAssets(){ if(!PS.varlik) return; ASSETS.splice(0,ASSETS.length,...psClone(PS.varlik).map(a=>({fit:[5,5,5,5,5,5],gate:null,val:"—",others:"—",note:"",docName:"",...a,stake:a.stake===""||a.stake==null?null:+a.stake}))); refreshAssetMeta();
+  try{ renderHome(); renderThesis(); renderFunnel(); renderVB(); renderCapital(); renderValue(); renderRisk(); }catch(e){} }
+function psRenderAll(){ if(!PS_EDIT.varlik) psSyncAssets(); renderPortfolio(); renderGelir(); renderSorunlar(); renderGecis(); renderOdak(); }
 function psSetPath(obj,path,val){ const ps=path.split("."); let o=obj; for(let i=0;i<ps.length-1;i++){ const p=ps[i]; if(o[p]==null) o[p]=/^\d+$/.test(ps[i+1])?[]:{}; o=o[p]; } o[ps[ps.length-1]]=val; }
 const psNum=v=>{ if(v===""||v==null) return null; const n=Number(String(v).replace(/\s/g,"").replace(",",".")); return isFinite(n)?n:null; };
 const psFmt=(v,para)=>v==null||v===0&&para==null?"—":(para==="USD"?"$":"")+Number(v).toLocaleString("tr-TR",{maximumFractionDigits:2})+(para==="TL"?" ₺":"");
@@ -1326,18 +1343,20 @@ function renderGelir(){ const el=$("#gelirBox"); if(!el) return; const g=psGet("
   const totM=K.filter(c=>c.para!=="USD").reduce((a,c)=>a+sum("mevcut",c.k),0), totH=K.filter(c=>c.para!=="USD").reduce((a,c)=>a+sum("hedef",c.k),0);
   const usdM=K.filter(c=>c.para==="USD").reduce((a,c)=>a+sum("mevcut",c.k),0), usdH=K.filter(c=>c.para==="USD").reduce((a,c)=>a+sum("hedef",c.k),0);
   const n=+g.ortakSayisi||1, pct=totH?Math.round(totM/totH*100):null;
+  const cells=g.kalemler.flatMap(r=>K.filter(c=>+((r.mevcut||{})[c.k])).map(c=>gtOf(r,c.k).durum)); const tPct=cells.length?Math.round(cells.filter(d=>d==="teyitli").length/cells.length*100):null;
   const cell=(r,i,c)=>{ const m=(r.mevcut||{})[c.k], h=(r.hedef||{})[c.k];
     if(ed) return `<td>${psIn("gelir",`kalemler.${i}.mevcut.${c.k}`,m,{num:1,ph:"mevcut"})}<div style="height:4px"></div>${psIn("gelir",`kalemler.${i}.hedef.${c.k}`,h,{num:1,ph:"hedef"})}</td>`;
     if(!m&&!h) return `<td class="r muted">—</td>`;
     const p=h?Math.min(100,Math.round((+m||0)/h*100)):null;
-    return `<td class="r"><div class="mono">${psFmt(m||0,c.para)}</div><div class="sm">hedef ${psFmt(h||0,c.para)}</div>${p!=null?`<div class="ps-mini"><div class="bar"><i style="width:${p}%;background:${p>=100?"var(--success)":"var(--chart-1)"}"></i></div>${p}%</div>`:""}</td>`; };
+    const t=gtOf(r,c.k); return `<td class="r"><div class="mono">${psFmt(m||0,c.para)}</div><div class="sm">hedef ${psFmt(h||0,c.para)}</div>${p!=null?`<div class="ps-mini"><div class="bar"><i style="width:${p}%;background:${p>=100?"var(--success)":"var(--chart-1)"}"></i></div>${p}%</div>`:""}${m?`<button class="pill ${GT[t.durum][0]}" data-gt="${i}|${c.k}" style="border:0;cursor:pointer;margin-top:4px" title="Giren: ${esc(t.giren||"—")}${t.teyitEden?" · teyit: "+esc(t.teyitEden)+" "+esc(String(t.teyitTarih||"").slice(0,10)):""}${t.belge?" · belge: "+esc(t.belge):""}">${GT[t.durum][1]}</button>`:""}</td>`; };
   el.innerHTML=`<div class="sec">${psHead("gelir",`MTFG Gelir Hedefleri · ${esc(g.donem)}`,`Gelir kategorisi × şirket/proje · mevcut durum ve ${esc(g.donem)} sonu hedefi · ortak başı = toplam ÷ ${n} · kaynak: ${esc(g.kaynak||"")}`)}
    <div class="tiles"><div class="tile accent"><div class="l">${esc(g.donem)} hedef (TL)</div><div class="v">${psFmt(totH,"TL")}</div><div class="d">ortak başı ${psFmt(Math.round(totH/n),"TL")}</div></div>
     <div class="tile"><div class="l">Mevcut (TL)</div><div class="v">${psFmt(totM,"TL")}</div><div class="d">ortak başı ${psFmt(Math.round(totM/n),"TL")}</div></div>
     <div class="tile"><div class="l">Gerçekleşme</div><div class="v">${pct==null?"—":pct}<small>%</small></div>${bar(pct||0,"var(--chart-1)")}</div>
+    <div class="tile"><div class="l">Teyitli veri</div><div class="v">${tPct==null?"—":tPct}<small>%</small></div><div class="d">${cells.filter(d=>d==="teyitli").length}/${cells.length} mevcut değer · beyan → belge → teyit</div></div>
     ${usdH||usdM?`<div class="tile"><div class="l">Ek getiri (USD)</div><div class="v">${psFmt(usdM,"USD")}</div><div class="d">hedef ${psFmt(usdH,"USD")} · ortak başı ${psFmt(usdH/n,"USD")}</div></div>`:""}</div>
    <div class="card pad" style="margin-top:12px"><div class="scroll"><table class="tbl"><tr><th>#</th><th>Şirket / Proje</th><th>Tür</th>${K.map((c,j)=>`<th class="r" title="${esc(c.aciklama)}">${ed?psIn("gelir",`kategoriler.${j}.ad`,c.ad)+psIn("gelir",`kategoriler.${j}.para`,c.para,{sel:["TL","USD"]}):esc(c.ad)+(c.para==="USD"?" ($)":"")}</th>`).join("")}<th class="r">Toplam (TL)</th>${ed?"<th></th>":""}</tr>
-   ${g.kalemler.map((r,i)=>{const tm=tl(r,"mevcut"),th=tl(r,"hedef");return `<tr class="row"><td class="mono muted">${i+1}</td><td class="nm">${ed?psIn("gelir",`kalemler.${i}.ad`,r.ad):esc(r.ad)}</td><td class="sm">${ed?psIn("gelir",`kalemler.${i}.tur`,r.tur,{sel:["Şirket","Proje","Fikir"]}):esc(r.tur||"")}</td>${K.map(c=>cell(r,i,c)).join("")}<td class="r"><div class="mono">${psFmt(tm,"TL")}</div><div class="sm">hedef ${psFmt(th,"TL")}</div></td>${ed?`<td><button class="ps-x" data-psdel="gelir|kalemler|${i}" title="Satırı sil">×</button></td>`:""}</tr>`;}).join("")}
+   ${g.kalemler.map((r,i)=>{const tm=tl(r,"mevcut"),th=tl(r,"hedef");return `<tr class="row"><td class="mono muted">${i+1}</td><td class="nm">${ed?psIn("gelir",`kalemler.${i}.ad`,r.ad):esc(r.ad)}${!ed&&gtPanel(r.ad)?`<div class="sm"><a href="#" data-view="p-${gtPanel(r.ad)}">Kurumsal Yönetim Paneli ↗</a>${SCORES[gtPanel(r.ad)]?` · KYS ${SCORES[gtPanel(r.ad)].toplam}`:""}</div>`:""}</td><td class="sm">${ed?psIn("gelir",`kalemler.${i}.tur`,r.tur,{sel:["Şirket","Proje","Fikir"]}):esc(r.tur||"")}</td>${K.map(c=>cell(r,i,c)).join("")}<td class="r"><div class="mono">${psFmt(tm,"TL")}</div><div class="sm">hedef ${psFmt(th,"TL")}</div></td>${ed?`<td><button class="ps-x" data-psdel="gelir|kalemler|${i}" title="Satırı sil">×</button></td>`:""}</tr>`;}).join("")}
    <tr><td></td><td class="nm">Toplam</td><td></td>${K.map(c=>`<td class="r mono">${psFmt(sum("mevcut",c.k),c.para)}<div class="sm">hedef ${psFmt(sum("hedef",c.k),c.para)}</div></td>`).join("")}<td class="r mono"><b>${psFmt(totM,"TL")}</b><div class="sm">hedef ${psFmt(totH,"TL")}</div></td>${ed?"<td></td>":""}</tr>
    <tr><td></td><td class="nm">Ortak başı (÷ ${ed?psIn("gelir","ortakSayisi",g.ortakSayisi,{num:1}):n})</td><td></td>${K.map(c=>`<td class="r mono">${psFmt(sum("mevcut",c.k)/n,c.para)}<div class="sm">hedef ${psFmt(sum("hedef",c.k)/n,c.para)}</div></td>`).join("")}<td class="r mono">${psFmt(totM/n,"TL")}<div class="sm">hedef ${psFmt(totH/n,"TL")}</div></td>${ed?"<td></td>":""}</tr></table></div>
    ${ed?`<div style="display:flex;gap:6px;margin-top:10px"><button class="btn" data-psadd="gelir|kalem">＋ Şirket / proje</button><button class="btn" data-psadd="gelir|kategori">＋ Gelir kategorisi</button></div>`:`<div class="sm muted" style="margin-top:8px">${K.map(c=>`<b>${esc(c.ad)}</b>: ${esc(c.aciklama)}`).join(" · ")}</div>`}</div></div>`; }
@@ -1375,7 +1394,37 @@ function renderGecis(){ const el=$("#gecisBox"); if(!el) return; const c=psGet("
 
 /* --- Haftalık Odak --- */
 const OD_DUR=["acik","devam","tamam","ertelendi"], OD_T={acik:"Açık",devam:"Devam",tamam:"Tamam",ertelendi:"Ertelendi"};
-let odCur=null;
+let odCur=null, odView="detay", odTut=null, odTutBusy=false;
+/* Hatırlatıcılar: ritim (yönetişim takvimi, ay/çeyrek sonu), eğitim oturumları, ölçümü eksik kritik sorunlar, teyitsiz gelir verisi; isteğe bağlı panel tutanakları (açık aksiyon, kaçan toplantı) */
+function odSuggest(w){ const out=[]; const s=new Date((w.start||new Date().toISOString().slice(0,10))+"T00:00:00"), e=new Date(s); e.setDate(e.getDate()+6);
+  const inW=d=>{const x=new Date(d+"T00:00:00");return x>=s&&x<=e;};
+  out.push({kaynak:"Ritim",grup:"Toplantı",sirket:"MTFG",alan:"Planlı",baslik:"Haftalık aksiyon kontrolü (Yönetişim takvimi · 30 dk)"});
+  const me=new Date(s.getFullYear(),s.getMonth()+1,0); if(me>=s&&me<=e){ out.push({kaynak:"Ritim",grup:"Hedef",sirket:"MTFG",alan:"Finans",baslik:"Aylık nakit akışı kapanışı ("+me.toLocaleDateString("tr-TR",{month:"long"})+")"}); if((me.getMonth()+1)%3===0) out.push({kaynak:"Ritim",grup:"Toplantı",sirket:"MTFG",alan:"Planlanacak",baslik:"Çeyreklik portföy review + Yatırım Komitesi"}); }
+  try{ egPrograms().forEach(p=>p.oturumlar.forEach(o=>{ if(inW(o.tarih)) out.push({kaynak:"Eğitim",grup:"Toplantı",sirket:p.kurum,alan:"Planlı",baslik:"Eğitim oturumu "+o.no+": "+egMod(p,o.modul).t+" ("+egFmt(o.tarih)+")"});
+    const n=new Date(o.tarih+"T00:00:00"); const d=(n-e)/86400000; if(d>0&&d<=7) out.push({kaynak:"Eğitim",grup:"Şirket",sirket:"Juris",alan:"Satış",baslik:"Eğitim oturumu "+o.no+" dokümanları ve misafir teyidi ("+egFmt(o.tarih)+")"}); })); }catch(x){}
+  psGet("sorunlar").filter(x=>x.oncelik==="Kritik"&&x.durum!=="cozuldu"&&x.mevcut==null&&x.bag!=="odak").forEach(x=>out.push({kaynak:"OKR",grup:"Hedef",sirket:"MTFG",alan:"Strateji",baslik:x.id+" · "+x.kr+" ölçümünü gir"}));
+  const g=psGet("gelir"); const bek=g.kalemler.reduce((a,r)=>a+g.kategoriler.filter(c=>+((r.mevcut||{})[c.k])&&gtOf(r,c.k).durum!=="teyitli").length,0); if(bek) out.push({kaynak:"Teyit",grup:"Hedef",sirket:"MTFG",alan:"Finans",baslik:"Gelir hedefleri: "+bek+" değer teyit bekliyor (dört göz)"});
+  (odTut||[]).forEach(x=>out.push(x));
+  const has=new Set(w.items.map(x=>String(x.baslik).toLocaleLowerCase("tr")));
+  return out.filter(x=>!has.has(String(x.baslik).toLocaleLowerCase("tr"))); }
+async function odScanPanels(){ if(odTutBusy) return; odTutBusy=true; renderOdak(); const res=[];
+  for(const id of PANEL_IDS){ try{ const f=await ensureFrame(id); const j=JSON.parse(f.contentWindow.eval('JSON.stringify({a:(typeof ACTIONS!=="undefined"?ACTIONS:[]).filter(a=>a[4]!=="done").map(a=>[a[0],a[1],a[2]]),m:(typeof MEETINGS!=="undefined"?MEETINGS:[]).map(m=>m.d)})'));
+    const nm=PANELS[id].name; const pr={Kritik:0,Yüksek:1,Orta:2,Düşük:3};
+    j.a.sort((x,y)=>(pr[x[2]]??4)-(pr[y[2]]??4)).slice(0,4).forEach(a=>res.push({kaynak:"Tutanak",grup:"Şirket",sirket:"Juris",alan:"Operasyon · "+nm,baslik:a[1],sorumlu:a[0],prio:a[2]}));
+    const ds=j.m.map(d=>{const m=String(d).match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);return m?new Date(+m[3],+m[2]-1,+m[1]):null;}).filter(Boolean).sort((a,b)=>b-a);
+    const lastM=ds[0]; if(!lastM||(Date.now()-lastM)/86400000>30) res.push({kaynak:"Ritim",grup:"Toplantı",sirket:nm,alan:"Planlanacak",baslik:nm+" | Aylık yönetim toplantısı planla"+(lastM?" (son: "+lastM.toLocaleDateString("tr-TR")+")":" (tutanak yok)")});
+  }catch(x){} }
+  odTut=res; odTutBusy=false; renderOdak(); }
+function odCompare(){ const W=odWeeks(); const cols=W.slice(-4);
+  const li=arr=>arr.slice(0,10).map(x=>'<div style="font-size:12px;padding:3px 0;border-top:1px solid var(--divider)">'+esc(x.baslik)+'<span class="sm muted"> · '+esc(x.sirket||"")+'</span></div>').join("")+(arr.length>10?'<div class="sm muted">+'+(arr.length-10)+' kalem</div>':"");
+  return '<div style="display:grid;grid-template-columns:repeat('+cols.length+',minmax(220px,1fr));gap:12px;overflow-x:auto">'+cols.map(w=>{ const isLast=W.indexOf(w)===W.length-1; const done=w.items.filter(x=>x.durum==="tamam"), carry=w.items.filter(x=>x.durum!=="tamam"&&x.durum!=="ertelendi"), yeni=w.items.filter(x=>!x.devir), ert=w.items.filter(x=>x.durum==="ertelendi"); const s=odStats(w);
+    return '<div class="card pad"><button class="btn'+(w.w===odCur?" primary":"")+'" data-odw="'+esc(w.w)+'" data-odgo="1" style="width:100%;justify-content:space-between">'+esc(w.w)+' <span>%'+s.pct+'</span></button><div class="sm muted" style="margin:6px 0">'+esc(w.start||"")+' · '+s.tamam+'/'+s.toplam+' · yeni '+yeni.length+' · devirle gelen '+s.devir+'</div>'
+     +'<div class="od-sub" style="color:var(--success)">Biten · '+done.length+'</div>'+li(done)
+     +'<div class="od-sub">'+(isLast?"Açık kalan":"Devretti")+' · '+carry.length+'</div>'+li(carry)
+     +(ert.length?'<div class="od-sub" style="color:var(--ink-3)">Ertelendi · '+ert.length+'</div>'+li(ert):"")+'</div>'; }).join("")+'</div>'; }
+function odRemind(w){ const S=odSuggest(w); const col={Ritim:"info",Eğitim:"ok",OKR:"red",Teyit:"warn",Tutanak:"neu"};
+  return '<div class="card pad" style="margin-top:12px"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><b style="font-size:13.5px">Hatırlatıcılar</b><span class="sm muted">ritim · eğitim · OKR · teyit'+(odTut?" · panel tutanakları":"")+' — olması gereken ama listede olmayan işler</span><span style="flex:1"></span><button class="btn" data-od="scan" '+(odTutBusy?"disabled":"")+'>'+(odTutBusy?"Paneller okunuyor…":odTut?"Tutanakları yenile":"Panel tutanaklarını tara")+'</button>'+(S.length?'<button class="btn primary" data-od="addall">Tümünü ekle ('+S.length+')</button>':"")+'</div>'
+   +(S.length?S.map((x,i)=>'<div class="od-row"><span class="pill '+(col[x.kaynak]||"neu")+'">'+esc(x.kaynak)+'</span><span class="t">'+esc(x.baslik)+'<span class="sm muted"> · '+esc(x.sirket)+' · '+esc(x.alan)+(x.prio?" · "+esc(x.prio):"")+'</span></span><span class="who">'+esc(x.sorumlu||"")+'</span><span></span><button class="btn" data-odsug="'+i+'" style="height:26px">＋ Ekle</button></div>').join(""):'<div class="sm muted" style="margin-top:6px">Bu hafta için eksik hatırlatıcı yok.</div>')+'</div>'; }
 const odWeeks=()=>psGet("odak");
 const odCurWeek=()=>{ const W=odWeeks(); return W.find(w=>w.w===odCur)||W[W.length-1]; };
 function odStats(w){ if(!w) return {pct:0,tamam:0,toplam:0,acik:0,devam:0,devir:0,puan:0,tahT:0,tahTop:0};
@@ -1401,7 +1450,7 @@ function renderOdak(){ const el=$("#odakBody"); if(!el) return; const W=odWeeks(
   const body=gNames.map(g=>{ const subs=groups[g]; const subBlocks=Object.entries(subs).map(([sub,rows])=>{ if(g==="Şirket"){ const byAlan={}; rows.forEach(r=>((byAlan[r[0].alan||"Genel"]??=[]).push(r))); return `<div class="card" style="margin-bottom:10px"><div style="padding:10px 12px 0"><b>${esc(sub)}</b> <span class="sm muted">${rows.filter(r=>r[0].durum==="tamam").length}/${rows.length}</span></div>${Object.entries(byAlan).map(([a,rr])=>`<div style="padding:0 12px"><div class="od-sub">${esc(a)}${a==="Finans · Tahsilat"?` · <span style="color:var(--ink-2);text-transform:none;letter-spacing:0">${psFmt(rr.filter(r=>r[0].durum==="tamam"&&r[0].para!=="USD").reduce((s,r)=>s+(+r[0].tutar||0),0),"TL")} / ${psFmt(rr.filter(r=>r[0].para!=="USD").reduce((s,r)=>s+(+r[0].tutar||0),0),"TL")} tahsil</span>`:""}</div></div>${rr.map(row).join("")}`).join("")}</div>`; }
       return `<div class="card" style="margin-bottom:10px"><div style="padding:10px 12px 0"><b>${esc(sub)}</b> <span class="sm muted">${rows.filter(r=>r[0].durum==="tamam").length}/${rows.length}</span></div>${rows.map(row).join("")}</div>`; }).join("");
     return `<div class="od-grp"><h3>${esc(g==="Toplantı"?"Toplantılar":g==="Şirket"?"Şirketler":g==="Proje"?"Projeler":g==="Hedef"?"Hedefler":g)} <span class="muted">${Object.values(subs).flat().length} kalem</span></h3>${subBlocks}</div>`; }).join("");
-  el.innerHTML=`<div class="od-week">${W.map(x=>`<button class="btn${x.w===w.w?" on":""}" data-odw="${esc(x.w)}">${esc(x.w)} <span class="muted" style="margin-left:4px;${x.w===w.w?"color:rgba(255,255,255,.7)":""}">%${odStats(x).pct}</span></button>`).join("")}<button class="btn" data-od="next">＋ Yeni hafta (devirle)</button></div>
+  el.innerHTML=`<div class="od-week">${W.map(x=>`<button class="btn${x.w===w.w?" on":""}" data-odw="${esc(x.w)}">${esc(x.w)} <span class="muted" style="margin-left:4px;${x.w===w.w?"color:rgba(255,255,255,.7)":""}">%${odStats(x).pct}</span></button>`).join("")}<button class="btn" data-od="next">＋ Yeni hafta (devirle)</button><span style="flex:1"></span><button class="btn${odView==="detay"?" on":""}" data-odv="detay">Hafta detayı</button><button class="btn${odView==="yan"?" on":""}" data-odv="yan">Haftalar yan yana</button></div>
    <div class="tiles"><div class="tile accent"><div class="l">${esc(w.w)} tamamlanma</div><div class="v">${s.pct}<small>%</small></div><div class="d">${s.tamam}/${s.toplam} kalem · ${esc(w.start||"")} haftası</div></div>
     <div class="tile"><div class="l">Açık · devam</div><div class="v">${s.acik}<small>· ${s.devam}</small></div><div class="d">${s.devir} kalem önceki haftadan devretti</div></div>
     <div class="tile"><div class="l">Tahsilat (TL)</div><div class="v" style="font-size:20px">${psFmt(s.tahT,"TL")}</div><div class="d">/ ${psFmt(s.tahTop,"TL")} hedeflenen</div></div>
@@ -1409,7 +1458,7 @@ function renderOdak(){ const el=$("#odakBody"); if(!el) return; const W=odWeeks(
     <div class="tile"><div class="l">Puan · seviye</div><div class="v">${totalPuan}</div><div class="d"><span style="color:${lv[1]};font-weight:600">${lv[0]}</span> · tamam 10 · devam 3 · ${cumDone} iş birikti</div></div></div>
    ${badges.length?`<div class="od-badges">${badges.map(b=>`<span class="pill ${b[1]}">${esc(b[0])}</span>`).join("")}</div>`:""}
    <div class="card pad" style="margin-top:12px"><div class="sm muted">Haftalık tamamlanma · birikim</div><div class="od-chart">${W.map(x=>{const p=odStats(x).pct;return `<div class="c${x.w===w.w?" cur":""}"><span class="mono">%${p}</span><i style="height:${Math.max(4,Math.round(p*0.8))}px"></i><span>${esc(x.w)}</span></div>`;}).join("")}</div></div>
-   ${body}
+   ${odView==="yan"?`<div class="od-grp"><h3>Haftalar yan yana <span class="muted">son ${Math.min(4,W.length)} hafta · başlığa tıkla → hafta detayı</span></h3>${odCompare()}</div>`:odRemind(w)+body}
    <div class="card pad" style="margin-top:12px"><form id="odAdd" style="display:grid;grid-template-columns:120px 1fr 1fr 2fr 1fr 110px auto;gap:6px;align-items:end">
     <label class="sm">Grup<select name="grup" class="ps-in">${["Şirket","Proje","Toplantı","Hedef"].map(g=>`<option>${g}</option>`).join("")}</select></label>
     <label class="sm">Şirket / proje<input name="sirket" class="ps-in" list="odSirketler" required></label>
@@ -1430,10 +1479,10 @@ function odDownload(name,type,content){ const a=document.createElement("a"); a.h
 
 /* --- Vibe ile düzenleme: talimat → Claude aynı şemada JSON → özet → uygula --- */
 async function psVibe(k){ const sample=await getSample(); if(!sample){ alert("Claude bağlantısı yok."); return; }
-  const names={gelir:"MTFG gelir hedefleri tablosu",kriter:"Fikir → Proje → Şirket geçiş kriterleri ve aday puanları",sorunlar:"stratejik sorunlar ve OKR tablosu",odak:"haftalık odak listesi"};
+  const names={varlik:"MTFG portföy kaydı (şirket ve projeler)",gelir:"MTFG gelir hedefleri tablosu",kriter:"Fikir → Proje → Şirket geçiş kriterleri ve aday puanları",sorunlar:"stratejik sorunlar ve OKR tablosu",odak:"haftalık odak listesi"};
   const cur=k==="odak"?odCurWeek():psGet(k);
   const ins=prompt(`✦ Vibe ile düzenle — ${names[k]}\nNe değişsin? (ör. "Marqby 2026 hedefine prim 50.000 ekle", "S2 için mevcut OPEX karşılama %40", "Ariwon'u puanla: …", "Codemag teminat mektubu tamamlandı")`); if(!ins) return;
-  $("#vnote").textContent="Claude düzenliyor…"; go(k==="odak"?"odak":k==="kriter"?"thesis":"portfolio");
+  $("#vnote").textContent="Claude düzenliyor…"; go(k==="odak"?"odak":k==="kriter"?"thesis":"portfolio"); /* varlik/gelir/sorunlar → Portföy */
   const q=`Aşağıdaki JSON, MTFG Ana Merkez'deki ${names[k]}. Talimata göre DÜZENLE ve aynı şemada TAM JSON'u döndür (yalnız JSON; açıklama ve markdown yok; alan adlarını değiştirme; talimat dışındaki verilere dokunma; para birimi ve sayıları sayı olarak yaz).\nTalimat: ${ins}\n\nJSON:\n${JSON.stringify(cur)}`;
   try{ const r=await sample([{role:"user",content:q}],{modelTier:"default",maxTokens:16000}); const t=r.text.trim().replace(/^```(?:json)?\s*/i,"").replace(/```\s*$/,""); const a=Math.min(...["{","["].map(ch=>{const i=t.indexOf(ch);return i<0?1e9:i;})); const j=JSON.parse(t.slice(a,Math.max(t.lastIndexOf("}"),t.lastIndexOf("]"))+1));
     const before=JSON.stringify(cur).length, after=JSON.stringify(j).length;
@@ -1442,7 +1491,8 @@ async function psVibe(k){ const sample=await getSample(); if(!sample){ alert("Cl
     await psSave(k); psRenderAll(); $("#vnote").textContent=`${names[k]} Vibe ile güncellendi.`;
   }catch(e){ alert("Vibe düzenlemesi alınamadı: "+(e.message||e.code||e)); $("#vnote").textContent=""; } }
 
-document.addEventListener("change",e=>{ const t=e.target.closest&&e.target.closest("[data-ps]"); if(!t) return; const [k,path]=t.dataset.ps.split("|"); const v=t.type==="number"?psNum(t.value):(t.tagName==="SELECT"&&/^\d+$/.test(t.value)&&/\.puan\./.test(path)?Number(t.value):(t.tagName==="SELECT"&&t.value===""&&/\.puan\./.test(path)?null:t.value)); psSetPath(PS[k],path,v); });
+document.addEventListener("change",e=>{ const t=e.target.closest&&e.target.closest("[data-ps]"); if(!t) return; const [k,path]=t.dataset.ps.split("|"); const v=t.type==="number"?psNum(t.value):(t.tagName==="SELECT"&&/^\d+$/.test(t.value)&&/\.puan\./.test(path)?Number(t.value):(t.tagName==="SELECT"&&t.value===""&&/\.puan\./.test(path)?null:t.value)); psSetPath(PS[k],path,v);
+  const gm=k==="gelir"&&path.match(/^kalemler.(d+).mevcut.(.+)$/); if(gm) psSetPath(PS.gelir,`kalemler.${gm[1]}.teyit.${gm[2]}`,{durum:"beyan",giren:ME_NAME||"elle",tarih:new Date().toISOString()}); });
 document.addEventListener("click",e=>{
   const a=e.target.closest("[data-psact]"); if(a){ const [act,k]=a.dataset.psact.split("|");
     if(act==="edit"){ PS_BAK[k]=psClone(psGet(k)); PS_EDIT[k]=true; }
@@ -1456,10 +1506,24 @@ document.addEventListener("click",e=>{
     if(what==="kategori"){ const n=prompt("Gelir kategorisi adı:"); if(!n) return; o.kategoriler.push({k:"k"+uid(),ad:n,aciklama:"",para:"TL"}); }
     if(what==="sorun") o.push({id:"S"+(o.length+1),alan:"Yeni sorun",tanim:"",kok:"",etki:"",kpi:"",oncelik:"Yüksek",okr:"",kr:"",hedef:null,mevcut:null,birim:"%",sahip:"",durum:"acik"});
     if(what==="aday") o.adaylar.push({id:uid(),ad:"Yeni aday",tur:"Fikir",hedef:"Proje",not:"",puan:{}});
+    if(what==="varlik") o.push({code:"YENİ",name:"Yeni şirket / proje",cls:"Proje",cat:"Hizmet İhracatı",stake:null,others:"—",cf:"none",eq:"none",fit:[5,5,5,5,5,5],doc:"beyan",docName:"",gate:null,val:"—",note:""});
     psRenderAll(); return; }
-  const ow=e.target.closest("[data-odw]"); if(ow){ odCur=ow.dataset.odw; renderOdak(); return; }
+  const gt=e.target.closest("[data-gt]"); if(gt){ const [i,ck]=gt.dataset.gt.split("|"); const g=psGet("gelir"), r=g.kalemler[+i], t=gtOf(r,ck);
+    const ch=prompt(`${r.ad} · ${(g.kategoriler.find(c=>c.k===ck)||{}).ad} — dayanak: ${GT[t.durum][1]} (giren: ${t.giren||"—"})
+1 = Belge linki ekle (Drive)
+2 = Teyit et (girenden farklı kişi)
+3 = Beyana döndür`); if(!ch) return;
+    const nt={...t}; if(ch.trim()==="1"){ const u=prompt("Dayanak belge linki:",t.belge||"https://drive.google.com/"); if(!u) return; nt.belge=u.trim(); if(nt.durum==="beyan") nt.durum="belge"; }
+    else if(ch.trim()==="2"){ if(!ME_NAME){alert("Oturum bilgisi alınamadı.");return;} if(t.giren&&t.giren===ME_NAME){alert("Dört göz kuralı: veriyi giren kişi teyit edemez.");return;} nt.durum="teyitli"; nt.teyitEden=ME_NAME; nt.teyitTarih=new Date().toISOString(); }
+    else if(ch.trim()==="3"){ nt.durum="beyan"; delete nt.teyitEden; delete nt.teyitTarih; } else return;
+    (r.teyit??={})[ck]=nt; psSave("gelir"); renderGelir(); return; }
+  const ow=e.target.closest("[data-odw]"); if(ow){ odCur=ow.dataset.odw; if(ow.dataset.odgo) odView="detay"; renderOdak(); return; }
+  const ov=e.target.closest("[data-odv]"); if(ov){ odView=ov.dataset.odv; renderOdak(); return; }
+  const sg=e.target.closest("[data-odsug]"); if(sg){ const w=odCurWeek(), x=odSuggest(w)[+sg.dataset.odsug]; if(!x) return; w.items.push({id:w.w+"-"+uid(),grup:x.grup,sirket:x.sirket,alan:x.alan,baslik:x.baslik,sorumlu:x.sorumlu||"",durum:"acik",tutar:null,para:null,kaynak:x.kaynak}); psSave("odak"); renderOdak(); return; }
   const os=e.target.closest("[data-odst]"); if(os){ const w=odCurWeek(), x=w.items[+os.dataset.odst]; x.durum=OD_DUR[(OD_DUR.indexOf(x.durum)+1)%OD_DUR.length]; psSave("odak"); renderOdak(); return; }
   const od=e.target.closest("[data-od]"); if(od){ const w=odCurWeek(), act=od.dataset.od;
+    if(act==="scan"){ odScanPanels(); return; }
+    if(act==="addall"){ odSuggest(w).forEach(x=>w.items.push({id:w.w+"-"+uid(),grup:x.grup,sirket:x.sirket,alan:x.alan,baslik:x.baslik,sorumlu:x.sorumlu||"",durum:"acik",tutar:null,para:null,kaynak:x.kaynak})); psSave("odak"); renderOdak(); return; }
     if(act==="next"){ if(confirm(`${w.w} kapanıp yeni hafta açılsın mı? Kapanmayan ${w.items.filter(x=>x.durum!=="tamam").length} kalem devreder.`)) odNextWeek(); }
     if(act==="csv"){ const rows=[["Hafta","Grup","Şirket/Proje","Alan","Odak","Sorumlu","Durum","Tutar","Para","Devir"],...odExportRows(w)]; odDownload(`MTFG-Odak-${w.w}.csv`,"text/csv;charset=utf-8","﻿"+rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(";")).join("\r\n")); }
     if(act==="doc") odDownload(`MTFG-Odak-${w.w}.doc`,"application/msword",odHtml(w));

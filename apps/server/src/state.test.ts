@@ -25,7 +25,7 @@ describe("paylaşımlı durum", () => {
     expect((await app.inject("/api/panels/Q%20ervan/status")).statusCode).toBe(400);
   });
   it("vibe oturumları ve kütüphane", async () => {
-    expect((await app.inject("/api/vibe/state")).json()).toEqual({ sessions: null, library: null, egitim: null, dogrulama: null, gelir: null, kriter: null, sorunlar: null, odak: null });
+    expect((await app.inject("/api/vibe/state")).json()).toEqual({ sessions: null, library: null, egitim: null, dogrulama: null, gelir: null, kriter: null, sorunlar: null, odak: null, varlik: null });
     const r = await app.inject({ method: "PUT", url: "/api/vibe/state/sessions", payload: [{ id: "s1", title: "Deneme", msgs: [] }] });
     expect(r.json()).toMatchObject({ ok: true, adet: 1 });
     const st = (await app.inject("/api/vibe/state")).json();
@@ -62,7 +62,11 @@ describe("paylaşımlı durum", () => {
     expect(s.kaynak).toBe("sunucu"); expect(s.model.actuals.GM01.W45).toBe(40000); expect(s.model.docUploads["YO-01"].W45).toBe(1);
     expect((await app.inject({ method: "PUT", url: "/api/panels/fevup-brands/perf/cell", payload: { kind: "actual", id: "YOK", week: "W45", value: 1 } })).statusCode).toBe(400);
     expect((await app.inject({ method: "PUT", url: "/api/panels/fevup-brands/perf/cell", payload: { kind: "actual", id: "GM01", week: "W99", value: 1 } })).statusCode).toBe(400);
-    expect((await app.inject("/api/panels/onscala/perf")).statusCode).toBe(404);
+    const std = (await app.inject("/api/panels/onscala/perf")).json(); // standart şablon
+    expect(std.kaynak).toBe("tohum"); expect(std.model.kpis.gm.length).toBeGreaterThan(3);
+    expect((await app.inject({ method: "PUT", url: "/api/panels/onscala/perf/cell", payload: { kind: "hedef", id: "GM01", value: 250000 } })).statusCode).toBe(200);
+    expect((await app.inject("/api/panels/onscala/perf")).json().model.kpis.gm[0].hedef).toBe(250000);
+    await app.inject({ method: "DELETE", url: "/api/panels/onscala/perf" });
     const up = await app.inject({ method: "PUT", url: "/api/panels/onscala/perf", payload: { weeks: [{ id: "W44", start: "2026-10-26" }], kpis: { gm: [{ id: "GM01", kpi: "Ciro", birim: "$", yon: "↑", hedef: 100 }] }, tasks: [{ x: 1 }] } });
     expect(up.json()).toMatchObject({ ok: true, kpi: 1, hafta: 1 });
     expect((await app.inject("/api/panels/onscala/perf")).json().model.tasks).toBeUndefined();

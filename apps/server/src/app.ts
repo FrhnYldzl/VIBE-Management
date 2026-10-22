@@ -6,6 +6,7 @@ import { z } from "zod";
 import { type AuthConfig, configFromEnv } from "./auth.ts";
 import { registerAuth } from "./auth-routes.ts";
 import { type Drive, driveConfigError, driveFromEnv, registerIntake } from "./intake-routes.ts";
+import { registerDailySync } from "./sync-job.ts";
 import { ADMIN_DIR, ANA_MERKEZ_PUBLIC, DATA_DIR, LANDING_DIR, ROOT, VERSION } from "./paths.ts";
 import { registerSample } from "./sample.ts";
 import { registerState } from "./state-routes.ts";
@@ -53,6 +54,7 @@ export function buildApp({ logger = false, auth = configFromEnv(), store, panels
       GITHUB: Boolean(auth.github),
       DATA_PATH: process.env.DATA_PATH ?? null,
       ANTHROPIC_API_KEY: Boolean(process.env.ANTHROPIC_API_KEY),
+      GUNLUK_SENKRON: db.lastDailyRun() ?? null,
       GOOGLE_SERVICE_ACCOUNT: Boolean(getDrive), GOOGLE_SERVICE_ACCOUNT_HATA: driveConfigError, PANELS_DIR,
       RAILWAY_SERVICE: process.env.RAILWAY_SERVICE_NAME ?? null,
       RAILWAY_ENV: process.env.RAILWAY_ENVIRONMENT_NAME ?? null,
@@ -65,7 +67,8 @@ export function buildApp({ logger = false, auth = configFromEnv(), store, panels
   app.get("/api/releases", async () => ({ guncel: VERSION, ...json<Record<string, unknown>>("releases.json") }));
   registerSample(app);
   registerState(app, db);
-  registerIntake(app, db, PANELS_DIR, getDrive);
+  const intake = registerIntake(app, db, PANELS_DIR, getDrive);
+  registerDailySync(app, db, getDrive, intake.rescan, { schedule: !process.env.VITEST && process.env.DAILY_SYNC !== "0" });
 
   // statik yüzeyler — her biri kendi kökünde, göreli yollar (onscala.html, claude-adapter.js) çalışır
   app.register(fastifyStatic, { root: LANDING_DIR, prefix: "/", wildcard: false, decorateReply: true });

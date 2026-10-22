@@ -3,6 +3,21 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.10] — 2026-10-22 · Haftalar yan yana · hatırlatıcılar · teyit · Journal
+
+### Eklendi
+- **Haftalık Odak**: "Haftalar yan yana" (son 4 hafta: biten, devreden / açık kalan, ertelenen; başlıktan detaya geçiş) ve **Hatırlatıcılar**
+  (ritim, eğitim oturumu ve hazırlığı, ölçümü girilmemiş kritik OKR, teyit bekleyen gelir verisi; "Panel tutanaklarını tara" → panellerin açık
+  aksiyonları ve 30 günü geçen toplantı ritmi). Tek tek ya da "Tümünü ekle"; listede olanlar tekrar önerilmez.
+- **Gelir verisi dayanağı**: mevcut değer başına Beyan → Belge (Drive linki) → Teyitli ✓; dört göz kuralı (giren teyit edemez); elle değişen
+  değer beyana döner; "Teyitli veri %"; satırda şirketin Kurumsal Yönetim Paneli linki ve KYS'si.
+- **Portföy kaydı** düzenlenebilir (ekle / düzenle / sil; `vibe_state: varlik`) ve tüm MTFG görünümlerine yansır; Vibe ile düzenleme.
+- **Günlük senkron + Journal**: `apps/server/src/sync-job.ts` — 06:00 (TR) sonrası günde bir; intake panelleri yeniden taranır/derlenir, kit
+  panellerinde Data Room kök erişimi + `scanClient` (eşleşme, durum önerisi; otomatik uygulanmaz), KYS tazeliği. `journal` tablosu;
+  `GET /api/journal`, `POST /api/journal/run`; Admin → **Journal (A6)**; health'te `GUNLUK_SENKRON`. `DAILY_SYNC=0` kapatır.
+- **Performans standardı tüm panellerde**: `data/perf/standart.json` (KPI seti olmayan şirkete varsayılan); `/perf/cell` `kind:"hedef"`;
+  panelde KPI hedefi ve hedef kartı değeri tıklanarak girilir ("hedef gir").
+
 ## [0.5.9] — 2026-10-22 · Portföy standartları + Haftalık Odak
 
 ### Eklendi
