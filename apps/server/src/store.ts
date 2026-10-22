@@ -58,6 +58,15 @@ export function openStore(path: string) {
       client TEXT PRIMARY KEY, json TEXT NOT NULL,
       updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
     );
+    -- Vibe kullanımı (v0.6.1): istek başına model, token ve tahmini maliyet (USD)
+    CREATE TABLE IF NOT EXISTS vibe_usage (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      user TEXT NOT NULL, model TEXT NOT NULL, tier TEXT, kaynak TEXT,
+      input INTEGER NOT NULL DEFAULT 0, output INTEGER NOT NULL DEFAULT 0, cache_write INTEGER NOT NULL DEFAULT 0, cache_read INTEGER NOT NULL DEFAULT 0,
+      usd REAL NOT NULL DEFAULT 0, durum TEXT NOT NULL DEFAULT 'ok'
+    );
+    -- Ayarlar (v0.6.1): anahtar → JSON (ör. vibe_butce)
+    CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, json TEXT NOT NULL, updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')));
     -- Journal (v0.6.0): günlük senkron ve sistem olayları — admin'de izlenir
     CREATE TABLE IF NOT EXISTS journal (
       id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
@@ -82,6 +91,10 @@ export function openStore(path: string) {
   const uEdit = db.prepare(`INSERT INTO panel_edits (client, kind, id, json, updated_by) VALUES (?, ?, ?, ?, ?)
     ON CONFLICT(client, kind, id) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
   const dEdit = db.prepare("DELETE FROM panel_edits WHERE client = ? AND kind = ? AND id = ?");
+  const iUsage = db.prepare("INSERT INTO vibe_usage (user, model, tier, kaynak, input, output, cache_write, cache_read, usd, durum) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  const qSetting = db.prepare("SELECT json, updated_by, updated_at FROM settings WHERE key = ?");
+  const uSetting = db.prepare(`INSERT INTO settings (key, json, updated_by) VALUES (?, ?, ?)
+    ON CONFLICT(key) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
   const iJournal = db.prepare("INSERT INTO journal (run, tur, hedef, durum, mesaj, detay) VALUES (?, ?, ?, ?, ?, ?)");
   const qJournal = db.prepare("SELECT id, ts, run, tur, hedef, durum, mesaj, detay FROM journal ORDER BY id DESC LIMIT ?");
   const qLastRun = db.prepare("SELECT run, ts FROM journal WHERE tur = 'gunluk' AND durum != 'basladi' ORDER BY id DESC LIMIT 1");
@@ -137,6 +150,24 @@ export function openStore(path: string) {
     },
     setPanelEdit(client: string, kind: string, id: string, data: Record<string, unknown>, by: string) { uEdit.run(client, kind, id, JSON.stringify(data), by); },
     deletePanelEdit: (client: string, kind: string, id: string) => dEdit.run(client, kind, id).changes > 0,
+    /* ---- Vibe kullanımı ve ayarlar ---- */
+    addUsage(u: { user: string; model: string; tier?: string | null; kaynak?: string | null; input: number; output: number; cacheWrite: number; cacheRead: number; usd: number; durum?: string }) {
+      iUsage.run(u.user, u.model, u.tier ?? null, u.kaynak ?? null, u.input, u.output, u.cacheWrite, u.cacheRead, u.usd, u.durum ?? "ok");
+    },
+    /** since (ISO) sonrası toplam; grup: user | model | kaynak | gun */
+    usageSum(since: string) {
+      return db.prepare("SELECT COUNT(*) AS istek, COALESCE(SUM(input),0) AS input, COALESCE(SUM(output),0) AS output, COALESCE(SUM(cache_read),0) AS cache_read, COALESCE(SUM(cache_write),0) AS cache_write, COALESCE(SUM(usd),0) AS usd FROM vibe_usage WHERE ts >= ?").get(since) as { istek: number; input: number; output: number; cache_read: number; cache_write: number; usd: number };
+    },
+    usageBy(since: string, by: "user" | "model" | "kaynak" | "tier" | "gun") {
+      const col = by === "gun" ? "substr(ts,1,10)" : by;
+      return db.prepare(`SELECT ${col} AS k, COUNT(*) AS istek, COALESCE(SUM(input),0) AS input, COALESCE(SUM(output),0) AS output, COALESCE(SUM(usd),0) AS usd FROM vibe_usage WHERE ts >= ? GROUP BY ${col} ORDER BY ${by === "gun" ? "k" : "usd DESC"}`).all(since) as unknown as { k: string; istek: number; input: number; output: number; usd: number }[];
+    },
+    usageRecent: (n = 25) => db.prepare("SELECT ts, user, model, tier, kaynak, input, output, usd, durum FROM vibe_usage ORDER BY id DESC LIMIT ?").all(n) as unknown as Record<string, unknown>[],
+    getSetting<T>(key: string): { value: T; updated_by: string; updated_at: string } | null {
+      const r = qSetting.get(key) as { json: string; updated_by: string; updated_at: string } | undefined;
+      return r ? { value: JSON.parse(r.json) as T, updated_by: r.updated_by, updated_at: r.updated_at } : null;
+    },
+    setSetting(key: string, value: unknown, by: string) { uSetting.run(key, JSON.stringify(value), by); },
     /* ---- Journal ---- */
     journal(run: string, tur: string, hedef: string | null, durum: "ok" | "uyari" | "hata" | "basladi", mesaj: string, detay?: unknown) {
       iJournal.run(run, tur, hedef, durum, mesaj.slice(0, 500), detay === undefined ? null : JSON.stringify(detay).slice(0, 20000));

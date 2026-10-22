@@ -1,6 +1,35 @@
 {
   "surumler": [
     {
+      "surum": "0.6.1",
+      "tarih": "2026-10-22",
+      "faz": "v1.0 yolu",
+      "baslik": "Vibe maliyet: kademeler, token tavanı, aylık bütçe",
+      "durum": "yayinda",
+      "degisiklikler": [
+        {
+          "tur": "yeni",
+          "metin": "Her Claude isteği kullanıcı, kademe, model, kaynak (stüdyo · eğitim tasarımı · Vibe ile düzenle), girdi/çıktı/önbellek token ve tahmini USD maliyetle kaydedilir (resmi tarife, 22.10.2026)"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Aylık bütçe (varsayılan $100, VIBE_AYLIK_TAVAN_USD) ve uyarı eşiği (%80): tavan dolunca yeni istek durur (402), eşikte Vibe uyarır; kademe kapatılabilir (403)"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Kademe başına azami çıktı token: Hızlı 4.000 · Dengeli 16.000 · Derin 32.000 (admin'den değişir)"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Admin → Vibe Maliyet (A7): bu ay harcanan / kalan / istek / token, son 30 gün grafiği, kullanıcı · kademe · model · kaynak kırılımı, son 25 istek, bütçe ve kademe ayarları"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Vibe durum satırında 'bu ay $x / $tavan' sayacı; kademe seçicisinde model adları; 13 şablona önerilen kademe (iletişim → Hızlı, Data Room ve Deal Memo → Derin) + 'Haftalık Odak Özeti' ve 'Gelir Hedefi Durum Notu' şablonları"
+        }
+      ]
+    },
+    {
       "surum": "0.6.0",
       "tarih": "2026-10-22",
       "faz": "v1.0 yolu",

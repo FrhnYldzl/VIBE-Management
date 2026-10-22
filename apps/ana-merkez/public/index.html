@@ -642,7 +642,7 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
           <button class="attbtn" id="attBtn" title="Dosya ekle (txt, md, csv, json, pdf, görsel)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10.5 5.5l-4.6 4.6a1.6 1.6 0 002.3 2.3l5-5a3 3 0 00-4.3-4.3l-5.3 5.3a4.4 4.4 0 006.3 6.3l4.4-4.4"/></svg>Dosya ekle</button>
           <input type="file" id="attIn" multiple hidden accept=".txt,.md,.csv,.json,.html,.pdf,image/png,image/jpeg,image/webp,image/gif">
           <label for="tier" style="position:absolute;left:-9999px">Model</label>
-          <select id="tier" class="tier" title="Model seviyesi"><option value="quick">Hızlı</option><option value="default" selected>Dengeli</option><option value="complex">Derin</option></select>
+          <select id="tier" class="tier" title="Model kademesi — maliyet Admin → Vibe Maliyet'te"><option value="quick">Hızlı · Haiku</option><option value="default" selected>Dengeli · Opus</option><option value="complex">Derin · Fable</option></select>
           <button class="send" id="vsend"><span id="vsendT">Çalıştır</span><kbd>⌘↵</kbd></button>
         </div>
       </div>
@@ -1122,7 +1122,7 @@ async function runDesign(){
   egDesignCtl=new AbortController(); $("#dsGo").textContent="Durdur"; out.classList.remove("err"); out.textContent="Claude tasarlıyor… (Opus · 1–3 dk)"; $("#dsPreview").innerHTML=""; $("#dsSave").hidden=true;
   let raw="";
   try{
-    const r=await sample([{role:"user",content:egDesignPrompt(v)}],{modelTier:"default",maxTokens:28000,signal:egDesignCtl.signal,onText:({text})=>{raw=text;out.textContent=`Claude tasarlıyor… ${text.length.toLocaleString("tr-TR")} karakter · ${(text.match(/"no":/g)||[]).length} modül`;}});
+    const r=await sample([{role:"user",content:egDesignPrompt(v)}],{modelTier:"default",maxTokens:28000,kaynak:"egitim-tasarim",signal:egDesignCtl.signal,onText:({text})=>{raw=text;out.textContent=`Claude tasarlıyor… ${text.length.toLocaleString("tr-TR")} karakter · ${(text.match(/"no":/g)||[]).length} modül`;}});
     raw=r.text; const j=egParseDesign(r.text);
     if(!j.moduller||!j.moduller.length) throw new Error("Modül listesi boş");
     j.program=j.program||{}; j.moduller.forEach((x,i)=>{x.no=i+1; x.t=x.t||x.baslik||("Modül "+(i+1)); x.fn=Array.isArray(x.fn)?x.fn:[String(x.fn||"PLAN")]; x.panel=Array.isArray(x.panel)?x.panel:[String(x.panel||"")]; x.dersler=(x.dersler||[]).map(d=>typeof d==="string"?{t:d,kazanim:""}:d); x.teori=x.teori||{}; x.uygulama=x.uygulama||{};});
@@ -1484,7 +1484,7 @@ async function psVibe(k){ const sample=await getSample(); if(!sample){ alert("Cl
   const ins=prompt(`✦ Vibe ile düzenle — ${names[k]}\nNe değişsin? (ör. "Marqby 2026 hedefine prim 50.000 ekle", "S2 için mevcut OPEX karşılama %40", "Ariwon'u puanla: …", "Codemag teminat mektubu tamamlandı")`); if(!ins) return;
   $("#vnote").textContent="Claude düzenliyor…"; go(k==="odak"?"odak":k==="kriter"?"thesis":"portfolio"); /* varlik/gelir/sorunlar → Portföy */
   const q=`Aşağıdaki JSON, MTFG Ana Merkez'deki ${names[k]}. Talimata göre DÜZENLE ve aynı şemada TAM JSON'u döndür (yalnız JSON; açıklama ve markdown yok; alan adlarını değiştirme; talimat dışındaki verilere dokunma; para birimi ve sayıları sayı olarak yaz).\nTalimat: ${ins}\n\nJSON:\n${JSON.stringify(cur)}`;
-  try{ const r=await sample([{role:"user",content:q}],{modelTier:"default",maxTokens:16000}); const t=r.text.trim().replace(/^```(?:json)?\s*/i,"").replace(/```\s*$/,""); const a=Math.min(...["{","["].map(ch=>{const i=t.indexOf(ch);return i<0?1e9:i;})); const j=JSON.parse(t.slice(a,Math.max(t.lastIndexOf("}"),t.lastIndexOf("]"))+1));
+  try{ const r=await sample([{role:"user",content:q}],{modelTier:"default",maxTokens:16000,kaynak:"vibe-duzenle"}); const t=r.text.trim().replace(/^```(?:json)?\s*/i,"").replace(/```\s*$/,""); const a=Math.min(...["{","["].map(ch=>{const i=t.indexOf(ch);return i<0?1e9:i;})); const j=JSON.parse(t.slice(a,Math.max(t.lastIndexOf("}"),t.lastIndexOf("]"))+1));
     const before=JSON.stringify(cur).length, after=JSON.stringify(j).length;
     if(!confirm(`Claude önerisi hazır (${before.toLocaleString("tr-TR")} → ${after.toLocaleString("tr-TR")} karakter). Uygulansın mı?\nUygulandıktan sonra "Düzenle" ile kontrol edebilir, gerekirse elle düzeltebilirsiniz.`)){ $("#vnote").textContent="Vibe önerisi uygulanmadı."; return; }
     if(k==="odak"){ const W=odWeeks(); W[W.indexOf(cur)]=j; } else PS[k]=j;
@@ -1640,6 +1640,13 @@ const TEMPLATES=[
  {id:"minutes",cat:"Yönetişim",art:"a3",gl:"DL",lb:"Decision Log",title:"Toplantı Notu → Karar Kaydı",desc:"Ham toplantı notunu yapıştırın; kararlar, aksiyonlar (sahip/tarih) ve açık sorular tablosu çıksın.",scope:"all",alan:"ky",out:"Tablo",
   prompt:"Aşağıya yapıştırdığım toplantı notunu Decision Log formatına çevir: Kararlar (karar, gerekçe, sahip), Aksiyonlar (aksiyon, sahip, son tarih, öncelik), Açık sorular. Not:\n\n[toplantı notunu buraya yapıştırın]"},
 ];
+/* v0.6.1 şablon gözden geçirme: her şablonun önerilen kademesi (maliyet/kalite dengesi) — kısa iletişim Hızlı, analiz Dengeli, çok belgeli derin değerlendirme Derin */
+const TPL_TIER={jurisify:"default",brandfit:"default",byexample:"default",docreview:"default",brief:"default",ic:"default","onscala-mail":"quick","codemag-remind":"quick",risk:"default",dataroom:"complex",captable:"default",memo:"complex",minutes:"quick","odak-ozet":"quick","gelir-not":"default"};
+TEMPLATES.push(
+ {id:"odak-ozet",cat:"Yönetişim",art:"a3",gl:"W",lb:"Haftalık odak",title:"Haftalık Odak Özeti",desc:"Bu haftanın odak listesinden yönetim özeti: biten, devreden, risk; sonraki haftanın 5 önceliği.",scope:"mtfg",alan:"ops",out:"Özet",
+  prompt:"Haftalık odak verisinden 1 sayfalık yönetim özeti çıkar: (1) Bu hafta biten işler (şirket bazında), (2) Devreden / açık kalan kritik işler ve neden, (3) Tahsilat durumu (tutar ve oran), (4) Riskler ve karar gerektirenler, (5) Gelecek haftanın 5 önceliği (sahip ile). Kısa, madde madde; rakamları yalnız veriden al."},
+ {id:"gelir-not",cat:"Yatırım",art:"a4",gl:"₺",lb:"Gelir hedefi",title:"Gelir Hedefi Durum Notu",desc:"MTFG gelir hedeflerinde gerçekleşme, teyitsiz veri ve sapmalar; ortak başı durum.",scope:"mtfg",alan:"finans",out:"Not",
+  prompt:"MTFG gelir hedefleri verisinden durum notu hazırla: kategori ve şirket bazında mevcut / hedef / gerçekleşme %, ortak başı toplam, en büyük 3 sapma ve nedeni (veride yoksa '[teyit edilecek]'), teyit bekleyen (beyan) değerler listesi, yıl sonuna kadar kapatılması gereken fark ve önerilen 3 aksiyon. Tablo + kısa yorum."});
 const TCATS=["Tümü","Doküman","Intelligence","İletişim","Yönetişim","Yatırım","Hukuk & Risk"]; let tcat="Tümü";
 const QUICK=[["brief","Haftalık brifing"],["onscala-mail","Onscala durum maili"],["risk","Risk radar"],["ic","IC gündemi"]];
 const COS=[
@@ -1718,6 +1725,7 @@ function renderSrcs(){ $("#srcs").innerHTML=SOURCES.map(([k,t])=>`<button class=
 function setScope(k){ scope=k; const m=SCOPE_SRC[k]||SCOPE_SRC.all; Object.keys(src).forEach(s=>src[s]=!!m[s]); renderScope(); renderSrcs(); }
 function loadTpl(id,autorun){
   const t=TEMPLATES.find(x=>x.id===id); if(!t) return;
+  if(TPL_TIER[id]&&$("#tier")) $("#tier").value=TPL_TIER[id]; /* v0.6.1: şablonun önerilen kademesi */
   setScope(t.scope); alan=t.alan||"genel"; renderScope(); $("#vq").value=t.prompt;
   if(current!=="vibe") go("vibe"); setVtab("studio");
   if(t.file&&!atts.length){ $("#composer").scrollIntoView({behavior:"smooth",block:"center"}); $("#vnote").textContent="Bu şablon dosya ile çalışır: önce 'Dosya ekle' ile dokümanı ekleyin, sonra Çalıştır."; $("#attIn").click(); return; }
@@ -1899,7 +1907,7 @@ async function run(){
     answer=r.text; body.innerHTML=md(answer)+(r.truncated?`<div class="err">Yanıt uzunluk sınırında kesildi; isteği bölün.</div>`:"");
   }catch(e){
     const keep=e&&e.text; if(keep){answer=keep;body.innerHTML=md(keep);} else if(e&&e.code==="cancelled"){body.innerHTML=`<div class="think">Durduruldu.</div>`;} else body.innerHTML="";
-    if(!(e&&e.code==="cancelled")) body.insertAdjacentHTML("beforeend",`<div class="err">${esc(ERR[e&&e.code]||ERR.upstream_error)}</div>`);
+    if(!(e&&e.code==="cancelled")) body.insertAdjacentHTML("beforeend",`<div class="err">${esc((e&&(e.code==="budget"||e.code==="tier_off")&&e.message)||ERR[e&&e.code]||ERR.upstream_error)}</div>`);
   }finally{
     running=null; $("#vsendT").textContent="Çalıştır"; $("#vsend").classList.remove("stop");
     if(answer){ s.msgs.push({q,a:answer,files:fileNames||undefined}); saveSess(); body.insertAdjacentHTML("beforeend",actHTML(s.msgs.length-1)); renderSessions(); }
@@ -1971,6 +1979,11 @@ let v0="vibe"; try{v0=(location.hash.startsWith("#p-")?location.hash.slice(1):""
 pullState();
 loadScores();
 loadDynamicPanels().then(()=>{ if(v0.startsWith("p-")&&titles[v0]&&current!==v0) go(v0); $("#vstatus").textContent=$("#vstatus").textContent.replace(/\d+ panel/,`${PANEL_IDS.length} panel`); });
+/* v0.6.1: aylık maliyet sayacı (Vibe durum satırı) — her istek sonunda sunucudan gelen usage ile güncellenir */
+let VCOST=null; const vcostTxt=()=>VCOST?" · bu ay $"+(+VCOST.ayUsd).toFixed(2)+(VCOST.tavanUsd?" / $"+VCOST.tavanUsd:""):"";
+function paintCost(){ const el=$("#vstatus"); if(!el) return; el.textContent=el.textContent.replace(/ · bu ay \$[\d.,]+( \/ \$[\d.,]+)?/,"")+vcostTxt(); el.style.color=VCOST&&VCOST.uyari?"var(--warn)":""; }
+window.__vibeUsage=u=>{ VCOST={ayUsd:u.ayUsd,tavanUsd:u.tavanUsd,uyari:u.uyari}; paintCost(); if(u.uyari) $("#vnote").textContent="Uyarı: aylık Vibe bütçesinin %"+Math.round(u.ayUsd/Math.max(u.tavanUsd,0.01)*100)+"'i kullanıldı (Admin → Vibe Maliyet).";};
+fetch("/api/vibe/usage",{credentials:"same-origin"}).then(r=>r.ok?r.json():null).then(u=>{ if(u){ VCOST={ayUsd:u.ay.usd,tavanUsd:u.butce.aylikUsd,uyari:u.uyari}; setTimeout(paintCost,600); } }).catch(()=>{});
 getSample().then(s=>{ $("#vdot").classList.toggle("off",!s); $("#vstatus").textContent=s?`Vibe Management · Claude bağlı · ${PANEL_IDS.length} panel canlı`:"Vibe Management · Claude bu görünümde yok"; $("#vnote").textContent=s?"Panel verisi sadece istek anında okunur ve Claude'a bağlam olarak gönderilir; ilk çalıştırmada izin istenir.":"Şablonlar istemi hazırlar; Claude bağlantısı claude.ai görünümünde açılır."; });
 </script>
 

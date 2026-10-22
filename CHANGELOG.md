@@ -3,6 +3,19 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.6.1] — 2026-10-22 · Vibe maliyet: kademeler, token tavanı, aylık bütçe
+
+### Eklendi
+- `sample.ts`: `PRICES` (USD/MTok, kaynak platform.claude.com/docs/en/about-claude/pricing, 22.10.2026: Fable 5.1 10/50, Opus 5.5 4/20,
+  Sonnet 5.5 2/10, Haiku 5.5 0,10/0,50 — 100K üstü istem 0,50/2,50; önbellek okuma/yazma ayrı), `costUsd`, bütçe (`settings.vibe_butce`):
+  aylık USD tavanı (402), uyarı yüzdesi, kademe başına `max_tokens`, kapatılan kademe (403). Her istek `vibe_usage`'a yazılır; SSE sonunda
+  `usage` olayı (istek maliyeti + ay toplamı + uyarı).
+- `GET /api/vibe/usage`, `PUT /api/vibe/budget`; Admin → **Vibe Maliyet (A7)**.
+- Ana Merkez: durum satırında aylık sayaç, kademe seçicisinde model adları, bütçe/kademe hatası mesajı; istekler `kaynak` etiketiyle
+  (stüdyo · egitim-tasarim · vibe-duzenle).
+- Şablon gözden geçirme: `TPL_TIER` ile 13 şablona önerilen kademe (şablon yüklenince seçilir) + "Haftalık Odak Özeti", "Gelir Hedefi Durum Notu".
+- Testler: fiyat hesabı (Haiku uzun istem dahil), kullanım özeti, bütçe ayarı, 402 / 403 — 48 test.
+
 ## [0.6.0] — 2026-10-22 · Juris antetli Word · Excel · PDF
 
 ### Eklendi

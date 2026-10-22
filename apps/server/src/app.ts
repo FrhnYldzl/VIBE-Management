@@ -66,7 +66,7 @@ export function buildApp({ logger = false, auth = configFromEnv(), store, panels
   }));
   app.get("/api/roadmap", async () => json("roadmap.json"));
   app.get("/api/releases", async () => ({ guncel: VERSION, ...json<Record<string, unknown>>("releases.json") }));
-  registerSample(app);
+  registerSample(app, db);
   registerState(app, db);
   registerExport(app);
   const intake = registerIntake(app, db, PANELS_DIR, getDrive);

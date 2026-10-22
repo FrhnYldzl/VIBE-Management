@@ -324,11 +324,11 @@
         },
         {
           "v": "0.6.1",
-          "ad": "Vibe üretim: model kademeleri, token tavanı + sayaç; 13 şablon gözden geçirme",
-          "durum": "planned",
+          "ad": "Vibe üretim: model kademeleri (Hızlı · Haiku 5.5 / Dengeli · Opus 5.5 / Derin · Fable 5.1), kademe başına token tavanı, aylık USD bütçesi + uyarı eşiği, istek başına kullanım ve maliyet kaydı, Admin → Vibe Maliyet; 13 şablon gözden geçirildi (önerilen kademe) + 2 yeni şablon",
+          "durum": "done",
           "alan": "Vibe",
           "dikey": "VM",
-          "kabul": "Maliyet admin'de görünür"
+          "kabul": "Maliyet admin'de kullanıcı / kademe / model / kaynak / gün kırılımıyla görünüyor; tavan dolunca 402; Vibe durum satırında aylık sayaç (yerelde doğrulandı; gerçek tüketim canlıda)"
         },
         {
           "v": "0.6.2",

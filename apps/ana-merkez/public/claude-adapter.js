@@ -6,7 +6,7 @@
   async function sample(input, opts){
     opts = opts || {};
     const messages = typeof input === "string" ? [{role:"user",content:input}] : input;
-    const body = { messages, modelTier: opts.modelTier || "default", model: opts.model, effort: opts.effort, maxTokens: opts.maxTokens };
+    const body = { messages, modelTier: opts.modelTier || "default", model: opts.model, effort: opts.effort, maxTokens: opts.maxTokens, kaynak: opts.kaynak };
     let truncated = false;
     // görseller: base64 olarak ekle
     if (opts.images){
@@ -14,7 +14,7 @@
       body.images = await Promise.all(list.map(b => new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res({media_type:b.type,data:String(r.result).split(",")[1]});r.onerror=rej;r.readAsDataURL(b);})));
     }
     const res = await fetch("/api/sample", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify(body), signal: opts.signal });
-    if (!res.ok) throw { code: res.status===429 ? "rate_limited" : "upstream_error", message: await res.text() };
+    if (!res.ok) throw { code: res.status===429 ? "rate_limited" : res.status===402 ? "budget" : res.status===403 ? "tier_off" : "upstream_error", message: await res.text() };
     const reader = res.body.getReader(); const dec = new TextDecoder(); let text = "", buf = "";
     try {
       for(;;){
@@ -22,7 +22,7 @@
         buf += dec.decode(value, {stream:true});
         const lines = buf.split("\n"); buf = lines.pop();
         for (const l of lines){ if(!l.startsWith("data: ")) continue; const d = l.slice(6); if (d==="[DONE]") continue;
-          try { const ev = JSON.parse(d); if (ev.delta){ text += ev.delta; opts.onText && opts.onText({text, delta: ev.delta}); } if (ev.truncated) truncated = true; if (ev.error) throw {code:"upstream_error", message:ev.error, text}; } catch(e){ if(e.code) throw e; } }
+          try { const ev = JSON.parse(d); if (ev.delta){ text += ev.delta; opts.onText && opts.onText({text, delta: ev.delta}); } if (ev.truncated) truncated = true; if (ev.usage && opts.onUsage) { try { opts.onUsage(ev.usage); } catch (x) {} } if (ev.usage && window.__vibeUsage) { try { window.__vibeUsage(ev.usage); } catch (x) {} } if (ev.error) throw {code:"upstream_error", message:ev.error, text}; } catch(e){ if(e.code) throw e; } }
       }
     } catch(e){ if (e.name==="AbortError") throw {code:"cancelled", message:"aborted", text}; throw e; }
     if (!text) throw { code:"empty_completion", message:"empty" };
