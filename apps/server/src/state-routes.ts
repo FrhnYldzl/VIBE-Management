@@ -1,7 +1,13 @@
 // Paylaşımlı durum API'si (oturum gerekir — onRequest kancası /api/* için zaten zorunlu kılar)
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
-import type { Store } from "./store.ts";
+import { DATA_DIR } from "./paths.ts";
+import type { PerfModel, Store } from "./store.ts";
+
+/** Performans tohumları: CLIENT.id deseni → data/perf/<dosya>. Sunucuda kayıt yoksa panel tohumu görür; ilk düzenlemede sunucuya kopyalanır. */
+const PERF_SEEDS: [RegExp, string][] = [[/^fevup/, "fevup.json"]];
 
 const STATUSES = ["done", "review", "progress", "input", "pending"] as const;
 const client = z.string().regex(/^[a-z0-9-]{1,40}$/);
@@ -38,6 +44,57 @@ export function registerState(app: FastifyInstance, store: Store) {
     return { ok: true, client: c, adet: Object.keys(b).length, overrides: store.panelStatus(c) };
   });
   app.get<{ Params: { client: string } }>("/api/panels/:client/status/log", async (req) => store.panelStatusRows(client.parse(req.params.client)));
+
+  /* ---- Performans İzleme (v0.5.8): KPI modeli şirket başına; tohum data/perf/<ad>.json (ör. Fevup) ---- */
+  const seedFor = (c: string): string | null => {
+    const f = PERF_SEEDS.find(([re]) => re.test(c));
+    if (!f) return null;
+    const p = join(DATA_DIR, "perf", f[1]);
+    return existsSync(p) ? p : null;
+  };
+  const perfOf = (c: string) => {
+    const r = store.getPerf(c);
+    if (r) return { ...r, kaynak: "sunucu" as const };
+    const seed = seedFor(c);
+    return seed ? { model: JSON.parse(readFileSync(seed, "utf-8")) as PerfModel, updated_by: "tohum", updated_at: null, kaynak: "tohum" as const } : null;
+  };
+  const PerfBody = z.object({
+    weeks: z.array(z.object({ id: z.string().max(12), start: z.string().max(10) })).min(1).max(104),
+    kpis: z.record(z.string().max(30), z.array(z.object({ id: z.string().max(20) }).passthrough()).max(400)),
+  }).passthrough();
+  app.get("/api/perf/ornek", async (_req, reply) => {
+    const p = join(DATA_DIR, "perf", "fevup.json");
+    return reply.header("content-disposition", 'attachment; filename="performans-ornek-fevup.json"').type("application/json").send(readFileSync(p, "utf-8"));
+  });
+  app.get<{ Params: { client: string } }>("/api/panels/:client/perf", async (req, reply) => {
+    const c = client.parse(req.params.client); const r = perfOf(c);
+    if (!r) return reply.status(404).send({ yok: true, hata: "Bu şirket için KPI seti tanımlanmadı" });
+    return { client: c, ...r };
+  });
+  app.put<{ Params: { client: string } }>("/api/panels/:client/perf", async (req) => {
+    const c = client.parse(req.params.client);
+    if (JSON.stringify(req.body ?? "").length > 2_000_000) throw Object.assign(new Error("Model çok büyük (2 MB sınırı)"), { statusCode: 413 });
+    const m = PerfBody.parse(req.body) as unknown as PerfModel;
+    m.actuals ??= {}; m.docUploads ??= {}; delete (m as unknown as Record<string, unknown>).tasks; // Görevler bölümü alınmaz
+    store.setPerf(c, m, who(req));
+    return { ok: true, client: c, kpi: Object.values(m.kpis).reduce((a, l) => a + l.length, 0), hafta: m.weeks.length };
+  });
+  app.delete<{ Params: { client: string } }>("/api/panels/:client/perf", async (req) => ({ ok: store.deletePerf(client.parse(req.params.client)) }));
+  // tek hücre girişi: gerçekleşen (kpi × hafta) ya da YO doküman yüklendi (dok × hafta); null → sil
+  const Cell = z.object({ kind: z.enum(["actual", "doc"]), id: z.string().max(20), week: z.string().max(12), value: z.number().finite().nullable() });
+  app.put<{ Params: { client: string } }>("/api/panels/:client/perf/cell", async (req, reply) => {
+    const c = client.parse(req.params.client); const b = Cell.parse(req.body);
+    const cur = perfOf(c); if (!cur) return reply.status(404).send({ hata: "KPI seti yok" });
+    const m = cur.model;
+    if (!m.weeks.some((w) => w.id === b.week)) return reply.status(400).send({ hata: "Hafta tanımsız" });
+    const known = b.kind === "actual" ? Object.values(m.kpis).flat().some((k) => k.id === b.id) : (m.documents ?? []).some((d) => d.id === b.id);
+    if (!known) return reply.status(400).send({ hata: "Kimlik tanımsız" });
+    const bag = b.kind === "actual" ? (m.actuals ??= {}) : (m.docUploads ??= {});
+    const row = (bag[b.id] ??= {});
+    if (b.value === null) delete row[b.week]; else row[b.week] = b.kind === "doc" ? (b.value ? 1 : 0) : b.value;
+    store.setPerf(c, m, who(req));
+    return { ok: true };
+  });
 
   /* ---- Kurumsal Yönetim Skoru: panel hesaplar ve gönderir; admin ve Ana Merkez son anlık görüntüyü okur ---- */
   const Score = z.object({

@@ -3,6 +3,19 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.8] — 2026-10-22 · Performans İzleme standardı (Insights)
+
+### Eklendi
+- Panel master: **Performans İzleme** bölümü (Insights görünümünün altında) — Fevup performans paketi (v3) şeması tüm şirketler için standart:
+  KPI kademesi (Personel → Genel Müdür → İcra Kurulu → Yönetim Kurulu), yönetişim zinciri ve ritmi, haftalık gerçekleşen + Δ, hedefe oran
+  (↑ v/hedef · ↓ v≤hedef ? 1 : hedef/v; ≥1 yeşil · ≥0,8 sarı · <0,8 kırmızı), türetilen KPI'lar (`src`, `CUM`, `PERS_RATE`, `DOC_RATE`),
+  YK hedef kartı, Yönetici Özeti (YO) doküman yüklenme tablosu, hedefi boş KPI uyarısı. **Görevler bölümü alınmadı.**
+  Kademe sekmeleri (varsayılan en üst kademe) ve Haftalık / Özet görünüm; hücreye tıkla → gerçekleşen girişi; doküman hücresi → yüklendi / eksik / bekleniyor.
+- Sunucu: `panel_perf` tablosu; `GET/PUT/DELETE /api/panels/:client/perf`, `PUT /api/panels/:client/perf/cell`, `GET /api/perf/ornek`;
+  tohum `data/perf/fevup.json` (CLIENT.id `fevup*`), ilk düzenlemede sunucuya kopyalanır.
+- KPI seti olmayan şirkette: **KPI seti yükle (JSON)** ve **Örnek şablon (Fevup)** indir.
+- KYS v1 "KPI / OKR ilerlemesi" kriteri: performans verisi varsa son haftadaki hedefe oranların ortalaması (≤1), yoksa OKR.
+
 ## [Yol haritası] — 2026-10-22 · Kurucu listesi (9 madde) işlendi
 
 - **v1.0'a eklendi:** 0.5.8 Performans İzleme standardı (Fevup paketi örnek, Görevler hariç) · 0.5.9 Haftalık Odak (W bazlı, kümülatif,

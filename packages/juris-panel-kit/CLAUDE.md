@@ -41,6 +41,11 @@ Compare: eski panelle görünüm bazında kelime benzerliği; %90 altı görün�
   Yeni kriter eklemek = `KYS.kriterler`'e satır + `kysScore()` içinde `puan[k]` hesabı; `versiyon` etiketini güncelleyin (admin ve anlık görüntüler ayrışır).
 - Skor panel açıldığında ve durum değiştiğinde `PUT /api/panels/<client>/score` ile sunucuya yazılır; admin ve Ana Merkez son anlık görüntüyü okur.
 
+## Performans İzleme (v0.5.8)
+- Insights görünümünün altında `perfSection()`; model sunucuda `/api/panels/<client>/perf` (Fevup v3 şeması: weeks, governance, kpis{seviye}, targets,
+  documents, actuals, docUploads). Görevler alınmaz. Tohum: `data/perf/<ad>.json` + `PERF_SEEDS` (state-routes.ts). Yeni şirkete KPI seti:
+  paneldeki "KPI seti yükle (JSON)" ya da örnek şablondan uyarlayıp yükle.
+
 ## Kurallar
 - Her panel bir dayanak gösterir: Belge (linkli) / Beyan / Dayanak yok. Beyanı belge gibi gösterme.
 - "Müvekkil" jenerik sorumlu kullanma: Müvekkil Yönetimi · Mali Müşavir · Yazılım Ekibi · Juris · Ortak.

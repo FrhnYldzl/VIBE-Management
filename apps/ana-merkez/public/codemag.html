@@ -787,14 +787,16 @@ function kysScore(){
   const ritim=Math.min(100,recent.length*30+withMin*10);
   const aw=s=>s==="done"?1:(s==="progress"||s==="review")?.5:0; const aks=ACTIONS.length?100*ACTIONS.reduce((a,r)=>a+aw(r[4]),0)/ACTIONS.length:null; const kar=DECISIONS.length?100*DECISIONS.filter(d=>d[2]==="done").length/DECISIONS.length:null;
   const karar=aks===null&&kar===null?0:aks===null?kar:kar===null?aks:(aks+kar)/2;
-  let krs=[]; try{const o=typeof OKR==="undefined"?null:(Array.isArray(OKR)?OKR:Object.values(OKR).flat()); (o||[]).forEach(x=>(x.kr||[]).forEach(k=>krs.push(+k[2]||0)));}catch(e){} const kpi=krs.length?krs.reduce((a,v)=>a+v,0)/krs.length:0;
+  let krs=[]; try{const o=typeof OKR==="undefined"?null:(Array.isArray(OKR)?OKR:Object.values(OKR).flat()); (o||[]).forEach(x=>(x.kr||[]).forEach(k=>krs.push(+k[2]||0)));}catch(e){} const okrAvg=krs.length?krs.reduce((a,v)=>a+v,0)/krs.length:0;
+  const pk=typeof perfKpiScore==="function"?perfKpiScore():null; /* Performans İzleme verisi varsa önceliklidir */
+  const kpi=pk?pk.puan:okrAvg;
   let ddR={ok:0,tot:0}; try{ddR=ddAll();}catch(e){ try{const D=typeof DD!=="undefined"?DD:{},DN=typeof DD_DONE!=="undefined"?DD_DONE:{}; ddR={tot:Object.values(D).flat().reduce((a,g)=>a+((g&&g[1])||[]).length,0),ok:Object.values(DN).flat().length};}catch(x){} } const dd=ddR.tot?100*ddR.ok/ddR.tot:0;
   const R=typeof RISKS!=="undefined"?RISKS:[]; const kritik=R.filter(r=>r.p*r.i>=16).length; const risk=R.length?Math.max(20,100-kritik*20):30;
   const puan={dok,dayanak,ritim,karar,kpi,dd,risk};
   const kriterler=KYS.kriterler.map(k=>({...k,puan:clamp(puan[k.k])}));
   const toplam=Math.round(kriterler.reduce((a,k)=>a+k.puan*k.w,0)/kriterler.reduce((a,k)=>a+k.w,0));
   const [harf,ad,renk]=kysLevel(toplam);
-  const not={dok:`${c.done}/${c.total} doküman tamamlandı`,dayanak:`${b.doc.length} belge · ${b.beyan.length} beyan · ${b.none.length} dayanak yok`,ritim:`${recent.length} toplantı (90 gün) · ${withMin} tutanaklı`,karar:`${ACTIONS.filter(r=>r[4]==="done").length}/${ACTIONS.length} aksiyon kapandı · ${DECISIONS.filter(d=>d[2]==="done").length}/${DECISIONS.length} karar`,kpi:`${krs.length} KR · ort. %${Math.round(kpi)}`,dd:ddR.tot?`${ddR.ok}/${ddR.tot} DD belgesi`:"DD listesi yok",risk:R.length?`${R.length} risk · ${kritik} kritik`:"risk kaydı yok"};
+  const not={dok:`${c.done}/${c.total} doküman tamamlandı`,dayanak:`${b.doc.length} belge · ${b.beyan.length} beyan · ${b.none.length} dayanak yok`,ritim:`${recent.length} toplantı (90 gün) · ${withMin} tutanaklı`,karar:`${ACTIONS.filter(r=>r[4]==="done").length}/${ACTIONS.length} aksiyon kapandı · ${DECISIONS.filter(d=>d[2]==="done").length}/${DECISIONS.length} karar`,kpi:pk?`Performans · ${pk.n}/${pk.top} KPI'da veri (${pk.hafta}) · ort. hedefe oran %${Math.round(pk.puan)}`:`${krs.length} KR · ort. %${Math.round(okrAvg)}`,dd:ddR.tot?`${ddR.ok}/${ddR.tot} DD belgesi`:"DD listesi yok",risk:R.length?`${R.length} risk · ${kritik} kritik`:"risk kaydı yok"};
   kriterler.forEach(k=>k.not=not[k.k]);
   return {toplam,harf,seviye:ad,renk,kriterler,versiyon:KYS.versiyon,veriTarihi:dataDateStr(),hesap:new Date().toISOString()};
 }
@@ -804,6 +806,92 @@ function kysCard(){ const s=kysScore();
    <div style="text-align:center;padding:8px 0"><div class="num" style="font-family:var(--font-display);font-size:56px;line-height:1;color:${s.renk}">${s.toplam}</div><div style="font-size:12px;color:var(--ink-3);margin-top:2px">/ 100</div><div style="margin-top:8px"><span class="pill" style="background:${s.renk};color:#fff;font-size:12px;padding:3px 10px">${s.harf} · ${s.seviye}</span></div><div class="muted" style="margin-top:8px">Veri: ${s.veriTarihi}</div></div>
    <div class="kys-rows">${s.kriterler.map(k=>{const col=k.puan>=65?"var(--success)":k.puan>=40?"var(--warn)":"var(--red-ink)";return `<div class="kys-row" title="${esc(k.aciklama)}"><div class="kys-l"><span>${esc(k.t)}</span><span class="kys-w">%${k.w}</span></div><div class="bar" style="height:7px"><i style="width:${k.puan}%;background:${col}"></i></div><div class="kys-p num" style="color:${col}">${k.puan}</div><div class="kys-n">${esc(k.not)}</div></div>`;}).join("")}</div>
   </div></div>`; }
+/* ---------- Performans İzleme (v0.5.8) — Fevup performans paketi (v3) şeması standart alınır; Görevler bölümü yok ----------
+   Model sunucuda (/api/panels/<client>/perf): weeks · governance · kpis{seviye:[{id,kpi,birim,yon,hedef,src,calc,…}]} · targets · documents · actuals · docUploads.
+   Kural: hedefe oran ↑ v/hedef · ↓ v≤hedef ? 1 : hedef/v; eşik ≥1 yeşil · ≥0.8 sarı · <0.8 kırmızı. src = başka KPI'dan türetilir, CUM = kümülatif, calc PERS_RATE / DOC_RATE. */
+const PAPI=location.protocol.startsWith("http")?"/api/panels/"+encodeURIComponent(CLIENT.id)+"/perf":null;
+let PERF=null; const PF_UI={lvl:null,view:"weekly",loaded:false}; /* lvl null → en üst kademe (ör. İcra Kurulu) ile açılır */
+async function loadPerf(){ if(!PAPI){PF_UI.loaded=true;return;} try{const r=await fetch(PAPI,{credentials:"same-origin"}); PERF=r.ok?(await r.json()):null;}catch(e){PERF=null;} PF_UI.loaded=true; if(current==="insights")render(); if(typeof pushScore==="function")pushScore(); }
+const PF_LV={personel:"Personel",gm:"Genel Müdür",ik:"İcra Kurulu",yk:"Yönetim Kurulu"};
+function perfCalc(){ if(!PERF||!PERF.model||!PERF.model.kpis)return null; const D=PERF.model; const W=(D.weeks||[]).map(w=>w.id), A=D.actuals||{}, U=D.docUploads||{};
+  const LV=Object.keys(D.kpis), ALL=LV.flatMap(l=>D.kpis[l].map(k=>({...k,_lv:l}))), BY=Object.fromEntries(ALL.map(k=>[k.id,k])), PERS=D.kpis.personel||[], DOCS=D.documents||[];
+  const raw=id=>W.map(w=>A[id]&&A[id][w]!=null?A[id][w]:null);
+  const docRate=()=>W.map(w=>DOCS.some(d=>U[d.id]&&U[d.id][w]!=null)?DOCS.filter(d=>U[d.id]&&U[d.id][w]).length/DOCS.length:null);
+  const persRate=()=>W.map(w=>{let n=0,ok=0;PERS.forEach(p=>{const v=A[p.id]&&A[p.id][w];if(v==null||p.hedef==null)return;n++;if(p.yon==="↓"?v<=p.hedef:v>=p.hedef)ok++;});return n?ok/n:null;});
+  const memo={}; const series=k=>{ if(!k)return W.map(()=>null); if(memo[k.id])return memo[k.id]; let s;
+    if(k.calc==="DOC_RATE")s=docRate(); else if(k.calc==="PERS_RATE")s=persRate();
+    else if(k.src==="CUM"){ const base=BY.GM01||ALL.find(x=>x.birim==="$"&&!x.src); let c=+((D.assumptions||{}).realizedBeforeW43||0); s=series(base).map(v=>v==null?null:(c+=v)); }
+    else if(k.src&&BY[k.src]) s=series(BY[k.src]); else s=raw(k.id);
+    return memo[k.id]=s; };
+  const target=k=>k.src&&k.src!=="CUM"&&BY[k.src]?target(BY[k.src]):k.hedef;
+  const last=s=>{for(let i=s.length-1;i>=0;i--)if(s[i]!=null)return{v:s[i],i};return null;};
+  const ratio=(yon,v,t)=>v==null||t==null?null:yon==="↓"?(v<=t?1:(v===0?1:t/v)):(t===0?null:v/t);
+  const lastIdx=Math.max(0,...ALL.map(k=>(last(series(k))||{i:-1}).i));
+  return {D,W,A,U,LV,ALL,BY,DOCS,series,target,last,ratio,lastIdx,docRate}; }
+/* KYS "KPI / OKR ilerlemesi" kriteri: performans verisi varsa son haftadaki hedefe oranların ortalaması (≤1) */
+function perfKpiScore(){ const P=perfCalc(); if(!P)return null; const rs=P.ALL.map(k=>{const l=P.last(P.series(k));return P.ratio(k.yon,l&&l.v,P.target(k));}).filter(r=>r!=null);
+  return rs.length?{puan:100*rs.reduce((a,r)=>a+Math.min(1,r),0)/rs.length,n:rs.length,top:P.ALL.length,hafta:P.W[P.lastIdx]}:null; }
+const pfFmt=(v,u)=>v==null||v===""?"—":u==="%"?(v*100).toFixed((v*100)%1?1:0)+"%":u==="$"?"$"+Math.round(v).toLocaleString("tr-TR"):(typeof v==="number"?v.toLocaleString("tr-TR"):esc(v))+(u&&u!=="adet"?" "+esc(u):"");
+const pfD=(v,u)=>{if(v==null)return "";const s=v>0?"+":"";return u==="%"?s+(v*100).toFixed(1)+"%":u==="$"?s+Math.round(v).toLocaleString("tr-TR"):s+v.toLocaleString("tr-TR");};
+const pfCls=r=>r==null?"":r>=1?"green":r>=.8?"amber":"red";
+const pfChip=r=>`<span class="pill ${pfCls(r)}">${r==null?"veri yok":Math.round(r*100)+"%"}</span>`;
+function perfSection(){
+  const head=`<div class="sec-h"><h2>Performans İzleme</h2><span class="meta">KPI kademesi · haftalık gerçekleşen · hedefe oran · Yönetici Özeti dokümanları</span></div>`;
+  if(!PF_UI.loaded) return `<div class="sec">${head}<div class="card pad muted">Yükleniyor…</div></div>`;
+  const P=perfCalc();
+  if(!P) return `<div class="sec">${head}<div class="card pad"><b style="font-size:13.5px">KPI seti tanımlanmadı</b><p style="font-size:12.5px;color:var(--ink-2);margin:6px 0 10px">Standart: Personel → Genel Müdür → İcra Kurulu → Yönetim Kurulu hedefleri; her KPI'da hedef, yön (↑/↓), sorumlu, kaynak doküman. Haftalık gerçekleşen buradan girilir; Yönetici Özeti (YO) dokümanlarının yüklenme oranı izlenir. Şablon Fevup performans paketinden alınmıştır.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">${PAPI?`<label class="btn primary" style="cursor:pointer">KPI seti yükle (JSON)<input type="file" accept="application/json,.json" data-pf-upload hidden></label>`:""}<a class="btn" href="/api/perf/ornek">Örnek şablon (Fevup) ↓</a></div>
+    ${PAPI?"":ghost("Panel Ana Merkez dışında açıldı: KPI seti yüklemek için Ana Merkez'den açın.")}</div></div>`;
+  const {D,W,LV,ALL,BY,DOCS,series,target,last,ratio,lastIdx}=P; const U=D.docUploads||{};
+  const top=LV[LV.length-1]; const topK=D.kpis[top]||[]; const topR=topK.map(k=>{const l=last(series(BY[k.id]));return ratio(k.yon,l&&l.v,target(BY[k.id]));});
+  const onT=topR.filter(r=>r!=null&&r>=1).length, hasD=topR.filter(r=>r!=null).length;
+  const H=(D.targets||[]).find(t=>t.src&&BY[t.src]); let hR=null,hV=null; if(H){const l=last(series(BY[H.src]));hV=l&&l.v;hR=ratio(H.yon,hV,H.deger);}
+  const dlt=k=>{const s=series(k);if(lastIdx<1||s[lastIdx]==null||s[lastIdx-1]==null)return 0;const d=s[lastIdx]-s[lastIdx-1];return d===0?0:(k.yon==="↓"?(d<0?1:-1):(d>0?1:-1));};
+  const up=ALL.filter(k=>dlt(k)>0).length, dn=ALL.filter(k=>dlt(k)<0).length;
+  const dr=last(P.docRate()); const noT=ALL.filter(k=>target(k)==null&&!k.src&&!k.calc);
+  const lvLabel=l=>(D.governance&&D.governance[l]&&D.governance[l].label)||PF_LV[l]||l;
+  const tiles=`<div class="tiles">
+    <div class="tile accent"><div class="l">${esc(lvLabel(top))} KPI hedefte</div><div class="v num">${onT}<small>/ ${topK.length}</small></div><div class="d">${hasD} KPI'da veri var</div></div>
+    ${H?`<div class="tile"><div class="l">${esc(H.id)} · ${esc(H.hedef).slice(0,38)}</div><div class="v num">${hR==null?"—":(hR*100).toFixed(1)}<small>%</small></div><div class="d">${pfFmt(hV,H.birim)} / ${pfFmt(H.deger,H.birim)} · ${esc(H.termin||"")}</div></div>`:""}
+    <div class="tile"><div class="l">Haftalık değişim</div><div class="v num"><span style="color:var(--success)">▲${up}</span> <small>/</small> <span style="color:var(--red-ink)">▼${dn}</span></div><div class="d">${lastIdx<1?"ikinci haftadan itibaren":esc(W[lastIdx-1])+" → "+esc(W[lastIdx])}</div></div>
+    <div class="tile"><div class="l">YO doküman yüklenme</div><div class="v num">${dr?Math.round(dr.v*100):"—"}<small>%</small></div><div class="d">${DOCS.length} doküman · ${esc(((D.assumptions||{}).docDeadline)||"haftalık")}</div></div>
+    <div class="tile"><div class="l">Hedefi boş KPI</div><div class="v num">${noT.length}</div><div class="d">${ALL.length} KPI · son veri ${esc(W[lastIdx]||"—")}</div></div></div>`;
+  const G=D.governance||{}; const order=(D.meta&&D.meta.order)||Object.keys(G);
+  const gov=order.filter(k=>G[k]).length?`<div class="card pad" style="margin-top:12px;display:grid;grid-template-columns:repeat(${order.filter(k=>G[k]).length},1fr);gap:10px">${order.filter(k=>G[k]).map((k,i,a)=>`<div style="position:relative;padding-right:${i<a.length-1?"14px":"0"}"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red-ink);font-weight:600">${esc(G[k].label||lvLabel(k))}</div><div style="font-size:12.5px;margin-top:3px">${k==="personel"?(G[k].members||[]).length+" kişi":(G[k].members||[]).map(esc).join(" · ")}</div><div class="muted" style="margin-top:3px">${esc(G[k].rhythm||"")}</div>${i<a.length-1?`<span style="position:absolute;right:0;top:2px;color:var(--ink-4)">→</span>`:""}</div>`).join("")}</div>`:"";
+  const groups={"Tümü":ALL}; LV.forEach(l=>groups[lvLabel(l)]=ALL.filter(k=>k._lv===l)); if(!groups[PF_UI.lvl])PF_UI.lvl=lvLabel(top);
+  const items=groups[PF_UI.lvl]; const showW=W.slice(0,Math.max(lastIdx+2,4)).slice(-8); const wOff=W.indexOf(showW[0]);
+  const owner=k=>k.kisi||k.uye||k.sorumlu||"—";
+  const tabs=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 8px">${Object.keys(groups).map(g=>`<button class="btn${g===PF_UI.lvl?" primary":""}" data-pf-lvl="${esc(g)}" style="height:28px">${esc(g)} <span class="muted" style="margin-left:4px;${g===PF_UI.lvl?"color:rgba(255,255,255,.7)":""}">${groups[g].length}</span></button>`).join("")}<span style="flex:1"></span><button class="btn${PF_UI.view==="weekly"?" primary":""}" data-pf-view="weekly" style="height:28px">Haftalık</button><button class="btn${PF_UI.view==="summary"?" primary":""}" data-pf-view="summary" style="height:28px">Özet</button></div>`;
+  const editable=k=>PAPI&&!k.src&&!k.calc;
+  const wk=(k,s,i)=>{const v=s[i],p=i>0?s[i-1]:null,d=v!=null&&p!=null?v-p:null,good=d==null||d===0?"":(k.yon==="↓"?d<0:d>0)?"var(--success)":"var(--red-ink)";
+    const cell=v==null?`<span class="muted">·</span>`:`${pfFmt(v,k.birim).replace("$","")}${d!=null&&d!==0?`<span style="display:block;font-size:10px;color:${good}">${d>0?"▲":"▼"} ${pfD(Math.abs(d),k.birim).replace(/^[+-]/,"")}</span>`:""}`;
+    return `<td class="num" style="text-align:right;font-size:12px;${editable(k)?"cursor:pointer":""}" ${editable(k)?`data-pf-cell="${esc(k.id)}|${esc(W[i])}" title="${esc(W[i])} gerçekleşen — tıkla, gir"`:""}>${cell}</td>`;};
+  const rows=items.map(k=>{const s=series(k),l=last(s),t=target(k),r=ratio(k.yon,l&&l.v,t),d=l&&l.i>0&&s[l.i-1]!=null?l.v-s[l.i-1]:null;
+    const src=k.src&&k.src!=="CUM"?`<div class="muted">← ${esc(k.src)}</div>`:k.src==="CUM"?`<div class="muted">kümülatif</div>`:k.calc?`<div class="muted">türetilir</div>`:"";
+    return PF_UI.view==="weekly"
+      ?`<tr><td style="font-family:var(--font-mono);font-size:11px">${esc(k.id)}</td><td style="font-size:12px">${esc(owner(k))}<div class="muted">${esc(lvLabel(k._lv))}</div></td><td style="font-size:12.5px">${esc(k.kpi||"")}${src}</td><td class="num" style="text-align:right;white-space:nowrap">${pfFmt(t,k.birim)} ${esc(k.yon||"")}</td>${showW.map((w,j)=>wk(k,s,wOff+j)).join("")}<td>${pfChip(r)}</td></tr>`
+      :`<tr><td style="font-family:var(--font-mono);font-size:11px">${esc(k.id)}</td><td style="font-size:12px">${esc(owner(k))}<div class="muted">${esc(lvLabel(k._lv))}</div></td><td style="font-size:12.5px">${esc(k.kpi||"")}${src}</td><td class="num" style="text-align:right;white-space:nowrap">${pfFmt(t,k.birim)} ${esc(k.yon||"")}</td><td class="num" style="text-align:right">${pfFmt(l&&l.v,k.birim)}</td><td class="num" style="text-align:right;color:${d==null||d===0?"inherit":(k.yon==="↓"?d<0:d>0)?"var(--success)":"var(--red-ink)"}">${pfD(d,k.birim)||"—"}</td><td>${pfChip(r)}</td><td style="font-family:var(--font-mono);font-size:11px">${esc(k.dokId||"")}</td><td style="font-family:var(--font-mono);font-size:11px">${esc(k.hedefId||"")}</td></tr>`;}).join("");
+  const thead=PF_UI.view==="weekly"?`<tr><th>ID</th><th>Sorumlu</th><th>KPI</th><th style="text-align:right">Hedef</th>${showW.map(w=>`<th style="text-align:right">${esc(w)}</th>`).join("")}<th>Oran</th></tr>`:`<tr><th>ID</th><th>Sorumlu</th><th>KPI</th><th style="text-align:right">Hedef</th><th style="text-align:right">Son hafta</th><th style="text-align:right">Son Δ</th><th>Hedefe oran</th><th>Dok.</th><th>Hedef</th></tr>`;
+  const prog=r=>{const p=r==null?0:Math.min(100,Math.round(r*100)),col=r==null?"var(--neutral)":r>=1?"var(--success)":r>=.8?"var(--warn)":"var(--red-ink)";return `<div style="display:flex;align-items:center;gap:8px;min-width:120px"><div class="bar" style="flex:1"><i style="width:${p}%;background:${col};display:block;height:100%"></i></div><span class="num muted" style="min-width:34px;text-align:right">${r==null?"—":p+"%"}</span></div>`;};
+  const tgt=(D.targets||[]).length?`${sec("Hedef kartı","Yönetim Kurulu hedefleri · gerçekleşen kaynağı KPI")}<div class="card"><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Hedef</th><th>Sahip</th><th>Termin</th><th style="text-align:right">Hedef</th><th style="text-align:right">Gerçekleşen</th><th>İlerleme</th><th>KPI'lar</th></tr></thead><tbody>${D.targets.map(t=>{const l=t.src&&BY[t.src]?last(series(BY[t.src])):null,v=l&&l.v,r=ratio(t.yon,v,t.deger);return `<tr><td style="font-family:var(--font-mono);font-size:11px">${esc(t.id)}</td><td><b style="font-size:12.5px">${esc(t.hedef)}</b>${t.dayanak?`<div class="muted">${esc(t.dayanak)}</div>`:""}</td><td style="font-size:12px">${esc(t.sahip||"")}</td><td style="font-size:12px">${esc(t.termin||"")}</td><td class="num" style="text-align:right">${pfFmt(t.deger,t.birim)}${t.yon==="↓"?" ↓":""}</td><td class="num" style="text-align:right">${pfFmt(v,t.birim)}</td><td>${prog(r)}</td><td style="font-family:var(--font-mono);font-size:10.5px">${(t.kpis||[]).map(esc).join(", ")}</td></tr>`;}).join("")}</tbody></table></div></div>`:"";
+  const wkNow=W[lastIdx];
+  const docs=DOCS.length?`${sec("Yönetici Özeti dokümanları",`${esc(wkNow||"")} · tıkla: yüklendi / eksik / bekleniyor`)}<div class="card"><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Doküman</th><th>Sorumlu</th><th>Data Room</th><th>Beslediği KPI</th>${W.slice(Math.max(0,lastIdx-2),lastIdx+2).map(w=>`<th style="text-align:center">${esc(w)}</th>`).join("")}</tr></thead><tbody>${DOCS.map(d=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${esc(d.id)}</td><td><b style="font-size:12.5px">${esc(d.ad||"")}</b><div class="muted">${esc(d.siklik||"")}${d.format?" · "+esc(d.format):""}</div></td><td style="font-size:12px">${esc(d.sorumlu||"")}</td><td style="font-family:var(--font-mono);font-size:10.5px">${esc(d.dataRoom||"")}</td><td style="font-family:var(--font-mono);font-size:10.5px">${(d.kpis||[]).slice(0,5).map(esc).join(", ")}${(d.kpis||[]).length>5?" +"+((d.kpis||[]).length-5):""}</td>${W.slice(Math.max(0,lastIdx-2),lastIdx+2).map(w=>{const u=U[d.id]&&U[d.id][w];return `<td style="text-align:center"><button class="status ${u==null?"pending":u?"done":"input"}" ${PAPI?`data-pf-doc="${esc(d.id)}|${esc(w)}"`:"disabled"} style="height:22px;cursor:pointer">${u==null?"·":u?"✓":"eksik"}</button></td>`;}).join("")}</tr>`).join("")}</tbody></table></div></div>`:"";
+  const miss=noT.length?ghost(`<b>Hedefi belirlenmemiş KPI'lar:</b> ${noT.map(k=>esc(k.id)).join(", ")} — yönetim toplantısında rakama bağlanmalı.`):"";
+  const src=`<div class="muted" style="margin-top:8px">Kaynak: ${PERF.kaynak==="tohum"?"örnek paket (ilk girişte sunucuya kaydedilir)":"sunucu"}${PERF.updated_at?` · ${esc(String(PERF.updated_at).slice(0,10))} · ${esc(PERF.updated_by||"")}`:""}${D.meta&&D.meta.sampleData?` · <span style="color:var(--warn)">${esc(D.meta.sampleData)}</span>`:""}</div>`;
+  return `<div class="sec">${head}${tiles}${gov}${tabs}<div class="card"><div class="tbl-wrap"><table><thead>${thead}</thead><tbody>${rows}</tbody></table></div></div>${miss}${tgt}${docs}${src}</div>`;
+}
+async function perfCell(kind,id,week,value){ const r=await fetch(PAPI+"/cell",{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({kind,id,week,value})}); if(!r.ok){alert("Kaydedilemedi: "+(await r.text()));return;} await loadPerf(); }
+document.addEventListener("click",e=>{
+  const lv=e.target.closest("[data-pf-lvl]"); if(lv){PF_UI.lvl=lv.dataset.pfLvl;const y=document.getElementById("main").scrollTop;render();document.getElementById("main").scrollTop=y;return;}
+  const vw=e.target.closest("[data-pf-view]"); if(vw){PF_UI.view=vw.dataset.pfView;const y=document.getElementById("main").scrollTop;render();document.getElementById("main").scrollTop=y;return;}
+  const c=e.target.closest("[data-pf-cell]"); if(c){const [id,w]=c.dataset.pfCell.split("|");const P=perfCalc();const k=P&&P.BY[id];if(!k)return;const cur=(P.A[id]||{})[w];
+    const inp=prompt(`${id} · ${k.kpi}\n${w} gerçekleşen (${k.birim||""}${k.birim==="%"?" — 85 ya da 0,85":""}) — boş bırak: sil`,cur==null?"":String(k.birim==="%"?Math.round(cur*1000)/10:cur)); if(inp===null)return;
+    const t=inp.trim().replace(/\s/g,"").replace(",","."); if(t===""){perfCell("actual",id,w,null);return;} let v=Number(t); if(!isFinite(v)){alert("Sayı girin.");return;} if(k.birim==="%"&&v>1.5)v=v/100; perfCell("actual",id,w,v);return;}
+  const d=e.target.closest("[data-pf-doc]"); if(d){const [id,w]=d.dataset.pfDoc.split("|");const P=perfCalc();const u=P&&(P.U[id]||{})[w];perfCell("doc",id,w,u==null?1:u?0:null);return;}
+});
+document.addEventListener("change",async e=>{ const f=e.target.closest&&e.target.closest("input[data-pf-upload]"); if(!f||!f.files[0])return;
+  try{ const j=JSON.parse(await f.files[0].text()); const r=await fetch(PAPI,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(j)}); if(!r.ok){alert("Yüklenemedi: "+(await r.text()));return;} await loadPerf(); }catch(x){ alert("JSON okunamadı: "+x.message); } });
+
 const SAPI=location.protocol.startsWith("http")?"/api/panels/"+encodeURIComponent(CLIENT.id)+"/score":null;
 let _scoreT=null; function pushScore(){ if(!SAPI)return; clearTimeout(_scoreT); _scoreT=setTimeout(()=>{ try{ const s=kysScore(); fetch(SAPI,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(s)}).catch(()=>{}); }catch(e){} },1200); }
 let current="home", assessTab="A", assessEnt=CLIENT.short[0];
@@ -957,7 +1045,7 @@ function viewProcess(){
 /* ---------- router / nav ---------- */
 function crumbFor(v){const n=`<b>${esc(CLIENT.name)}</b>`;if(v==="home")return n+" · Genel Bakış";if(v==="insights")return n+" · Genel Bakış · Insights";if(v==="process")return n+" · Süreç Kaydı";if(v.startsWith("fn-"))return n+" · Fonksiyonlar · "+v.slice(3);if(v.startsWith("as-"))return n+" · Durum Değerlendirmesi · "+v.slice(3);if(v==="ob-onboarding")return n+" · Onboard &amp; Learn · Onboarding";if(v==="ob-learn")return n+" · Onboard &amp; Learn · Learn";const it=allItems().find(i=>i.id===v);return it?n+` · Data Room · ${esc(it.section.title)} · ${esc(it.title)}`:n;}
 function render(){const v=current,el=document.getElementById("view");
- el.innerHTML=v==="home"?viewHome():v.startsWith("fn-")?viewFn(v.slice(3)):v.startsWith("as-")?viewAssess(v.slice(3)):v==="insights"?viewInsights():v==="process"?viewProcess():v==="ob-onboarding"?viewOnboard():v==="ob-learn"?viewLearn():viewItem(v);
+ el.innerHTML=v==="home"?viewHome():v.startsWith("fn-")?viewFn(v.slice(3)):v.startsWith("as-")?viewAssess(v.slice(3)):v==="insights"?viewInsights()+perfSection():v==="process"?viewProcess():v==="ob-onboarding"?viewOnboard():v==="ob-learn"?viewLearn():viewItem(v);
  document.getElementById("crumb").innerHTML=crumbFor(v);renderNav();}
 function hashFor(v){return v.startsWith("fn-")?"fn"+FUNCTIONS[v.slice(3)].k:v.replace(/[^\w\-]/g,"");}
 function go(v){current=v;try{history.replaceState(null,"","#"+hashFor(v));}catch(e){}render();document.getElementById("main").scrollTop=0;closeNav();}
@@ -991,6 +1079,7 @@ else if(/^as-[A-F]$/.test(h)||h==="home"||h==="insights"||h==="process"||h==="ob
 render();
 syncOverrides();
 syncEdits();
+loadPerf();
 </script>
 
 </body></html>

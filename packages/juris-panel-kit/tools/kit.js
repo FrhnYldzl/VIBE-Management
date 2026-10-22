@@ -25,6 +25,7 @@ const TEMPLATE_NAMES = new Set([
   "crumbFor","render","hashFor","go","renderNav","navEl","closeNav","h",
   "EAPI","EDITS","PRIO","noteOf","mergeEdits","syncEdits","saveEdit","delEdit","dataDateStr","viewProcess",
   "KYS","parseD","kysLevel","kysScore","kysCard","SAPI","_scoreT","pushScore",
+  "PAPI","PERF","PF_UI","loadPerf","PF_LV","perfCalc","perfKpiScore","pfFmt","pfD","pfCls","pfChip","perfSection","perfCell",
 ]);
 const DECL = /^(?:const|let|var|function|async function)\s+([A-Za-z_$][\w$]*)/;
 

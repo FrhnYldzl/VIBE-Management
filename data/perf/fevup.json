@@ -1,0 +1,1825 @@
+{
+ "meta": {
+  "client": "Fevup Brands",
+  "dataRoom": "A. Fevup | Strateji ve Business › A.5 Fevup | Performans İzleme",
+  "startWeek": "W43",
+  "startDate": "2026-10-19",
+  "version": "v3 · 2026-10-20",
+  "prepared": "Ferhan YILDIZLI",
+  "order": [
+   "personel",
+   "gm",
+   "ik",
+   "yk"
+  ],
+  "sampleData": "actuals ve docUploads içindeki W43/W44 değerleri ÖRNEKTİR — gerçek veriyle değiştirin",
+  "kaynak": "VIBE Management/Fevup Performans örneği standart (v3 · 2026-10-20) — Görevler bölümü alınmadı"
+ },
+ "weeks": [
+  {
+   "id": "W43",
+   "start": "2026-10-19"
+  },
+  {
+   "id": "W44",
+   "start": "2026-10-26"
+  },
+  {
+   "id": "W45",
+   "start": "2026-11-02"
+  },
+  {
+   "id": "W46",
+   "start": "2026-11-09"
+  },
+  {
+   "id": "W47",
+   "start": "2026-11-16"
+  },
+  {
+   "id": "W48",
+   "start": "2026-11-23"
+  },
+  {
+   "id": "W49",
+   "start": "2026-11-30"
+  },
+  {
+   "id": "W50",
+   "start": "2026-12-07"
+  },
+  {
+   "id": "W51",
+   "start": "2026-12-14"
+  },
+  {
+   "id": "W52",
+   "start": "2026-12-21"
+  },
+  {
+   "id": "W53",
+   "start": "2026-12-28"
+  },
+  {
+   "id": "W01/27",
+   "start": "2027-01-04"
+  }
+ ],
+ "governance": {
+  "personel": {
+   "label": "Personel",
+   "members": [
+    "Buğra Çevik",
+    "Metehan Şeşen",
+    "Sinem Üçer",
+    "Bilge Yılmaz",
+    "Eyad Mert Mando",
+    "Halil Keş",
+    "Mehmet Baran Turan",
+    "Beyza Korkmaz",
+    "Gözde Naz Birman",
+    "Çağla Coşkun",
+    "Deniz Şakak",
+    "Yusuf Cengiz",
+    "Salih Doğanoğlu",
+    "Fatma Akyıldırım",
+    "Zeynep Durmaz",
+    "Sema Çelik",
+    "Deniz Tokmak",
+    "Berrin Sağlam",
+    "Selimhan Ergören",
+    "Özge Deniz Atalay"
+   ],
+   "rhythm": "Haftalık — 3 KPI / kişi · Genel Müdür'e raporlar"
+  },
+  "gm": {
+   "label": "Genel Müdür",
+   "members": [
+    "Samim SÜREL"
+   ],
+   "rhythm": "Haftalık — 7 KPI · İcra Kurulu'na raporlar"
+  },
+  "ik": {
+   "label": "İcra Kurulu",
+   "members": [
+    "Ferhan YILDIZLI",
+    "Gülşah ALGIN",
+    "Murat GÜLGÜN",
+    "Alper ÜNLÜ",
+    "Yasin GÜÇLÜ"
+   ],
+   "rhythm": "Haftalık — her çarşamba · 10 KPI"
+  },
+  "yk": {
+   "label": "Yönetim Kurulu",
+   "members": [
+    "Gültekin SALGAR",
+    "Berkin SALGAR",
+    "Sinan SALGAR",
+    "Gülşah ALGIN",
+    "Murat GÜLGÜN"
+   ],
+   "rhythm": "Aylık — Hedef kartı (H1–H9) + İK 10 KPI"
+  }
+ },
+ "assumptions": {
+  "annualTarget": 2000000,
+  "realizedBeforeW43": 0,
+  "remainingWeeks": 10,
+  "thresholds": {
+   "green": 1,
+   "amber": 0.8
+  },
+  "docDeadline": "Salı 18:00"
+ },
+ "staff": [
+  {
+   "ad": "Buğra Çevik",
+   "lokasyon": "İstanbul",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P01",
+    "P02",
+    "P03"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Metehan Şeşen",
+   "lokasyon": "İstanbul",
+   "kadro": "Dijitalleşme & Sistemler · Odoo, CRM, Raporlama",
+   "kpis": [
+    "P04",
+    "P05",
+    "P06"
+   ],
+   "kadroTeyit": false
+  },
+  {
+   "ad": "Sinem Üçer",
+   "lokasyon": "İstanbul",
+   "kadro": "İş Geliştirme · Partner Modeli, Markalar CRM",
+   "kpis": [
+    "P07",
+    "P08",
+    "P09"
+   ],
+   "kadroTeyit": false
+  },
+  {
+   "ad": "Bilge Yılmaz",
+   "lokasyon": "İstanbul",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P10",
+    "P11",
+    "P12"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Eyad Mert Mando",
+   "lokasyon": "İstanbul",
+   "kadro": "Marketplace Operasyonu · Amazon, Hesap Sağlığı",
+   "kpis": [
+    "P13",
+    "P14",
+    "P15"
+   ],
+   "kadroTeyit": false
+  },
+  {
+   "ad": "Halil Keş",
+   "lokasyon": "İstanbul",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P16",
+    "P17",
+    "P18"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Mehmet Baran Turan",
+   "lokasyon": "İstanbul",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P19",
+    "P20",
+    "P21"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Beyza Korkmaz",
+   "lokasyon": "İstanbul",
+   "kadro": "Stajyer — kadro teyit edilecek",
+   "kpis": [
+    "P22",
+    "P23",
+    "P24"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Gözde Naz Birman",
+   "lokasyon": "İstanbul",
+   "kadro": "Bütçe & Projeksiyon · Finansal Analiz",
+   "kpis": [
+    "P25",
+    "P26",
+    "P27"
+   ],
+   "kadroTeyit": false
+  },
+  {
+   "ad": "Çağla Coşkun",
+   "lokasyon": "İstanbul",
+   "kadro": "Marka & Kanal Yönetimi · Maura Home, Heyetler",
+   "kpis": [
+    "P28",
+    "P29",
+    "P30"
+   ],
+   "kadroTeyit": false
+  },
+  {
+   "ad": "Deniz Şakak",
+   "lokasyon": "İstanbul",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P31",
+    "P32",
+    "P33"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Yusuf Cengiz",
+   "lokasyon": "İstanbul",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P34",
+    "P35",
+    "P36"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Salih Doğanoğlu",
+   "lokasyon": "İstanbul",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P37",
+    "P38",
+    "P39"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Fatma Akyıldırım",
+   "lokasyon": "Ankara",
+   "kadro": "Muhasebe · Ödeme Takibi ve Kayıtlar",
+   "kpis": [
+    "P40",
+    "P41",
+    "P42"
+   ],
+   "kadroTeyit": false
+  },
+  {
+   "ad": "Zeynep Durmaz",
+   "lokasyon": "Ankara",
+   "kadro": "Kurumsal Yönetim & Raporlama · YK Sunumu, Dokümantasyon",
+   "kpis": [
+    "P43",
+    "P44",
+    "P45"
+   ],
+   "kadroTeyit": false
+  },
+  {
+   "ad": "Sema Çelik",
+   "lokasyon": "Ankara",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P46",
+    "P47",
+    "P48"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Deniz Tokmak",
+   "lokasyon": "Ankara",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P49",
+    "P50",
+    "P51"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Berrin Sağlam",
+   "lokasyon": "Ankara",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P52",
+    "P53",
+    "P54"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Selimhan Ergören",
+   "lokasyon": "Ankara",
+   "kadro": "— kadro teyit edilecek",
+   "kpis": [
+    "P55",
+    "P56",
+    "P57"
+   ],
+   "kadroTeyit": true
+  },
+  {
+   "ad": "Özge Deniz Atalay",
+   "lokasyon": "Ankara",
+   "kadro": "Hukuk & Uyum · Sözleşmeler, Teşvik Mevzuatı",
+   "kpis": [
+    "P58",
+    "P59",
+    "P60"
+   ],
+   "kadroTeyit": false
+  }
+ ],
+ "targets": [
+  {
+   "id": "H1",
+   "hedef": "2026 e-ihracat geliri (konsorsiyum taahhüdü)",
+   "birim": "$",
+   "deger": 2000000,
+   "termin": "W52 (31 Ara 2026)",
+   "sahip": "YK → İK",
+   "src": "IK02",
+   "kpis": [
+    "IK01",
+    "IK02",
+    "GM01",
+    "P28",
+    "P13"
+   ],
+   "dayanak": "7 Ağu İK maili, hedef 4.1",
+   "yon": "↑"
+  },
+  {
+   "id": "H2",
+   "hedef": "Nakit akışı pozitife dönüş",
+   "birim": "hafta",
+   "deger": 1,
+   "termin": "Ekim 2026 (W44)",
+   "sahip": "İK",
+   "src": "IK03",
+   "kpis": [
+    "IK03",
+    "IK04",
+    "GM02",
+    "P42"
+   ],
+   "dayanak": "Hedef 4.1 — 'nakit akışı pozitif olarak'",
+   "yon": "↑"
+  },
+  {
+   "id": "H3",
+   "hedef": "Borç, alacak ve tahakkuk kayıtlarının tamamlanması",
+   "birim": "%",
+   "deger": 1,
+   "termin": "W46",
+   "sahip": "İK → Finans",
+   "src": "IK06",
+   "kpis": [
+    "IK06",
+    "P40",
+    "P41"
+   ],
+   "dayanak": "Hedef 4.2",
+   "yon": "↑"
+  },
+  {
+   "id": "H4",
+   "hedef": "İşletme sermayesi finansmanı (EXIM / TFS / Kuveyt Türk) — kullanılabilir limit",
+   "birim": "$",
+   "deger": null,
+   "termin": "W46",
+   "sahip": "İK",
+   "src": "IK05",
+   "kpis": [
+    "IK05",
+    "P60"
+   ],
+   "dayanak": "F5, F6, F8 — limit hedefi İK W43'te belirlenecek",
+   "yon": "↑"
+  },
+  {
+   "id": "H5",
+   "hedef": "Yeni bölge / kanal / partner anlaşması",
+   "birim": "adet",
+   "deger": 3,
+   "termin": "W52",
+   "sahip": "İK → GM",
+   "src": "IK09",
+   "kpis": [
+    "IK09",
+    "GM04",
+    "P07",
+    "P08",
+    "P09",
+    "P30",
+    "P58"
+   ],
+   "dayanak": "Hedef 4.4 + partner/P-L mal alım planı (4.3)",
+   "yon": "↑"
+  },
+  {
+   "id": "H6",
+   "hedef": "2027 bütçe ve baz nakit akışının YK onayı",
+   "birim": "%",
+   "deger": 1,
+   "termin": "W50",
+   "sahip": "YK → İK",
+   "src": "P26",
+   "kpis": [
+    "P25",
+    "P26",
+    "P43",
+    "P45"
+   ],
+   "dayanak": "Hedef 4.5, F3",
+   "yon": "↑"
+  },
+  {
+   "id": "H7",
+   "hedef": "Marketplace hesap sağlığı ve reklam verimi",
+   "birim": "%",
+   "deger": 0.25,
+   "termin": "Sürekli",
+   "sahip": "GM",
+   "src": "IK08",
+   "yon": "↓",
+   "kpis": [
+    "IK08",
+    "P14",
+    "P15",
+    "P29"
+   ],
+   "dayanak": "S3 Maura Home hesapları; ACoS ≤ %25"
+  },
+  {
+   "id": "H8",
+   "hedef": "Stok yeterliliği (satış hızına göre)",
+   "birim": "hafta",
+   "deger": 8,
+   "termin": "W45",
+   "sahip": "GM → Tedarik",
+   "src": "IK07",
+   "kpis": [
+    "IK07",
+    "GM03",
+    "GM05"
+   ],
+   "dayanak": "Sipariş planı / sevkiyat planı zinciri",
+   "yon": "↑"
+  },
+  {
+   "id": "H9",
+   "hedef": "İK açık konu stoğunun eritilmesi ve raporlama disiplini",
+   "birim": "adet",
+   "deger": 10,
+   "termin": "W48",
+   "sahip": "İK",
+   "src": "IK10",
+   "yon": "↓",
+   "kpis": [
+    "IK10",
+    "GM06",
+    "GM07",
+    "P04",
+    "P05",
+    "P06",
+    "P27",
+    "P44",
+    "P59"
+   ],
+   "dayanak": "W39 gündeminde 20+ açık konu"
+  }
+ ],
+ "kpis": {
+  "personel": [
+   {
+    "id": "P01",
+    "key": "bugra_a",
+    "kisi": "Buğra Çevik",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P02",
+    "key": "bugra_b",
+    "kisi": "Buğra Çevik",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P03",
+    "key": "bugra_c",
+    "kisi": "Buğra Çevik",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P04",
+    "key": "odoo",
+    "kisi": "Metehan Şeşen",
+    "lokasyon": "İstanbul",
+    "kadro": "Dijitalleşme & Sistemler · Odoo, CRM, Raporlama",
+    "kpi": "Odoo / CRM geçiş kilometre taşı (kümülatif)",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": null,
+    "hedefId": "H9",
+    "dokId": "YO-07",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P05",
+    "key": "sistem_sorun",
+    "kisi": "Metehan Şeşen",
+    "lokasyon": "İstanbul",
+    "kadro": "Dijitalleşme & Sistemler · Odoo, CRM, Raporlama",
+    "kpi": "Sistem kaynaklı açık sorun",
+    "birim": "adet",
+    "yon": "↓",
+    "hedef": 0,
+    "hedefId": "H9",
+    "dokId": "YO-07",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P06",
+    "key": "kpi_guncel",
+    "kisi": "Metehan Şeşen",
+    "lokasyon": "İstanbul",
+    "kadro": "Dijitalleşme & Sistemler · Odoo, CRM, Raporlama",
+    "kpi": "KPI tablosu ve panel haftalık güncellendi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-07",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P07",
+    "key": "crm_ilerleme",
+    "kisi": "Sinem Üçer",
+    "lokasyon": "İstanbul",
+    "kadro": "İş Geliştirme · Partner Modeli, Markalar CRM",
+    "kpi": "CRM'de aşama ilerleyen marka",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 3,
+    "hedefId": "H5",
+    "dokId": "YO-06",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P08",
+    "key": "partner_imza",
+    "kisi": "Sinem Üçer",
+    "lokasyon": "İstanbul",
+    "kadro": "İş Geliştirme · Partner Modeli, Markalar CRM",
+    "kpi": "İmzalanan partner / marka anlaşması (kümülatif)",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 3,
+    "hedefId": "H5",
+    "dokId": "YO-06",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P09",
+    "key": "pipeline",
+    "kisi": "Sinem Üçer",
+    "lokasyon": "İstanbul",
+    "kadro": "İş Geliştirme · Partner Modeli, Markalar CRM",
+    "kpi": "Pipeline toplam değeri",
+    "birim": "$",
+    "yon": "↑",
+    "hedef": null,
+    "hedefId": "H5",
+    "dokId": "YO-06",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P10",
+    "key": "bilge_a",
+    "kisi": "Bilge Yılmaz",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P11",
+    "key": "bilge_b",
+    "kisi": "Bilge Yılmaz",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P12",
+    "key": "bilge_c",
+    "kisi": "Bilge Yılmaz",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P13",
+    "key": "mp_satis",
+    "kisi": "Eyad Mert Mando",
+    "lokasyon": "İstanbul",
+    "kadro": "Marketplace Operasyonu · Amazon, Hesap Sağlığı",
+    "kpi": "Marketplace haftalık satışı",
+    "birim": "$",
+    "yon": "↑",
+    "hedef": null,
+    "hedefId": "H1",
+    "dokId": "YO-01",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P14",
+    "key": "hesap_ihlal",
+    "kisi": "Eyad Mert Mando",
+    "lokasyon": "İstanbul",
+    "kadro": "Marketplace Operasyonu · Amazon, Hesap Sağlığı",
+    "kpi": "Açık hesap sağlığı ihlali",
+    "birim": "adet",
+    "yon": "↓",
+    "hedef": 0,
+    "hedefId": "H7",
+    "dokId": "YO-05",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P15",
+    "key": "acos",
+    "kisi": "Eyad Mert Mando",
+    "lokasyon": "İstanbul",
+    "kadro": "Marketplace Operasyonu · Amazon, Hesap Sağlığı",
+    "kpi": "Marketplace ACoS",
+    "birim": "%",
+    "yon": "↓",
+    "hedef": 0.25,
+    "hedefId": "H7",
+    "dokId": "YO-05",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P16",
+    "key": "halil_a",
+    "kisi": "Halil Keş",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P17",
+    "key": "halil_b",
+    "kisi": "Halil Keş",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P18",
+    "key": "halil_c",
+    "kisi": "Halil Keş",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P19",
+    "key": "baran_a",
+    "kisi": "Mehmet Baran Turan",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P20",
+    "key": "baran_b",
+    "kisi": "Mehmet Baran Turan",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P21",
+    "key": "baran_c",
+    "kisi": "Mehmet Baran Turan",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P22",
+    "key": "beyza_a",
+    "kisi": "Beyza Korkmaz",
+    "lokasyon": "İstanbul",
+    "kadro": "Stajyer — kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P23",
+    "key": "beyza_b",
+    "kisi": "Beyza Korkmaz",
+    "lokasyon": "İstanbul",
+    "kadro": "Stajyer — kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P24",
+    "key": "beyza_c",
+    "kisi": "Beyza Korkmaz",
+    "lokasyon": "İstanbul",
+    "kadro": "Stajyer — kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P25",
+    "key": "butce_rapor",
+    "kisi": "Gözde Naz Birman",
+    "lokasyon": "İstanbul",
+    "kadro": "Bütçe & Projeksiyon · Finansal Analiz",
+    "kpi": "Bütçe vs gerçekleşme raporu yayınlandı",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H6",
+    "dokId": "YO-11",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P26",
+    "key": "butce27",
+    "kisi": "Gözde Naz Birman",
+    "lokasyon": "İstanbul",
+    "kadro": "Bütçe & Projeksiyon · Finansal Analiz",
+    "kpi": "2027 bütçe / nakit akışı taslak ilerlemesi (kümülatif)",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": null,
+    "hedefId": "H6",
+    "dokId": "YO-11",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P27",
+    "key": "rapor_gecikme",
+    "kisi": "Gözde Naz Birman",
+    "lokasyon": "İstanbul",
+    "kadro": "Bütçe & Projeksiyon · Finansal Analiz",
+    "kpi": "Raporlama gecikmesi",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-11",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P28",
+    "key": "maura_satis",
+    "kisi": "Çağla Coşkun",
+    "lokasyon": "İstanbul",
+    "kadro": "Marka & Kanal Yönetimi · Maura Home, Heyetler",
+    "kpi": "Maura Home haftalık satışı",
+    "birim": "$",
+    "yon": "↑",
+    "hedef": null,
+    "hedefId": "H1",
+    "dokId": "YO-01",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P29",
+    "key": "kanal_saglik",
+    "kisi": "Çağla Coşkun",
+    "lokasyon": "İstanbul",
+    "kadro": "Marka & Kanal Yönetimi · Maura Home, Heyetler",
+    "kpi": "Aktif ve sağlıklı kanal hesabı oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H7",
+    "dokId": "YO-05",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P30",
+    "key": "listing",
+    "kisi": "Çağla Coşkun",
+    "lokasyon": "İstanbul",
+    "kadro": "Marka & Kanal Yönetimi · Maura Home, Heyetler",
+    "kpi": "Yayınlanan yeni listing / ürün",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 10,
+    "hedefId": "H5",
+    "dokId": "YO-01",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P31",
+    "key": "dsakak_a",
+    "kisi": "Deniz Şakak",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P32",
+    "key": "dsakak_b",
+    "kisi": "Deniz Şakak",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P33",
+    "key": "dsakak_c",
+    "kisi": "Deniz Şakak",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P34",
+    "key": "yusuf_a",
+    "kisi": "Yusuf Cengiz",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P35",
+    "key": "yusuf_b",
+    "kisi": "Yusuf Cengiz",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P36",
+    "key": "yusuf_c",
+    "kisi": "Yusuf Cengiz",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P37",
+    "key": "salih_a",
+    "kisi": "Salih Doğanoğlu",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P38",
+    "key": "salih_b",
+    "kisi": "Salih Doğanoğlu",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P39",
+    "key": "salih_c",
+    "kisi": "Salih Doğanoğlu",
+    "lokasyon": "İstanbul",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P40",
+    "key": "kayit",
+    "kisi": "Fatma Akyıldırım",
+    "lokasyon": "Ankara",
+    "kadro": "Muhasebe · Ödeme Takibi ve Kayıtlar",
+    "kpi": "Borç / alacak / tahakkuk kayıt tamamlanma (kümülatif)",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H3",
+    "dokId": "YO-09",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P41",
+    "key": "mutabakat",
+    "kisi": "Fatma Akyıldırım",
+    "lokasyon": "Ankara",
+    "kadro": "Muhasebe · Ödeme Takibi ve Kayıtlar",
+    "kpi": "Açık mutabakat kalemi",
+    "birim": "adet",
+    "yon": "↓",
+    "hedef": 0,
+    "hedefId": "H3",
+    "dokId": "YO-09",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P42",
+    "key": "odeme_zaman",
+    "kisi": "Fatma Akyıldırım",
+    "lokasyon": "Ankara",
+    "kadro": "Muhasebe · Ödeme Takibi ve Kayıtlar",
+    "kpi": "Zamanında yapılan ödeme oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.98,
+    "hedefId": "H2",
+    "dokId": "YO-03",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P43",
+    "key": "dok_tamam",
+    "kisi": "Zeynep Durmaz",
+    "lokasyon": "Ankara",
+    "kadro": "Kurumsal Yönetim & Raporlama · YK Sunumu, Dokümantasyon",
+    "kpi": "YK / İK dokümantasyon tamamlanma (kümülatif)",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": null,
+    "hedefId": "H6",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P44",
+    "key": "ik_not_gecikme",
+    "kisi": "Zeynep Durmaz",
+    "lokasyon": "Ankara",
+    "kadro": "Kurumsal Yönetim & Raporlama · YK Sunumu, Dokümantasyon",
+    "kpi": "İK notlarının yayın gecikmesi",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P45",
+    "key": "dataroom_eksik",
+    "kisi": "Zeynep Durmaz",
+    "lokasyon": "Ankara",
+    "kadro": "Kurumsal Yönetim & Raporlama · YK Sunumu, Dokümantasyon",
+    "kpi": "Data Room'da eksik doküman sayısı",
+    "birim": "adet",
+    "yon": "↓",
+    "hedef": 0,
+    "hedefId": "H6",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P46",
+    "key": "sema_a",
+    "kisi": "Sema Çelik",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P47",
+    "key": "sema_b",
+    "kisi": "Sema Çelik",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P48",
+    "key": "sema_c",
+    "kisi": "Sema Çelik",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P49",
+    "key": "dtokmak_a",
+    "kisi": "Deniz Tokmak",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P50",
+    "key": "dtokmak_b",
+    "kisi": "Deniz Tokmak",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P51",
+    "key": "dtokmak_c",
+    "kisi": "Deniz Tokmak",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P52",
+    "key": "berrin_a",
+    "kisi": "Berrin Sağlam",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P53",
+    "key": "berrin_b",
+    "kisi": "Berrin Sağlam",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P54",
+    "key": "berrin_c",
+    "kisi": "Berrin Sağlam",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P55",
+    "key": "selimhan_a",
+    "kisi": "Selimhan Ergören",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık plan görevlerinin tamamlanma oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.9,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P56",
+    "key": "selimhan_b",
+    "kisi": "Selimhan Ergören",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Teslim gecikmesi (gün)",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P57",
+    "key": "selimhan_c",
+    "kisi": "Selimhan Ergören",
+    "lokasyon": "Ankara",
+    "kadro": "— kadro teyit edilecek",
+    "kpi": "Haftalık özet notu teslim edildi",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P58",
+    "key": "sozlesme_sure",
+    "kisi": "Özge Deniz Atalay",
+    "lokasyon": "Ankara",
+    "kadro": "Hukuk & Uyum · Sözleşmeler, Teşvik Mevzuatı",
+    "kpi": "Sözleşme dönüş süresi",
+    "birim": "gün",
+    "yon": "↓",
+    "hedef": 3,
+    "hedefId": "H5",
+    "dokId": "YO-10",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P59",
+    "key": "hukuk_acik",
+    "kisi": "Özge Deniz Atalay",
+    "lokasyon": "Ankara",
+    "kadro": "Hukuk & Uyum · Sözleşmeler, Teşvik Mevzuatı",
+    "kpi": "Açık hukuki konu",
+    "birim": "adet",
+    "yon": "↓",
+    "hedef": 0,
+    "hedefId": "H9",
+    "dokId": "YO-10",
+    "seviye": "Personel"
+   },
+   {
+    "id": "P60",
+    "key": "tesvik",
+    "kisi": "Özge Deniz Atalay",
+    "lokasyon": "Ankara",
+    "kadro": "Hukuk & Uyum · Sözleşmeler, Teşvik Mevzuatı",
+    "kpi": "Teşvik / E-TURQUALITY dosyası ilerleme (kümülatif)",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": null,
+    "hedefId": "H4",
+    "dokId": "YO-10",
+    "seviye": "Personel"
+   }
+  ],
+  "gm": [
+   {
+    "id": "GM01",
+    "kpi": "Haftalık toplam e-ihracat satışı (tüm marka ve kanallar)",
+    "birim": "$",
+    "yon": "↑",
+    "hedef": 38500,
+    "hedefId": "H1",
+    "dokId": "YO-01",
+    "sorumlu": "Samim SÜREL",
+    "seviye": "Genel Müdür"
+   },
+   {
+    "id": "GM02",
+    "kpi": "Haftalık brüt kâr marjı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.4,
+    "hedefId": "H2",
+    "dokId": "YO-01",
+    "sorumlu": "Samim SÜREL",
+    "seviye": "Genel Müdür"
+   },
+   {
+    "id": "GM03",
+    "kpi": "Sevkiyat planına uyum",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.95,
+    "hedefId": "H8",
+    "dokId": "YO-04",
+    "sorumlu": "Samim SÜREL",
+    "seviye": "Genel Müdür"
+   },
+   {
+    "id": "GM04",
+    "kpi": "Aktif satış kanalı / pazar sayısı",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": null,
+    "hedefId": "H5",
+    "dokId": "YO-01",
+    "sorumlu": "Samim SÜREL",
+    "seviye": "Genel Müdür"
+   },
+   {
+    "id": "GM05",
+    "kpi": "Stok yeterlilik süresi (satış hızına göre)",
+    "birim": "hafta",
+    "yon": "↑",
+    "hedef": 8,
+    "hedefId": "H8",
+    "dokId": "YO-04",
+    "sorumlu": "Samim SÜREL",
+    "seviye": "Genel Müdür"
+   },
+   {
+    "id": "GM06",
+    "kpi": "Personel KPI'larında hedefi tutturan oran",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.7,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "calc": "PERS_RATE",
+    "sorumlu": "Samim SÜREL",
+    "seviye": "Genel Müdür"
+   },
+   {
+    "id": "GM07",
+    "kpi": "Yönetici özeti dokümanlarının zamanında yüklenme oranı",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 1,
+    "hedefId": "H9",
+    "dokId": "*",
+    "calc": "DOC_RATE",
+    "sorumlu": "Samim SÜREL",
+    "seviye": "Genel Müdür"
+   }
+  ],
+  "ik": [
+   {
+    "id": "IK01",
+    "kpi": "Haftalık e-ihracat geliri",
+    "birim": "$",
+    "yon": "↑",
+    "hedef": 38500,
+    "uye": "Ferhan YILDIZLI",
+    "src": "GM01",
+    "hedefId": "H1",
+    "dokId": "YO-01",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK02",
+    "kpi": "2026 kümülatif e-ihracat (2M $ hedefi)",
+    "birim": "$",
+    "yon": "↑",
+    "hedef": 2000000,
+    "uye": "Ferhan YILDIZLI",
+    "src": "CUM",
+    "hedefId": "H1",
+    "dokId": "YO-01",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK03",
+    "kpi": "Hafta sonu nakit pozisyonu",
+    "birim": "$",
+    "yon": "↑",
+    "hedef": null,
+    "uye": "Yasin GÜÇLÜ",
+    "src": null,
+    "hedefId": "H2",
+    "dokId": "YO-02",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK04",
+    "kpi": "Ödeme planına uyum",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 0.95,
+    "uye": "Alper ÜNLÜ",
+    "src": null,
+    "hedefId": "H2",
+    "dokId": "YO-03",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK05",
+    "kpi": "Kullanılabilir kredi + TFS limiti",
+    "birim": "$",
+    "yon": "↑",
+    "hedef": null,
+    "uye": "Murat GÜLGÜN",
+    "src": null,
+    "hedefId": "H4",
+    "dokId": "YO-02",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK06",
+    "kpi": "Borç / alacak / tahakkuk kayıt tamamlanma",
+    "birim": "%",
+    "yon": "↑",
+    "hedef": 1,
+    "uye": "Alper ÜNLÜ",
+    "src": "P40",
+    "hedefId": "H3",
+    "dokId": "YO-09",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK07",
+    "kpi": "Stok yeterlilik süresi",
+    "birim": "hafta",
+    "yon": "↑",
+    "hedef": 8,
+    "uye": "Gülşah ALGIN",
+    "src": "GM05",
+    "hedefId": "H8",
+    "dokId": "YO-04",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK08",
+    "kpi": "Marketplace ACoS",
+    "birim": "%",
+    "yon": "↓",
+    "hedef": 0.25,
+    "uye": "Gülşah ALGIN",
+    "src": "P15",
+    "hedefId": "H7",
+    "dokId": "YO-05",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK09",
+    "kpi": "İmzalanan partner / kanal anlaşması (kümülatif)",
+    "birim": "adet",
+    "yon": "↑",
+    "hedef": 3,
+    "uye": "Murat GÜLGÜN",
+    "src": "P08",
+    "hedefId": "H5",
+    "dokId": "YO-06",
+    "seviye": "İcra Kurulu"
+   },
+   {
+    "id": "IK10",
+    "kpi": "Açık İcra Kurulu konusu",
+    "birim": "adet",
+    "yon": "↓",
+    "hedef": 10,
+    "uye": "Ferhan YILDIZLI",
+    "src": null,
+    "hedefId": "H9",
+    "dokId": "YO-08",
+    "seviye": "İcra Kurulu"
+   }
+  ]
+ },
+ "documents": [
+  {
+   "id": "YO-01",
+   "ad": "Haftalık Satış Raporu",
+   "icerik": "Marka × kanal × pazar satış, brüt kâr, yeni listing",
+   "sorumlu": "Samim SÜREL · Çağla Coşkun · Eyad Mert Mando",
+   "format": "Sheet (Shopify + marketplace export)",
+   "dataRoom": "A.5 / 01-Satis",
+   "kpis": [
+    "GM01",
+    "GM02",
+    "GM04",
+    "IK01",
+    "IK02",
+    "P28",
+    "P13",
+    "P30"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-01_W43_Haftalık"
+  },
+  {
+   "id": "YO-02",
+   "ad": "13 Haftalık Nakit Akışı",
+   "icerik": "Hafta sonu nakit, tahsilat/ödeme tahmini, kredi ve TFS limitleri",
+   "sorumlu": "Yasin GÜÇLÜ · Murat GÜLGÜN",
+   "format": "Sheet",
+   "dataRoom": "A.5 / 02-Nakit",
+   "kpis": [
+    "IK03",
+    "IK05"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-02_W43_13"
+  },
+  {
+   "id": "YO-03",
+   "ad": "Ödeme Planı Gerçekleşme",
+   "icerik": "Planlanan vs gerçekleşen ödemeler, öncelik sırası uyumu",
+   "sorumlu": "Alper ÜNLÜ · Fatma Akyıldırım",
+   "format": "Sheet",
+   "dataRoom": "A.5 / 03-Odeme",
+   "kpis": [
+    "IK04",
+    "P42"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-03_W43_Ödeme"
+  },
+  {
+   "id": "YO-04",
+   "ad": "Stok ve Sipariş–Sevkiyat Durumu",
+   "icerik": "SKU bazında stok haftası, sipariş planı sapması, sevkiyat uyumu",
+   "sorumlu": "Gülşah ALGIN · Samim SÜREL",
+   "format": "Sheet",
+   "dataRoom": "A.5 / 04-Stok",
+   "kpis": [
+    "GM03",
+    "GM05",
+    "IK07"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-04_W43_Stok"
+  },
+  {
+   "id": "YO-05",
+   "ad": "Marketplace Hesap Sağlığı ve Reklam",
+   "icerik": "Hesap sağlığı ihlalleri, ACoS, aktif kanal hesapları",
+   "sorumlu": "Eyad Mert Mando · Çağla Coşkun",
+   "format": "Ekran çıktısı + sheet",
+   "dataRoom": "A.5 / 05-Marketplace",
+   "kpis": [
+    "IK08",
+    "P14",
+    "P15",
+    "P29"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-05_W43_Marketplace"
+  },
+  {
+   "id": "YO-06",
+   "ad": "CRM / Partner Pipeline",
+   "icerik": "Aşama ilerleyen markalar, imzalanan anlaşmalar, pipeline değeri",
+   "sorumlu": "Sinem Üçer",
+   "format": "CRM export",
+   "dataRoom": "A.5 / 06-Pipeline",
+   "kpis": [
+    "IK09",
+    "P07",
+    "P08",
+    "P09"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-06_W43_CRM"
+  },
+  {
+   "id": "YO-07",
+   "ad": "Sistem ve Dijitalleşme Durumu",
+   "icerik": "Odoo/CRM kilometre taşları, açık sistem sorunları",
+   "sorumlu": "Metehan Şeşen",
+   "format": "Not + ekran çıktısı",
+   "dataRoom": "A.5 / 07-Sistem",
+   "kpis": [
+    "P04",
+    "P05",
+    "P06"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-07_W43_Sistem"
+  },
+  {
+   "id": "YO-08",
+   "ad": "İK Açık Konular ve Personel Haftalık Özeti",
+   "icerik": "Açık İK konuları, personel görev tamamlama, haftalık özet notları",
+   "sorumlu": "Zeynep Durmaz · Samim SÜREL",
+   "format": "Doc",
+   "dataRoom": "A.5 / 08-IK",
+   "kpis": [
+    "IK10",
+    "GM06",
+    "P43",
+    "P44",
+    "P45",
+    "P01",
+    "P02",
+    "P03",
+    "P10",
+    "P11",
+    "P12",
+    "P16",
+    "P17",
+    "P18",
+    "P19",
+    "P20",
+    "P21",
+    "P22",
+    "P23",
+    "P24",
+    "P31",
+    "P32",
+    "P33",
+    "P34",
+    "P35",
+    "P36",
+    "P37",
+    "P38",
+    "P39",
+    "P46",
+    "P47",
+    "P48",
+    "P49",
+    "P50",
+    "P51",
+    "P52",
+    "P53",
+    "P54",
+    "P55",
+    "P56",
+    "P57"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-08_W43_İK"
+  },
+  {
+   "id": "YO-09",
+   "ad": "Muhasebe Kayıt ve Mutabakat",
+   "icerik": "Borç/alacak/tahakkuk tamamlanma, açık mutabakat kalemleri",
+   "sorumlu": "Fatma Akyıldırım",
+   "format": "Sheet",
+   "dataRoom": "A.5 / 09-Muhasebe",
+   "kpis": [
+    "IK06",
+    "P40",
+    "P41"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-09_W43_Muhasebe"
+  },
+  {
+   "id": "YO-10",
+   "ad": "Hukuk ve Sözleşme Takip",
+   "icerik": "Sözleşme dönüş süreleri, açık hukuki konular, teşvik dosyası",
+   "sorumlu": "Özge Deniz Atalay",
+   "format": "Doc",
+   "dataRoom": "A.5 / 10-Hukuk",
+   "kpis": [
+    "P58",
+    "P59",
+    "P60"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-10_W43_Hukuk"
+  },
+  {
+   "id": "YO-11",
+   "ad": "Bütçe vs Gerçekleşme",
+   "icerik": "OPEX sapması, marka P/L, 2027 bütçe ilerlemesi",
+   "sorumlu": "Gözde Naz Birman",
+   "format": "Sheet",
+   "dataRoom": "A.5 / 11-Butce",
+   "kpis": [
+    "P25",
+    "P26",
+    "P27"
+   ],
+   "siklik": "Haftalık · Salı 18:00",
+   "dosyaAdi": "FEVUP_YO-11_W43_Bütçe"
+  }
+ ],
+ "docUploads": {
+  "YO-01": {
+   "W43": 1,
+   "W44": 1
+  },
+  "YO-02": {
+   "W43": 0,
+   "W44": 1
+  },
+  "YO-03": {
+   "W43": 1,
+   "W44": 1
+  },
+  "YO-04": {
+   "W43": 1
+  },
+  "YO-05": {
+   "W43": 1,
+   "W44": 1
+  },
+  "YO-08": {
+   "W43": 0,
+   "W44": 1
+  }
+ },
+ "actuals": {
+  "GM01": {
+   "W43": 31200,
+   "W44": 36400
+  },
+  "P28": {
+   "W43": 9800,
+   "W44": 11200
+  },
+  "P29": {
+   "W43": 1,
+   "W44": 1
+  },
+  "P15": {
+   "W43": 0.31,
+   "W44": 0.27
+  },
+  "P40": {
+   "W43": 0.62,
+   "W44": 0.7
+  },
+  "P08": {
+   "W43": 1,
+   "W44": 1
+  }
+ }
+}

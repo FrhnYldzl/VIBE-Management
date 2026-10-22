@@ -53,6 +53,21 @@ describe("paylaşımlı durum", () => {
     expect(all.onscala.toplam).toBe(62); expect(all.onscala.kriterler).toHaveLength(2); expect(all.onscala.updated_by).toBe("dev");
     expect((await app.inject({ method: "PUT", url: "/api/panels/onscala/score", payload: { toplam: 140, harf: "Z", seviye: "x", kriterler: [] } })).statusCode).toBe(400);
   });
+  it("performans: tohum (Fevup), hücre girişi, yükleme, tanımsız şirket", async () => {
+    const t = (await app.inject("/api/panels/fevup-brands/perf")).json();
+    expect(t.kaynak).toBe("tohum"); expect(t.model.kpis.gm).toHaveLength(7); expect(t.model.tasks).toBeUndefined();
+    expect((await app.inject({ method: "PUT", url: "/api/panels/fevup-brands/perf/cell", payload: { kind: "actual", id: "GM01", week: "W45", value: 40000 } })).statusCode).toBe(200);
+    expect((await app.inject({ method: "PUT", url: "/api/panels/fevup-brands/perf/cell", payload: { kind: "doc", id: "YO-01", week: "W45", value: 1 } })).statusCode).toBe(200);
+    const s = (await app.inject("/api/panels/fevup-brands/perf")).json();
+    expect(s.kaynak).toBe("sunucu"); expect(s.model.actuals.GM01.W45).toBe(40000); expect(s.model.docUploads["YO-01"].W45).toBe(1);
+    expect((await app.inject({ method: "PUT", url: "/api/panels/fevup-brands/perf/cell", payload: { kind: "actual", id: "YOK", week: "W45", value: 1 } })).statusCode).toBe(400);
+    expect((await app.inject({ method: "PUT", url: "/api/panels/fevup-brands/perf/cell", payload: { kind: "actual", id: "GM01", week: "W99", value: 1 } })).statusCode).toBe(400);
+    expect((await app.inject("/api/panels/onscala/perf")).statusCode).toBe(404);
+    const up = await app.inject({ method: "PUT", url: "/api/panels/onscala/perf", payload: { weeks: [{ id: "W44", start: "2026-10-26" }], kpis: { gm: [{ id: "GM01", kpi: "Ciro", birim: "$", yon: "↑", hedef: 100 }] }, tasks: [{ x: 1 }] } });
+    expect(up.json()).toMatchObject({ ok: true, kpi: 1, hafta: 1 });
+    expect((await app.inject("/api/panels/onscala/perf")).json().model.tasks).toBeUndefined();
+    expect((await app.inject("/api/perf/ornek")).headers["content-disposition"]).toContain("performans-ornek");
+  });
   it("istatistik + health db", async () => {
     expect((await app.inject("/api/state/stats")).json()).toMatchObject({ panelOverrides: 3, panelClients: 1 });
     expect((await app.inject("/api/health")).json().db).toBe("bellek");

@@ -10,6 +10,12 @@ export interface PanelRow {
   status: "ok" | "warn" | "error"; files: number; folders: number; smoke: { ok: boolean; bad: string[]; views: number; items: number; docs: number; pct: number } | null;
   created_by: string; created_at: string; scanned_at: string | null; error: string | null;
 }
+/** Performans modeli (Fevup v3 şeması): weeks, governance, kpis{seviye: KPI[]}, targets, documents, actuals[kpi][hafta], docUploads[dok][hafta] */
+export interface PerfModel {
+  meta?: Record<string, unknown>; weeks: { id: string; start: string }[]; governance?: Record<string, unknown>; assumptions?: Record<string, unknown>;
+  staff?: unknown[]; targets?: unknown[]; kpis: Record<string, { id: string; [k: string]: unknown }[]>; documents?: { id: string; [k: string]: unknown }[];
+  actuals: Record<string, Record<string, number>>; docUploads: Record<string, Record<string, number>>;
+}
 export interface PanelEdit { kind: string; id: string; updated_by: string; updated_at: string; [k: string]: unknown }
 type PanelRaw = Omit<PanelRow, "short" | "entities" | "smoke"> & { short: string; entities: string; smoke: string | null };
 const panelRow = (r: PanelRaw): PanelRow => ({ ...r, short: JSON.parse(r.short), entities: JSON.parse(r.entities), smoke: r.smoke ? JSON.parse(r.smoke) : null });
@@ -47,6 +53,11 @@ export function openStore(path: string) {
       client TEXT PRIMARY KEY, json TEXT NOT NULL,
       updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
     );
+    -- Performans İzleme (v0.5.8): şirket başına KPI modeli (kademe, hedef, haftalık gerçekleşen, YO doküman yüklemeleri) — tek JSON
+    CREATE TABLE IF NOT EXISTS panel_perf (
+      client TEXT PRIMARY KEY, json TEXT NOT NULL,
+      updated_by TEXT NOT NULL, updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+    );
     -- Intake-lite panelleri: Drive linki → üretilen .data.js + HTML (dosyalar Volume'de, kayıt burada)
     CREATE TABLE IF NOT EXISTS panels (
       slug TEXT PRIMARY KEY, name TEXT NOT NULL, short TEXT NOT NULL, entities TEXT NOT NULL, drive_root TEXT NOT NULL,
@@ -66,6 +77,10 @@ export function openStore(path: string) {
   const uEdit = db.prepare(`INSERT INTO panel_edits (client, kind, id, json, updated_by) VALUES (?, ?, ?, ?, ?)
     ON CONFLICT(client, kind, id) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
   const dEdit = db.prepare("DELETE FROM panel_edits WHERE client = ? AND kind = ? AND id = ?");
+  const qPerf = db.prepare("SELECT json, updated_by, updated_at FROM panel_perf WHERE client = ?");
+  const uPerf = db.prepare(`INSERT INTO panel_perf (client, json, updated_by) VALUES (?, ?, ?)
+    ON CONFLICT(client) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
+  const dPerf = db.prepare("DELETE FROM panel_perf WHERE client = ?");
   const qScores = db.prepare("SELECT client, json, updated_by, updated_at FROM panel_scores ORDER BY client");
   const uScore = db.prepare(`INSERT INTO panel_scores (client, json, updated_by) VALUES (?, ?, ?)
     ON CONFLICT(client) DO UPDATE SET json = excluded.json, updated_by = excluded.updated_by, updated_at = strftime('%Y-%m-%dT%H:%M:%fZ','now')`);
@@ -114,6 +129,13 @@ export function openStore(path: string) {
     },
     setPanelEdit(client: string, kind: string, id: string, data: Record<string, unknown>, by: string) { uEdit.run(client, kind, id, JSON.stringify(data), by); },
     deletePanelEdit: (client: string, kind: string, id: string) => dEdit.run(client, kind, id).changes > 0,
+    /* ---- Performans İzleme ---- */
+    getPerf(client: string): { model: PerfModel; updated_by: string; updated_at: string } | null {
+      const r = qPerf.get(client) as { json: string; updated_by: string; updated_at: string } | undefined;
+      return r ? { model: JSON.parse(r.json) as PerfModel, updated_by: r.updated_by, updated_at: r.updated_at } : null;
+    },
+    setPerf(client: string, model: PerfModel, by: string) { uPerf.run(client, JSON.stringify(model), by); },
+    deletePerf: (client: string) => dPerf.run(client).changes > 0,
     /* ---- Kurumsal Yönetim Skoru ---- */
     setScore(client: string, score: Record<string, unknown>, by: string) { uScore.run(client, JSON.stringify(score), by); },
     scores(): Record<string, Record<string, unknown> & { updated_by: string; updated_at: string }> {

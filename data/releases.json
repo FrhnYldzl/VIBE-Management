@@ -1,16 +1,57 @@
 {
   "surumler": [
     {
+      "surum": "0.5.8",
+      "tarih": "2026-10-22",
+      "faz": "v1.0 yolu",
+      "baslik": "Performans İzleme standardı (Insights)",
+      "durum": "yayinda",
+      "degisiklikler": [
+        {
+          "tur": "yeni",
+          "metin": "Her şirketin Insights görünümünde Performans İzleme bölümü — Fevup performans paketi (v3) şeması standart: KPI kademesi Personel → Genel Müdür → İcra Kurulu → Yönetim Kurulu, haftalık gerçekleşen ve Δ, hedefe oran (↑/↓, ≥1 yeşil · ≥0,8 sarı), türetilen KPI'lar (src, kümülatif, PERS_RATE, DOC_RATE), YK hedef kartı, Yönetici Özeti doküman yüklenme tablosu. Görevler bölümü alınmadı"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Hücreye tıkla → haftalık gerçekleşen girişi; doküman hücresi → yüklendi / eksik / bekleniyor. Model sunucuda (/api/panels/:client/perf, /perf/cell); Fevup için tohum data/perf/fevup.json"
+        },
+        {
+          "tur": "yeni",
+          "metin": "KPI seti olmayan şirket: 'KPI seti yükle (JSON)' + 'Örnek şablon (Fevup)' indir"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "KYS 'KPI / OKR ilerlemesi' kriteri performans verisi varsa son haftadaki hedefe oranların ortalamasını kullanır"
+        },
+        {
+          "tur": "test",
+          "metin": "42 test yeşil; 5 panel yeniden üretildi; Fevup (intake) panelinde uçtan uca doğrulandı"
+        }
+      ]
+    },
+    {
       "surum": "0.5.6",
       "tarih": "2026-10-20",
       "faz": "v1.0 yolu",
       "baslik": "Kurumsal Yönetim Skoru (KYS v1)",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "KYS v1: Dokümantasyon %25 · Dayanak kalitesi %10 · Yönetişim ritmi (90 günde tutanaklı toplantı) %15 · Karar ve aksiyon disiplini %15 · KPI/OKR ilerlemesi %15 · DD %12 · Risk yönetimi %8 → 0–100, seviye A Olgun ≥80 · B İyi ≥65 · C Gelişen ≥50 · D Başlangıç ≥35 · E Kritik" },
-        { "tur": "yeni", "metin": "Panel Genel Bakış'ta skor kartı (kriter çubukları ve dayanak notları); panel açılınca ve durum değişince yeniden hesaplanır, /api/panels/:client/score ile sunucuya yazılır" },
-        { "tur": "yeni", "metin": "Ana Merkez portföy kartlarında 'KYS 35 · D' rozeti; Vibe canlı okumasına kurumsalYonetimSkoru; Admin → Paneller & Senkron → skor tablosu (kriter bazında, portföy ortalaması)" },
-        { "tur": "iyilestirme", "metin": "Kriter seti ve ağırlıklar panel master'ında tek yerde (KYS.kriterler); anlık görüntüler sürüm etiketli — resmi skorlama geldiğinde genişletilir" }
+        {
+          "tur": "yeni",
+          "metin": "KYS v1: Dokümantasyon %25 · Dayanak kalitesi %10 · Yönetişim ritmi (90 günde tutanaklı toplantı) %15 · Karar ve aksiyon disiplini %15 · KPI/OKR ilerlemesi %15 · DD %12 · Risk yönetimi %8 → 0–100, seviye A Olgun ≥80 · B İyi ≥65 · C Gelişen ≥50 · D Başlangıç ≥35 · E Kritik"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Panel Genel Bakış'ta skor kartı (kriter çubukları ve dayanak notları); panel açılınca ve durum değişince yeniden hesaplanır, /api/panels/:client/score ile sunucuya yazılır"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Ana Merkez portföy kartlarında 'KYS 35 · D' rozeti; Vibe canlı okumasına kurumsalYonetimSkoru; Admin → Paneller & Senkron → skor tablosu (kriter bazında, portföy ortalaması)"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Kriter seti ve ağırlıklar panel master'ında tek yerde (KYS.kriterler); anlık görüntüler sürüm etiketli — resmi skorlama geldiğinde genişletilir"
+        }
       ]
     },
     {
@@ -20,11 +61,26 @@
       "baslik": "Süreç Kaydı (düzenlenebilir panel) + doğrulama checklist'i",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "Panelde 'Süreç Kaydı' görünümü: veri dosyasındaki aksiyon/karar/toplantı + kullanıcı eklemeleri tek listede; ekle, durum değiştir, sil; doküman satırına not (✎). Kayıtlar sunucuda (/api/panels/:client/edits) — .data.js'e dokunmaz, yeniden tarama ve yeniden üretimde korunur" },
-        { "tur": "yeni", "metin": "Veri tarihi damgası (CLIENT.dataDate / Drive tarama tarihi) panel alt bilgisinde ve Süreç Kaydı'nda" },
-        { "tur": "yeni", "metin": "Admin → Paneller & Senkron → Doğrulama turu: 5 kit + intake panelleri × 8 kontrol; hücreye tıkla → kim/ne zaman; paylaşımlı" },
-        { "tur": "yeni", "metin": "Funnel: Aday → 'Müvekkil' terfi; intake panelleri açılışta güncel template ile yeniden derlenir" },
-        { "tur": "test", "metin": "40 test yeşil; 5 panel yeniden üretildi (35–47 görünüm temiz)" }
+        {
+          "tur": "yeni",
+          "metin": "Panelde 'Süreç Kaydı' görünümü: veri dosyasındaki aksiyon/karar/toplantı + kullanıcı eklemeleri tek listede; ekle, durum değiştir, sil; doküman satırına not (✎). Kayıtlar sunucuda (/api/panels/:client/edits) — .data.js'e dokunmaz, yeniden tarama ve yeniden üretimde korunur"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Veri tarihi damgası (CLIENT.dataDate / Drive tarama tarihi) panel alt bilgisinde ve Süreç Kaydı'nda"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Admin → Paneller & Senkron → Doğrulama turu: 5 kit + intake panelleri × 8 kontrol; hücreye tıkla → kim/ne zaman; paylaşımlı"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Funnel: Aday → 'Müvekkil' terfi; intake panelleri açılışta güncel template ile yeniden derlenir"
+        },
+        {
+          "tur": "test",
+          "metin": "40 test yeşil; 5 panel yeniden üretildi (35–47 görünüm temiz)"
+        }
       ]
     },
     {
@@ -34,10 +90,22 @@
       "baslik": "Eğitim tasarla · Claude + Design brief",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "'✦ Eğitim tasarla · Claude': konu, hedef kitle, düzey, ton, oturum/ders sayısı, Juris hizmetleri, kurum/tarih/aralık → Opus her modül için teori (kavramlar, mevzuat dayanağı, literatür), uygulama (atölye, kontrol listesi, çıktı), hizmet–fonksiyon–panel eşlemesi, dersler + kazanımlar, misafir profili, kitap/film; akış sayaçlı, durdurulabilir" },
-        { "tur": "yeni", "metin": "Önizleme (modül akordeonları) → 'Programı kaydet': özel modüller programla saklanır; oturum kartında teori/uygulama özeti; hizmet eşlemesi programın kendi modüllerinden" },
-        { "tur": "yeni", "metin": "Oturum başına '✦ Design brief': Juris görsel standardı + Teknopark slayt iskeleti + içerik (Markdown) — kopyala, .md indir, Çıktı Kütüphanesi'ne kaydet" },
-        { "tur": "iyilestirme", "metin": "Katalogdan program oluşturucu ikincil düğme; program künyesinde 'neden' ve tasarım izi" }
+        {
+          "tur": "yeni",
+          "metin": "'✦ Eğitim tasarla · Claude': konu, hedef kitle, düzey, ton, oturum/ders sayısı, Juris hizmetleri, kurum/tarih/aralık → Opus her modül için teori (kavramlar, mevzuat dayanağı, literatür), uygulama (atölye, kontrol listesi, çıktı), hizmet–fonksiyon–panel eşlemesi, dersler + kazanımlar, misafir profili, kitap/film; akış sayaçlı, durdurulabilir"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Önizleme (modül akordeonları) → 'Programı kaydet': özel modüller programla saklanır; oturum kartında teori/uygulama özeti; hizmet eşlemesi programın kendi modüllerinden"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Oturum başına '✦ Design brief': Juris görsel standardı + Teknopark slayt iskeleti + içerik (Markdown) — kopyala, .md indir, Çıktı Kütüphanesi'ne kaydet"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Katalogdan program oluşturucu ikincil düğme; program künyesinde 'neden' ve tasarım izi"
+        }
       ]
     },
     {
@@ -47,9 +115,18 @@
       "baslik": "Eğitim: program oluşturucu + katılımcı → funnel",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "'＋ Yeni program': kurum, yer, başlangıç, aralık (haftalık / 2 hafta / aylık), varsayılan eğitmen, koordinatör, modül seçimi → tarihli oturumlar (dersler Teknopark şablonundan); program sekmeleri, silme" },
-        { "tur": "yeni", "metin": "Katılımcılar: ad, şirket, rol (girişimci / yatırımcı / paydaş / danışman), not; 'Funnel'a aktar' → İş Geliştirme Funnel'ı 0. aşama 'Aday · Network' (paylaşımlı)" },
-        { "tur": "iyilestirme", "metin": "Funnel 5 sütun; aday satırından eğitim programına geçiş" }
+        {
+          "tur": "yeni",
+          "metin": "'＋ Yeni program': kurum, yer, başlangıç, aralık (haftalık / 2 hafta / aylık), varsayılan eğitmen, koordinatör, modül seçimi → tarihli oturumlar (dersler Teknopark şablonundan); program sekmeleri, silme"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Katılımcılar: ad, şirket, rol (girişimci / yatırımcı / paydaş / danışman), not; 'Funnel'a aktar' → İş Geliştirme Funnel'ı 0. aşama 'Aday · Network' (paylaşımlı)"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Funnel 5 sütun; aday satırından eğitim programına geçiş"
+        }
       ]
     },
     {
@@ -59,10 +136,22 @@
       "baslik": "Eğitim Programları + Panel ekle",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "Ana Merkez → Eğitim → Eğitim Programları: Ankara Teknopark 'Girişim & Yatırım Hukuku' programı (8 oturum × 3 ders, Eylül–Aralık 2026), tarihe göre ilerleme (yapıldı/sıradaki/planlı, elle düzeltilebilir), eğitmen ve misafir katılımcılar, oturum dokümanları (Drive linki ekle/sil — paylaşımlı), hizmet–modül–panel eşlemesi, network kartı" },
-        { "tur": "yeni", "metin": "Vibe kaynak çipi 'Eğitim programı' (Juris ve Tüm portföy kapsamında): program ve dokümanlar Claude bağlamına girer" },
-        { "tur": "yeni", "metin": "Sol panelde '+ Panel ekle · Drive linki' formu (Intake-lite); Vibe'daki Drive linki aynı formu açar; sol panel 304 px" },
-        { "tur": "duzeltme", "metin": "Intake: paylaşılmamış/boş klasörde net hata; bozuk service account anahtarı servisi düşürmez" }
+        {
+          "tur": "yeni",
+          "metin": "Ana Merkez → Eğitim → Eğitim Programları: Ankara Teknopark 'Girişim & Yatırım Hukuku' programı (8 oturum × 3 ders, Eylül–Aralık 2026), tarihe göre ilerleme (yapıldı/sıradaki/planlı, elle düzeltilebilir), eğitmen ve misafir katılımcılar, oturum dokümanları (Drive linki ekle/sil — paylaşımlı), hizmet–modül–panel eşlemesi, network kartı"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Vibe kaynak çipi 'Eğitim programı' (Juris ve Tüm portföy kapsamında): program ve dokümanlar Claude bağlamına girer"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Sol panelde '+ Panel ekle · Drive linki' formu (Intake-lite); Vibe'daki Drive linki aynı formu açar; sol panel 304 px"
+        },
+        {
+          "tur": "duzeltme",
+          "metin": "Intake: paylaşılmamış/boş klasörde net hata; bozuk service account anahtarı servisi düşürmez"
+        }
       ]
     },
     {
@@ -72,11 +161,26 @@
       "baslik": "Intake-lite: Drive linki → panel kartı",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "Admin → Paneller & Senkron: müvekkil adı + Drive Data Room linki → tarama (A–F → alt başlık → dosya) → standart .data.js taslağı → kit build + smoke → panel kartı; yeniden tara / sil" },
-        { "tur": "yeni", "metin": "Ana Merkez: paneller dinamik (/api/panels) — sol menü, portföy kartı (Intake-lite rozeti), Vibe kapsam/kaynak çipleri, canlı okuma; #p-<slug> ile doğrudan açılış" },
-        { "tur": "yeni", "metin": "API: POST /api/intake · GET /api/panels · POST /api/panels/:slug/rescan · DELETE /api/panels/:slug · GET /api/intake/status; paneller Volume /data/panels'ten /app/p/ altında servis edilir" },
-        { "tur": "yeni", "metin": "tools/intake.js (jenerik veri üretici) + kit.js modül API'si (buildFile/smokeFile); Google service account kurulum adımları RAILWAY.md §3b" },
-        { "tur": "test", "metin": "38 test yeşil (intake: sahte Drive ile tarama→panel, yeniden tarama, silme, hata yolları)" }
+        {
+          "tur": "yeni",
+          "metin": "Admin → Paneller & Senkron: müvekkil adı + Drive Data Room linki → tarama (A–F → alt başlık → dosya) → standart .data.js taslağı → kit build + smoke → panel kartı; yeniden tara / sil"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Ana Merkez: paneller dinamik (/api/panels) — sol menü, portföy kartı (Intake-lite rozeti), Vibe kapsam/kaynak çipleri, canlı okuma; #p-<slug> ile doğrudan açılış"
+        },
+        {
+          "tur": "yeni",
+          "metin": "API: POST /api/intake · GET /api/panels · POST /api/panels/:slug/rescan · DELETE /api/panels/:slug · GET /api/intake/status; paneller Volume /data/panels'ten /app/p/ altında servis edilir"
+        },
+        {
+          "tur": "yeni",
+          "metin": "tools/intake.js (jenerik veri üretici) + kit.js modül API'si (buildFile/smokeFile); Google service account kurulum adımları RAILWAY.md §3b"
+        },
+        {
+          "tur": "test",
+          "metin": "38 test yeşil (intake: sahte Drive ile tarama→panel, yeniden tarama, silme, hata yolları)"
+        }
       ]
     },
     {
@@ -86,9 +190,18 @@
       "baslik": "Kurucu önerileri · ilk tur",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "Oturumlar ve Çıktı Kütüphanesi sol panelde (Vibe altında, sayaçlı)" },
-        { "tur": "yeni", "metin": "Yanıtı 'E-posta taslağı aç' ile varsayılan e-posta istemcisinde taslak olarak açma" },
-        { "tur": "iyilestirme", "metin": "Yol haritası: Intake-lite v0.5.1 · Word/Excel/PDF antetli dışa aktarma v0.6.0 · Connectors (Gmail) v0.6.2" }
+        {
+          "tur": "yeni",
+          "metin": "Oturumlar ve Çıktı Kütüphanesi sol panelde (Vibe altında, sayaçlı)"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Yanıtı 'E-posta taslağı aç' ile varsayılan e-posta istemcisinde taslak olarak açma"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Yol haritası: Intake-lite v0.5.1 · Word/Excel/PDF antetli dışa aktarma v0.6.0 · Connectors (Gmail) v0.6.2"
+        }
       ]
     },
     {
@@ -98,9 +211,18 @@
       "baslik": "Kullanıcılar DB'de · hesap · Railway canlı",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "users tablosu (PASSWORD_USERS yalnız tohum), /hesap parola değiştir, Beni hatırla, Admin → Kullanıcılar: parola sıfırla / ekle" },
-        { "tur": "duzeltme", "metin": "Hash ayracı '~' (Railway Raw Editor '$' bozuyordu); VIBE_MANAGEMENT anahtar takma adı; railway.json buildCommand kaldırıldı" },
-        { "tur": "yeni", "metin": "Railway tek servis canlı: Volume /data, Variables, health ortam teşhisi" }
+        {
+          "tur": "yeni",
+          "metin": "users tablosu (PASSWORD_USERS yalnız tohum), /hesap parola değiştir, Beni hatırla, Admin → Kullanıcılar: parola sıfırla / ekle"
+        },
+        {
+          "tur": "duzeltme",
+          "metin": "Hash ayracı '~' (Railway Raw Editor '$' bozuyordu); VIBE_MANAGEMENT anahtar takma adı; railway.json buildCommand kaldırıldı"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Railway tek servis canlı: Volume /data, Variables, health ortam teşhisi"
+        }
       ]
     },
     {
@@ -110,9 +232,18 @@
       "baslik": "Paylaşımlı durum: SQLite + Railway Volume",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "Panel durum çipleri ve Vibe oturumları/kütüphanesi sunucuda (node:sqlite, DATA_PATH); localStorage önbellek + tek seferlik taşıma" },
-        { "tur": "yeni", "metin": "API: /api/panels/:client/status (+bulk, log), /api/vibe/state, /api/state/stats; health db alanı" },
-        { "tur": "test", "metin": "25 test yeşil; 5 panel yeniden üretildi" }
+        {
+          "tur": "yeni",
+          "metin": "Panel durum çipleri ve Vibe oturumları/kütüphanesi sunucuda (node:sqlite, DATA_PATH); localStorage önbellek + tek seferlik taşıma"
+        },
+        {
+          "tur": "yeni",
+          "metin": "API: /api/panels/:client/status (+bulk, log), /api/vibe/state, /api/state/stats; health db alanı"
+        },
+        {
+          "tur": "test",
+          "metin": "25 test yeşil; 5 panel yeniden üretildi"
+        }
       ]
     },
     {
@@ -122,9 +253,18 @@
       "baslik": "Kimlik: e-posta + parola, GitHub (geliştirici)",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "E-posta + parola girişi (scrypt), GitHub OAuth yalnız geliştirici; HMAC imzalı HttpOnly oturum çerezi" },
-        { "tur": "yeni", "metin": "Landing, /login, /auth/*, /api/health dışında her yol korunur; /login sayfası, çıkış, /api/me" },
-        { "tur": "yeni", "metin": "Admin → Kullanıcılar canlı; üst çubukta oturum + Çıkış" }
+        {
+          "tur": "yeni",
+          "metin": "E-posta + parola girişi (scrypt), GitHub OAuth yalnız geliştirici; HMAC imzalı HttpOnly oturum çerezi"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Landing, /login, /auth/*, /api/health dışında her yol korunur; /login sayfası, çıkış, /api/me"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Admin → Kullanıcılar canlı; üst çubukta oturum + Çıkış"
+        }
       ]
     },
     {
@@ -134,10 +274,22 @@
       "baslik": "Tek servis + admin iskeleti",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "V1-PLAN.md + roadmap.json: tam kullanılabilirlik planı, Drive gerçek kaynak (ADR 0002), v2/v3 vizyonu" },
-        { "tur": "yeni", "metin": "apps/server (Fastify): / landing · /app Ana Merkez · /admin · /api; Railway config; Anthropic SDK 0.70" },
-        { "tur": "yeni", "metin": "Admin paneli: Yol Haritası, Sürümler, Sağlık canlı; diğer görünümler yer tutucu" },
-        { "tur": "iyilestirme", "metin": "ana-merkez yalnız statik; eski sunucu kaldırıldı" }
+        {
+          "tur": "yeni",
+          "metin": "V1-PLAN.md + roadmap.json: tam kullanılabilirlik planı, Drive gerçek kaynak (ADR 0002), v2/v3 vizyonu"
+        },
+        {
+          "tur": "yeni",
+          "metin": "apps/server (Fastify): / landing · /app Ana Merkez · /admin · /api; Railway config; Anthropic SDK 0.70"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Admin paneli: Yol Haritası, Sürümler, Sağlık canlı; diğer görünümler yer tutucu"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "ana-merkez yalnız statik; eski sunucu kaldırıldı"
+        }
       ]
     },
     {
@@ -147,8 +299,14 @@
       "baslik": "Tek panel kiti",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "iyilestirme", "metin": "Üç kit mimarisi tek kitte: en güncel master (Zyrone tabanlı) → template.html + clients/<slug>.data.js; tools/kit.js (template/extract/build/smoke/compare/all --deploy)" },
-        { "tur": "test", "metin": "5 müvekkil aynı template'ten: 187 görünüm smoke temiz; eski panellerle benzerlik %99–100" }
+        {
+          "tur": "iyilestirme",
+          "metin": "Üç kit mimarisi tek kitte: en güncel master (Zyrone tabanlı) → template.html + clients/<slug>.data.js; tools/kit.js (template/extract/build/smoke/compare/all --deploy)"
+        },
+        {
+          "tur": "test",
+          "metin": "5 müvekkil aynı template'ten: 187 görünüm smoke temiz; eski panellerle benzerlik %99–100"
+        }
       ]
     },
     {
@@ -158,8 +316,14 @@
       "baslik": "Panel kaynak paketleri + canlı okuma",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "packages/juris-panels: Qervan–WeTrade (v4), Zyrone, Onscala kaynak paketleri birebir; dist HTML'ler public'e yenilendi" },
-        { "tur": "duzeltme", "metin": "PANEL_EXTRACT eksik veri setlerini boş geçer → 5 panel de Vibe'a canlı okunur" }
+        {
+          "tur": "yeni",
+          "metin": "packages/juris-panels: Qervan–WeTrade (v4), Zyrone, Onscala kaynak paketleri birebir; dist HTML'ler public'e yenilendi"
+        },
+        {
+          "tur": "duzeltme",
+          "metin": "PANEL_EXTRACT eksik veri setlerini boş geçer → 5 panel de Vibe'a canlı okunur"
+        }
       ]
     },
     {
@@ -169,8 +333,14 @@
       "baslik": "Zyrone · Qervan–WeTrade · Meown AI panelleri",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "Üç Juris paneli Ana Merkez'e gömüldü (sol menü, portföy kartları, Vibe kapsam/kaynak çipleri); panel sayısı PANELS'ten türetilir" },
-        { "tur": "test", "metin": "Zyrone ve Meown canlı panel verisi; Qervan eski sürüm → özet metni" }
+        {
+          "tur": "yeni",
+          "metin": "Üç Juris paneli Ana Merkez'e gömüldü (sol menü, portföy kartları, Vibe kapsam/kaynak çipleri); panel sayısı PANELS'ten türetilir"
+        },
+        {
+          "tur": "test",
+          "metin": "Zyrone ve Meown canlı panel verisi; Qervan eski sürüm → özet metni"
+        }
       ]
     },
     {
@@ -180,9 +350,18 @@
       "baslik": "MTFG Ana Merkez + Juris panel kiti",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "apps/ana-merkez: MTFG Portföy Paneli + gömülü Juris panelleri (Onscala, Codemag) + Vibe Management stüdyosu — kurucu kodu birebir" },
-        { "tur": "yeni", "metin": "packages/juris-panel-kit: panel master + müvekkil veri blokları + assemble/smoke kiti" },
-        { "tur": "iyilestirme", "metin": "Ürün çerçevesi: VIBE Management = Ana Merkez; Mr. F konsolu alt modül" }
+        {
+          "tur": "yeni",
+          "metin": "apps/ana-merkez: MTFG Portföy Paneli + gömülü Juris panelleri (Onscala, Codemag) + Vibe Management stüdyosu — kurucu kodu birebir"
+        },
+        {
+          "tur": "yeni",
+          "metin": "packages/juris-panel-kit: panel master + müvekkil veri blokları + assemble/smoke kiti"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Ürün çerçevesi: VIBE Management = Ana Merkez; Mr. F konsolu alt modül"
+        }
       ]
     },
     {
@@ -192,8 +371,14 @@
       "baslik": "Juris görsel standardı",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "iyilestirme", "metin": "Tasarım sistemi Juris Kurumsal Kimlik'e taşındı: lacivert/kırmızı, Playfair · Inter · JetBrains Mono, panellerle aynı dizilim" },
-        { "tur": "iyilestirme", "metin": "Not bileşeni, kodlu nav, vurgulu tile; açık/koyu/mobil doğrulandı" }
+        {
+          "tur": "iyilestirme",
+          "metin": "Tasarım sistemi Juris Kurumsal Kimlik'e taşındı: lacivert/kırmızı, Playfair · Inter · JetBrains Mono, panellerle aynı dizilim"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Not bileşeni, kodlu nav, vurgulu tile; açık/koyu/mobil doğrulandı"
+        }
       ]
     },
     {
@@ -203,20 +388,56 @@
       "baslik": "Temel",
       "durum": "yayinda",
       "degisiklikler": [
-        { "tur": "yeni", "metin": "Monorepo: @vibe/core (skor motoru), @vibe/api (Fastify + SQLite), @vibe/web (React + Vite)" },
-        { "tur": "yeni", "metin": "Tasarım token'ları: kurucu doküman dili (brass/verdi, Archivo · Source Serif · Plex Mono), açık + koyu tema" },
-        { "tur": "yeni", "metin": "Problem Rafı: liste ve pano görünümü, sektör/fonksiyon/durum filtreleri, skor sıralaması" },
-        { "tur": "yeni", "metin": "Problem sayfası: bağlam, müşteri dili, 13 temel skor, P75 eşikli türetilen skorlar, çözüm adayları" },
-        { "tur": "yeni", "metin": "Karar Panosu: P75 eşikleri, dört fırsat sıralaması, private-label adayları" },
-        { "tur": "yeni", "metin": "Talep sinyali logu: arama, boş sonuç, görüntüleme, 'biz kuralım'" },
-        { "tur": "yeni", "metin": "Uygulama içi geri bildirim + triage; ⌘K komut paleti" },
-        { "tur": "test", "metin": "TS skor motoru score.py çıktısıyla parite testi" }
+        {
+          "tur": "yeni",
+          "metin": "Monorepo: @vibe/core (skor motoru), @vibe/api (Fastify + SQLite), @vibe/web (React + Vite)"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Tasarım token'ları: kurucu doküman dili (brass/verdi, Archivo · Source Serif · Plex Mono), açık + koyu tema"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Problem Rafı: liste ve pano görünümü, sektör/fonksiyon/durum filtreleri, skor sıralaması"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Problem sayfası: bağlam, müşteri dili, 13 temel skor, P75 eşikli türetilen skorlar, çözüm adayları"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Karar Panosu: P75 eşikleri, dört fırsat sıralaması, private-label adayları"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Talep sinyali logu: arama, boş sonuç, görüntüleme, 'biz kuralım'"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Uygulama içi geri bildirim + triage; ⌘K komut paleti"
+        },
+        {
+          "tur": "test",
+          "metin": "TS skor motoru score.py çıktısıyla parite testi"
+        }
       ]
     }
   ],
   "planli": [
-    { "surum": "0.5.7", "baslik": "Doğrulama turu (Gülşah ile 5 panel)", "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)" },
-    { "surum": "0.3.0", "baslik": "Kanıt katmanı v1", "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı" },
-    { "surum": "0.4.0", "baslik": "Mr. F MVP-0", "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu" }
+    {
+      "surum": "0.5.7",
+      "baslik": "Doğrulama turu (Gülşah ile 5 panel)",
+      "ozet": "Veri tarihi damgası, doğrulama checklist'i, Gülşah ile 5 müvekkil; el yapımı paneller için Drive yeniden tarama (drive-sync scanClient önerileri)"
+    },
+    {
+      "surum": "0.3.0",
+      "baslik": "Kanıt katmanı v1",
+      "ozet": "Çözüm kaydı, 4 zorunlu sütun, ölçüm kaydı"
+    },
+    {
+      "surum": "0.4.0",
+      "baslik": "Mr. F MVP-0",
+      "ozet": "Ledger + router + eval koşucusu, ilk kanıt raporu"
+    }
   ]
 }
