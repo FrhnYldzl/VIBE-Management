@@ -1441,7 +1441,7 @@ function odNextWeek(){ const W=odWeeks(), last=W[W.length-1]; const n=parseInt(S
 function renderOdak(){ const el=$("#odakBody"); if(!el) return; const W=odWeeks(); const w=odCurWeek(); odCur=w.w; const s=odStats(w), ed=PS_EDIT.odak;
   const totalPuan=W.reduce((a,x)=>a+odStats(x).puan,0), lv=odLevel(totalPuan), streak=odStreak(); const cumDone=W.reduce((a,x)=>a+odStats(x).tamam,0);
   $("#navOdak").textContent=w.w+" · %"+s.pct;
-  $("#odakActs").innerHTML=`<button class="btn" data-od="csv">Excel (CSV)</button><button class="btn" data-od="doc">Word</button><button class="btn" data-od="pdf">PDF / Yazdır</button>${ed?`<button class="btn" data-psact="cancel|odak">Vazgeç</button><button class="btn primary" data-psact="save|odak">Kaydet</button>`:`<button class="btn" data-psact="edit|odak">Düzenle</button><button class="btn" data-psact="vibe|odak">✦ Vibe ile düzenle</button>`}`;
+  $("#odakActs").innerHTML=`<button class="btn" data-od="xlsx">Excel</button><button class="btn" data-od="docx">Word</button><button class="btn" data-od="pdf">PDF</button><button class="btn" data-od="csv" title="Ham CSV">CSV</button>${ed?`<button class="btn" data-psact="cancel|odak">Vazgeç</button><button class="btn primary" data-psact="save|odak">Kaydet</button>`:`<button class="btn" data-psact="edit|odak">Düzenle</button><button class="btn" data-psact="vibe|odak">✦ Vibe ile düzenle</button>`}`;
   const badges=[]; if(streak>=3) badges.push(["🔥 "+streak+" hafta seri","warn"]); if(s.tahTop&&s.tahT/s.tahTop>=.5) badges.push(["Tahsilat %50+","ok"]); if(!s.devir&&W.length>1) badges.push(["Sıfır devir","ok"]); if(s.pct>=90) badges.push(["Haftayı kapattı","ok"]);
   const groups={}; w.items.forEach((x,i)=>{ const g=x.grup||"Diğer"; const sub=x.grup==="Toplantı"?x.alan:(x.sirket||"—"); ((groups[g]??={})[sub]??=[]).push([x,i]); });
   const row=([x,i])=>ed?`<div class="od-row"><span></span><div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:4px">${psIn("odak",`${W.indexOf(w)}.items.${i}.baslik`,x.baslik)}${psIn("odak",`${W.indexOf(w)}.items.${i}.alan`,x.alan,{ph:"alan"})}${psIn("odak",`${W.indexOf(w)}.items.${i}.sorumlu`,x.sorumlu,{ph:"sorumlu"})}</div><span>${psIn("odak",`${W.indexOf(w)}.items.${i}.tutar`,x.tutar,{num:1,ph:"tutar"})}</span><span></span><button class="ps-x" data-psdel="odak|${W.indexOf(w)}.items|${i}">×</button></div>`
@@ -1526,8 +1526,7 @@ document.addEventListener("click",e=>{
     if(act==="addall"){ odSuggest(w).forEach(x=>w.items.push({id:w.w+"-"+uid(),grup:x.grup,sirket:x.sirket,alan:x.alan,baslik:x.baslik,sorumlu:x.sorumlu||"",durum:"acik",tutar:null,para:null,kaynak:x.kaynak})); psSave("odak"); renderOdak(); return; }
     if(act==="next"){ if(confirm(`${w.w} kapanıp yeni hafta açılsın mı? Kapanmayan ${w.items.filter(x=>x.durum!=="tamam").length} kalem devreder.`)) odNextWeek(); }
     if(act==="csv"){ const rows=[["Hafta","Grup","Şirket/Proje","Alan","Odak","Sorumlu","Durum","Tutar","Para","Devir"],...odExportRows(w)]; odDownload(`MTFG-Odak-${w.w}.csv`,"text/csv;charset=utf-8","﻿"+rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(";")).join("\r\n")); }
-    if(act==="doc") odDownload(`MTFG-Odak-${w.w}.doc`,"application/msword",odHtml(w));
-    if(act==="pdf"){ const win=window.open("","_blank"); if(!win){alert("Açılır pencere engellendi.");return;} win.document.write(odHtml(w)); win.document.close(); setTimeout(()=>win.print(),300); }
+    if(act==="docx"||act==="xlsx"||act==="pdf") jurisExport(act,"MTFG Haftalık Odak · "+w.w+" ("+(w.start||"")+")",odMarkdown(w),{kapsam:"MTFG · tüm portföy",kaynak:"Haftalık Odak"});
     return; }
 });
 document.addEventListener("submit",e=>{ if(e.target.id!=="odAdd") return; e.preventDefault(); const f=e.target, w=odCurWeek();
@@ -1772,7 +1771,7 @@ function renderThread(){
   t.hidden=false;
   t.innerHTML=`<div class="thread-bar"><span>Oturum · ${esc(s.title)}${s.example?" · örnek içerik":""}</span><button id="vnew">Yeni oturum</button></div>`+s.msgs.map((m,i)=>`<div class="msg-u"><span class="meta">${esc(scopeName(s.scope))} · ${esc(alanName(s.alan))}${m.files?` · ${esc(m.files)}`:""}</span>${esc(m.q)}</div><div class="msg-a"><div class="av">${AV}</div><div class="body">${md(m.a)}${actHTML(i)}</div></div>`).join("");
 }
-function actHTML(i){ return `<div class="act"><button data-copy="${i}">Kopyala</button><button data-save="${i}">Kaydet</button><button data-mail="${i}" title="Varsayılan e-posta istemcisinde taslak olarak açar">E-posta taslağı aç</button><button data-follow="Bunu daha kısa ve madde madde yap.">Kısalt</button><button data-follow="Bunu e-posta taslağına çevir.">E-postaya çevir</button><button data-follow="Bundan aksiyon listesi (sahip, tarih, öncelik) çıkar.">Aksiyonlara çevir</button></div>`; }
+function actHTML(i){ return `<div class="act"><button data-copy="${i}">Kopyala</button><button data-save="${i}">Kaydet</button><button data-mail="${i}" title="Varsayılan e-posta istemcisinde taslak olarak açar">E-posta taslağı aç</button><button data-exp="docx|${i}" title="Juris antetli Word">Word</button><button data-exp="xlsx|${i}" title="Tablolar ayrı sayfada, antetli Excel">Excel</button><button data-exp="pdf|${i}" title="Antetli yazdır / PDF">PDF</button><button data-follow="Bunu daha kısa ve madde madde yap.">Kısalt</button><button data-follow="Bunu e-posta taslağına çevir.">E-postaya çevir</button><button data-follow="Bundan aksiyon listesi (sahip, tarih, öncelik) çıkar.">Aksiyonlara çevir</button></div>`; }
 
 /* ---- kütüphane ---- */
 function saveLib(){ lsSet(LSK.lib,library); pushState("library"); $("#libCnt").textContent=library.length; renderRecent(); syncNavCounts(); }
@@ -1783,7 +1782,7 @@ function renderLibrary(){
   const fl=[["all","Tümü"],...SCOPES.slice(1).map(([k,t])=>[k,t])];
   $("#lfil").innerHTML=fl.map(([k,t])=>`<button class="${k===lfil?"on":""}" data-lfil="${k}">${t}</button>`).join("");
   const list=library.filter(l=>lfil==="all"||l.scope===lfil);
-  $("#libList").innerHTML=list.length?list.map(l=>`<div class="li"><b>${esc(l.title)}</b><div class="m"><span>${esc(scopeName(l.scope))}</span><span>${esc(alanName(l.alan))}</span><span>${fmtD(l.date)}</span><span>${esc(l.sess||"")}</span></div><div class="acts"><button data-lshow="${l.id}">Göster</button><button data-lcopy="${l.id}">Kopyala</button><button data-ldel="${l.id}">Sil</button></div><div class="body" id="lb-${l.id}" hidden>${md(l.text)}</div></div>`).join(""):`<div class="empty"><b>Kütüphane boş</b>Stüdyoda ürettiğiniz bir yanıtın altındaki "Kaydet" düğmesi çıktıyı buraya ekler.</div>`;
+  $("#libList").innerHTML=list.length?list.map(l=>`<div class="li"><b>${esc(l.title)}</b><div class="m"><span>${esc(scopeName(l.scope))}</span><span>${esc(alanName(l.alan))}</span><span>${fmtD(l.date)}</span><span>${esc(l.sess||"")}</span></div><div class="acts"><button data-lshow="${l.id}">Göster</button><button data-lcopy="${l.id}">Kopyala</button><button data-lexp="docx|${l.id}">Word</button><button data-lexp="xlsx|${l.id}">Excel</button><button data-lexp="pdf|${l.id}">PDF</button><button data-ldel="${l.id}">Sil</button></div><div class="body" id="lb-${l.id}" hidden>${md(l.text)}</div></div>`).join(""):`<div class="empty"><b>Kütüphane boş</b>Stüdyoda ürettiğiniz bir yanıtın altındaki "Kaydet" düğmesi çıktıyı buraya ekler.</div>`;
 }
 
 async function buildContext(){
@@ -1798,6 +1797,34 @@ async function buildContext(){
   for(const id of PANEL_IDS) if(src[id]){ const d=await panelData(id); used.push(PANELS[id].name+" ("+d.src+")"); parts.push(`## ${PANELS[id].name} Kurumsal Yönetim Paneli (${d.src})\n`+d.txt); }
   return {text:parts.join("\n\n"),used};
 }
+/* ======= DIŞA AKTARMA (v0.6.0): Juris antetli Word · Excel (sunucu, /api/export) · PDF (antetli yazdır) ======= */
+async function jurisExport(fmt,title,text,meta={}){
+  meta={hazirlayan:(typeof ME_NAME!=="undefined"&&ME_NAME)||"",tarih:new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"}),...meta};
+  if(fmt==="pdf"){ const w=window.open("","_blank"); if(!w){alert("Açılır pencere engellendi — tarayıcıda bu siteye izin verin.");return;}
+    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+esc(title)+'</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>'
+      +'@page{size:A4;margin:22mm 18mm 20mm}body{font-family:Inter,Arial,sans-serif;color:#1F2937;font-size:10.5pt;line-height:1.5;margin:0}'
+      +'.lh{display:flex;align-items:baseline;gap:10px;border-bottom:1.5pt solid #0A2240;padding-bottom:6px;margin-bottom:18px}.lh b{font-family:"Playfair Display",Georgia,serif;color:#BC2F2C;font-size:18pt;letter-spacing:.04em}.lh span{font-size:8pt;color:#0A2240;font-weight:600;letter-spacing:.12em;text-transform:uppercase}.lh i{font-style:normal;font-size:8pt;color:#4A5568;margin-left:auto}'
+      +'h1.t{font-family:"Playfair Display",Georgia,serif;font-weight:500;color:#0A2240;font-size:20pt;margin:0 0 4px}.meta{font-size:8.5pt;color:#4A5568;border-bottom:1pt solid #BC2F2C;padding-bottom:8px;margin-bottom:14px}'
+      +'h1,h2{font-family:"Playfair Display",Georgia,serif;font-weight:500;color:#0A2240}h3,h4{color:#BC2F2C;font-size:11pt}table{border-collapse:collapse;width:100%;margin:8px 0 12px;font-size:9.5pt}th{background:#0A2240;color:#fff;text-align:left;padding:5px 7px}td{padding:5px 7px;border-bottom:.5pt solid #D1D5DB}tr:nth-child(even) td{background:#F3F2EE}code{font-family:"JetBrains Mono",monospace;font-size:9pt}blockquote{border-left:2pt solid #BC2F2C;margin:8px 0;padding:2px 10px;color:#4A5568}'
+      +'.ft{position:fixed;bottom:0;left:0;right:0;font-size:7.5pt;color:#4A5568;border-top:.5pt solid #D1D5DB;padding-top:4px;display:flex;justify-content:space-between}'
+      +'</style></head><body><div class="lh"><b>JURİS</b><span>Avukatlık Ortaklığı</span><i>Şirketler Hukuku ve Kurumsal Yönetim</i></div>'
+      +'<h1 class="t">'+esc(title)+'</h1><div class="meta">'+[meta.kapsam,meta.tarih,meta.hazirlayan].filter(Boolean).map(esc).join(" · ")+'</div>'+md(text)
+      +'<div class="ft"><span>'+esc(title)+' · Gizli – yalnız muhatabına</span><span>Juris · VIBE Management</span></div></body></html>');
+    w.document.close(); setTimeout(()=>{w.focus();w.print();},700); return; }
+  $("#vnote").textContent=(fmt==="docx"?"Word":"Excel")+" hazırlanıyor…";
+  try{ const r=await fetch("/api/export",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({format:fmt,title:String(title).slice(0,160),md:text,meta})});
+    if(!r.ok){ alert("Dışa aktarılamadı: "+(await r.text())); return; }
+    const cd=r.headers.get("content-disposition")||""; const nm=decodeURIComponent((cd.match(/filename\*=UTF-8''([^;]+)/)||[])[1]||("juris-cikti."+fmt));
+    const a=document.createElement("a"); a.href=URL.createObjectURL(await r.blob()); a.download=nm; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),3000);
+    $("#vnote").textContent=nm+" indirildi.";
+  }catch(e){ alert("Bağlantı hatası: "+e.message); } }
+/* Haftalık Odak → Markdown (Word/PDF metni + Excel tablosu) */
+function odMarkdown(w){ const s=odStats(w); const by={}; w.items.forEach(x=>((by[(x.grup==="Toplantı"?"Toplantılar · ":x.grup==="Proje"?"Proje · ":x.grup==="Hedef"?"Hedefler · ":"")+(x.grup==="Toplantı"?x.alan:x.sirket)]??=[]).push(x)));
+  const cell=v=>String(v??"").replace(/\|/g,"/");
+  return "Tamamlanma **%"+s.pct+"** · "+s.tamam+"/"+s.toplam+" kalem · tahsilat "+psFmt(s.tahT,"TL")+" / "+psFmt(s.tahTop,"TL")+" · "+s.devir+" devreden\n\n"
+    +Object.entries(by).map(([g,xs])=>"## "+g+"\n"+xs.map(x=>"- **["+OD_T[x.durum]+"]** "+(x.alan&&x.grup!=="Toplantı"?x.alan+" · ":"")+x.baslik+(x.sorumlu?" — "+x.sorumlu:"")+(x.tutar?" · "+psFmt(x.tutar,x.para||"TL"):"")+(x.devir?" (↻ "+x.devir+")":"")).join("\n")).join("\n\n")
+    +"\n\n## Tüm kalemler\n\n| Grup | Şirket / Proje | Alan | Odak | Sorumlu | Durum | Tutar | Para | Devir |\n|---|---|---|---|---|---|---|---|---|\n"
+    +w.items.map(x=>"| "+[x.grup,x.sirket,x.alan,x.baslik,x.sorumlu,OD_T[x.durum],x.tutar??"",x.para||"",x.devir||""].map(cell).join(" | ")+" |").join("\n"); }
 function md(s){
   const L=esc(s).split("\n"); let o="",ul=false,ol=false,tb=[];
   const inl=x=>x.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`]+)`/g,"<code>$1</code>");
@@ -1911,6 +1938,8 @@ document.addEventListener("click",e=>{
   const vt=e.target.closest("[data-vtab]"); if(vt){setVtab(vt.dataset.vtab);return;}
   const ax=e.target.closest("[data-att]"); if(ax){atts=atts.filter(a=>a.id!==ax.dataset.att);renderAtts();return;}
   const fo=e.target.closest("[data-follow]"); if(fo){$("#vq").value=fo.dataset.follow;run();return;}
+  const ex=e.target.closest("[data-exp]"); if(ex){ const [fmt,i]=ex.dataset.exp.split("|"); const s=sessions.find(x=>x.id===curSess); const m=s&&s.msgs[+i]; if(m) jurisExport(fmt,titleOf(m.a,m.q),m.a,{kapsam:scopeName(s.scope),kaynak:"Vibe oturumu: "+s.title}); return; }
+  const lx=e.target.closest("[data-lexp]"); if(lx){ const [fmt,id]=lx.dataset.lexp.split("|"); const l=library.find(x=>x.id===id); if(l) jurisExport(fmt,l.title,l.text,{kapsam:scopeName(l.scope),kaynak:"Çıktı Kütüphanesi"}); return; }
   const ml=e.target.closest("[data-mail]"); if(ml){mailDraft(+ml.dataset.mail);return;}
   const cp=e.target.closest("[data-copy]"); if(cp){const s=sessions.find(x=>x.id===curSess);const m=s&&s.msgs[+cp.dataset.copy];if(m)copyText(m.a,cp);return;}
   const sv=e.target.closest("[data-save]"); if(sv){addToLib(+sv.dataset.save);sv.textContent="Kaydedildi";return;}

@@ -316,11 +316,11 @@
         },
         {
           "v": "0.6.0",
-          "ad": "Çıktı dışa aktarma (kurucu önerisi 2): Word (docx) · Excel (xlsx) · PDF, Juris Kurumsal Yönetim anteti; önce antetli yazdırma stili",
-          "durum": "planned",
+          "ad": "Çıktı dışa aktarma (kurucu önerisi 2): Juris antetli Word (.docx) · Excel (.xlsx, tablolar ayrı sayfa, sayılar sayı) · PDF (antetli yazdır) — Vibe yanıtları, Çıktı Kütüphanesi ve Haftalık Odak",
+          "durum": "done",
           "alan": "Vibe",
           "dikey": "VM",
-          "kabul": "Bir oturum çıktısı antetli .docx/.xlsx/.pdf iniyor"
+          "kabul": "Bir oturum çıktısı ve W43 odak antetli .docx / .xlsx olarak iniyor; PDF antetli yazdırma penceresi açılıyor (yerelde doğrulandı)"
         },
         {
           "v": "0.6.1",

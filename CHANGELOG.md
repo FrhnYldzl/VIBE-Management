@@ -3,6 +3,16 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.6.0] — 2026-10-22 · Juris antetli Word · Excel · PDF
+
+### Eklendi
+- `apps/server/src/export.ts` + `POST /api/export` (`docx` | `xlsx`): Markdown → Juris antetli belge. Word: antet (JURİS · Avukatlık Ortaklığı ·
+  Şirketler Hukuku ve Kurumsal Yönetim), başlık, kapsam/tarih/hazırlayan, başlık-paragraf-liste-tablo-alıntı, alt bilgide gizlilik + Sayfa X / Y.
+  Excel: Özet + tablo başına sayfa, antet satırları, lacivert başlık, zebra, filtre, sayı/yüzde dönüşümü (`cellValue`). Bağımlılık: `docx`, `exceljs`.
+- PDF: tarayıcıda antetli A4 yazdırma görünümü (`jurisExport("pdf")`).
+- Ana Merkez: Vibe yanıt eylemlerinde ve Çıktı Kütüphanesi'nde **Word · Excel · PDF**; Haftalık Odak dışa aktarımı antetli belgeye geçti (`odMarkdown`).
+- Testler: Markdown ayrıştırma, hücre değerleri, docx (PK imzası, başlıklar) ve xlsx (sayfa adları, sayısal hücreler) — 46 test.
+
 ## [0.5.10] — 2026-10-22 · Haftalar yan yana · hatırlatıcılar · teyit · Journal
 
 ### Eklendi

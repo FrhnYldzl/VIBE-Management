@@ -1,6 +1,35 @@
 {
   "surumler": [
     {
+      "surum": "0.6.0",
+      "tarih": "2026-10-22",
+      "faz": "v1.0 yolu",
+      "baslik": "Juris antetli Word · Excel · PDF",
+      "durum": "yayinda",
+      "degisiklikler": [
+        {
+          "tur": "yeni",
+          "metin": "Vibe yanıtlarının altında Word · Excel · PDF; Çıktı Kütüphanesi'nde her kayıtta aynı düğmeler"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Word (.docx): JURİS antet (kırmızı logo yazısı, lacivert çizgi), başlık + kapsam/tarih/hazırlayan satırı, Markdown başlık/paragraf/liste/tablo/alıntı, alt bilgide 'Gizli – yalnız muhatabına' ve Sayfa X / Y"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Excel (.xlsx): Özet sayfası (metin) + her tablo ayrı sayfa; lacivert başlık satırı, zebra, filtre, dondurulmuş başlık; '641.993,34 ₺' ve '%45' gibi değerler sayı / yüzde olarak"
+        },
+        {
+          "tur": "yeni",
+          "metin": "PDF: antetli A4 yazdırma görünümü (Playfair + Inter, lacivert/kırmızı) → tarayıcıdan PDF olarak kaydet"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Haftalık Odak dışa aktarımı antetli Word / Excel / PDF'e geçti (CSV ayrıca duruyor)"
+        }
+      ]
+    },
+    {
       "surum": "0.5.10",
       "tarih": "2026-10-22",
       "faz": "v1.0 yolu",

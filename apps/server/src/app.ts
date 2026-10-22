@@ -7,6 +7,7 @@ import { type AuthConfig, configFromEnv } from "./auth.ts";
 import { registerAuth } from "./auth-routes.ts";
 import { type Drive, driveConfigError, driveFromEnv, registerIntake } from "./intake-routes.ts";
 import { registerDailySync } from "./sync-job.ts";
+import { registerExport } from "./export.ts";
 import { ADMIN_DIR, ANA_MERKEZ_PUBLIC, DATA_DIR, LANDING_DIR, ROOT, VERSION } from "./paths.ts";
 import { registerSample } from "./sample.ts";
 import { registerState } from "./state-routes.ts";
@@ -67,6 +68,7 @@ export function buildApp({ logger = false, auth = configFromEnv(), store, panels
   app.get("/api/releases", async () => ({ guncel: VERSION, ...json<Record<string, unknown>>("releases.json") }));
   registerSample(app);
   registerState(app, db);
+  registerExport(app);
   const intake = registerIntake(app, db, PANELS_DIR, getDrive);
   registerDailySync(app, db, getDrive, intake.rescan, { schedule: !process.env.VITEST && process.env.DAILY_SYNC !== "0" });
 
