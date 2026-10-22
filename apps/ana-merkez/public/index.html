@@ -315,6 +315,62 @@ textarea.ps-in{min-height:44px;resize:vertical}
 .pcard .facts span{font-size:11.5px;color:var(--ink-2);background:var(--tint-04);border:1px solid var(--border);padding:2px 8px;border-radius:999px}
 .pcard .go{font-size:12px;color:var(--info);font-weight:600}
 .view{display:none}.view.active{display:block}
+/* v0.6.5 Oturum çalışma alanı (Claude tarzı) */
+.main.sess-mode{padding:0;overflow:hidden;display:flex;flex-direction:column;background:var(--v-bg);color:var(--v-ink)}
+.main.sess-mode .topbar{padding:10px 16px;min-height:0;border-bottom:1px solid var(--v-line)}
+.main.sess-mode>.wrap{max-width:none;margin:0;flex:1;min-height:0;display:flex;width:100%}
+.main.sess-mode #v-oturum.active{display:flex;flex:1;min-height:0;width:100%}
+.sx{position:relative;display:grid;grid-template-columns:268px minmax(0,1fr) 292px;width:100%;min-height:0;height:100%}
+.sx-list{display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--v-line);background:var(--v-bg-2)}
+.sx-list .top{display:flex;flex-direction:column;gap:8px;padding:14px 12px 8px}
+.sx-newbtn{display:flex;align-items:center;justify-content:center;gap:8px;height:38px;border:0;border-radius:10px;background:var(--v-red);color:#fff;font-weight:600;font-size:13px;cursor:pointer}
+.sx-newbtn:hover{filter:brightness(1.08)}
+.sx-search,.sx-filter{height:32px;border-radius:8px;background:var(--v-bg);border:1px solid var(--v-line-2);color:var(--v-ink);padding:0 10px;font:inherit;font-size:12.5px;width:100%}
+.sx-items{flex:1;min-height:0;overflow-y:auto;padding:2px 8px 16px}
+.sx-g{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--v-ink-3);padding:12px 8px 4px;font-weight:600}
+.sx-it{display:flex;align-items:center;gap:6px;width:100%;padding:7px 8px;border-radius:8px;color:var(--v-ink-2);font-size:13px;cursor:pointer;border:0;background:transparent;text-align:left}
+.sx-it:hover{background:rgba(255,255,255,.05);color:var(--v-ink)} .sx-it.cur{background:var(--v-panel-2);color:var(--v-ink)}
+.sx-it .tt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sx-it .ex{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--v-amber)}
+.sx-it .ia{display:none;gap:2px} .sx-it:hover .ia,.sx-it.cur .ia{display:flex}
+.sx-it .ia button{width:22px;height:22px;border-radius:6px;border:0;background:transparent;color:var(--v-ink-3);cursor:pointer;font-size:12px;line-height:1}
+.sx-it .ia button:hover{background:rgba(255,255,255,.08);color:var(--v-ink)} .sx-it .ia button.on{color:var(--v-amber)} .sx-it .ia button.arm{color:var(--v-red)}
+.sx-none{padding:14px 8px;color:var(--v-ink-3);font-size:12.5px}
+.sx-main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.sx-head{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid var(--v-line);min-height:54px}
+.sx-head .ttl{flex:1;min-width:0;font-family:var(--font-display);font-weight:500;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:text;border-radius:6px;padding:2px 4px}
+.sx-head .ttl:hover{background:rgba(255,255,255,.04)} .sx-head input.ttl{background:var(--v-bg-2);border:1px solid var(--v-line-2);color:var(--v-ink);font:inherit;font-family:var(--font-display);font-size:18px}
+.sx-head .pl{display:flex;gap:6px;flex-wrap:nowrap;overflow:hidden;min-width:0;flex:0 1 auto}
+.sx-head .ttl{min-width:140px}
+.sx-head .pl em{font-style:normal;font-size:11px;border:1px solid var(--v-line-2);border-radius:999px;padding:2px 9px;color:var(--v-ink-2);white-space:nowrap}
+.sx-hb{height:30px;padding:0 10px;border-radius:8px;border:1px solid var(--v-line-2);background:transparent;color:var(--v-ink-2);font-size:12px;cursor:pointer;white-space:nowrap}
+.sx-hb:hover{color:var(--v-ink);border-color:var(--v-ink-3)} .sx-hb.mob{display:none}
+.sx-scroll{flex:1;min-height:0;overflow-y:auto;padding:26px 20px 14px}
+.sx-scroll .thread{margin-top:0} .sx-scroll .thread-bar{display:none}
+.sx-empty{max-width:660px;margin:9vh auto 0;text-align:center}
+.sx-empty h2{font-family:var(--font-display);font-weight:500;font-size:30px;margin:10px 0 8px;letter-spacing:-.01em}
+.sx-empty p{color:var(--v-ink-2);font-size:14px;margin:0 0 18px}
+.sx-empty .sug{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.sx-dock{padding:0 20px 16px;background:linear-gradient(to bottom,transparent,var(--v-bg) 30%)}
+.sx-dock .composer{box-shadow:0 10px 30px rgba(0,0,0,.35)} .sx-dock .v-note{max-width:780px;margin:6px auto 0;min-height:0}
+.sx-dock .c-foot{border-top:0;padding-top:4px}
+.sx-ctx{min-height:0;overflow-y:auto;border-left:1px solid var(--v-line);background:var(--v-bg-2);padding:14px 14px 24px}
+.sx-ctx h5{margin:16px 0 8px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--v-ink-3);font-weight:600} .sx-ctx h5:first-child{margin-top:2px}
+.sx-ctx .scope{flex-wrap:wrap;gap:6px;padding:0;margin:0} .sx-ctx .scope .lab{display:none}
+.sx-ctx .srcs{display:flex;flex-wrap:wrap;gap:6px}
+.sx-ctx .kv{font-size:12px;color:var(--v-ink-2);display:grid;grid-template-columns:auto 1fr;gap:4px 10px} .sx-ctx .kv b{color:var(--v-ink-3);font-weight:500}
+.sx-ctx .li{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;padding:6px 0;border-top:1px solid var(--v-line);color:var(--v-ink-2)} .sx-ctx .li:first-of-type{border-top:0}
+.sx-ctx .li button{border:0;background:none;color:var(--v-blue);font-size:12px;cursor:pointer;padding:0}
+.sx-ctx .mt{font-size:12px;color:var(--v-ink-3)}
+.v-recents{max-width:780px;margin:16px auto 0}
+.v-recents .rh{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--v-ink-3);font-weight:600;margin-bottom:8px}
+.v-recents .rh button{border:0;background:none;color:var(--v-ink-2);font-size:12px;letter-spacing:0;text-transform:none;cursor:pointer}
+.v-recents .rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.v-recents .rc{text-align:left;border:1px solid var(--v-line-2);background:rgba(255,255,255,.03);border-radius:12px;padding:10px 12px;color:var(--v-ink);cursor:pointer;min-width:0}
+.v-recents .rc:hover{border-color:var(--v-ink-3);background:rgba(255,255,255,.05)}
+.v-recents .rc b{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .v-recents .rc span{font-size:11.5px;color:var(--v-ink-3)}
+@media (max-width:1200px){.sx{grid-template-columns:248px minmax(0,1fr)} .sx-ctx{display:none} .sx.ctx-open .sx-ctx{display:block;position:absolute;right:0;top:0;bottom:0;width:300px;z-index:6;box-shadow:-20px 0 40px rgba(0,0,0,.4)}}
+@media (max-width:780px){.sx{grid-template-columns:minmax(0,1fr)} .sx-list{display:none} .sx.list-open .sx-list{display:flex;position:absolute;left:0;top:0;bottom:0;width:min(290px,86vw);z-index:7;box-shadow:20px 0 40px rgba(0,0,0,.4)} .sx-hb.mob{display:inline-block} .sx-head .pl,.sx-head [data-sxexp]{display:none} .sx-head{padding:8px 10px;gap:6px} .sx-head .ttl{min-width:0;font-size:16px} .sx-scroll{padding:18px 12px 10px} .sx-dock{padding:0 10px 10px}}
 
 /* ---------- VIBE MANAGEMENT ---------- */
 .main.vibe-mode{background:var(--v-bg);color:var(--v-ink)}
@@ -522,7 +578,7 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
 
   <div class="navsec">
     <button class="ni vibe-ni" data-view="vibe" data-vgo="studio"><span class="k"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l1.6 5.2L15 7l-5.4 1.8L8 14 6.4 8.8 1 7l5.4-1.8z"/></svg></span><span class="t">Vibe Management</span><span class="tag">Claude</span></button>
-    <button class="ni" data-view="vibe" data-vgo="sessions" style="padding-left:42px"><span class="k">·</span><span class="t">Oturumlar</span><span class="pct" id="navSessCnt"></span></button>
+    <button class="ni" data-view="oturum" style="padding-left:42px"><span class="k">·</span><span class="t">Oturumlar</span><span class="pct" id="navSessCnt"></span></button>
     <button class="ni" data-view="vibe" data-vgo="library" style="padding-left:42px"><span class="k">·</span><span class="t">Çıktı Kütüphanesi</span><span class="pct" id="navLibCnt"></span></button>
   </div>
 
@@ -636,7 +692,7 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
         <p>Yatırım yaptığımız, danışmanlık verdiğimiz ve operatörlüğünü üstlendiğimiz şirketlerin panel verisi tek komut satırında. Sor, özetlet, mail ve gündem taslağı çıkar.</p>
       </div>
 
-      <div class="vtabs" role="tablist"><button class="on" data-vtab="studio" role="tab">Stüdyo</button><button data-vtab="sessions" role="tab">Oturumlar <span class="cnt" id="sessCnt">0</span></button><button data-vtab="library" role="tab">Çıktı Kütüphanesi <span class="cnt" id="libCnt">0</span></button></div>
+      <div class="vtabs" role="tablist"><button class="on" data-vtab="studio" role="tab">Stüdyo</button><button data-view="oturum" role="tab" title="Oturumlar ayrı çalışma alanında açılır">Oturumlar <span class="cnt" id="sessCnt">0</span> ↗</button><button data-vtab="library" role="tab">Çıktı Kütüphanesi <span class="cnt" id="libCnt">0</span></button></div>
 
       <div id="vt-studio">
       <div class="composer" id="composer">
@@ -655,6 +711,7 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
         </div>
       </div>
       <div class="quick" id="quick"></div>
+      <div class="v-recents" id="vRecents"></div>
       <div class="v-note" id="vnote"></div>
 
       <div class="thread" id="thread" hidden></div>
@@ -690,6 +747,31 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
         <div class="sess-h"><div class="fil tabs" id="lfil"></div><span class="muted" style="font-size:12px;color:var(--v-ink-3)">Kaydedilen çıktılar bu tarayıcıda saklanır; paylaşmak için kopyalayın.</span></div>
         <div class="lib" id="libList"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- VIBE · OTURUM ÇALIŞMA ALANI (v0.6.5) -->
+  <section class="view" id="v-oturum">
+    <div class="sx" id="sx">
+      <aside class="sx-list" aria-label="Oturumlar">
+        <div class="top">
+          <button class="sx-newbtn" id="sxNew"><span>＋</span>Yeni oturum</button>
+          <input class="sx-search" id="sxSearch" type="search" placeholder="Oturumlarda ara" autocomplete="off">
+          <select class="sx-filter" id="sxFilter" aria-label="Kapsama göre süz"></select>
+        </div>
+        <div class="sx-items" id="sxItems"></div>
+      </aside>
+      <div class="sx-main">
+        <div class="sx-head" id="sxHead"></div>
+        <div class="sx-scroll" id="sxScroll"><div class="sx-empty" id="sxEmpty" hidden></div><div id="sxThread"></div></div>
+        <div class="sx-dock" id="sxDock"></div>
+      </div>
+      <aside class="sx-ctx" id="sxCtx" aria-label="Oturum bağlamı">
+        <h5>Kapsam</h5><div id="sxCtxScope"></div>
+        <h5>Alan</h5><div id="sxCtxAlan"></div>
+        <h5>Veri kaynakları</h5><div id="sxCtxSrcs"></div>
+        <div id="sxCtxInfo"></div>
+      </aside>
     </div>
   </section>
 
@@ -1721,7 +1803,7 @@ async function pullState(){ try{ const r=await fetch(VAPI,{credentials:"same-ori
   if(st.library&&Array.isArray(st.library.value)){ library=st.library.value; lsSet(LSK.lib,library); } else if(library.length){ pushState("library"); }
   if(st.egitim&&Array.isArray(st.egitim.value)){ egitimState=st.egitim.value; renderEgitim(); renderFunnel(); }
   psPull(st);
-  if(typeof renderStudio==="function")renderStudio(); if(typeof renderSessions==="function")renderSessions(); if(typeof renderLibrary==="function")renderLibrary(); if(typeof renderRecent==="function")renderRecent(); if(typeof renderThread==="function")renderThread();
+  if(typeof renderStudio==="function")renderStudio(); if(typeof renderSessions==="function")renderSessions(); if(typeof renderLibrary==="function")renderLibrary(); if(typeof renderRecent==="function")renderRecent(); if(typeof renderThread==="function")renderThread(); if(typeof renderSx==="function"){ renderSx(); renderRecents(); }
   $("#sessCnt").textContent=sessions.length; $("#libCnt").textContent=library.length; syncNavCounts(); }catch(e){} }
 let curSess=null, running=null, sampleP=null, vtab="studio", sfil="all", lfil="all";
 let atts=[]; /* {id,name,kind:'text'|'image'|'pdf',text?,blob?,err?} */
@@ -1754,7 +1836,7 @@ function loadTpl(id,autorun){
   if(t.file&&!atts.length){ $("#composer").scrollIntoView({behavior:"smooth",block:"center"}); $("#vnote").textContent="Bu şablon dosya ile çalışır: önce 'Dosya ekle' ile dokümanı ekleyin, sonra Çalıştır."; $("#attIn").click(); return; }
   if(autorun) run(); else { $("#composer").scrollIntoView({behavior:"smooth",block:"center"}); $("#vq").focus(); }
 }
-function setVtab(t){ vtab=t; document.querySelectorAll("[data-vtab]").forEach(b=>b.classList.toggle("on",b.dataset.vtab===t)); ["studio","sessions","library"].forEach(k=>$("#vt-"+k).hidden=k!==t); if(t==="sessions")renderSessions(); if(t==="library")renderLibrary();
+function setVtab(t){ if(t==="sessions"){ go("oturum"); return; } vtab=t; document.querySelectorAll("[data-vtab]").forEach(b=>b.classList.toggle("on",b.dataset.vtab===t)); ["studio","sessions","library"].forEach(k=>$("#vt-"+k).hidden=k!==t); if(t==="sessions")renderSessions(); if(t==="library")renderLibrary();
   document.querySelectorAll(".ni[data-vgo]").forEach(b=>b.classList.toggle("active",current==="vibe"&&b.dataset.vgo===t)); syncNavCounts(); }
 /* Sol paneldeki Oturumlar / Kütüphane sayaçları (kurucu önerisi 1) */
 function syncNavCounts(){ const a=$("#navSessCnt"), b=$("#navLibCnt"); if(a)a.textContent=sessions.length; if(b)b.textContent=library.length; }
@@ -1785,9 +1867,9 @@ async function addFiles(list){
 function renderAtts(){ $("#atts").innerHTML=atts.map(a=>`<span class="att" title="${esc(a.name)}"><span class="nm">${esc(a.name)}</span><span class="kind ${a.err?"err":""}">${a.err?esc(a.err):a.kind==="image"?"görsel":a.kind==="pdf"?"pdf · "+Math.round((a.text||"").length/1000)+"k":"metin · "+Math.round((a.text||"").length/1000)+"k"}</span><button class="x" data-att="${a.id}" aria-label="Kaldır">×</button></span>`).join(""); }
 
 /* ---- oturumlar ---- */
-function saveSess(){ lsSet(LSK.sess,sessions); pushState("sessions"); $("#sessCnt").textContent=sessions.length; syncNavCounts(); }
+function saveSess(){ lsSet(LSK.sess,sessions); pushState("sessions"); $("#sessCnt").textContent=sessions.length; syncNavCounts(); if(typeof renderSx==="function")renderSx(); }
 function newSession(title){ const s={id:uid(),title:title||"Yeni oturum",scope,alan,pinned:false,created:Date.now(),msgs:[]}; sessions.unshift(s); curSess=s.id; saveSess(); renderThread(); renderSessions(); return s; }
-function openSession(id){ const s=sessions.find(x=>x.id===id); if(!s)return; curSess=id; setScope(s.scope||"all"); alan=s.alan||"genel"; renderScope(); setVtab("studio"); renderThread(); renderSessions(); $("#composer").scrollIntoView({behavior:"smooth",block:"start"}); }
+function openSession(id){ const s=sessions.find(x=>x.id===id); if(!s)return; curSess=id; lsSet("mtfg-sess",id); setScope(s.scope||"all"); alan=s.alan||"genel"; renderScope(); if(current!=="oturum") go("oturum"); renderThread(); renderSx(); sxBottom(); $("#vq").focus(); }
 function renderSessions(){
   $("#sessCnt").textContent=sessions.length;
   const fl=[["all","Tümü"],["pinned","Sabitli"],...SCOPES.slice(1).map(([k,t])=>[k,t])];
@@ -1907,11 +1989,13 @@ async function run(){
   const q=$("#vq").value.trim(); if(!q){ $("#vq").focus(); return; }
   if(!atts.length && await intakeFromPrompt(q)) return;
   const sample=await getSample();
+  if(current!=="oturum") curSess=null; /* v0.6.5: Vibe sayfası başlatıcıdır — her istek yeni oturum */
   let s=sessions.find(x=>x.id===curSess); if(!s||s.example){ s=newSession(q.replace(/\s+/g," ").slice(0,48)+(q.length>48?"…":"")); }
   else if(!s.msgs.length){ s.title=q.replace(/\s+/g," ").slice(0,48)+(q.length>48?"…":""); s.scope=scope; s.alan=alan; }
+  lsSet("mtfg-sess",s.id); if(current!=="oturum") go("oturum"); $("#sxEmpty").hidden=true;
   renderThread(); const t=$("#thread"); t.hidden=false;
   const fileNames=atts.map(a=>a.name).join(", ");
-  const u=document.createElement("div"); u.className="msg-u"; u.innerHTML=`<span class="meta">${esc(scopeName(scope))} · ${esc(alanName(alan))} · ${esc(SOURCES.filter(([k])=>src[k]).map(([,l])=>l).join(", ")||"kaynak yok")}${fileNames?" · "+esc(fileNames):""}</span>${esc(q)}`; t.appendChild(u);
+  const u=document.createElement("div"); u.className="msg-u"; const srcL=SOURCES.filter(([k])=>src[k]).map(([,l])=>l); u.innerHTML=`<span class="meta" title="${esc(srcL.join(", "))}">${esc(scopeName(scope))} · ${esc(alanName(alan))} · ${srcL.length?srcL.length+" kaynak":"kaynak yok"}${fileNames?" · "+esc(fileNames):""}</span>${esc(q)}`; t.appendChild(u);
   const a=document.createElement("div"); a.className="msg-a"; a.innerHTML=`<div class="av">${AV}</div><div class="body"><div class="think">Veriler toplanıyor…</div></div>`; t.appendChild(a);
   const body=a.querySelector(".body"); u.scrollIntoView({behavior:"smooth",block:"start"});
   $("#vq").value="";
@@ -1923,7 +2007,7 @@ async function run(){
     const turns=[{role:"user",content:INSTR+"\n\nVERİ\n"+ctx.text}];
     s.msgs.slice(-4).forEach(h=>{turns.push({role:"user",content:h.q});turns.push({role:"assistant",content:h.a});});
     turns.push({role:"user",content:q});
-    const opts={signal:ctl.signal,modelTier:$("#tier").value,cache:false,onText:({text})=>{answer=text;body.innerHTML=md(text);}};
+    const opts={signal:ctl.signal,modelTier:$("#tier").value,cache:false,onText:({text})=>{answer=text;body.innerHTML=md(text);sxStick();}};
     const imgs=atts.filter(x=>x.kind==="image"&&x.blob).map(x=>x.blob);
     if(imgs.length){ const lim=await sample.limits().catch(()=>null); if(lim&&lim.images) opts.images=imgs.slice(0,lim.images.maxCount); else $("#vnote").textContent="Görseller bu görünümde gönderilemiyor; metin dosyaları kullanıldı."; }
     const r=await sample(turns,opts);
@@ -1933,15 +2017,90 @@ async function run(){
     if(!(e&&e.code==="cancelled")) body.insertAdjacentHTML("beforeend",`<div class="err">${esc((e&&(e.code==="budget"||e.code==="tier_off")&&e.message)||ERR[e&&e.code]||ERR.upstream_error)}</div>`);
   }finally{
     running=null; $("#vsendT").textContent="Çalıştır"; $("#vsend").classList.remove("stop");
-    if(answer){ s.msgs.push({q,a:answer,files:fileNames||undefined}); saveSess(); body.insertAdjacentHTML("beforeend",actHTML(s.msgs.length-1)); renderSessions(); }
+    if(answer){ s.msgs.push({q,a:answer,files:fileNames||undefined,at:Date.now()}); s.updated=Date.now(); saveSess(); body.insertAdjacentHTML("beforeend",actHTML(s.msgs.length-1)); renderSessions(); }
     atts=[]; renderAtts();
   }
 }
 function copyText(txt,btn){ const done=()=>{const o=btn.textContent;btn.textContent="Kopyalandı";setTimeout(()=>btn.textContent=o,1400);}; try{navigator.clipboard.writeText(txt).then(done,()=>fallbackCopy(txt,done));}catch(e){fallbackCopy(txt,done);} }
 function fallbackCopy(txt,done){ const ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");done();}catch(e){} ta.remove(); }
 
+/* ======= OTURUM ÇALIŞMA ALANI (v0.6.5) — Claude tarzı: sol liste · sohbet + sabit komut satırı · sağda bağlam =======
+   Komut satırı, kapsam/alan/kaynak çipleri ve not satırı tek DOM düğümüdür; Vibe sayfası ile çalışma alanı arasında taşınır (durum tek yerde kalır). */
+const SX_MOVES=[["#composer","#sxDock"],["#vnote","#sxDock"],["#scope","#sxCtxScope"],["#alan","#sxCtxAlan"],["#srcs","#sxCtxSrcs"]];
+const sxHome=new Map(); let sxIn=false, sxFilt="all", sxQ="";
+const VQ_PH=$("#vq").placeholder;
+function sxPlace(on){ if(on===sxIn) return; sxIn=on;
+  if(on){ for(const [sel,dst] of SX_MOVES){ const el=$(sel); if(!sxHome.has(sel)) sxHome.set(sel,[el.parentNode,el.nextSibling]); $(dst).appendChild(el); } $("#vq").placeholder="Yanıtla ya da yeni istek yaz… (Enter gönderir · Shift+Enter yeni satır)"; $("#vq").rows=2; }
+  else { for(const [sel] of SX_MOVES.slice().reverse()){ const el=$(sel); const [p,n]=sxHome.get(sel); p.insertBefore(el,n&&n.parentNode===p?n:null); } $("#vq").placeholder=VQ_PH; $("#vq").rows=3; } }
+function sxOnGo(v){ const on=v==="oturum"; $("#main").classList.toggle("sess-mode",on); if(on){ $("#main").classList.add("vibe-mode"); $("#app").classList.add("rail"); /* odak: ana menü ikon şeridine iner (paneller gibi) */ }
+  $("#sx").classList.remove("list-open","ctx-open");
+  if(on) $("#crumb").innerHTML='Vibe Management · <b>Oturumlar</b>';
+  sxPlace(on); if(on){ renderThread(); renderSx(); sxBottom(); } else if(v==="vibe") renderRecents(); }
+const sxCur=()=>sessions.find(x=>x.id===curSess);
+const sxWhen=s=>s.updated||s.created||0;
+function sxGroup(s){ if(s.pinned) return "Sabitli"; const d=new Date(sxWhen(s)), n=new Date(); const day=x=>new Date(x.getFullYear(),x.getMonth(),x.getDate()).getTime();
+  const diff=(day(n)-day(d))/864e5; return diff<1?"Bugün":diff<2?"Dün":diff<7?"Son 7 gün":diff<31?"Bu ay":"Daha eski"; }
+function sxBottom(){ const sc=$("#sxScroll"); if(sc) requestAnimationFrame(()=>{ sc.scrollTop=sc.scrollHeight; }); }
+function sxStick(){ const sc=$("#sxScroll"); if(sc&&current==="oturum"&&sc.scrollHeight-sc.scrollTop-sc.clientHeight<180) sc.scrollTop=sc.scrollHeight; }
+function sxNewBlank(){ curSess=null; try{localStorage.removeItem("mtfg-sess")}catch(e){} if(current!=="oturum") go("oturum"); else { renderThread(); renderSx(); } $("#sx").classList.remove("list-open"); $("#vq").focus(); }
+function renderSx(){ if(!$("#sxItems")) return; const s=sxCur();
+  // sol liste
+  const fl=[["all","Tüm oturumlar"],["pinned","Sabitli"],...SCOPES.slice(1).map(([k,t])=>[k,t])];
+  $("#sxFilter").innerHTML=fl.map(([k,t])=>'<option value="'+k+'"'+(k===sxFilt?" selected":"")+'>'+esc(t)+'</option>').join("");
+  const q=sxQ.toLocaleLowerCase("tr");
+  const list=sessions.filter(x=>(sxFilt==="all"||(sxFilt==="pinned"?x.pinned:x.scope===sxFilt))&&(!q||(x.title+" "+x.msgs.map(m=>m.q).join(" ")).toLocaleLowerCase("tr").includes(q))).sort((a,b)=>(b.pinned-a.pinned)||(sxWhen(b)-sxWhen(a)));
+  let g=null, out="";
+  for(const x of list){ const gr=sxGroup(x); if(gr!==g){ g=gr; out+='<div class="sx-g">'+gr+'</div>'; }
+    out+='<div class="sx-it'+(x.id===curSess?" cur":"")+'" data-sxopen="'+x.id+'" role="button" tabindex="0" title="'+esc(x.title)+' · '+esc(scopeName(x.scope))+'"><span class="tt">'+esc(x.title)+'</span>'+(x.example?'<span class="ex">Örnek</span>':"")+'<span class="ia"><button class="'+(x.pinned?"on":"")+'" data-sxpin="'+x.id+'" title="Sabitle">★</button><button data-sxdel="'+x.id+'" title="Sil">✕</button></span></div>'; }
+  $("#sxItems").innerHTML=out||'<div class="sx-none">'+(q||sxFilt!=="all"?"Eşleşen oturum yok.":"Henüz oturum yok. İlk isteğinizi yazın.")+'</div>';
+  // başlık
+  const tier=$("#tier").selectedOptions[0]?.textContent||"";
+  $("#sxHead").innerHTML='<button class="sx-hb mob" data-sxtoggle="list" title="Oturum listesi">☰</button>'+
+    (s?'<div class="ttl" id="sxTtl" title="Yeniden adlandırmak için tıklayın">'+esc(s.title)+'</div><div class="pl"><em>'+esc(scopeName(s.scope))+'</em><em>'+esc(alanName(s.alan))+'</em><em>'+s.msgs.length+' mesaj</em>'+(s.example?'<em>örnek içerik</em>':"")+'</div>'+
+      (s.msgs.length?'<button class="sx-hb" data-sxexp="docx" title="Tüm oturumu Juris antetli Word olarak indir">Word</button><button class="sx-hb" data-sxexp="pdf" title="Tüm oturumu antetli yazdır / PDF">PDF</button>':"")
+     :'<div class="ttl" style="cursor:default">Yeni oturum</div><div class="pl"><em>'+esc(scopeName(scope))+'</em><em>'+esc(alanName(alan))+'</em><em>'+esc(tier)+'</em></div>')+
+    '<button class="sx-hb" data-sxtoggle="ctx" title="Kapsam, alan ve kaynaklar">Bağlam</button>';
+  // boş durum (Claude gibi: oturum ilk mesajla oluşur)
+  const empty=!s||!s.msgs.length; $("#sxEmpty").hidden=!empty;
+  if(empty) $("#sxEmpty").innerHTML='<div class="v-eyebrow" style="display:inline-flex">'+esc(scopeName(scope))+' · '+esc(alanName(alan))+'</div><h2>Bu oturumda neyi <em style="font-style:italic;color:var(--v-red)">ileri</em> taşıyoruz?</h2><p>Kapsam ve alan sağdaki bağlam panelinden seçilir; panel verisi her mesajda Claude\'a gider, önceki yanıtlar hatırlanır.</p><div class="sug">'+QUICK.map(([id,t])=>'<button class="qk" data-tpl="'+id+'">'+esc(t)+'</button>').join("")+'</div>';
+  // sağ bağlam: oturum bilgisi, bu oturumdan kaydedilen çıktılar, ekler
+  let info="";
+  if(s){ const saved=library.filter(l=>l.sess===s.title); const files=[...new Set(s.msgs.map(m=>m.files).filter(Boolean).join(", ").split(", ").filter(Boolean))];
+    info+='<h5>Oturum</h5><div class="kv"><b>Açıldı</b><span>'+new Date(s.created).toLocaleString("tr-TR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})+'</span><b>Son</b><span>'+new Date(sxWhen(s)).toLocaleString("tr-TR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})+'</span><b>Mesaj</b><span>'+s.msgs.length+'</span></div>';
+    info+='<h5>Kaydedilen çıktılar</h5>'+(saved.length?saved.slice(0,8).map(l=>'<div class="li"><span>'+esc(l.title)+'</span><button data-sxlib="1">Aç</button></div>').join(""):'<div class="mt">Yanıt altındaki "Kaydet" ile Çıktı Kütüphanesi\'ne eklenir.</div>');
+    info+='<h5>Ekler</h5>'+(files.length?files.map(n=>'<div class="li"><span>'+esc(n)+'</span></div>').join(""):'<div class="mt">Komut satırındaki "Dosya ekle" ile eklenir.</div>'); }
+  $("#sxCtxInfo").innerHTML=info; }
+/* Vibe sayfası: son oturumlar (başlatıcının altında) */
+function renderRecents(){ const el=$("#vRecents"); if(!el) return; const r=sessions.slice().sort((a,b)=>sxWhen(b)-sxWhen(a)).slice(0,4);
+  el.innerHTML=r.length?'<div class="rh"><span>Son oturumlar</span><button data-view="oturum">Tümü ('+sessions.length+') →</button></div><div class="rg">'+r.map(s=>'<button class="rc" data-sxopen="'+s.id+'"><b>'+esc(s.title)+'</b><span>'+esc(scopeName(s.scope))+' · '+s.msgs.length+' mesaj · '+fmtD(sxWhen(s))+'</span></button>').join("")+'</div>':""; }
+function sxExport(fmt){ const s=sxCur(); if(!s||!s.msgs.length) return;
+  const md=s.msgs.map((m,i)=>"## "+(i+1)+". "+m.q.replace(/\s+/g," ").slice(0,120)+"\n\n"+m.a).join("\n\n---\n\n");
+  jurisExport(fmt,s.title,md,{kapsam:scopeName(s.scope),kaynak:"Vibe oturumu: "+s.title+" · "+s.msgs.length+" mesaj"}); }
+document.addEventListener("click",e=>{
+  const op=e.target.closest("[data-sxopen]"); const pin=e.target.closest("[data-sxpin]"), del=e.target.closest("[data-sxdel]");
+  if(pin){ e.stopPropagation(); const s=sessions.find(x=>x.id===pin.dataset.sxpin); if(s){ s.pinned=!s.pinned; saveSess(); } return; }
+  if(del){ e.stopPropagation(); if(del.dataset.arm){ sessions=sessions.filter(x=>x.id!==del.dataset.sxdel); if(curSess===del.dataset.sxdel){ curSess=null; renderThread(); } saveSess(); renderSessions(); }
+    else { del.dataset.arm="1"; del.classList.add("arm"); del.title="Silmek için tekrar tıklayın"; setTimeout(()=>{ delete del.dataset.arm; del.classList.remove("arm"); del.title="Sil"; },2500); } return; }
+  if(op){ openSession(op.dataset.sxopen); $("#sx").classList.remove("list-open"); return; }
+  if(e.target.closest("[data-sxlib]")){ go("vibe"); setVtab("library"); return; }
+  const tg=e.target.closest("[data-sxtoggle]"); if(tg){ $("#sx").classList.toggle(tg.dataset.sxtoggle==="list"?"list-open":"ctx-open"); return; }
+  const ex=e.target.closest("[data-sxexp]"); if(ex){ sxExport(ex.dataset.sxexp); return; }
+  const tt=e.target.closest("#sxTtl"); if(tt){ const s=sxCur(); if(!s) return; const inp=document.createElement("input"); inp.className="ttl"; inp.value=s.title; tt.replaceWith(inp); inp.focus(); inp.select();
+    let fin=false; const done=(keep)=>{ if(fin) return; fin=true; if(keep){ const v=inp.value.trim(); if(v){ library.forEach(l=>{ if(l.sess===s.title) l.sess=v; }); s.title=v; } } saveSess(); renderSessions(); };
+    inp.addEventListener("blur",()=>done(true)); inp.addEventListener("keydown",ev=>{ if(ev.key==="Enter") inp.blur(); if(ev.key==="Escape"){ done(false); } }); return; }
+});
+$("#sxSearch").addEventListener("input",e=>{ sxQ=e.target.value; renderSx(); });
+$("#sxFilter").addEventListener("change",e=>{ sxFilt=e.target.value; renderSx(); });
+$("#sxItems").addEventListener("keydown",e=>{ const it=e.target.closest("[data-sxopen]"); if(it&&(e.key==="Enter"||e.key===" ")){ e.preventDefault(); openSession(it.dataset.sxopen); } });
+/* kapsam / alan değişince başlık ve boş durum tazelenir */
+new MutationObserver(()=>{ if(current==="oturum"&&!(sxCur()&&sxCur().msgs.length)) renderSx(); }).observe($("#scope"),{subtree:true,childList:true,attributes:true,attributeFilter:["class"]});
+$("#tier").addEventListener("change",()=>{ if(current==="oturum") renderSx(); });
+/* Konuşma her zaman çalışma alanında; Vibe sayfası başlatıcıdır */
+$("#sxThread").appendChild($("#thread"));
+{ const id=lsGet("mtfg-sess",null); if(id&&sessions.find(x=>x.id===id)) curSess=id; }
+
 /* ======= NAV ======= */
-const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi",egitim:"Eğitim Programları",odak:"Haftalık Odak","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI","p-juris":"Juris","p-fevup":"Fevup Brands","p-marqby":"Marqby","p-d2x":"D2-X","p-meridyen":"Meridyen"};
+const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi",egitim:"Eğitim Programları",odak:"Haftalık Odak","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI","p-juris":"Juris","p-fevup":"Fevup Brands","p-marqby":"Marqby","p-d2x":"D2-X","p-meridyen":"Meridyen",oturum:"Oturum"};
 let current="vibe";
 function go(v){
   if(!titles[v]) v="vibe"; current=v; const isPanel=v.startsWith("p-");
@@ -1950,6 +2109,7 @@ function go(v){
   $("#main").classList.toggle("embed",isPanel); $("#main").classList.toggle("vibe-mode",v==="vibe"); $("#app").classList.toggle("rail",isPanel);
   $("#crumb").innerHTML=v==="vibe"?"<b>Vibe Management</b> · Claude Studio":isPanel?`MTFG · Kurumsal Yönetim Panelleri · <b>${titles[v]}</b>`:`MTFG · Portföy · <b>${titles[v]}</b>`;
   if(isPanel) showPanel(v.slice(2));
+  sxOnGo(v);
   closeNav(); if(!isPanel) $("#main").scrollTop=0;
   try{localStorage.setItem("mtfg-view",v)}catch(e){}
 }
@@ -1974,7 +2134,7 @@ document.addEventListener("click",e=>{
   const ml=e.target.closest("[data-mail]"); if(ml){mailDraft(+ml.dataset.mail);return;}
   const cp=e.target.closest("[data-copy]"); if(cp){const s=sessions.find(x=>x.id===curSess);const m=s&&s.msgs[+cp.dataset.copy];if(m)copyText(m.a,cp);return;}
   const sv=e.target.closest("[data-save]"); if(sv){addToLib(+sv.dataset.save);sv.textContent="Kaydedildi";return;}
-  if(e.target.closest("#vnew")||e.target.closest("#sessNew")||e.target.closest("#sessNew2")){newSession();setVtab("studio");$("#composer").scrollIntoView({behavior:"smooth",block:"center"});$("#vq").focus();return;}
+  if(e.target.closest("#vnew")||e.target.closest("#sessNew")||e.target.closest("#sessNew2")||e.target.closest("#sxNew")){sxNewBlank();return;}
   const op=e.target.closest("[data-open]"); if(op){openSession(op.dataset.open);return;}
   const pn=e.target.closest("[data-pin]"); if(pn){const s=sessions.find(x=>x.id===pn.dataset.pin);if(s){s.pinned=!s.pinned;saveSess();renderSessions();}return;}
   const rnm=e.target.closest("[data-ren]"); if(rnm){const s=sessions.find(x=>x.id===rnm.dataset.ren);if(!s)return;const card=rnm.closest(".sc");const b=card.querySelector(".t1 b");if(card.querySelector("input"))return;const inp=document.createElement("input");inp.value=s.title;inp.style.cssText="width:100%;background:transparent;border:1px solid var(--v-line-2);border-radius:6px;color:inherit;padding:3px 6px;font:inherit";b.replaceWith(inp);inp.focus();const done=()=>{s.title=inp.value.trim()||s.title;saveSess();renderSessions();renderThread();};inp.addEventListener("blur",done);inp.addEventListener("keydown",ev=>{if(ev.key==="Enter")inp.blur();});return;}
@@ -1993,7 +2153,7 @@ $("#composer").addEventListener("dragleave",()=>{$("#composer").style.borderColo
 $("#composer").addEventListener("drop",e=>{e.preventDefault();$("#composer").style.borderColor="";if(e.dataTransfer&&e.dataTransfer.files.length)addFiles(e.dataTransfer.files);});
 document.addEventListener("keydown",e=>{const co=e.target.closest&&e.target.closest(".co.click");if(co&&(e.key==="Enter"||e.key===" ")){e.preventDefault();go(co.dataset.view);}});
 $("#vsend").addEventListener("click",run);
-$("#vq").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();run();}});
+$("#vq").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();run();return;} if(current==="oturum"&&e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();run();}});
 $("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"});
 
 renderHome();renderThesis();renderPortfolio();renderFunnel();renderVB();renderCapital();renderValue();renderRisk();renderDocs();renderEgitim();psRenderAll();renderVibeStatic();

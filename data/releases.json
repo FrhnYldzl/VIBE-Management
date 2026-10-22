@@ -1,6 +1,35 @@
 {
   "surumler": [
     {
+      "surum": "0.6.5",
+      "tarih": "2026-10-22",
+      "faz": "v1.0 yolu",
+      "baslik": "Vibe oturumları ayrı çalışma alanında (Claude tarzı)",
+      "durum": "yayinda",
+      "degisiklikler": [
+        {
+          "tur": "yeni",
+          "metin": "Oturumlar artık Vibe sayfasında değil, kendi çalışma alanında: solda oturum listesi, ortada sohbet, altta sabit komut satırı, sağda bağlam paneli"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Oturum listesi: arama, kapsama göre süzme, sabitleme, silme (iki tık), Sabitli · Bugün · Dün · Son 7 gün · Bu ay gruplaması; başlığa tıklayıp yeniden adlandırma"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Bağlam paneli: kapsam, alan, veri kaynakları, bu oturumdan kaydedilen çıktılar, ekler, oturum tarihleri; oturumun tamamı Juris antetli Word / PDF"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Vibe sayfası başlatıcıdır: her istek yeni oturum açar ve çalışma alanına geçer; altında 'Son oturumlar'. Çalışma alanında Enter gönderir, Shift+Enter yeni satır; ana menü ikon şeridine iner"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Yeni oturum boş açılır ve ilk mesajla oluşur (boş oturum birikmez); mesaj başlığında kaynak listesi yerine kaynak sayısı"
+        }
+      ]
+    },
+    {
       "surum": "0.6.4",
       "tarih": "2026-10-22",
       "faz": "v1.0 yolu",

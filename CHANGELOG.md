@@ -3,6 +3,19 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.6.5] — 2026-10-22 · Vibe oturumları ayrı çalışma alanında
+
+### Eklendi
+- Ana Merkez `#v-oturum` görünümü (rota `oturum`): `.sx` üç sütun — oturum listesi (`renderSx`: arama, kapsam süzgeci, gruplar, sabitle/sil),
+  sohbet (`#thread` kalıcı olarak burada) + alta sabit komut satırı, bağlam paneli (kapsam/alan/kaynak çipleri, kaydedilen çıktılar, ekler).
+- Komut satırı, kapsam/alan/kaynak çipleri ve not satırı tek DOM düğümü; `sxPlace` Vibe sayfası ile çalışma alanı arasında taşır.
+- `sxExport`: oturumun tamamı Juris antetli Word / PDF. Vibe sayfasında `renderRecents` (son 4 oturum).
+
+### Değişti
+- `run()`: Vibe sayfasından gelen istek her zaman yeni oturum açar ve çalışma alanına geçer; mesajlara `at`, oturuma `updated` eklendi.
+- "Yeni oturum" boş çalışma alanı açar; oturum ilk mesajla oluşur. Vibe'daki Oturumlar sekmesi ve sol menü öğesi çalışma alanına gider.
+- Yol haritası: planlı 0.6.5–0.6.9 bir kaydırıldı (Proje Paneli 0.6.6 · CRM 0.6.7 · Pazar ve Rekabet 0.6.8 · Sektörel hukuk 0.6.9 · Rakip araştırması 0.6.10).
+
 ## [0.6.4] — 2026-10-22 · Portföy şirketleri panel standardında
 
 ### Eklendi
