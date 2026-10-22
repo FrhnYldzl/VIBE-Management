@@ -1,68 +1,101 @@
 {
-  "guncelleme": "2026-10-18",
-  "kaynak": "Landing (apps/server/public/index.html) 'Sürümler ve Paketler' + docs/product/V1-PLAN.md",
+  "guncelleme": "2026-10-22",
+  "kaynak": "Landing (apps/server/public/index.html) 'Sürümler ve Paketler' + docs/product/V1-PLAN.md + kurucu listesi 22.10 (9 madde)",
   "northStar": [
     { "k": "01", "ad": "Nakit Akışı", "sutun": "Beklenti yönetimi · bütçe, hedef, sapma" },
     { "k": "02", "ad": "Networth", "sutun": "Dokümantasyon ve iletişim · kayıt yoksa olmamıştır" },
     { "k": "03", "ad": "Yönetilen Risk", "sutun": "Karar ve aksiyon · karar kaydı, görev, review" }
   ],
   "durumlar": { "done": "Tamamlandı", "progress": "Devam ediyor", "next": "Sırada", "planned": "Planlı", "vision": "Vizyon" },
+  "dikeyler": [
+    { "k": "VM", "ad": "Vibe Management", "solPanel": "Vibe Management · Oturumlar · Çıktı Kütüphanesi", "odak": "Claude stüdyosu, şablonlar, çıktı ve dışa aktarma" },
+    { "k": "ST", "ad": "Strateji", "solPanel": "MTFG Portföy Yönetimi › Strateji (Genel Bakış · Yatırım Tezi · Portföy)", "odak": "Tez, portföy kaydı, strateji yöntem kütüphanesi" },
+    { "k": "BD", "ad": "İş Geliştirme ve Yatırım", "solPanel": "İş Geliştirme ve Yatırım (Funnel · Venture Building · CRM)", "odak": "Funnel, CRM, proje → şirket dönüşümü" },
+    { "k": "YY", "ad": "Yatırım Yönetimi", "solPanel": "Yatırım Yönetimi (İşletim Sistemi · Bütçe-Nakit-Sermaye · Değerleme · Risk)", "odak": "Portföy yönetimi dünya standartları, değerleme, risk" },
+    { "k": "DY", "ad": "Dayanak", "solPanel": "Dayanak (Data Room · Yönetişim Takvimi)", "odak": "Belge / beyan / API-doğrulanmış dayanak; dayanak API kütüphanesi" },
+    { "k": "EG", "ad": "Eğitim", "solPanel": "Eğitim (Eğitim Programları)", "odak": "Program tasarımı, katılımcı → funnel, network" },
+    { "k": "HO", "ad": "Haftalık Odak", "solPanel": "Haftalık Odak (Eğitim'in altında · yeni)", "odak": "W bazlı hedef, kümülatif ilerleme, oyunlaştırma" },
+    { "k": "KY", "ad": "Kurumsal Yönetim Panelleri", "solPanel": "Kurumsal Yönetim Panelleri · Juris (+ Portföy şirketleri · Projeler)", "odak": "Şirket ve proje panel standardı, KYS, performans, DD" },
+    { "k": "AD", "ad": "Admin ve Altyapı", "solPanel": "Admin (/admin) · sunucu", "odak": "Kimlik, veri, entegrasyon, güvenlik, yayın" }
+  ],
+  "besleme": [
+    { "ad": "Strateji yöntem kütüphanesi", "aciklama": "Kitap ve yöntemler modül olarak test edilir: Mavi Okyanus (ERRC, strateji kanvası), Al Ries – Konumlandırma, Porter 5 Güç, BMC / Lean Canvas, Jobs-to-be-Done; her biri bir modülde denenir, işe yarayan standarda girer", "dikey": "ST", "surum": "0.6.7 · 2.0" },
+    { "ad": "Portföy yönetimi dünya standartları", "aciklama": "ILPA raporlama şablonları, IPEV değerleme ilkeleri, NAV / MOIC / IRR / DPI, portföy izleme çerçeveleri — teori ve uygulamadaki karşılığıyla; Meridyen'e API ile veri geldiğinde bile üst çerçeve buradan şekillenir", "dikey": "YY", "surum": "2.0" },
+    { "ad": "Kod ve AI altyapısı (GitHub)", "aciklama": "Hazır açık kaynak feature set'ler modül olarak alınır: OCR (belge → metin/tablo), belge sınıflandırma, ajan paketleri (MCP sunucuları, araç setleri); lisans ve güvenlik kontrolüyle", "dikey": "AD", "surum": "2.0" },
+    { "ad": "Juris ve şirketlerimizin şablonları", "aciklama": "Önce kendi birikimimiz: Juris şablonları, kılavuzlar, sözleşme paketleri, soru setleri, şirketlerimizdeki (Fevup performans paketi gibi) standartlar → kütüphane ve modül tohumları", "dikey": "VM", "surum": "0.6.x · 2.0" },
+    { "ad": "Rakip ve emsal araştırması", "aciklama": "Kurumsal yönetim, regtech ve legaltech ürünleri (board portalları, entity management, CLM, DD platformları, uyum yazılımları) düzenli taranır; eksikler yol haritasına adım olarak girer (docs/product/BENCHMARKS.md)", "dikey": "AD", "surum": "0.6.9 · sürekli" },
+    { "ad": "Dağıtım: Shopify App", "aciklama": "Vibe Management bir Shopify uygulaması olarak e-ticaret şirketlerine sunulur (mağaza verisi → panel, KYS, haftalık odak)", "dikey": "VM", "surum": "3.0" }
+  ],
   "surumler": [
     {
       "v": "1.0", "paket": "Stüdyo", "ad": "Şimdi · Stüdyo", "hedef": "Tek portföy, tek ekip (Ferhan + Gülşah). Paneller elle kurulur, Claude istek anında okur. Drive gerçek kaynak, Railway tek servis, e-posta girişi.",
       "odeme": "Çalışma alanı başına · aylık — Claude kullanımı kullanıcının kendi API anahtarından",
       "kapsam": [
         "Vibe stüdyosu: kapsam, alan, kaynak çipleri", "13 şablon · 4 doküman tabanlı (Jurisleştir dahil)", "Dosya ekleme: PDF, metin, görsel",
-        "Oturumlar ve Çıktı Kütüphanesi (paylaşımlı)", "Portföy paneli + 5 kurumsal yönetim paneli (tek kit)", "Süreç katmanı panel içinde (aksiyon, karar, toplantı)",
-        "Landing + admin + e-posta girişi + Railway"
+        "Oturumlar ve Çıktı Kütüphanesi (paylaşımlı)", "Portföy paneli + müvekkil, portföy şirketi ve proje panelleri (tek kit)", "Süreç katmanı panel içinde (aksiyon, karar, toplantı)",
+        "Kurumsal Yönetim Skoru + performans izleme + haftalık odak", "Landing + admin + e-posta girişi + Railway"
       ],
       "northStarEtkisi": "Dokümantasyon ve iletişim hızlanır; karar gündemi belgeyle gelir.",
       "adimlar": [
-        { "v": "0.1.0", "ad": "Mr. F operatör konsolu temeli", "durum": "done", "alan": "Ürün" },
-        { "v": "0.1.1", "ad": "Juris görsel standardı", "durum": "done", "alan": "Tasarım" },
-        { "v": "0.2.0", "ad": "MTFG Ana Merkez birebir repoda", "durum": "done", "alan": "Ürün" },
-        { "v": "0.2.1", "ad": "Zyrone · Qervan–WeTrade · Meown AI panelleri", "durum": "done", "alan": "Veri" },
-        { "v": "0.2.2", "ad": "Panel kaynak paketleri + canlı okuma", "durum": "done", "alan": "Veri" },
-        { "v": "0.3.0", "ad": "Tek panel kiti (5 müvekkil aynı master'dan)", "durum": "done", "alan": "Altyapı" },
-        { "v": "0.4.0", "ad": "Tek Fastify servis + Railway config + admin iskeleti (Yol Haritası)", "durum": "done", "alan": "Altyapı", "kabul": "npm start tek portta landing/app/admin/api" },
-        { "v": "0.4.1", "ad": "Kimlik: e-posta + parola (ana yol), GitHub OAuth yalnız geliştirici, imzalı oturum çerezi", "durum": "done", "alan": "Güvenlik", "kabul": "İki e-posta kullanıcısı giriş yapıyor; başkası 401" },
-        { "v": "0.4.2", "ad": "Paylaşımlı durum: durum çipleri + Vibe oturumları DB'ye (SQLite + Railway Volume)", "durum": "done", "alan": "Altyapı", "kabul": "İki cihazda aynı durum" },
-        { "v": "0.4.3", "ad": "Railway canlı (tek servis, Volume, Variables); kullanıcılar DB'de, /hesap parola değiştir, beni hatırla, admin parola sıfırla", "durum": "done", "alan": "Yayın", "kabul": "Canlıda iki kullanıcı e-posta ile giriyor; health: kimlik açık · db volume · vibe açık (18.10 doğrulandı)" },
-        { "v": "0.4.4", "ad": "Kurucu önerileri: Oturumlar + Çıktı Kütüphanesi sol panelde; yanıtı e-posta taslağı olarak aç (mailto)", "durum": "done", "alan": "Ürün" },
-        { "v": "0.5.0", "ad": "Landing'deki kurucu yol haritası ürüne işlendi (North Star, paketler, kapsam) — admin Yol Haritası", "durum": "done", "alan": "Ürün" },
-        { "v": "0.5.1", "ad": "Intake-lite (kurucu önerisi 4): Drive Data Room linki + 'müvekkil' → drive-sync tarar → .data.js taslağı → kit build → panel kartı Kurumsal Yönetim Panelleri'ne eklenir; PANELS dinamik", "durum": "done", "alan": "Veri", "kabul": "Admin A3 formu: Drive linki + ad → ~30 sn'de panel kartı (yerelde sahte Drive ile doğrulandı); Railway'de GOOGLE_SERVICE_ACCOUNT_JSON kurulumu kurucuda (RAILWAY.md §3b)" },
-        { "v": "0.5.2", "ad": "Eğitim Programları (kurucu isteği): Ankara Teknopark 8 oturum × 3 ders programı, tarihe göre ilerleme, eğitmen/misafir, doküman linkleri (paylaşımlı), hizmet–modül eşlemesi, network; Vibe kaynağı", "durum": "done", "alan": "Ürün", "kabul": "3/8 oturum yapıldı görünüyor; doküman linki eklenince iki kullanıcıda da görünüyor" },
-        { "v": "0.5.3", "ad": "Eğitim: modül kataloğundan yeni program oluşturucu (kurum, tarih, aralık, modüller → tarihli oturumlar), katılımcı listesi, 'Funnel'a aktar' → İş Geliştirme Funnel'ı 0. aşama (Aday · Network)", "durum": "done", "alan": "Ürün", "kabul": "Yeni program 1 dakikada; katılımcı funnel'da görünüyor (yerelde doğrulandı)" },
-        { "v": "0.5.4", "ad": "Eğitim tasarla · Claude: konu + kitle + Juris hizmetleri → teori (kavram, mevzuat dayanağı, literatür) / uygulama (atölye, kontrol listesi, çıktı) / hizmet–panel eşlemeli modüller → önizleme → program; oturum başına Claude Design brief'i (kopyala / indir / kütüphane)", "durum": "done", "alan": "Ürün", "kabul": "Bir konu + kitle için 3–8 modül Opus ile tasarlanıp programa dönüşüyor; brief Claude Design'a yapıştırılabiliyor (yerelde akış doğrulandı; gerçek üretim canlıda)" },
-        { "v": "0.5.5", "ad": "Veri doğruluğu altyapısı: panelde 'Süreç Kaydı' (aksiyon / karar / toplantı ekle, doküman notu) sunucuda — yeniden tarama ve yeniden üretimde korunur; veri tarihi damgası; admin doğrulama checklist'i (panel × 8 kontrol, kim/ne zaman); funnel aday → müvekkil terfi", "durum": "done", "alan": "Veri", "kabul": "Eklenen aksiyon panel yeniden derlendikten sonra duruyor; checklist iki kullanıcıda ortak (yerelde doğrulandı). Gülşah ile 5 panel doğrulama turu: açık görev" },
-        { "v": "0.5.6", "ad": "Kurumsal Yönetim Skoru (KYS v1): 7 kriter, ağırlıklı 0–100, A–E seviye — panel Genel Bakış kartı, portföy kartlarında rozet, admin skor tablosu (portföy ortalaması), Vibe bağlamında; kriterler tek yerde (KYS.kriterler) → resmi skorlamada genişler", "durum": "done", "alan": "Ürün", "kabul": "5 panel skorlandı (24–35, veri boşluğunu dürüstçe gösteriyor); panel açılınca yeniden hesaplanır ve sunucuya yazılır" },
-        { "v": "0.5.7", "ad": "Doğrulama turu (insan işi): Gülşah ile 5 panel checklist %100; bulunan hatalar .data.js'e işlenir; el yapımı paneller için Drive yeniden tarama önerileri (scanClient)", "durum": "next", "alan": "Veri", "kabul": "Checklist %100" },
-        { "v": "0.6.0", "ad": "Çıktı dışa aktarma (kurucu önerisi 2): Word (docx) · Excel (xlsx) · PDF, Juris Kurumsal Yönetim anteti; önce antetli yazdırma stili", "durum": "planned", "alan": "Vibe", "kabul": "Bir oturum çıktısı antetli .docx/.xlsx/.pdf iniyor" },
-        { "v": "0.6.1", "ad": "Vibe üretim: model kademeleri, token tavanı + sayaç; 13 şablon gözden geçirme", "durum": "planned", "alan": "Vibe", "kabul": "Maliyet admin'de görünür" },
-        { "v": "0.6.2", "ad": "Connectors sayfası (kurucu önerisi 3): Gmail taslak oluşturma (Google OAuth), Drive; ileride muhasebe/e-fatura (v2 Vibe MCP'ye köprü)", "durum": "planned", "alan": "Entegrasyon", "kabul": "'E-posta taslağı' Gmail Taslaklar'a düşüyor" },
-        { "v": "0.6.3", "ad": "Admin tamam: geri bildirim gelen kutusu, sürümler, kullanıcı düzenleme, sağlık", "durum": "planned", "alan": "Admin" },
-        { "v": "0.7.0", "ad": "Güvenlik taraması (CSP, rate limit, audit), alan adı vibe.jurishukuk.com, Lighthouse ≥90", "durum": "planned", "alan": "Güvenlik" },
-        { "v": "1.0.0", "ad": "Kabul: 2 hafta kesintisiz günlük kullanım, açık hata 0, veri doğrulama tamam", "durum": "planned", "alan": "Yayın" }
+        { "v": "0.1.0", "ad": "Mr. F operatör konsolu temeli", "durum": "done", "alan": "Ürün", "dikey": "AD" },
+        { "v": "0.1.1", "ad": "Juris görsel standardı", "durum": "done", "alan": "Tasarım", "dikey": "AD" },
+        { "v": "0.2.0", "ad": "MTFG Ana Merkez birebir repoda", "durum": "done", "alan": "Ürün", "dikey": "ST" },
+        { "v": "0.2.1", "ad": "Zyrone · Qervan–WeTrade · Meown AI panelleri", "durum": "done", "alan": "Veri", "dikey": "KY" },
+        { "v": "0.2.2", "ad": "Panel kaynak paketleri + canlı okuma", "durum": "done", "alan": "Veri", "dikey": "KY" },
+        { "v": "0.3.0", "ad": "Tek panel kiti (5 müvekkil aynı master'dan)", "durum": "done", "alan": "Altyapı", "dikey": "KY" },
+        { "v": "0.4.0", "ad": "Tek Fastify servis + Railway config + admin iskeleti (Yol Haritası)", "durum": "done", "alan": "Altyapı", "dikey": "AD", "kabul": "npm start tek portta landing/app/admin/api" },
+        { "v": "0.4.1", "ad": "Kimlik: e-posta + parola (ana yol), GitHub OAuth yalnız geliştirici, imzalı oturum çerezi", "durum": "done", "alan": "Güvenlik", "dikey": "AD", "kabul": "İki e-posta kullanıcısı giriş yapıyor; başkası 401" },
+        { "v": "0.4.2", "ad": "Paylaşımlı durum: durum çipleri + Vibe oturumları DB'ye (SQLite + Railway Volume)", "durum": "done", "alan": "Altyapı", "dikey": "AD", "kabul": "İki cihazda aynı durum" },
+        { "v": "0.4.3", "ad": "Railway canlı (tek servis, Volume, Variables); kullanıcılar DB'de, /hesap parola değiştir, beni hatırla, admin parola sıfırla", "durum": "done", "alan": "Yayın", "dikey": "AD", "kabul": "Canlıda iki kullanıcı e-posta ile giriyor; health: kimlik açık · db volume · vibe açık (18.10 doğrulandı)" },
+        { "v": "0.4.4", "ad": "Kurucu önerileri: Oturumlar + Çıktı Kütüphanesi sol panelde; yanıtı e-posta taslağı olarak aç (mailto)", "durum": "done", "alan": "Ürün", "dikey": "VM" },
+        { "v": "0.5.0", "ad": "Landing'deki kurucu yol haritası ürüne işlendi (North Star, paketler, kapsam) — admin Yol Haritası", "durum": "done", "alan": "Ürün", "dikey": "AD" },
+        { "v": "0.5.1", "ad": "Intake-lite (kurucu önerisi 4): Drive Data Room linki + 'müvekkil' → drive-sync tarar → .data.js taslağı → kit build → panel kartı Kurumsal Yönetim Panelleri'ne eklenir; PANELS dinamik", "durum": "done", "alan": "Veri", "dikey": "KY", "kabul": "Admin A3 formu: Drive linki + ad → ~30 sn'de panel kartı (yerelde sahte Drive ile doğrulandı); Railway'de GOOGLE_SERVICE_ACCOUNT_JSON kurulumu kurucuda (RAILWAY.md §3b)" },
+        { "v": "0.5.2", "ad": "Eğitim Programları (kurucu isteği): Ankara Teknopark 8 oturum × 3 ders programı, tarihe göre ilerleme, eğitmen/misafir, doküman linkleri (paylaşımlı), hizmet–modül eşlemesi, network; Vibe kaynağı", "durum": "done", "alan": "Ürün", "dikey": "EG", "kabul": "3/8 oturum yapıldı görünüyor; doküman linki eklenince iki kullanıcıda da görünüyor" },
+        { "v": "0.5.3", "ad": "Eğitim: modül kataloğundan yeni program oluşturucu (kurum, tarih, aralık, modüller → tarihli oturumlar), katılımcı listesi, 'Funnel'a aktar' → İş Geliştirme Funnel'ı 0. aşama (Aday · Network)", "durum": "done", "alan": "Ürün", "dikey": "EG", "kabul": "Yeni program 1 dakikada; katılımcı funnel'da görünüyor (yerelde doğrulandı)" },
+        { "v": "0.5.4", "ad": "Eğitim tasarla · Claude: konu + kitle + Juris hizmetleri → teori (kavram, mevzuat dayanağı, literatür) / uygulama (atölye, kontrol listesi, çıktı) / hizmet–panel eşlemeli modüller → önizleme → program; oturum başına Claude Design brief'i (kopyala / indir / kütüphane)", "durum": "done", "alan": "Ürün", "dikey": "EG", "kabul": "Bir konu + kitle için 3–8 modül Opus ile tasarlanıp programa dönüşüyor; brief Claude Design'a yapıştırılabiliyor (yerelde akış doğrulandı; gerçek üretim canlıda)" },
+        { "v": "0.5.5", "ad": "Veri doğruluğu altyapısı: panelde 'Süreç Kaydı' (aksiyon / karar / toplantı ekle, doküman notu) sunucuda — yeniden tarama ve yeniden üretimde korunur; veri tarihi damgası; admin doğrulama checklist'i (panel × 8 kontrol, kim/ne zaman); funnel aday → müvekkil terfi", "durum": "done", "alan": "Veri", "dikey": "KY", "kabul": "Eklenen aksiyon panel yeniden derlendikten sonra duruyor; checklist iki kullanıcıda ortak (yerelde doğrulandı). Gülşah ile 5 panel doğrulama turu: açık görev" },
+        { "v": "0.5.6", "ad": "Kurumsal Yönetim Skoru (KYS v1): 7 kriter, ağırlıklı 0–100, A–E seviye — panel Genel Bakış kartı, portföy kartlarında rozet, admin skor tablosu (portföy ortalaması), Vibe bağlamında; kriterler tek yerde (KYS.kriterler) → resmi skorlamada genişler", "durum": "done", "alan": "Ürün", "dikey": "KY", "kabul": "5 panel skorlandı (24–35, veri boşluğunu dürüstçe gösteriyor); panel açılınca yeniden hesaplanır ve sunucuya yazılır" },
+        { "v": "0.5.7", "ad": "Doğrulama turu (insan işi): Gülşah ile 5 panel checklist %100; bulunan hatalar .data.js'e işlenir; el yapımı paneller için Drive yeniden tarama önerileri (scanClient)", "durum": "next", "alan": "Veri", "dikey": "KY", "kabul": "Checklist %100" },
+        { "v": "0.5.8", "ad": "Performans İzleme standardı (kurucu 9): Fevup paketi (fevup-performans-izleme v3) örnek alınarak her şirketin Insights'ında 'Performans' bölümü — KPI kademesi Personel → Genel Müdür → İcra Kurulu → YK hedefleri, haftalık gerçekleşen, hedefe oran (↑/↓ yön), haftalık Δ, Yönetici Özeti doküman yükleme oranı; veri A.5 Performans İzleme klasöründeki JSON'dan. 'Görevler' bölümü alınmaz (personel ve operasyonda gerek yok)", "durum": "next", "alan": "Ürün", "dikey": "KY", "kabul": "Fevup paneli Insights › Performans'ta W43–W44 görünür; diğer şirketlerde aynı bölüm 'KPI seti tanımlanmadı' boş durumuyla; KYS 'KPI/OKR' kriteri performans verisini okur" },
+        { "v": "0.5.9", "ad": "Haftalık Odak (kurucu 5): sol panelde Eğitim'in altında yeni bölüm — hafta hafta takvim (W44 gibi), haftanın 3–5 odağı, kümülatif ilerleme (birikerek), seri / rozet / puan ile oyunlaştırma; Word · PDF · Excel olarak alınabilir (0.6.0 dışa aktarma ile)", "durum": "planned", "alan": "Ürün", "dikey": "HO", "kabul": "W44 odakları girilir, W45'e devreder; 8 haftalık birikim grafiği; haftalık rapor .docx/.pdf/.xlsx iner" },
+        { "v": "0.6.0", "ad": "Çıktı dışa aktarma (kurucu önerisi 2): Word (docx) · Excel (xlsx) · PDF, Juris Kurumsal Yönetim anteti; önce antetli yazdırma stili", "durum": "planned", "alan": "Vibe", "dikey": "VM", "kabul": "Bir oturum çıktısı antetli .docx/.xlsx/.pdf iniyor" },
+        { "v": "0.6.1", "ad": "Vibe üretim: model kademeleri, token tavanı + sayaç; 13 şablon gözden geçirme", "durum": "planned", "alan": "Vibe", "dikey": "VM", "kabul": "Maliyet admin'de görünür" },
+        { "v": "0.6.2", "ad": "Connectors sayfası (kurucu önerisi 3): Gmail taslak oluşturma (Google OAuth), Drive; ileride muhasebe/e-fatura (v2 Vibe MCP'ye köprü)", "durum": "planned", "alan": "Entegrasyon", "dikey": "AD", "kabul": "'E-posta taslağı' Gmail Taslaklar'a düşüyor" },
+        { "v": "0.6.3", "ad": "Admin tamam: geri bildirim gelen kutusu, sürümler, kullanıcı düzenleme, sağlık; yol haritası admin'den düzenlenir (dikey bazlı)", "durum": "planned", "alan": "Admin", "dikey": "AD" },
+        { "v": "0.6.4", "ad": "Portföy şirketleri de panel standardında (kurucu 1): Juris, Marqby, Fevup, D2-X, Meridyen — müvekkil panelleriyle aynı kit, 'Portföy' rozeti; Intake-lite ile Data Room'dan; MTFG payı, tez skoru ve KYS portföy görünümüne bağlanır", "durum": "planned", "alan": "Veri", "dikey": "KY", "kabul": "5 portföy şirketi panelde; Portföy sayfasındaki kartlardan panele geçiliyor" },
+        { "v": "0.6.5", "ad": "Proje Paneli standardı (kurucu 2): şirketlerin ve bizim projelerimiz (örn. Ariwon, Katalist PMO) için aynı standart — SOW (kapsam, çıktılar, kabul, varsayımlar, hariç tutulanlar) + Proje Planı; aşamalar sade uluslararası çerçeve (Başlatma · Planlama · Yürütme · İzleme-Kontrol · Kapanış — PMI/PRINCE2 özü), paydaş matrisi (RACI · etki/ilgi), kaynak planı (kişi, bütçe, süre), kilometre taşları; proje → şirkete dönüşüm (varlık) takibi Venture Building gate'leriyle", "durum": "planned", "alan": "Ürün", "dikey": "BD", "kabul": "Bir proje SOW + planla panel olarak açılıyor; 'şirkete dönüştü' adımı portföy kaydına bağlanıyor" },
+        { "v": "0.6.6", "ad": "CRM (kurucu 6): İş Geliştirme ve Yatırım altında kişi · şirket · fırsat; haftalık toplantılar ve ritim (son temas, sonraki adım, gecikme); Claude önerileri (kime ne zaman dönülmeli, hangi fırsat sıradaki aşamaya hazır); funnel ve eğitim katılımcılarıyla tek kayıt", "durum": "planned", "alan": "Ürün", "dikey": "BD", "kabul": "Haftalık CRM dashboard'u ritim ihlallerini ve 5 öneriyi gösteriyor" },
+        { "v": "0.6.7", "ad": "Pazar ve Rekabet Analizi (kurucu 7): her şirket paneline yeni bölüm — pazar büyüklüğü (TAM/SAM/SOM), rakip haritası, konumlandırma; yöntemler modül olarak test edilir (Mavi Okyanus ERRC + strateji kanvası, Al Ries konumlandırma, Porter 5 Güç); dayanak/beyan ayrımıyla", "durum": "planned", "alan": "Ürün", "dikey": "ST", "kabul": "Bir şirket için pazar & rekabet bölümü 2 yöntemle dolduruluyor; Vibe'dan 'pazar analizi' şablonu" },
+        { "v": "0.6.8", "ad": "Sektörel hukuk (kurucu 8): Hukuki DD içinde izahname 'sektöre ilişkin mevzuat' bölümü gibi — şirketin sektörüne göre düzenleyici çerçeve (lisans/izin, sektörel kurum, özel yükümlülükler); DD'deki hukuk alanları sektörle ilgisine göre ağırlıklandırılır (yüksek / orta / düşük)", "durum": "planned", "alan": "Hukuk", "dikey": "KY", "kabul": "5 şirketin E-1 DD'sinde 'Sektörel hukuk' alt bölümü ve ilgi ağırlığı görünüyor" },
+        { "v": "0.6.9", "ad": "Rakip ve emsal araştırması (kurucu 4): kurumsal yönetim, regtech ve legaltech ürünleri — board portalı, entity management, CLM, DD platformları, uyum yazılımları; özellik karşılaştırması → eksikler yol haritasına adım (BENCHMARKS.md, çeyreklik yenilenir)", "durum": "planned", "alan": "Araştırma", "dikey": "AD", "kabul": "En az 12 ürünlük karşılaştırma tablosu; 5 yeni adım yol haritasında" },
+        { "v": "0.7.0", "ad": "Güvenlik taraması (CSP, rate limit, audit), alan adı vibe.jurishukuk.com, Lighthouse ≥90", "durum": "planned", "alan": "Güvenlik", "dikey": "AD" },
+        { "v": "1.0.0", "ad": "Kabul: 2 hafta kesintisiz günlük kullanım, açık hata 0, veri doğrulama tamam", "durum": "planned", "alan": "Yayın", "dikey": "AD" }
       ]
     },
     {
       "v": "2.0", "paket": "Ofis", "ad": "Ofis · Bağlı sistemler", "hedef": "Ekip ve bağlı şirketler. Veri kendiliğinden akar; ajanlar ritmi tutar.",
       "odeme": "Çalışma alanı + bağlı şirket başına — kullanıcı sayısı değil şirket sayısı ölçeklenir",
       "kapsam": [
-        "Vibe MCP: muhasebe, banka, e-fatura, e-ticaret, reklam, SGK bağlayıcıları", "Data Room Ajanı: belge geldiğinde beyan → belge",
-        "Brifing, Toplantı, Finans ve Vergi ajanları; zamanlanmış akışlar", "Gmail: durum maili ve hatırlatmalar taslak olarak kutuya",
-        "Ortak oturumlar, roller (yatırımcı · danışman · yönetim), onay kapıları", "Değerleme, nakit akışı ve borç tabloları gerçek rakamla",
-        "Pazarlama ve satış katmanı: ciro, ROAS, teklif stoğu"
+        "Vibe MCP: muhasebe, banka, e-fatura, e-ticaret, reklam, SGK bağlayıcıları", "Dayanak API kütüphanesi: API'den gelen veri 'beyan' değil 'API-doğrulanmış dayanak'",
+        "Data Room Ajanı: belge geldiğinde beyan → belge", "Brifing, Toplantı, Finans ve Vergi ajanları; zamanlanmış akışlar",
+        "Gmail: durum maili ve hatırlatmalar taslak olarak kutuya", "Ortak oturumlar, roller (yatırımcı · danışman · yönetim), onay kapıları",
+        "Değerleme, nakit akışı ve borç tabloları gerçek rakamla", "Pazarlama ve satış katmanı: ciro, ROAS, teklif stoğu"
       ],
       "northStarEtkisi": "Beklenti yönetimi gerçek rakamla; Nakit Akışı ve Networth ilk kez dolu.",
       "adimlar": [
-        { "v": "2.0", "ad": "Panel üretimi (Intake-lite): Vibe'a Data Room linki yapıştır → drive-sync tarar → .data.js taslağı → kit build → panel HTML, Kurumsal Yönetim Panelleri'ne otomatik eklenir (kurucu fikri 18.10)", "durum": "vision", "alan": "Veri" },
-        { "v": "2.0", "ad": "Drive senkronu: A–F tarama → durum önerileri (pending/input → review) → onayla uygula; dayanak linkleri panelde (drive-sync WIP hazır)", "durum": "vision", "alan": "Veri" },
-        { "v": "2.0", "ad": "Vibe MCP sunucusu: company.get_data_room / get_panel, finance.pull_trial_balance, dataroom.file_document, process.create_action / log_decision", "durum": "vision", "alan": "Altyapı" },
-        { "v": "2.0", "ad": "Bağlayıcılar: ön muhasebe/ERP, e-Fatura/e-Defter, banka, Shopify/Trendyol/Amazon, Meta/Google Ads, CRM, SGK/bordro", "durum": "vision", "alan": "Entegrasyon" },
-        { "v": "2.0", "ad": "Data Room Ajanı (olay bazlı): belgeyi sınıflandır, klasöre koy, beyan → belge; eksik belge için talep taslağı", "durum": "vision", "alan": "Ajan" },
-        { "v": "2.0", "ad": "Brifing Ajanı (Pazartesi 08:45) · Toplantı Ajanı (not → tutanak, karar, aksiyon) · Finans ve Vergi Ajanı (aylık)", "durum": "vision", "alan": "Ajan" },
-        { "v": "2.0", "ad": "Gmail taslakları; ortak oturumlar, roller, onay kapıları; Postgres'e geçiş", "durum": "vision", "alan": "Ürün" }
+        { "v": "2.0", "ad": "Panel üretimi (Intake-lite): Vibe'a Data Room linki yapıştır → drive-sync tarar → .data.js taslağı → kit build → panel HTML, Kurumsal Yönetim Panelleri'ne otomatik eklenir (kurucu fikri 18.10 — v0.5.1'de öne çekildi)", "durum": "done", "alan": "Veri", "dikey": "KY" },
+        { "v": "2.0", "ad": "Drive senkronu: A–F tarama → durum önerileri (pending/input → review) → onayla uygula; dayanak linkleri panelde (drive-sync WIP hazır)", "durum": "vision", "alan": "Veri", "dikey": "DY" },
+        { "v": "2.0", "ad": "Dayanak API kütüphanesi (kurucu 3): standart dayanak kaynakları katalog olarak — Ticaret Sicil Gazetesi/MERSİS, e-Defter/e-Fatura (GİB), SGK, banka, KEP, muhasebe/ERP; bağlıysa veri 'API-doğrulanmış' rozetiyle gelir, beyan sayılmaz; KYS 'Dayanak kalitesi' kriteri API'yi en yüksek seviye sayar", "durum": "vision", "alan": "Entegrasyon", "dikey": "DY" },
+        { "v": "2.0", "ad": "Ariwon API (kurucu 3 · pilot): Ariwon ürün projesi, Meown AI ile paydaşlık — Ariwon'a API ile bağlanıp dayanak belgeleri (sözleşme, pay, kullanım/gelir verisi) panele çekilir; dayanak API kütüphanesinin ilk bağlantısı", "durum": "vision", "alan": "Entegrasyon", "dikey": "DY" },
+        { "v": "2.0", "ad": "Meridyen API: portföy verisi Meridyen'den gelir; üst çerçeve portföy yönetimi dünya standartlarına göre (ILPA raporlama, IPEV değerleme, NAV/MOIC/IRR/DPI) — teori ve uygulamadaki karşılığıyla", "durum": "vision", "alan": "Entegrasyon", "dikey": "YY" },
+        { "v": "2.0", "ad": "Strateji yöntem kütüphanesi (kurucu 4): Mavi Okyanus, Al Ries konumlandırma, Porter, BMC/Lean, JTBD … modül olarak; pazar araştırması modülünde A/B denenir, işe yarayan standarda girer", "durum": "vision", "alan": "Strateji", "dikey": "ST" },
+        { "v": "2.0", "ad": "Kod ve AI feature set'leri (kurucu 4): GitHub'daki açık kaynak OCR, belge sınıflandırma ve ajan paketleri (MCP sunucuları) modül olarak; lisans/güvenlik kontrolüyle", "durum": "vision", "alan": "Altyapı", "dikey": "AD" },
+        { "v": "2.0", "ad": "Şablon ve sözleşme paketi kütüphanesi (kurucu 4): Juris ve şirketlerimizin şablonları, kılavuzları, sözleşme paketleri, soru setleri → Vibe kaynakları ve modül tohumları", "durum": "vision", "alan": "İçerik", "dikey": "VM" },
+        { "v": "2.0", "ad": "Vibe MCP sunucusu: company.get_data_room / get_panel, finance.pull_trial_balance, dataroom.file_document, process.create_action / log_decision", "durum": "vision", "alan": "Altyapı", "dikey": "AD" },
+        { "v": "2.0", "ad": "Bağlayıcılar: ön muhasebe/ERP, e-Fatura/e-Defter, banka, Shopify/Trendyol/Amazon, Meta/Google Ads, CRM, SGK/bordro", "durum": "vision", "alan": "Entegrasyon", "dikey": "DY" },
+        { "v": "2.0", "ad": "Data Room Ajanı (olay bazlı): belgeyi sınıflandır (OCR), klasöre koy, beyan → belge; eksik belge için talep taslağı", "durum": "vision", "alan": "Ajan", "dikey": "DY" },
+        { "v": "2.0", "ad": "Brifing Ajanı (Pazartesi 08:45) · Toplantı Ajanı (not → tutanak, karar, aksiyon) · Finans ve Vergi Ajanı (aylık)", "durum": "vision", "alan": "Ajan", "dikey": "HO" },
+        { "v": "2.0", "ad": "Gmail taslakları; ortak oturumlar, roller, onay kapıları; Postgres'e geçiş", "durum": "vision", "alan": "Ürün", "dikey": "AD" }
       ]
     },
     {
@@ -71,15 +104,18 @@
       "kapsam": [
         "Kiracı başına Data Room, paneller, kütüphane, etik duvarlar", "Ajan orkestrasyonu: planlayıcı, paralel alt-ajanlar, denetim izi, hafıza",
         "Intake, Due Diligence, Değerleme, Teşvik ve Mevzuat ajanları", "Metodoloji paketleri: şablon + mercek + ajan setleri paylaşılabilir",
-        "Açık API ve MCP: dış uygulamalar şirketi sorgular", "Belge / beyan denetim izi ve yetki devri raporları", "Çok dilli çıktı (TR · EN), SSO ve kurumsal güvenlik"
+        "Açık API ve MCP: dış uygulamalar şirketi sorgular", "Belge / beyan denetim izi ve yetki devri raporları", "Çok dilli çıktı (TR · EN), SSO ve kurumsal güvenlik",
+        "Dağıtım: Shopify App"
       ],
       "northStarEtkisi": "Karar ve aksiyon ölçeklenir; Yönetilen Risk portföy genelinde izlenir.",
       "adimlar": [
-        { "v": "3.0", "ad": "Çok kiracılı yapı: kiracı başına Data Room / panel / kütüphane, etik duvarlar, rol bazlı erişim", "durum": "vision", "alan": "Altyapı" },
-        { "v": "3.0", "ad": "Ajan orkestrasyonu: Planla → Onay kapısı → Paralel çalıştır → Atıf + denetim izi → Hafıza + nudge", "durum": "vision", "alan": "Ajan" },
-        { "v": "3.0", "ad": "Intake · Due Diligence · Değerleme (NAV/MOIC/IRR) · Teşvik Radarı · Mevzuat Radarı ajanları", "durum": "vision", "alan": "Ajan" },
-        { "v": "3.0", "ad": "Metodoloji paketleri (Hukuk, Finans-Vergi-Teşvik, Pazarlama-Satış, İK) ve paket pazarı; Mr. F / Problem Pazaryeri entegrasyonu", "durum": "vision", "alan": "İş" },
-        { "v": "3.0", "ad": "Açık API + MCP istemcileri, çok dilli çıktı, SSO, faturalama", "durum": "vision", "alan": "Platform" }
+        { "v": "3.0", "ad": "Çok kiracılı yapı: kiracı başına Data Room / panel / kütüphane, etik duvarlar, rol bazlı erişim", "durum": "vision", "alan": "Altyapı", "dikey": "AD" },
+        { "v": "3.0", "ad": "Ajan orkestrasyonu: Planla → Onay kapısı → Paralel çalıştır → Atıf + denetim izi → Hafıza + nudge", "durum": "vision", "alan": "Ajan", "dikey": "VM" },
+        { "v": "3.0", "ad": "Intake · Due Diligence (sektörel hukuk dahil) · Değerleme (NAV/MOIC/IRR) · Teşvik Radarı · Mevzuat Radarı ajanları", "durum": "vision", "alan": "Ajan", "dikey": "KY" },
+        { "v": "3.0", "ad": "Resmi Kurumsal Yönetim Skorlaması: KYS kriter seti genişler (SPK Kurumsal Yönetim İlkeleri, bağımsız değerlendirme), sürümlü metodoloji", "durum": "vision", "alan": "Ürün", "dikey": "KY" },
+        { "v": "3.0", "ad": "Metodoloji paketleri (Hukuk, Finans-Vergi-Teşvik, Pazarlama-Satış, İK) ve paket pazarı; Mr. F / Problem Pazaryeri entegrasyonu", "durum": "vision", "alan": "İş", "dikey": "ST" },
+        { "v": "3.0", "ad": "Shopify App (kurucu 4): Vibe Management Shopify uygulaması — mağaza verisi (sipariş, ciro, stok) → şirket paneli, KYS, haftalık odak; App Store yayını", "durum": "vision", "alan": "Dağıtım", "dikey": "VM" },
+        { "v": "3.0", "ad": "Açık API + MCP istemcileri, çok dilli çıktı, SSO, faturalama", "durum": "vision", "alan": "Platform", "dikey": "AD" }
       ]
     }
   ]

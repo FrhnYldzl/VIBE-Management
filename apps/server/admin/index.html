@@ -79,9 +79,18 @@ $("#today").textContent=new Date().toLocaleDateString("tr-TR",{day:"2-digit",mon
 function stats(steps){const c={done:0,progress:0,next:0,planned:0,vision:0,total:steps.length};steps.forEach(s=>c[s.durum]++);c.pct=c.total?Math.round(100*(c.done+.5*c.progress)/c.total):0;return c;}
 function bar(c){const w=k=>c.total?(100*c[k]/c.total)+"%":"0%";return `<div class="bar">${["done","progress","next","planned","vision"].map(k=>`<i style="width:${w(k)};background:${COLOR[k]}"></i>`).join("")}</div>`;}
 const legend=`<div class="legend">${Object.entries(STATUS).map(([k,t])=>`<span><i style="background:${COLOR[k]}"></i>${t}</span>`).join("")}</div>`;
-function table(steps,vision=false){return `<div class="card ${vision?"vis":""}"><div class="tbl-wrap"><table><thead><tr><th>Sürüm</th><th>Adım</th><th>Alan</th><th>Durum</th>${vision?"":"<th>Kabul kriteri</th>"}</tr></thead><tbody>
- ${steps.map(s=>`<tr><td><span class="no">v${esc(s.v)}</span></td><td class="doc">${esc(s.ad)}</td><td><span class="fnchip">${esc(s.alan)}</span></td><td><span class="status ${s.durum}">${STATUS[s.durum]}</span></td>${vision?"":`<td class="owner" style="white-space:normal">${esc(s.kabul||"—")}</td>`}</tr>`).join("")}
+/* dikey = sol paneldeki bölüm (roadmap.json → dikeyler); filtre seçiliyse yalnız o dikeyin adımları */
+let DIKEY=null;
+const dikeyAd=k=>((RM&&RM.dikeyler)||[]).find(d=>d.k===k);
+function table(steps,vision=false){ const rows=DIKEY?steps.filter(s=>s.dikey===DIKEY):steps; if(!rows.length) return `<div class="card pad muted" style="font-size:12.5px">Bu dikeyde adım yok.</div>`;
+ return `<div class="card ${vision?"vis":""}"><div class="tbl-wrap"><table><thead><tr><th>Sürüm</th><th>Adım</th><th>Dikey</th><th>Alan</th><th>Durum</th>${vision?"":"<th>Kabul kriteri</th>"}</tr></thead><tbody>
+ ${rows.map(s=>{const d=dikeyAd(s.dikey);return `<tr><td><span class="no">v${esc(s.v)}</span></td><td class="doc">${esc(s.ad)}</td><td>${d?`<span class="fnchip" title="${esc(d.solPanel)}" style="background:var(--navy);color:#fff">${esc(d.k)}</span> <span class="muted" style="font-size:11px">${esc(d.ad)}</span>`:"—"}</td><td><span class="fnchip">${esc(s.alan)}</span></td><td><span class="status ${s.durum}">${STATUS[s.durum]}</span></td>${vision?"":`<td class="owner" style="white-space:normal">${esc(s.kabul||"—")}</td>`}</tr>`;}).join("")}
 </tbody></table></div></div>`;}
+function viewDikeyler(){ if(!RM.dikeyler) return "";
+  const all=RM.surumler.flatMap(s=>s.adimlar);
+  return `<div class="sec"><div class="sec-h"><h2>Geliştirme dikeyleri</h2><span class="meta">Yol haritası sol paneldeki bölümlerle aynı dikeylerde ilerler · bir dikeye tıkla → tablolar filtrelenir${DIKEY?` · <a href="#" data-dikey="">filtreyi kaldır</a>`:""}</span></div>
+  <div class="tiles">${RM.dikeyler.map(d=>{const st=all.filter(s=>s.dikey===d.k), c=stats(st);return `<button class="tile" data-dikey="${esc(d.k)}" style="text-align:left;cursor:pointer;${DIKEY===d.k?"outline:2px solid var(--red);":""}"><div class="l">${esc(d.k)} · ${esc(d.ad)}</div><div class="v" style="font-size:22px">${c.done}<small>/ ${st.length}</small></div><div style="margin-top:8px">${bar(c)}</div><div class="d" style="margin-top:6px">${esc(d.odak)}</div></button>`;}).join("")}</div>
+  ${RM.besleme?`<div class="card pad" style="margin-top:12px"><div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:8px">Besleme kaynakları · dikeyler neyle gelişir</div>${RM.besleme.map(b=>`<div style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:7px 0;border-top:1px solid var(--divider);font-size:12.5px;align-items:baseline"><span class="fnchip" style="background:var(--navy);color:#fff">${esc(b.dikey)}</span><span><b>${esc(b.ad)}</b> — <span style="color:var(--ink-2)">${esc(b.aciklama)}</span></span><span class="no" style="white-space:nowrap">v${esc(b.surum)}</span></div>`).join("")}</div>`:""}</div>`; }
 
 function viewRoadmap(){
   const v1=RM.surumler[0], c=stats(v1.adimlar), cur=v1.adimlar.find(s=>s.durum==="progress"), nxt=v1.adimlar.find(s=>s.durum==="next");
@@ -92,6 +101,7 @@ function viewRoadmap(){
   <div class="tile"><div class="l">Sırada</div><div class="v">${nxt?"v"+esc(nxt.v):"—"}</div><div class="d">${nxt?esc(nxt.ad).slice(0,48):"—"}</div></div>
   <div class="tile"><div class="l">Vizyon adımı</div><div class="v">${RM.surumler.slice(1).reduce((a,s)=>a+s.adimlar.length,0)}</div><div class="d">v2.0 + v3.0</div></div></div>${legend}
   ${RM.northStar?`<div class="sec"><div class="sec-h"><h2>North Star</h2><span class="meta">üç çıktı, üç sütun — geri kalan her şey araçtır</span></div><div class="tiles">${RM.northStar.map(n=>`<div class="tile"><div class="l">${esc(n.k)}</div><div class="v" style="font-size:22px">${esc(n.ad)}</div><div class="d">${esc(n.sutun)}</div></div>`).join("")}</div></div>`:""}
+  ${viewDikeyler()}
   ${RM.surumler.map((s,i)=>`<div class="sec"><div class="sec-h"><h2>v${esc(s.v)} · ${esc(s.ad)}</h2><span class="meta">${esc(s.hedef)}</span></div>
     ${s.kapsam?`<div class="card pad" style="margin-bottom:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px"><div><div class="l" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:6px">Paket · ${esc(s.paket||"")}</div><div style="font-size:13px;color:var(--ink-2)">${esc(s.odeme||"")}</div>${s.northStarEtkisi?`<div style="font-size:12.5px;color:var(--ink-3);margin-top:8px"><b style="color:var(--red-ink)">North Star etkisi:</b> ${esc(s.northStarEtkisi)}</div>`:""}</div><div><div class="l" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:6px">Kapsam (landing)</div><ul style="margin:0;padding-left:16px;font-size:13px;color:var(--ink-2)">${s.kapsam.map(k=>`<li>${esc(k)}</li>`).join("")}</ul></div></div>`:""}
     ${table(s.adimlar,i>0)}</div>`).join("")}
@@ -203,7 +213,8 @@ document.addEventListener("click",e=>{const b=e.target.closest(".ni[data-view]")
   const r=e.target.closest("[data-reset]"); if(r){resetPassword(r.dataset.reset);return;} if(e.target.closest("#uAdd")){addUser();return;}
   const rs=e.target.closest("[data-rescan]"); if(rs){rs.disabled=true;rs.textContent="Taranıyor…";rescanPanel(rs.dataset.rescan);return;}
   const pd=e.target.closest("[data-pdel]"); if(pd){deletePanel(pd.dataset.pdel);return;}
-  const dg=e.target.closest("[data-dogr]"); if(dg){toggleDogr(dg.dataset.dogr);return;} });
+  const dg=e.target.closest("[data-dogr]"); if(dg){toggleDogr(dg.dataset.dogr);return;}
+  const dk=e.target.closest("[data-dikey]"); if(dk){e.preventDefault(); DIKEY=dk.dataset.dikey&&DIKEY!==dk.dataset.dikey?dk.dataset.dikey:null; const y=$("#main").scrollTop; render(); $("#main").scrollTop=y; return;} });
 document.addEventListener("submit",e=>{ if(e.target.id==="intakeForm"){e.preventDefault();runIntake(e.target);} });
 $("#menuBtn").addEventListener("click",()=>{$("#nav").classList.toggle("open");$("#scrim").classList.toggle("open");});$("#scrim").addEventListener("click",()=>{$("#nav").classList.remove("open");$("#scrim").classList.remove("open");});
 current=titles[location.hash.slice(1)]?location.hash.slice(1):"roadmap"; render();

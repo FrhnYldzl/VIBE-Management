@@ -3,6 +3,18 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [Yol haritası] — 2026-10-22 · Kurucu listesi (9 madde) işlendi
+
+- **v1.0'a eklendi:** 0.5.8 Performans İzleme standardı (Fevup paketi örnek, Görevler hariç) · 0.5.9 Haftalık Odak (W bazlı, kümülatif,
+  oyunlaştırma, Word/PDF/Excel) · 0.6.4 Portföy şirketleri panel standardında (Juris, Marqby, Fevup, D2-X, Meridyen) · 0.6.5 Proje Paneli
+  standardı (SOW + Proje Planı, PMI/PRINCE2 özü, paydaş/kaynak, proje → şirket dönüşümü) · 0.6.6 CRM · 0.6.7 Pazar ve Rekabet Analizi ·
+  0.6.8 Sektörel hukuk (DD) · 0.6.9 Rakip/regtech/legaltech araştırması.
+- **v2.0'a eklendi:** Dayanak API kütüphanesi ("API-doğrulanmış" dayanak) · Ariwon API pilotu (Meown paydaşlığı) · Meridyen API + portföy
+  yönetimi dünya standartları · Strateji yöntem kütüphanesi (Mavi Okyanus, Al Ries …) · GitHub OCR/ajan feature set'leri · şablon ve
+  sözleşme paketi kütüphanesi. **v3.0:** Shopify App · resmi Kurumsal Yönetim Skorlaması.
+- `roadmap.json`: her adımda **dikey** (sol paneldeki bölüm: VM · ST · BD · YY · DY · EG · HO · KY · AD), `dikeyler` ve `besleme` blokları;
+  Admin → Yol Haritası'nda **Geliştirme dikeyleri** kartları (tıkla → tablolar o dikeye filtrelenir) ve **Besleme kaynakları**.
+
 ## [0.5.6] — 2026-10-20 · Kurumsal Yönetim Skoru (KYS v1)
 
 ### Eklendi
