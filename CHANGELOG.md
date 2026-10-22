@@ -3,6 +3,19 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.5.9] — 2026-10-22 · Portföy standartları + Haftalık Odak
+
+### Eklendi
+- `apps/ana-merkez/public/portfoy.data.js`: kurucunun dört Drive dokümanı tohum olarak — 04. Gelir Hedefleri-2026, 02. Ortaklık Kriterleri,
+  01. Stratejik Sorunlar, 43. Hafta MTFG Odak. Ekrandaki ve Vibe'daki düzenlemeler `vibe_state` (`gelir · kriter · sorunlar · odak`) içinde.
+- **Portföy → MTFG Gelir Hedefleri**: kategori × şirket/proje, mevcut / hedef, gerçekleşme, ortak başı (÷ ortak sayısı, düzenlenebilir); USD ek getiri ayrı.
+- **Portföy → Stratejik Sorunlar ve OKR'ler**: sorun alanı, tanım, kök neden, işe etkisi, KPI, öncelik + Objective / Key Result (mevcut-hedef, ↓ yön);
+  S10 "Planlama Disiplini" KR'si Haftalık Odak tamamlanmasından ölçülür.
+- **Yatırım Tezi → Fikir → Proje → Şirket geçiş kriterleri**: 10 kriter (Risk/Çatışma negatif), 0–5 puan, eşik Proje ≥50 · Şirket ≥70, aday puan kartı, aşama şeridi.
+- **Haftalık Odak** (yeni sol panel bölümü): Toplantılar · Şirketler (alan bazında, tahsilat toplamı) · Projeler · Hedefler; durum Açık → Devam → Tamam → Ertelendi;
+  "Yeni hafta" kapanmayanları devreder (↻ W43), haftalık toplantıları yeniden açar; seri, puan, seviye, rozetler, birikim grafiği; Excel (CSV) · Word (.doc) · PDF (yazdır).
+- **✦ Vibe ile düzenle** (dört bölümde): talimat → Claude aynı şemada JSON → onay → kaydet. Vibe kaynak çipleri: "Gelir hedefleri · sorunlar · OKR", "Haftalık odak".
+
 ## [0.5.8] — 2026-10-22 · Performans İzleme standardı (Insights)
 
 ### Eklendi

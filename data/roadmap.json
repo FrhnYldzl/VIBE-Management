@@ -292,11 +292,19 @@
         },
         {
           "v": "0.5.9",
-          "ad": "Haftalık Odak (kurucu 5): sol panelde Eğitim'in altında yeni bölüm — hafta hafta takvim (W44 gibi), haftanın 3–5 odağı, kümülatif ilerleme (birikerek), seri / rozet / puan ile oyunlaştırma; Word · PDF · Excel olarak alınabilir (0.6.0 dışa aktarma ile)",
-          "durum": "planned",
+          "ad": "Haftalık Odak (kurucu 5) — MTFG Odak (W43) formatı standarda çevrildi: Toplantılar (planlı / planlanacak) · Şirketler (Finans · Tahsilat, Satış, İş Geliştirme, Operasyon) · Projeler · Hedefler; durum döngüsü, yeni hafta devri, tahsilat toplamı, seri / puan / seviye, haftalık birikim grafiği; Excel (CSV) · Word · PDF",
+          "durum": "done",
           "alan": "Ürün",
           "dikey": "HO",
-          "kabul": "W44 odakları girilir, W45'e devreder; 8 haftalık birikim grafiği; haftalık rapor .docx/.pdf/.xlsx iner"
+          "kabul": "W43 tohumla açılıyor (74 kalem); W44 devirle açılıyor; durum ve eklemeler sunucuda; dışa aktarım iniyor (yerelde doğrulandı)"
+        },
+        {
+          "v": "0.5.9",
+          "ad": "Portföy standartları (kurucu 22.10): Portföy'de MTFG Gelir Hedefleri (kategori × şirket/proje, mevcut / 2026 hedefi, ortak başı) ve Stratejik Sorunlar + OKR (kök neden, etki, KPI, öncelik, O / KR ilerlemesi; S10 Haftalık Odak'tan ölçülür); Yatırım Tezi'nde Fikir → Proje → Şirket geçiş kriterleri (10 kriter, risk negatif, eşik 50 / 70, aday puan kartı). Hepsi ekrandan ve 'Vibe ile düzenle' ile değiştirilebilir",
+          "durum": "done",
+          "alan": "Strateji",
+          "dikey": "ST",
+          "kabul": "Drive'daki üç tablo tohum; düzenleme sunucuda; Vibe kaynak çipi 'Gelir hedefleri · sorunlar · OKR' (yerelde doğrulandı)"
         },
         {
           "v": "0.6.0",

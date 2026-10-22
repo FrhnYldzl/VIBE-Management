@@ -1,6 +1,35 @@
 {
   "surumler": [
     {
+      "surum": "0.5.9",
+      "tarih": "2026-10-22",
+      "faz": "v1.0 yolu",
+      "baslik": "Portföy standartları + Haftalık Odak",
+      "durum": "yayinda",
+      "degisiklikler": [
+        {
+          "tur": "yeni",
+          "metin": "Portföy → MTFG Gelir Hedefleri 2026: gelir kategorileri (Huzur Hakkı, Prim/Bonus, Temettü, Exit, Ek Getiri $) × şirket/proje, mevcut ve hedef, gerçekleşme %, ortak başı (÷ ortak sayısı); kategori ve satır eklenebilir"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Portföy → Stratejik Sorunlar ve OKR'ler: 10 sorun alanı (tanım, kök neden, işe etkisi, KPI, öncelik) + her biri için Objective / Key Result, mevcut-hedef ilerlemesi, sahip, durum"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Yatırım Tezi → Fikir → Proje → Şirket geçiş kriterleri: 10 kriter (Risk/Çatışma negatif), 0–5 puan, eşikler (Proje ≥50 · Şirket ≥70), aday puan kartı ve aşama şeridi"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Haftalık Odak (sol panel, Eğitim'in altında): W43 MTFG Odak dokümanı tohum; durum döngüsü, yeni hafta devri, tahsilat, seri/puan/seviye, birikim grafiği; Excel (CSV) · Word · PDF"
+        },
+        {
+          "tur": "yeni",
+          "metin": "'✦ Vibe ile düzenle': talimat → Claude aynı şemada JSON → onayla uygula; Vibe kaynak çipleri 'Gelir hedefleri · sorunlar · OKR' ve 'Haftalık odak'"
+        }
+      ]
+    },
+    {
       "surum": "0.5.8",
       "tarih": "2026-10-22",
       "faz": "v1.0 yolu",
