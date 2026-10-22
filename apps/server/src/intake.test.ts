@@ -94,3 +94,33 @@ describe("intake-lite", () => {
     if (prev === undefined) delete process.env.GOOGLE_SERVICE_ACCOUNT_JSON; else process.env.GOOGLE_SERVICE_ACCOUNT_JSON = prev;
   });
 });
+
+// v0.6.4: A–F adı olmayan şirket klasörleri (MTFG ortak sürücüsü) anahtar kelimeyle bölümlere dağıtılır
+import { createRequire } from "node:module";
+const intake = createRequire(import.meta.url)("../../../packages/juris-panel-kit/tools/intake.js") as {
+  generateDataJs: (spec: unknown) => string;
+};
+describe("intake: standart dışı klasör yönlendirme + portföy modu", () => {
+  it("Denetim/Bütçe/Tutanak/Satış klasörleri doğru harfe düşer; Müvekkil Yönetimi → Şirket Yönetimi", () => {
+    const it2 = (title: string, n = 0) => ({ id: title, title, url: "", files: Array.from({ length: n }, (_, i) => ({ name: `${title}-${i}.pdf`, link: "" })), subfolders: [] });
+    const js = intake.generateDataJs({
+      client: { id: "ornek", name: "Örnek", portfolio: { tur: "Şirket", kategori: "Mal İhracatı", pay: 44.1, digerleri: "—", rol: "Yatırım" } },
+      sections: [
+        { id: "s1", title: "1.2. Örnek Denetim", url: "", items: [it2("1.2.1. YK Toplantı Tutanakları", 2), it2("1.2.2. 2026 Bütçe", 1), it2("Kurucu yol haritası", 1)] },
+        { id: "s2", title: "2.4. Satış", url: "", items: [it2("Aday A")] },
+        { id: "s3", title: "A. Strateji ve Business", url: "", items: [it2("A.1. İş Modeli", 1)] },
+      ],
+    });
+    const sec = (L: string) => (js.match(new RegExp(` \{ id:"${L}", title:"([^"]*)"`)) ?? [])[1] ?? "";
+    expect(js).toMatch(/id:"F1", title:"1\.2\.1\. YK Toplantı Tutanakları"/);
+    expect(js).toMatch(/id:"B1", title:"1\.2\.2\. 2026 Bütçe"/);
+    expect(js).toMatch(/id:"A1", title:"A\.1\. İş Modeli"/);
+    expect(js).toMatch(/id:"A2", title:"Kurucu yol haritası"/);
+    expect(js).toMatch(/id:"D1", title:"Aday A"/);
+    expect(sec("D")).toContain("2.4. Satış");
+    expect(sec("A")).toBe("A. Strateji ve Business");
+    expect(js).toContain('portfolio:{"tur":"Şirket"');
+    expect(js).not.toContain("Müvekkil Yönetimi");
+    expect(js).toContain("Şirket Yönetimi");
+  });
+});

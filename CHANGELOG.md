@@ -3,6 +3,22 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.6.4] — 2026-10-22 · Portföy şirketleri panel standardında
+
+### Eklendi
+- `packages/juris-panel-kit/src/clients/{juris,fevup,marqby,d2x,meridyen}.data.js` — `tools/portfoy.js` ile üretilir (Drive listesi MTFG ortak
+  sürücüsünden, 22.10.2026; service account bu sürücüyü görmediği için ağaç dosyada sabit; paylaşım sonrası günlük senkron devralır).
+- `CLIENT.portfolio` {tur, kategori, pay, digerleri, rol, gate, not} → Insights'ta "MTFG portföy kaydı" şeridi.
+- Ana Merkez: "Portföy Şirketleri · Kurumsal Yönetim" menüsü, `PANELS` (portfoy:true) + "Portföy" rozeti, portföy tablosunda "Paneli aç",
+  şirket kartları (COS) panele bağlı, Vibe kapsamı `meridyen`, kaynaklar 5 portföy paneli; şirket kapsamı yalnız kendi panelini okur, Juris tüm panelleri.
+- Admin KYS / doğrulama tablosuna 5 portföy paneli; intake'te `juris, fevup, marqby, d2x, meridyen` kısa adları ayrıldı.
+
+### Değişti
+- `tools/intake.js`: `routeSections` — A–F adı olmayan klasörler anahtar kelimeyle (bütçe → B, denetim → C, tutanak/rapor → F, hukuk/sözleşme → E,
+  operasyon/satış/pazarlama → D, strateji/plan/yönetim → A) bölüme dağıtılır; standart bölümler önce işlenir. Portföy modunda "Müvekkil Yönetimi" → "Şirket Yönetimi".
+- `fevup-brands` intake paneli (Juris operasyon Data Room'u) Ana Merkez'de `fevup` portföy paneline birleşti (listede gösterilmez).
+- Testler: yönlendirme + portföy modu — 49 test.
+
 ## [0.6.1] — 2026-10-22 · Vibe maliyet: kademeler, token tavanı, aylık bütçe
 
 ### Eklendi

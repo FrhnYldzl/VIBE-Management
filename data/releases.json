@@ -1,6 +1,35 @@
 {
   "surumler": [
     {
+      "surum": "0.6.4",
+      "tarih": "2026-10-22",
+      "faz": "v1.0 yolu",
+      "baslik": "Portföy şirketleri Kurumsal Yönetim Paneli standardında",
+      "durum": "yayinda",
+      "degisiklikler": [
+        {
+          "tur": "yeni",
+          "metin": "Juris, Fevup Brands, Marqby, D2-X ve Meridyen için Kurumsal Yönetim Paneli: aynı kit, aynı A–F Data Room, KYS, Süreç Kaydı ve Performans bölümü"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Kaynak MTFG ortak sürücüsü (02. Şirketler · 03. Projeler): Fevup 47, Juris 33, D2-X 16, Marqby 7 belge panelde 'Onay Bekliyor' satırı olarak; Meridyen klasörü boş (A–F açılacak)"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Insights'ta 'MTFG portföy kaydı': MTFG payı, kategori, diğer paydaşlar, rol / gate"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Intake-lite: A–F adı olmayan klasörler (Denetim, Bütçe, Tutanak, Satış, İş planı…) anahtar kelimeyle doğru bölüme yönlendirilir; portföy modunda 'Müvekkil Yönetimi' yerine 'Şirket Yönetimi'"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Ana Merkez: 'Portföy Şirketleri' menüsü, kartlarda 'Portföy' rozeti, portföy tablosu ve şirket kartlarından panele geçiş; Vibe kapsamında Meridyen; Fevup'ın eski Juris-operasyon intake paneli portföy paneline birleşti"
+        }
+      ]
+    },
+    {
       "surum": "0.6.1",
       "tarih": "2026-10-22",
       "faz": "v1.0 yolu",

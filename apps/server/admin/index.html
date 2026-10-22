@@ -214,7 +214,7 @@ function viewSkor(ps){
   <div class="note" style="margin-top:10px"><span>ℹ</span><div><b>Kriterler (v1):</b> Dokümantasyon %25 · Dayanak kalitesi %10 · Yönetişim ritmi (90 günde tutanaklı toplantı) %15 · Karar ve aksiyon disiplini %15 · KPI/OKR ilerlemesi %15 · DD %12 · Risk yönetimi %8. Resmi skorlama geldiğinde kriter seti ve ağırlıklar panel master'ındaki <code>KYS.kriterler</code>'den tek yerde değişir; geçmiş anlık görüntüler sürüm etiketiyle ayrışır.</div></div></div>`;
 }
 /* Doğrulama turu (v0.5.5): panel × kontrol — iki kullanıcıda ortak (vibe_state: dogrulama) */
-const KIT_PANELS=[["onscala","Onscala"],["codemag","Codemag"],["zyrone","Zyrone"],["qervan-wetrade","Qervan–WeTrade","qervan"],["meown","Meown AI"]]; /* [CLIENT.id, ad, Ana Merkez görünüm anahtarı] */
+const KIT_PANELS=[["onscala","Onscala"],["codemag","Codemag"],["zyrone","Zyrone"],["qervan-wetrade","Qervan–WeTrade","qervan"],["meown","Meown AI"],["juris","Juris · portföy"],["fevup","Fevup Brands · portföy"],["marqby","Marqby · portföy"],["d2x","D2-X · portföy"],["meridyen","Meridyen · portföy"]]; /* [CLIENT.id, ad, Ana Merkez görünüm anahtarı] */
 const panelView=p=>p[2]||p[0];
 const CHECKS=[["kunye","Künye & kişiler"],["links","Data Room linkleri"],["okr","OKR hedefleri"],["fin","Finans (B)"],["dd","DD checklist (E-1)"],["risk","Riskler"],["proc","Toplantı & aksiyon"],["tarih","Veri tarihi"]];
 function viewDogrulama(ps){

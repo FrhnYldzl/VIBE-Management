@@ -37,7 +37,7 @@ export function driveFromEnv(): (() => Promise<Drive>) | null {
 }
 export const serviceAccountEmail = (): string | null => { try { return serviceAccountFromEnv()?.client_email ?? null; } catch { return null; } };
 
-const RESERVED = new Set(["onscala", "codemag", "zyrone", "qervan", "meown", "index", "api", "admin", "app"]);
+const RESERVED = new Set(["onscala", "codemag", "zyrone", "qervan", "meown", "juris", "fevup", "marqby", "d2x", "meridyen", "index", "api", "admin", "app"]);
 const Body = z.object({
   name: z.string().trim().min(2).max(80),
   slug: z.string().regex(/^[a-z0-9-]{2,40}$/).optional(),

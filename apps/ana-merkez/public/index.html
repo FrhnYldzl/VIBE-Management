@@ -1,4 +1,5 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.go-panel{margin-top:4px;padding:0;border:0;background:none;color:var(--v-blue,#6FA0E0);font:inherit;font-size:11.5px;cursor:pointer}.go-panel:hover{text-decoration:underline}
+</style>
 <!-- Yerel çalıştırma: claude.ai dışında window.claude yoksa bu adaptör /api/sample üzerinden Claude API'ye bağlanır -->
 <script src="claude-adapter.js"></script>
 <script src="egitim.data.js"></script>
@@ -551,6 +552,13 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
     <button class="ni" data-view="odak"><span class="k">12</span><span class="t">Haftalık Odak</span><span class="pct" id="navOdak"></span></button>
   </div>
 
+  <div class="navsec" id="navPortfoy"><div class="h top">Portföy Şirketleri · Kurumsal Yönetim</div>
+    <button class="ni" data-view="p-juris"><span class="k">JR</span><span class="t">Juris</span><span class="pct">%100</span></button>
+    <button class="ni" data-view="p-fevup"><span class="k">FV</span><span class="t">Fevup Brands</span><span class="pct">%44,1</span></button>
+    <button class="ni" data-view="p-marqby"><span class="k">MQ</span><span class="t">Marqby</span><span class="pct">%44,1</span></button>
+    <button class="ni" data-view="p-d2x"><span class="k">D2</span><span class="t">D2-X</span><span class="pct">Gate 1</span></button>
+    <button class="ni" data-view="p-meridyen"><span class="k">MR</span><span class="t">Meridyen</span><span class="pct">Gate 0</span></button>
+  </div>
   <div class="navsec" id="navPanels"><div class="h top">Kurumsal Yönetim Panelleri · Juris</div>
     <button class="ni" data-view="p-onscala"><span class="k">ON</span><span class="t">Onscala</span><span class="pct">Danışmanlık</span></button>
     <button class="ni" data-view="p-codemag"><span class="k">CM</span><span class="t">Codemag</span><span class="pct">Danışmanlık</span></button>
@@ -950,6 +958,16 @@ const DOCS = [
 ];
 /* Kurumsal yönetim panelleri (aynı artifact içinde ayrı sayfa) */
 const PANELS = {
+  juris:{name:"Juris", file:"juris.html", entity:"Juris Avukatlık Ortaklığı", since:"22.10.2026", portfoy:true, facts:["MTFG %100","33 Drive belgesi","Bütçe 2026","Aylık faaliyet raporu"], line:"Danışmanlık hattının operatörü. Öncelik: bütçe–gerçekleşme, satış hattı (7 aday) ve aylık rapor ritmi.",
+    fallback:"Juris Avukatlık Ortaklığı (MTFG %100, Hizmet İhracatı): Drive'da teklif ve sözleşme seti (Onscala, Zyrone, Ave, Nadda-Radius), müvekkil hizmet planları (Qervan, Codemag, Korenel), pazarlama ve içerik planları, satış aday dosyaları (Art Carpet kapalı, Ones devam, Kaptın Kaptın, Mağzan Olsun, Morali, Çakmak Metal, Yataş), Hedeflenen Bütçe 2026 ve finansal tablolar (01.03 ve 01.06.2026), aylık faaliyet raporları (10/2025, 02/2026, 03/2026). Muhasebe (mizan) klasörü yok."},
+  fevup:{name:"Fevup Brands", file:"fevup.html", entity:"Fevup Brands", since:"22.10.2026", portfoy:true, facts:["MTFG %44,1","24 haftalık rapor","5 YK tutanağı","Bütçe 2026"], line:"Mal ihracatı (e-ihracat). Öncelik: performans paketi, YK ritmi ve ortak sorun analizi yol haritası.",
+    fallback:"Fevup Brands (MTFG %44,1; Mercan Kimya %51, Burak Derelli %4,9): Drive'da 5 YK koordinasyon tutanağı (01.12.2025 – 23.03.2026), taslak yetki-görev-onay belgeleri, İngiltere ve Almanya e-ihracat heyet raporları, 2026 bütçe, 24 haftalık operasyon raporu (29.12.2025 – 21.06.2026), 7 YK faaliyet raporu, Kurucu Grup 2025 değerlendirmesi ve 2026 yol haritası, Ortaklar için sorun analizi. Muhasebe klasörü yok; operasyon planları klasörü boş."},
+  marqby:{name:"Marqby", file:"marqby.html", entity:"Marqby", since:"22.10.2026", portfoy:true, facts:["MTFG %44,1","2 YK raporu","Bütçe yok","Data Room dar"], line:"Hizmet ihracatı. Öncelik: Data Room A–E'nin kurulması (bütçe, mali tablo, hissedarlık belgeleri).",
+    fallback:"Marqby (MTFG %44,1; Beyza Ece %18,9, Burak Dereli %15,3, Y. E. Dinç %11,7, Albaraka SGlobe GSYF %10): Drive'da yalnız 2 YK raporu var (Q1 2026 ve Nisan–Mayıs 2026). Strateji, finans, muhasebe, operasyon ve hukuk klasörleri açılmadı; hissedarlık sözleşmesi Data Room'da değil."},
+  d2x:{name:"D2-X", file:"d2x.html", entity:"D2-X · VCP projesi", since:"22.10.2026", portfoy:true, facts:["Gate 1","İş planı v3.4","Finansal model v3.4","Ölçek planı 2027–2035"], line:"Operating partner modeli. Öncelik: yapı kararı (Gate 1) ve karar günlüğündeki açık kararlar.",
+    fallback:"D2-X (VCP, MTFG %100 operatörlük, Gate 1): D2X Planı V.1 — yönetim ve sürümler (doküman haritası, sürüm ve karar günlüğü, kurucu ekip notu), İş Planı v3.4 (A model ve gelir mimarisi, B pazar-ürün-operasyon-teşvik, C finans-ortaklık-yönetişim), finansal model özeti v3.4, Ölçek Planı v1.0 (2027–2035), kaynak ve teknik (model2.py, model3.py). Tüzel kişilik ve yapı kararı bekliyor; muhasebe ve hukuk klasörü yok."},
+  meridyen:{name:"Meridyen", file:"meridyen.html", entity:"Meridyen · VCP projesi (API)", since:"22.10.2026", portfoy:true, facts:["Gate 0","Drive klasörü boş","API · v2 yol haritası"], line:"Finansal varlık yönetimi aracı. Öncelik: Gate 0 dosyası (problem, model, ekip) ve klasör yapısı.",
+    fallback:"Meridyen (VCP, MTFG %100, Gate 0, kategori Yatırım): finansal varlık yönetimi aracı; Meridyen API v2 yol haritasında. Drive'daki '4. VCP Projesi-Meridyen-API' klasörü boş; A–F standardı açılacak."},
   onscala:{name:"Onscala", file:"onscala.html", entity:"Onscala Tasarım ve Modelleme Teknolojileri A.Ş.", since:"22.10.2025", facts:["11 tutanak","13.10 · 14 aksiyon","Borç 36,5 mn TL","Teklif stoğu 10,66 mn TL"], line:"Savunma sanayi maketleri · promosyon · e-ticaret. Öncelik: borç protokolü ve pay sahipliği.",
     fallback:"Onscala: kick-off 22.10.2025, 11 tutanak. 13.10.2026 toplantısı: 14 aksiyon (6 kritik: borç bütçesi, borç nakit akışı, borç protokolü, Onscala–Çağrı–Nadda cari hesapları, vergi borcu ~2 mn TL, muhasebe mutabakatı), 8 karar bekliyor (2027 ciro senaryosu 40/55/80 mn TL dahil). Toplam borç 36,54 mn TL, aylık ~385k TL borç servisi. Kritik riskler: pay sahipliği sözleşmesi (R1), ortak cari hesap (R2), vergi borcu (R4), nakit akışı (R11). DD klasörü boş."},
   codemag:{name:"Codemag", file:"codemag.html", entity:"Codemag Yazılım Hizmetleri Ltd. Şti.", since:"04.09.2026", facts:["22 aksiyon","80k TL/ay","128+ hat","Data Room boş"], line:"Serileştirme ve track & trace. Öncelik: 2027 proje bazlı bütçe ve standart proje paketi.",
@@ -972,6 +990,9 @@ const avg=a=>a.reduce((x,y)=>x+y,0)/a.length;
 const fitScore=a=>+avg(a.fit).toFixed(1);
 const scoreCls=v=>v>=7?"hi":v>=5?"mid":"lo";
 const docPill=d=>`<span class="pill ${d}">${d}</span>`;
+/* v0.6.4: portföy kaydı kodu → Kurumsal Yönetim Paneli */
+const PANEL_OF={"FEVUP":"fevup","JURİS":"juris","MRQ":"marqby","D2-X":"d2x","MER":"meridyen"};
+const panelLink=a=>{const id=PANEL_OF[a.code]||Object.keys(PANELS).find(k=>PANELS[k].name===a.name); return id&&PANELS[id]?`<br><button class="go-panel" data-view="p-${id}" title="Kurumsal Yönetim Paneli">Paneli aç →</button>`:"";};
 const cfLabel={produce:["ok","Nakit üretir"],consume:["warn","Nakit tüketir"],none:["neu","Veri yok"]};
 const eqLabel={build:["info","Değer biriktirir"],hold:["ok","Değer korur"],none:["neu","Veri yok"]};
 const bar=(v,col)=>`<div class="meter"><div class="bar"><i style="width:${v||0}%;background:${col}"></i></div><span class="n">${v==null?"—":"%"+v.toLocaleString("tr-TR")}</span></div>`;
@@ -984,7 +1005,7 @@ function renderHome(){
   const docd=DOCS.filter(d=>d[4]==="belge").length; $("#t-doc").innerHTML=`${Math.round(docd/DOCS.length*100)}<small>%</small>`;
   $("#t-assets").textContent=ASSETS.length; $("#t-assets-d").textContent=`${nCo} şirket · ${nVcp} VCP projesi`;
   $("#pf-count").textContent=ASSETS.length;
-  $("#pcards").innerHTML=Object.entries(PANELS).map(([id,p])=>`<button class="card pcard" data-view="p-${id}"><div class="top"><b>${esc(p.name)}</b>${SCORES[id]?`<span class="pill ${SCORES[id].toplam>=65?"ok":SCORES[id].toplam>=50?"warn":"red"}" title="Kurumsal Yönetim Skoru · ${esc(SCORES[id].versiyon||"")} · ${esc((SCORES[id].updated_at||"").slice(0,10))}">KYS ${SCORES[id].toplam} · ${esc(SCORES[id].harf)}</span>`:""}<span class="pill ${p.intake?"blue":"red"}">${p.intake?"Intake-lite":"Danışmanlık"}</span></div><div class="muted" style="font-size:12.5px">${esc(p.entity)} · başlangıç ${p.since}</div><div style="font-size:12.5px;color:var(--ink-2)">${esc(p.line)}</div><div class="facts">${p.facts.map(f=>`<span>${esc(f)}</span>`).join("")}</div><span class="go">Paneli aç →</span></button>`).join("");
+  $("#pcards").innerHTML=Object.entries(PANELS).map(([id,p])=>`<button class="card pcard" data-view="p-${id}"><div class="top"><b>${esc(p.name)}</b>${SCORES[id]?`<span class="pill ${SCORES[id].toplam>=65?"ok":SCORES[id].toplam>=50?"warn":"red"}" title="Kurumsal Yönetim Skoru · ${esc(SCORES[id].versiyon||"")} · ${esc((SCORES[id].updated_at||"").slice(0,10))}">KYS ${SCORES[id].toplam} · ${esc(SCORES[id].harf)}</span>`:""}<span class="pill ${p.portfoy?"ok":p.intake?"blue":"red"}">${p.portfoy?"Portföy":p.intake?"Intake-lite":"Danışmanlık"}</span></div><div class="muted" style="font-size:12.5px">${esc(p.entity)} · başlangıç ${p.since}</div><div style="font-size:12.5px;color:var(--ink-2)">${esc(p.line)}</div><div class="facts">${p.facts.map(f=>`<span>${esc(f)}</span>`).join("")}</div><span class="go">Paneli aç →</span></button>`).join("");
   $("#cfv").innerHTML=`<tr><th>Varlık</th><th>Sınıf</th><th>Nakit akışı (bugün)</th><th>Değer (yarın)</th><th class="r">Tez uyumu</th><th>Dayanak</th></tr>`+
     ASSETS.map(a=>`<tr class="row"><td><span class="nm">${a.name}</span> <span class="code">${a.code}</span></td><td class="sm">${a.cls}</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill ${eqLabel[a.eq][0]}">${eqLabel[a.eq][1]}</span></td><td class="r"><span class="score ${scoreCls(fitScore(a))}">${fitScore(a)}</span></td><td>${docPill(a.doc)}</td></tr>`).join("");
   $("#agenda").innerHTML=[["Yatırım Tezi v1.0'ı onayla (IPS)","Strateji"],["Ariwon ve Katalist cap table'ını doğrula","Yapı"],["D2-X ve EuroStep yapı kararı (Gate 1)","Venture"],["Değerleme politikası + ilk NAV işaretlemesi","Finans"],["2027 bütçesi ve sermaye tahsis tavanları","Finans"],["Onscala ve Codemag: girdi gecikmesi ve ücret/değer dengesi","Danışmanlık"],["Yetki devri planı (key person)","Risk"]]
@@ -1007,7 +1028,7 @@ function renderPortfolio(){
     $("#pfAdd").innerHTML=`<div style="margin-top:10px"><button class="btn" data-psadd="varlik|varlik">＋ Şirket / proje</button></div>`; return; }
   $("#pfAdd").innerHTML="";
   $("#pf").innerHTML=`<tr><th>#</th><th>Varlık</th><th>Sınıf</th><th>Kategori</th><th class="r">MTFG payı</th><th>Diğer paydaşlar</th><th>Nakit</th><th>Değer</th><th>Dayanak</th><th>Not</th></tr>`+
-    ASSETS.map((a,i)=>`<tr class="row"><td class="mono muted">${i+1}</td><td><span class="nm">${a.name}</span><br><span class="code">${a.code}</span></td><td class="sm">${a.cls}</td><td class="sm">${a.cat}</td><td class="r mono">${a.stake==null?"—":"%"+a.stake.toLocaleString("tr-TR")}</td><td class="sm">${a.others}</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill ${eqLabel[a.eq][0]}">${eqLabel[a.eq][1]}</span></td><td>${docPill(a.doc)}<div class="sm">${a.docName}</div></td><td class="sm">${a.note}</td></tr>`).join("");
+    ASSETS.map((a,i)=>`<tr class="row"><td class="mono muted">${i+1}</td><td><span class="nm">${a.name}</span><br><span class="code">${a.code}</span>${panelLink(a)}</td><td class="sm">${a.cls}</td><td class="sm">${a.cat}</td><td class="r mono">${a.stake==null?"—":"%"+a.stake.toLocaleString("tr-TR")}</td><td class="sm">${a.others}</td><td><span class="pill ${cfLabel[a.cf][0]}">${cfLabel[a.cf][1]}</span></td><td><span class="pill ${eqLabel[a.eq][0]}">${eqLabel[a.eq][1]}</span></td><td>${docPill(a.doc)}<div class="sm">${a.docName}</div></td><td class="sm">${a.note}</td></tr>`).join("");
   $("#own").innerHTML=ASSETS.filter(a=>a.stake!=null).sort((x,y)=>y.stake-x.stake).map(a=>`<div style="margin-bottom:8px"><div style="font-size:12.5px">${a.name}</div>${bar(a.stake,"var(--chart-1)")}</div>`).join("")+`<div class="sm muted" style="font-size:11.5px">Pay oranları portföy kaydından; değer ağırlığı değerleme sonrası eklenir.</div>`;
   const cats={}; ASSETS.forEach(a=>cats[a.cat]=(cats[a.cat]||0)+1);
   $("#cat").innerHTML=Object.entries(cats).map(([k,v])=>`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${k}</span><span class="mono muted">${v} varlık</span></div>${bar(Math.round(v/ASSETS.length*100),k==="Yatırım"?"var(--chart-4)":k.startsWith("Mal")?"var(--chart-2)":"var(--chart-3)")}</div>`).join("");
@@ -1565,8 +1586,8 @@ async function panelData(id){
 }
 
 /* ======= VIBE MANAGEMENT ======= */
-const SCOPES=[["all","Tüm portföy","#E5574F"],["mtfg","MTFG","#F3F1EA"],["onscala","Onscala","#E0A25A"],["codemag","Codemag","#6FA0E0"],["zyrone","Zyrone","#5CBF8C"],["qervan","Qervan–WeTrade","#E0A25A"],["meown","Meown AI","#6FA0E0"],["juris","Juris","#5CBF8C"],["fevup","Fevup","#E5574F"],["marqby","Marqby","#6FA0E0"],["d2x","D2-X","#E0A25A"]];
-const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["strateji","Gelir hedefleri · sorunlar · OKR"],["odak","Haftalık odak"],["docs","MTFG Data Room"],["egitim","Eğitim programı"],["onscala","Onscala paneli"],["codemag","Codemag paneli"],["zyrone","Zyrone paneli"],["qervan","Qervan–WeTrade paneli"],["meown","Meown AI paneli"]];
+const SCOPES=[["all","Tüm portföy","#E5574F"],["mtfg","MTFG","#F3F1EA"],["onscala","Onscala","#E0A25A"],["codemag","Codemag","#6FA0E0"],["zyrone","Zyrone","#5CBF8C"],["qervan","Qervan–WeTrade","#E0A25A"],["meown","Meown AI","#6FA0E0"],["juris","Juris","#5CBF8C"],["fevup","Fevup","#E5574F"],["marqby","Marqby","#6FA0E0"],["d2x","D2-X","#E0A25A"],["meridyen","Meridyen","#5CBF8C"]];
+const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["strateji","Gelir hedefleri · sorunlar · OKR"],["odak","Haftalık odak"],["docs","MTFG Data Room"],["egitim","Eğitim programı"],["onscala","Onscala paneli"],["codemag","Codemag paneli"],["zyrone","Zyrone paneli"],["qervan","Qervan–WeTrade paneli"],["meown","Meown AI paneli"],["juris","Juris paneli"],["fevup","Fevup paneli"],["marqby","Marqby paneli"],["d2x","D2-X paneli"],["meridyen","Meridyen paneli"]];
 const ALANLAR=[
  ["genel","Genel","Konuya en uygun bakış açısını seç."],
  ["strateji","Strateji","Yatırım tezi (T1–T6), portföy konumlandırması ve odak kararları merceğinden bak; her öneriyi tez kriterine bağla."],
@@ -1578,7 +1599,7 @@ const ALANLAR=[
  ["finans","Finans","Bütçe, nakit akışı, borç yapısı, bilanço ve mizan merceğinden; rakamları yalnızca veriden al, kaynak belgeyi belirt."],
  ["iletisim","İletişim","Müvekkil ve paydaş iletişimi: e-posta, gündem, tutanak ve hatırlatma formatlarında, kısa ve kurumsal."],
 ];
-let scope="all", alan="genel"; const src={portfolio:true,risks:true,strateji:true,odak:true,docs:false,egitim:false,onscala:true,codemag:true,zyrone:true,qervan:true,meown:true};
+let scope="all", alan="genel"; const src={portfolio:true,risks:true,strateji:true,odak:true,docs:false,egitim:false,onscala:true,codemag:true,zyrone:true,qervan:true,meown:true,juris:true,fevup:true,marqby:true,d2x:true,meridyen:true};
 /* Panel kaynakları: tek müvekkil kapsamında yalnız o panel; MTFG/portföy kapsamlarında tüm paneller (P) ya da hiçbiri (N) */
 let PANEL_IDS=Object.keys(PANELS);
 const panelSrc=on=>Object.fromEntries(PANEL_IDS.map(id=>[id,on?1:0]));
@@ -1586,14 +1607,15 @@ const onlyPanel=id=>Object.fromEntries(PANEL_IDS.map(p=>[p,p===id?1:0]));
 const SCOPE_SRC={all:{portfolio:1,risks:1,docs:0,...panelSrc(1)},mtfg:{portfolio:1,risks:1,docs:1,...panelSrc(0)},
   onscala:{portfolio:0,risks:0,docs:0,...onlyPanel("onscala")},codemag:{portfolio:0,risks:0,docs:0,...onlyPanel("codemag")},
   zyrone:{portfolio:0,risks:0,docs:0,...onlyPanel("zyrone")},qervan:{portfolio:0,risks:0,docs:0,...onlyPanel("qervan")},meown:{portfolio:0,risks:0,docs:0,...onlyPanel("meown")},
-  juris:{portfolio:1,risks:1,docs:0,...panelSrc(1)},fevup:{portfolio:1,risks:1,docs:0,...panelSrc(0)},marqby:{portfolio:1,risks:1,docs:0,...panelSrc(0)},d2x:{portfolio:1,risks:1,docs:0,...panelSrc(0)}};
+  juris:{portfolio:1,risks:1,docs:0,...panelSrc(1)},fevup:{portfolio:1,risks:1,docs:0,...onlyPanel("fevup")},marqby:{portfolio:1,risks:1,docs:0,...onlyPanel("marqby")},d2x:{portfolio:1,risks:1,docs:0,...onlyPanel("d2x")},meridyen:{portfolio:1,risks:1,docs:0,...onlyPanel("meridyen")}};
 for(const k of Object.keys(SCOPE_SRC)) SCOPE_SRC[k].egitim=(k==="juris"||k==="all")?1:0; /* eğitim programı: Juris ve tüm portföy kapsamında */
 for(const k of Object.keys(SCOPE_SRC)){ SCOPE_SRC[k].strateji=(k==="all"||k==="mtfg")?1:0; SCOPE_SRC[k].odak=(k==="all"||k==="mtfg"||k==="juris")?1:0; } /* v0.5.9 */
 
 /* Intake-lite panelleri (v0.5.1): sunucuda Drive linkinden üretilenler /api/panels'ten gelir; sol menü, portföy kartı, Vibe kapsam/kaynak ve başlıklara eklenir */
 async function loadDynamicPanels(){
   let rows=[]; try{ const r=await fetch("/api/panels",{credentials:"same-origin"}); if(r.ok) rows=await r.json(); }catch(e){}
-  rows=rows.filter(p=>p&&p.slug&&!PANELS[p.slug]); if(!rows.length) return;
+  const PANEL_ALIAS={"fevup-brands":"fevup"}; /* v0.6.4: aynı şirketin eski intake paneli portföy paneliyle birleşti */
+  rows=rows.filter(p=>p&&p.slug&&!PANELS[p.slug]&&!PANELS[PANEL_ALIAS[p.slug]]); if(!rows.length) return;
   const nav=$("#navPanels");
   for(const p of rows){
     const since=(p.scanned_at||"").slice(0,10).split("-").reverse().join(".");
@@ -1607,7 +1629,7 @@ async function loadDynamicPanels(){
     nav.insertBefore(b,$("#navAddPanel"));
   }
   PANEL_IDS=Object.keys(PANELS);
-  for(const k of Object.keys(SCOPE_SRC)){ const on=["all","juris"].includes(k); if(PANELS[k]) Object.assign(SCOPE_SRC[k],onlyPanel(k)); else Object.assign(SCOPE_SRC[k],panelSrc(on?1:0)); }
+  for(const k of Object.keys(SCOPE_SRC)){ const on=["all","juris"].includes(k); if(PANELS[k]&&k!=="juris") Object.assign(SCOPE_SRC[k],onlyPanel(k)); else Object.assign(SCOPE_SRC[k],panelSrc(on?1:0)); }
   for(const p of rows) SCOPE_SRC[p.slug]={portfolio:0,risks:0,docs:0,...onlyPanel(p.slug)};
   renderHome(); renderScope(); renderSrcs();
 }
@@ -1650,16 +1672,17 @@ TEMPLATES.push(
 const TCATS=["Tümü","Doküman","Intelligence","İletişim","Yönetişim","Yatırım","Hukuk & Risk"]; let tcat="Tümü";
 const QUICK=[["brief","Haftalık brifing"],["onscala-mail","Onscala durum maili"],["risk","Risk radar"],["ic","IC gündemi"]];
 const COS=[
- ["Juris","m","Yönetim · %100","Vibe · Drive · Mail","part","Danışmanlık hattının operatörü"],
+ ["Juris","m","Yönetim · %100","Kurumsal Yönetim Paneli","live","p-juris"],
  ["Onscala","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-onscala"],
  ["Codemag","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-codemag"],
  ["Zyrone","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-zyrone"],
  ["Qervan–WeTrade","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-qervan"],
  ["Meown AI","d","Danışmanlık","Kurumsal Yönetim Paneli","live","p-meown"],
- ["Fevup","y","Yatırım · %44,1","Portföy kaydı · hissedarlık","part",""],
- ["Marqby","y","Yatırım · %44,1","Portföy kaydı · hissedarlık","part",""],
- ["D2-X","o","Operatörlük · %100","Portföy kaydı · beyan","part",""],
- ["Ariwon · Meridyen · EuroStep · Standio · Katalist","y","VCP hattı","Gate kaydı · beyan","off",""],
+ ["Fevup","y","Yatırım · %44,1","Kurumsal Yönetim Paneli","live","p-fevup"],
+ ["Marqby","y","Yatırım · %44,1","Kurumsal Yönetim Paneli","part","p-marqby"],
+ ["D2-X","o","Operatörlük · %100","Kurumsal Yönetim Paneli","part","p-d2x"],
+ ["Meridyen","y","VCP · Gate 0","Kurumsal Yönetim Paneli","off","p-meridyen"],
+ ["Ariwon · EuroStep · Standio · Katalist","y","VCP hattı","Gate kaydı · beyan","off",""],
 ];
 const RECIPES=[
  {t:"Şablonlar bu sayfada",live:true,a:["Elle · bu sayfa","Şablon seçimi + kapsam"],c:["Claude","Panel verisi bağlam olarak"],o:["Çıktı","Brifing · mail · tablo"]},
@@ -1668,7 +1691,7 @@ const RECIPES=[
  {t:"Drive yüklemesi → panel durumu",live:false,a:["Data Room'a belge","Drive klasörü A–F"],c:["Claude","Belge sınıflandırma"],o:["Panel","Durum: girdi → onay"]},
 ];
 
-const INSTR=`Sen MTFG Ana Merkez'in Vibe Management stüdyosundaki Claude asistanısın. MTFG, Ferhan Yıldızlı'nın PE / family office mantığıyla yönettiği yapıdır: Juris Avukatlık Ortaklığı üzerinden müvekkillere kurumsal yönetim danışmanlığı verir (Onscala, Codemag, Zyrone, Qervan–WeTrade, Meown AI), Fevup ve Marqby'de yatırımcıdır, D2-X'te operatördür, VCP projelerini gate'lerle yürütür.
+const INSTR=`Sen MTFG Ana Merkez'in Vibe Management stüdyosundaki Claude asistanısın. MTFG, Ferhan Yıldızlı'nın PE / family office mantığıyla yönettiği yapıdır: Juris Avukatlık Ortaklığı üzerinden müvekkillere kurumsal yönetim danışmanlığı verir (Onscala, Codemag, Zyrone, Qervan–WeTrade, Meown AI), Fevup ve Marqby'de yatırımcıdır, D2-X'te operatördür, VCP projelerini gate'lerle yürütür. Juris, Fevup, Marqby, D2-X ve Meridyen için de aynı standartta Kurumsal Yönetim Paneli vardır (portföy panelleri; Drive klasöründen taslak).
 Kurallar:
 - Türkçe yaz; kurumsal, net ve eyleme dönük ol.
 - Yalnızca aşağıdaki VERİ bölümüne dayan. Veride olmayan rakam, tarih veya kişi uydurma; gerekirse "veride yok" de.
@@ -1918,7 +1941,7 @@ function copyText(txt,btn){ const done=()=>{const o=btn.textContent;btn.textCont
 function fallbackCopy(txt,done){ const ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");done();}catch(e){} ta.remove(); }
 
 /* ======= NAV ======= */
-const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi",egitim:"Eğitim Programları",odak:"Haftalık Odak","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI"};
+const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi",egitim:"Eğitim Programları",odak:"Haftalık Odak","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI","p-juris":"Juris","p-fevup":"Fevup Brands","p-marqby":"Marqby","p-d2x":"D2-X","p-meridyen":"Meridyen"};
 let current="vibe";
 function go(v){
   if(!titles[v]) v="vibe"; current=v; const isPanel=v.startsWith("p-");

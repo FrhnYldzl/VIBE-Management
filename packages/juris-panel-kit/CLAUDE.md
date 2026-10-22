@@ -46,6 +46,13 @@ Compare: eski panelle görünüm bazında kelime benzerliği; %90 altı görün�
   documents, actuals, docUploads). Görevler alınmaz. Tohum: `data/perf/<ad>.json` + `PERF_SEEDS` (state-routes.ts). Yeni şirkete KPI seti:
   paneldeki "KPI seti yükle (JSON)" ya da örnek şablondan uyarlayıp yükle.
 
+## Portföy şirketleri (v0.6.4)
+- Juris, Fevup, Marqby, D2-X, Meridyen aynı kitle üretilir: `node tools/portfoy.js && node tools/kit.js all --deploy`. Kaynak MTFG ortak sürücüsü
+  (02. Şirketler / 03. Projeler); klasör ağacı `tools/portfoy.js` içinde (Drive listesi). Yeni belge gelince listeyi güncelleyip yeniden üretin.
+- A–F adı olmayan klasörler `intake.js` `routeSections` ile anahtar kelimeyle bölüme düşer (sıra: B, C, F, E, D, A; bulunamazsa bölüm başlığı, o da yoksa D).
+- `CLIENT.portfolio` doluysa Insights'ta MTFG payı şeridi çıkar ve metinlerde "Müvekkil Yönetimi" → "Şirket Yönetimi".
+- Ana Merkez anahtarı = `CLIENT.id` (juris, fevup, marqby, d2x, meridyen); PANELS'te `portfoy:true`.
+
 ## Kurallar
 - Her panel bir dayanak gösterir: Belge (linkli) / Beyan / Dayanak yok. Beyanı belge gibi gösterme.
 - "Müvekkil" jenerik sorumlu kullanma: Müvekkil Yönetimi · Mali Müşavir · Yazılım Ekibi · Juris · Ortak.

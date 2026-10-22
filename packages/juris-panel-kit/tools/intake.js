@@ -15,15 +15,56 @@ function idFromTitle(t, fallback) {
 }
 const slugify = (s) => String(s).toLowerCase().replace(/[ığüşöçİ]/g, (c) => ({ ı: "i", ğ: "g", ü: "u", ş: "s", ö: "o", ç: "c", İ: "i" }[c])).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
 
+/* v0.6.4: A–F adlandırması olmayan klasör ağaçları (MTFG şirket klasörleri: "2.4. Satış", "1.2. Denetim", "02. Finansal model") anahtar
+   kelimeyle bölüme yönlendirilir. Sıra önemlidir: önce alt başlık başlığı, bulunamazsa bölüm başlığı, o da yoksa D. */
+const KEYWORD_LETTER = [
+  ["B", ["bütçe", "butce", "finans", "nakit", "değerleme"]],
+  ["C", ["muhasebe", "mizan", "denetim", "mali "]],
+  ["F", ["tutanak", "rapor", "faaliyet", "toplantı", "iletişim planı", "heyet"]],
+  ["E", ["hukuk", "sözleşme", "sozlesme", "uyum", "kvkk", "dava", "risk tespit"]],
+  ["D", ["operasyon", "satış", "satis", "pazarlama", "hizmet", "teşvik", "kaynak", "teknik", "ilişki", "medya", "içerik", "eğitim"]],
+  ["A", ["strateji", "iş geliştirme", "plan", "yönetim", "ölçek", "sürüm", "yol haritası", "kurucu", "model"]],
+];
+function keywordLetter(t) {
+  const s = String(t).toLocaleLowerCase("tr");
+  for (const [L, kws] of KEYWORD_LETTER) if (kws.some((k) => s.includes(k))) return L;
+  return null;
+}
+const stdLetter = (t) => { const id = idFromTitle(t, null); return id ? id[0] : null; };
+/** Standart dışı bölümleri A–F'ye dağıtır: [{id, title, url, items}] (harf başına birleşik). A–F adlı ağaçlarda davranış değişmez. */
+function routeSections(sections) {
+  const by = new Map();
+  const put = (L, sec, it) => {
+    if (!by.has(L)) by.set(L, { id: L, title: null, url: "", items: [], from: [] });
+    const b = by.get(L); if (it) b.items.push(it);
+    if (sec && !b.from.includes(sec.title)) b.from.push(sec.title);
+    if (sec && !b.url) b.url = sec.url ?? "";
+  };
+  // standart A–F bölümleri önce: kimlikleri (A1, E1…) yönlendirilen klasörlere kaptırılmaz
+  const ordered = [...sections.filter((s) => stdLetter(s.title)), ...sections.filter((s) => !stdLetter(s.title))];
+  for (const s of ordered) {
+    const L0 = stdLetter(s.title);
+    if (L0) { const b = (put(L0, s), by.get(L0)); b.title = b.title ?? s.title; b.url = s.url ?? b.url; b.items.push(...(s.items ?? [])); continue; }
+    const Ls = keywordLetter(s.title) ?? "D";
+    if (!(s.items ?? []).length) { put(Ls, s); continue; }
+    for (const it of s.items) put(stdLetter(it.title) ?? keywordLetter(it.title) ?? Ls, s, it);
+  }
+  return [...by.values()].map((b) => ({ ...b, title: b.title ?? (STD_SECTIONS.find(([L]) => L === b.id)[1] + (b.from.length ? ` · ${b.from.map((x) => x.trim()).join(" · ")}` : "")) }));
+}
+
 /** Drive taramasını (klasör → alt klasör → dosya) DATAROOM yapısına dönüştürür; eksik bölümler A–F standardıyla tamamlanır */
 function buildDataroom(sections, ownerKey = "O.M") {
   const byId = new Map();
-  for (const s of sections) byId.set(idFromTitle(s.title, s.id), s);
+  for (const s of routeSections(sections)) byId.set(s.id, s);
   const out = [];
   for (const [id, stdTitle] of STD_SECTIONS) {
     const s = byId.get(id);
+    const seen = new Set();
     const items = (s?.items ?? []).map((it, i) => {
-      const iid = idFromTitle(it.title, `${id}${i + 1}`).replace(/\./g, "");
+      let iid = idFromTitle(it.title, `${id}${i + 1}`).replace(/\./g, "");
+      if (iid[0] !== id || seen.has(iid)) iid = `${id}${i + 1}`; // yönlendirilmiş ya da çakışan kimlik → bölüm sırası
+      while (seen.has(iid)) iid += "b";
+      seen.add(iid);
       const files = it.files ?? [];
       const docs = files.length
         ? files.map((f) => `doc("DR",${J(f.name)},${ownerKey},"review",${J(f.link ?? "")})`)
@@ -51,10 +92,11 @@ function generateDataJs(spec) {
   const contacts = c.contacts ?? { "Müvekkil Yönetimi": "teyit edilecek", "Mali Müşavir": "teyit edilecek", [consultant]: "Ferhan Yıldızlı · Gülşah Algın" };
 
   const CLIENT = `const CLIENT = {
-  id:${J(c.id)}, name:${J(c.name)}, startLabel:${J(`Hizmet başlangıcı · ${kickoff} · Intake-lite taslağı`)},
+  id:${J(c.id)}, name:${J(c.name)}, startLabel:${J(c.startLabel ?? `Hizmet başlangıcı · ${kickoff} · Intake-lite taslağı`)},
+  portfolio:${J(c.portfolio ?? null)},
   entities:${J(ents)}, short:${J(shortList)},
   driveRoot:${J(c.driveRoot ?? "")},
-  planSheet:${J(c.planSheet ?? c.driveRoot ?? "")}, planLabel:"Hizmet Planı (hazırlanacak)",
+  planSheet:${J(c.planSheet ?? c.driveRoot ?? "")}, planLabel:${J(c.planLabel ?? "Hizmet Planı (hazırlanacak)")},
   dataDate:${J(scanned)}, kickoff:${J(kickoff)}, rhythm:[["Aylık","Yönetim toplantısı + raporlama (kurulacak)"],["Haftalık","Doküman teslim ve girdi takibi"],["Talep bazlı","Dosya bazlı görüş"]],
   startDocs:[["DR","Drive Data Room A–F açılışı ve ilk tarama (Intake-lite)",${J(scanned)}],["Ç1","Hizmet Teklifi (yüklenecek)","—"],["Ç2","Danışmanlık Sözleşmesi (yüklenecek)","—"]],
   scopeIn:["Şirket Stratejisinin Analizi ve Geliştirilmesi","Hukuki Denetim ve Risk Analizi","Şirket İçi Hukuki Süreçlerin Geliştirilmesi","Kurumsal Yönetim ve Organizasyon Yapısının Geliştirilmesi","Uyuşmazlık ve Hukuki Süreç Danışmanlığı"],
@@ -161,6 +203,7 @@ function viewInsights(){
  const basis=[["Dokümana dayalı",BASIS_COUNT.doc.length,"var(--success)"],["Beyana dayalı",BASIS_COUNT.beyan.length,"var(--warn)"],["Dayanak yok",BASIS_COUNT.none.length,"var(--neutral)"]]; const basisTot=basis.reduce((a,b)=>a+b[1],0)||1;
  const owners={}; items.forEach(it=>it.docs.forEach((d,i)=>{if(stOf(it,i)==="input"){const k=d.owner.split(" / ")[0].split(" + ")[0];owners[k]=(owners[k]||0)+1;}}));
  return \`<div class="page-h"><div><div class="eyebrow">Genel Bakış · Insights</div><h1>Insights</h1><p>Drive Data Room taramasından kurulan ilk panel. Rakamlar belge geldikçe dolar; \${O.J} inceleyip işaretler.</p></div><div class="right"><button class="btn" data-view="as-A">İş Planı OKR'ları</button><button class="btn" data-view="as-E">DD Checklist</button></div></div>
+ \${CLIENT.portfolio?\`\${sec("MTFG portföy kaydı",CLIENT.portfolio.tur+(CLIENT.portfolio.gate?" · "+CLIENT.portfolio.gate:""))}<div class="tiles" style="margin-bottom:12px"><div class="tile accent"><div class="l">MTFG payı</div><div class="v num">\${CLIENT.portfolio.pay==null?"—":"%"+String(CLIENT.portfolio.pay).replace(".",",")}</div><div class="d" style="color:rgba(255,255,255,.65)">\${CLIENT.portfolio.rol}</div></div><div class="tile"><div class="l">Kategori</div><div class="v" style="font-size:18px">\${CLIENT.portfolio.kategori}</div><div class="d">\${CLIENT.portfolio.tur}</div></div><div class="tile" style="grid-column:span 2"><div class="l">Diğer paydaşlar</div><div class="d" style="font-size:13px;color:var(--ink-2);margin-top:6px">\${CLIENT.portfolio.digerleri}</div><div class="d">\${CLIENT.portfolio.not||""}</div></div></div>\`:""}
  \${sec("A · Intake-lite taraması","Drive · "+DRIVE_META.scannedAt.slice(0,10))}
  <div class="tiles"><div class="tile accent"><div class="l">Drive dosyası</div><div class="v num">\${DRIVE_META.files}</div><div class="d" style="color:rgba(255,255,255,.65)">\${DRIVE_META.folders} alt klasör</div></div><div class="tile"><div class="l">Tüzel kişilik</div><div class="v num">\${CLIENT.entities.length}</div><div class="d">\${CLIENT.entities[0]}</div></div><div class="tile"><div class="l">Toplam KR</div><div class="v num">\${krTotal}</div><div class="d">5 bölüm · hedefler iletilmedi</div></div><div class="tile"><div class="l">DD belge</div><div class="v num">\${dd.ok}<small>/ \${dd.tot}</small></div><div class="d">checklist</div></div><div class="tile"><div class="l">Hizmet planı tamamlanma</div><div class="v num">\${c.pct}<small>%</small></div><div style="margin-top:10px">\${bar(c)}</div></div><div class="tile"><div class="l">Onboarding</div><div class="v num">\${ob.obPct}<small>%</small></div><div class="d">rehber \${ob.lnPct}%</div></div></div>
  <div class="grid2" style="margin-top:12px">
@@ -172,10 +215,14 @@ function viewInsights(){
 const ONBOARD=[["Drive Data Room A–F açılışı ve ilk tarama (Intake-lite)",${J(scanned)},1],["Hizmet teklifi ve danışmanlık sözleşmesi","yüklenecek",0],["Hukuki Bilgilendirme ve Risk Tespit Formu (DD mülakatı)","planlanacak",0],["İş Modeli Bilgi Notu ve Soru Seti","gönderilecek",0],["DD belge setinin yüklenmesi","bekleniyor",0],["Aylık yönetim toplantısı ve rapor ritmi","kurulacak",0]];
 const LEARN=[{no:"DD",t:"Due Diligence Asgari İnceleme Kılavuzu – A.Ş.",st:"planned",for:"E-1"},{no:"1",t:"İş Modeli Nedir ve Neden Analiz Edilir? – Bilgi Notu",st:"planned",for:"A.1"},{no:"DR",t:"Data Room Yapısı ve Kullanımı – A–F",st:"shared",for:"E-1"}];`;
 
-  return [
+  const parts = [
     `/* =========================================================\n   MÜVEKKİL VERİSİ — ${c.id} · INTAKE-LITE TASLAĞI\n   Kaynak: Drive Data Room taraması · ${spec.scannedAt ?? new Date().toISOString()} · ${fileCount} dosya / ${folderCount} alt klasör\n   Bu dosya tools/intake.js tarafından üretildi; metinler ${consultant} tarafından doldurulacak.\n   ========================================================= */`,
     CLIENT, FUNCTIONS, buildDataroom(spec.sections), BASIS, ASSESS, VIEWS, "",
-  ].join("\n\n");
+  ];
+  let out = parts.join("\n\n");
+  // v0.6.4 portföy modu: MTFG portföy şirketi "müvekkil" değildir — sorumlu ve metin dili şirket yönetimine çevrilir
+  if (c.portfolio) out = out.replace(/Müvekkil Yönetimi/g, "Şirket Yönetimi").replace(/müvekkil belgeleri/g, "şirket belgeleri").replace(/müvekkil hedefleriyle/g, "şirket hedefleriyle").replace(/müvekkile göre/g, "şirkete göre").replace("MÜVEKKİL VERİSİ", "PORTFÖY ŞİRKETİ VERİSİ");
+  return out;
 }
 
 /** drive-sync listeleme fonksiyonuyla kök klasörü tarar → spec.sections (alt klasör = alt başlık; alt başlık içindeki klasörler bir seviye derin) */

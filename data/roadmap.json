@@ -347,11 +347,11 @@
         },
         {
           "v": "0.6.4",
-          "ad": "Portföy şirketleri de panel standardında (kurucu 1): Juris, Marqby, Fevup, D2-X, Meridyen — müvekkil panelleriyle aynı kit, 'Portföy' rozeti; Intake-lite ile Data Room'dan; MTFG payı, tez skoru ve KYS portföy görünümüne bağlanır",
-          "durum": "planned",
+          "ad": "Portföy şirketleri panel standardında (kurucu 1): Juris, Fevup, Marqby, D2-X, Meridyen — müvekkil panelleriyle aynı kit; MTFG ortak sürücüsündeki şirket klasörleri A–F'ye anahtar kelimeyle dağıtıldı; Insights'ta MTFG payı / kategori / paydaşlar; Ana Merkez'de 'Portföy Şirketleri' menüsü, 'Portföy' rozeti, portföy tablosu ve şirket kartlarından panele geçiş",
+          "durum": "done",
           "alan": "Veri",
           "dikey": "KY",
-          "kabul": "5 portföy şirketi panelde; Portföy sayfasındaki kartlardan panele geçiliyor"
+          "kabul": "5 portföy paneli smoke temiz (10/10 panel); Portföy tablosu ve kartlardan panele geçiliyor; Vibe kapsamı şirket başına kendi panelini okur (yerelde doğrulandı)"
         },
         {
           "v": "0.6.5",
