@@ -11,7 +11,7 @@ const PERF_SEEDS: [RegExp, string][] = [[/^fevup/, "fevup.json"], [/.*/, "standa
 
 const STATUSES = ["done", "review", "progress", "input", "pending"] as const;
 const client = z.string().regex(/^[a-z0-9-]{1,40}$/);
-const VIBE_KEYS = ["sessions", "library", "egitim", "dogrulama", "gelir", "kriter", "sorunlar", "odak", "varlik"] as const; // v0.5.9: portföy standartları + haftalık odak // egitim: oturum durum/doküman (v0.5.2) · dogrulama: panel doğrulama checklist'i (v0.5.5)
+const VIBE_KEYS = ["sessions", "library", "egitim", "dogrulama", "gelir", "kriter", "sorunlar", "odak", "varlik", "mevzuat", "hrisk", "uyumpol", "uyumislem"] as const; // v0.6.6 hukuk: mevzuat takip · hukuki risk · uyum politika/işlem // v0.5.9: portföy standartları + haftalık odak // egitim: oturum durum/doküman (v0.5.2) · dogrulama: panel doğrulama checklist'i (v0.5.5)
 /* panel düzenlemeleri: tür başına izin verilen alanlar (metin, ≤ 600 karakter) */
 const EDIT_KINDS = {
   action: ["owner", "action", "prio", "output", "status"],

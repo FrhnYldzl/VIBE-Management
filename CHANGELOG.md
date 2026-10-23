@@ -3,6 +3,21 @@
 Biçim: [Keep a Changelog](https://keepachangelog.com/) · Sürümleme: SemVer 0.x (her iterasyon bir MINOR).
 Uygulama içi sürüm notları `apps/api/src/releases.json` dosyasından okunur; ikisi birlikte güncellenir.
 
+## [0.6.6] — 2026-10-23 · Hukuk: Mevzuat Takip · Hukuki Risk · Uyum · Hukuk Ajanları
+
+### Eklendi
+- `apps/server/src/hukuk.ts`: `KAYNAKLAR` (23), `KONULAR` + `etiketle` (ilgi puanı), `POLITIKALAR` (14), `ISLEMLER` (7 tür), `RISK_KATEGORI`;
+  tarayıcılar `parseResmiGazete` (fihrist: bölüm → tür → kalem), `parseRss` (EUR-Lex rssId=222), `parseAtom` (legislation.gov.uk), Federal Register API; 30 dk önbellek, bir kez yeniden deneme.
+- `GET /api/hukuk/tanimlar`, `POST /api/hukuk/tara`, `POST /api/ajan/calistir` — elle yazılmış function-calling döngüsü (Anthropic SDK `messages.create`):
+  araç girdisi Zod ile doğrulanır, geçersiz/izinsiz çağrı `is_error` sonucu döner, `pause_turn` sürdürülür, `max_tokens`/`refusal` durdurur, en çok 10 tur;
+  Mevzuat ajanında alan adı kısıtlı `web_search_20260209`; uyarlanabilir düşünme; bütçe/kademe denetimi ve `vibe_usage` kaydı (`kaynak: ajan-<id>`).
+- Paylaşımlı durum anahtarları: `mevzuat`, `hrisk`, `uyumpol`, `uyumislem`. Ajan yazıları `durum: "oneri"`, `ekleyen: "ajan:<id>"`.
+- Ana Merkez: sol menüde "Hukuk" (H1–H4), dört görünüm; Vibe kaynağı "Hukuk"; `buildApp` testler için `anthropic` ve `fetchImpl` alır.
+- Testler: ayrıştırıcılar, tarama uç noktası, ajan döngüsü (sahte istemci) — 53 test.
+
+### Değişti
+- Yol haritası: planlı 0.6.6–0.6.10 bir kaydırıldı (Proje Paneli 0.6.7 · CRM 0.6.8 · Pazar ve Rekabet 0.6.9 · Sektörel hukuk 0.6.10 · Rakip araştırması 0.6.11).
+
 ## [0.6.5] — 2026-10-22 · Vibe oturumları ayrı çalışma alanında · tema tercihi
 
 ### Eklendi (ek · tema)

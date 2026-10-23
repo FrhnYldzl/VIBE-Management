@@ -25,7 +25,7 @@ describe("paylaşımlı durum", () => {
     expect((await app.inject("/api/panels/Q%20ervan/status")).statusCode).toBe(400);
   });
   it("vibe oturumları ve kütüphane", async () => {
-    expect((await app.inject("/api/vibe/state")).json()).toEqual({ sessions: null, library: null, egitim: null, dogrulama: null, gelir: null, kriter: null, sorunlar: null, odak: null, varlik: null });
+    expect((await app.inject("/api/vibe/state")).json()).toEqual({ sessions: null, library: null, egitim: null, dogrulama: null, gelir: null, kriter: null, sorunlar: null, odak: null, varlik: null, mevzuat: null, hrisk: null, uyumpol: null, uyumislem: null });
     const r = await app.inject({ method: "PUT", url: "/api/vibe/state/sessions", payload: [{ id: "s1", title: "Deneme", msgs: [] }] });
     expect(r.json()).toMatchObject({ ok: true, adet: 1 });
     const st = (await app.inject("/api/vibe/state")).json();

@@ -8,6 +8,7 @@ import { registerAuth } from "./auth-routes.ts";
 import { type Drive, driveConfigError, driveFromEnv, registerIntake } from "./intake-routes.ts";
 import { registerDailySync } from "./sync-job.ts";
 import { registerExport } from "./export.ts";
+import { type AjanClient, registerHukuk } from "./hukuk.ts";
 import { ADMIN_DIR, ANA_MERKEZ_PUBLIC, DATA_DIR, LANDING_DIR, ROOT, VERSION } from "./paths.ts";
 import { registerSample } from "./sample.ts";
 import { registerState } from "./state-routes.ts";
@@ -21,7 +22,7 @@ import { openStore, type Store } from "./store.ts";
  *   /api/*       health · roadmap · releases · sample (Claude köprüsü)
  * Kimlik: landing, /login, /auth/*, /api/health hariç her yol oturum ister (auth-routes.ts).
  */
-export function buildApp({ logger = false, auth = configFromEnv(), store, panelsDir, drive }: { logger?: boolean; auth?: AuthConfig; store?: Store; panelsDir?: string; drive?: (() => Promise<Drive>) | null } = {}) {
+export function buildApp({ logger = false, auth = configFromEnv(), store, panelsDir, drive, anthropic, fetchImpl }: { logger?: boolean; auth?: AuthConfig; store?: Store; panelsDir?: string; drive?: (() => Promise<Drive>) | null; anthropic?: AjanClient; fetchImpl?: typeof fetch } = {}) {
   const app = Fastify({ logger, trustProxy: true }); // Railway proxy → x-forwarded-proto ile https algısı
   const json = <T>(name: string) => JSON.parse(readFileSync(join(DATA_DIR, name), "utf-8")) as T;
   // Paylaşımlı durum + kullanıcılar: DATA_PATH (Railway Volume, örn. /data/vibe.db) · yerelde var/vibe.db
@@ -69,6 +70,7 @@ export function buildApp({ logger = false, auth = configFromEnv(), store, panels
   registerSample(app, db);
   registerState(app, db);
   registerExport(app);
+  registerHukuk(app, db, { client: anthropic, fetchImpl }); // v0.6.6 Hukuk: mevzuat taraması + ajanlar
   const intake = registerIntake(app, db, PANELS_DIR, getDrive);
   registerDailySync(app, db, getDrive, intake.rescan, { schedule: !process.env.VITEST && process.env.DAILY_SYNC !== "0" });
 

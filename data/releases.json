@@ -1,6 +1,35 @@
 {
   "surumler": [
     {
+      "surum": "0.6.6",
+      "tarih": "2026-10-23",
+      "faz": "v1.0 yolu",
+      "baslik": "Hukuk: Mevzuat Takip · Hukuki Risk · Uyum · Hukuk Ajanları",
+      "durum": "yayinda",
+      "degisiklikler": [
+        {
+          "tur": "yeni",
+          "metin": "Mevzuat Takip: 13 yerel + 10 global resmi kaynak; Resmî Gazete, EUR-Lex (AB Resmî Gazetesi L), legislation.gov.uk ve US Federal Register tek tıkla taranır, başlıklar konu etiketi ve portföy ilgi puanıyla sıralanır; kayıt etkilenen şirket, etki, durum ve sorumluyla izlenir; 'Etki analizi' Vibe oturumu açar"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Hukuki Risk: şirket bazlı risk kaydı, olasılık × etki 5×5 ısı haritası, kategori dağılımı; 'Panellerden topla' tüm Kurumsal Yönetim Panellerindeki 'Bunları yapmazsak' risklerini ve MTFG hukuk risklerini tek kayda alır"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Uyum: 14 şirket içi politika × portföy şirketi matrisi (Yok · Taslak · Onaylı · Gözden geçir) ve 7 işlem türü (sözleşme, pay devri, yatırım, İK, yurt dışı ödeme, veri aktarımı, ilişkili taraf) için dayanaklı kontrol listeleri"
+        },
+        {
+          "tur": "yeni",
+          "metin": "Hukuk Ajanları (function calling): Mevzuat Takip, Hukuki Risk ve Uyum ajanları yalnız tanımlı araçları çağırır (kaynak_tara, portfoy_oku, mevzuat_kaydi_oner, hukuki_risk_oner, islem_kontrol_listesi …); girdiler sunucuda doğrulanır, yazdıkları 'Ajan önerisi' olarak düşer; adımlar ekranda görünür, maliyet Vibe bütçesine işlenir. Sözleşme İnceleme ve Dava/İcra Takip ajanları planlı"
+        },
+        {
+          "tur": "iyilestirme",
+          "metin": "Vibe'a 'Hukuk: mevzuat · risk · uyum' veri kaynağı"
+        }
+      ]
+    },
+    {
       "surum": "0.6.5",
       "tarih": "2026-10-22",
       "faz": "v1.0 yolu",

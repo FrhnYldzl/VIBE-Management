@@ -8,3 +8,5 @@ sayfasında görünür. Triage: **şimdi** · **sonraki** · **fikir** · **ret*
 | 2026-10-18 | v0.1 | istek | Fazlandırma + versiyonlama ile sistematik iterasyon; Claude/Higgsfield vibe, McKinsey/Deloitte kurumsal dil, ClickUp/Slack/GitHub ürün desenleri | şimdi → v0.1 temeli |
 | 2026-10-22 | v0.6.4 | istek | Oturumlar açıldıktan sonra Claude'daki gibi oturum mantığıyla, ayrı bir çalışma alanında olmalı; Vibe sayfasında eğreti duruyor | şimdi → v0.6.5 |
 | 2026-10-22 | v0.6.5 | istek | Açık ve koyu tema tercihi olsun, ulaşılabilir yakın bir yerde | şimdi → v0.6.5 (ek) · üst çubuk |
+| 2026-10-23 | v0.6.5 | istek | Hukuk kısmına: Mevzuat Takip (kaynaklarıyla yerel ve global), Risk yönetimi, Uyum (şirket içi politikalar ve işlemler bazında), function calling olarak ajanlar | şimdi → v0.6.6 |
+| 2026-10-23 | v0.6.5 | istek | Yanıtlar Türkçe olsun | kalıcı tercih |

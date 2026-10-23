@@ -363,6 +363,14 @@
         },
         {
           "v": "0.6.6",
+          "ad": "Hukuk modülü (kurucu önerisi): H1 Mevzuat Takip (23 kaynak, yerel + global; Resmî Gazete, EUR-Lex, legislation.gov.uk, Federal Register otomatik taranır, konu etiketi ve ilgi puanı) · H2 Hukuki Risk (5×5 ısı haritası, panellerden toplama) · H3 Uyum (14 politika × şirket matrisi, 7 işlem türü için dayanaklı kontrol listesi) · H4 Hukuk Ajanları (function calling: Mevzuat Takip, Hukuki Risk, Uyum aktif; Sözleşme İnceleme, Dava/İcra planlı)",
+          "durum": "done",
+          "alan": "Hukuk",
+          "dikey": "KY",
+          "kabul": "Otomatik tarama gerçek kaynaklarla çalışıyor; panel riskleri toplanıyor; uyum matrisi ve işlem kontrolleri kalıcı; ajan döngüsü sahte istemciyle test edildi (canlı ajan çalıştırması kullanıcıda)"
+        },
+        {
+          "v": "0.6.7",
           "ad": "Proje Paneli standardı (kurucu 2): şirketlerin ve bizim projelerimiz (örn. Ariwon, Katalist PMO) için aynı standart — SOW (kapsam, çıktılar, kabul, varsayımlar, hariç tutulanlar) + Proje Planı; aşamalar sade uluslararası çerçeve (Başlatma · Planlama · Yürütme · İzleme-Kontrol · Kapanış — PMI/PRINCE2 özü), paydaş matrisi (RACI · etki/ilgi), kaynak planı (kişi, bütçe, süre), kilometre taşları; proje → şirkete dönüşüm (varlık) takibi Venture Building gate'leriyle",
           "durum": "planned",
           "alan": "Ürün",
@@ -370,7 +378,7 @@
           "kabul": "Bir proje SOW + planla panel olarak açılıyor; 'şirkete dönüştü' adımı portföy kaydına bağlanıyor"
         },
         {
-          "v": "0.6.7",
+          "v": "0.6.8",
           "ad": "CRM (kurucu 6): İş Geliştirme ve Yatırım altında kişi · şirket · fırsat; haftalık toplantılar ve ritim (son temas, sonraki adım, gecikme); Claude önerileri (kime ne zaman dönülmeli, hangi fırsat sıradaki aşamaya hazır); funnel ve eğitim katılımcılarıyla tek kayıt",
           "durum": "planned",
           "alan": "Ürün",
@@ -378,7 +386,7 @@
           "kabul": "Haftalık CRM dashboard'u ritim ihlallerini ve 5 öneriyi gösteriyor"
         },
         {
-          "v": "0.6.8",
+          "v": "0.6.9",
           "ad": "Pazar ve Rekabet Analizi (kurucu 7): her şirket paneline yeni bölüm — pazar büyüklüğü (TAM/SAM/SOM), rakip haritası, konumlandırma; yöntemler modül olarak test edilir (Mavi Okyanus ERRC + strateji kanvası, Al Ries konumlandırma, Porter 5 Güç); dayanak/beyan ayrımıyla",
           "durum": "planned",
           "alan": "Ürün",
@@ -386,7 +394,7 @@
           "kabul": "Bir şirket için pazar & rekabet bölümü 2 yöntemle dolduruluyor; Vibe'dan 'pazar analizi' şablonu"
         },
         {
-          "v": "0.6.9",
+          "v": "0.6.10",
           "ad": "Sektörel hukuk (kurucu 8): Hukuki DD içinde izahname 'sektöre ilişkin mevzuat' bölümü gibi — şirketin sektörüne göre düzenleyici çerçeve (lisans/izin, sektörel kurum, özel yükümlülükler); DD'deki hukuk alanları sektörle ilgisine göre ağırlıklandırılır (yüksek / orta / düşük)",
           "durum": "planned",
           "alan": "Hukuk",
@@ -394,7 +402,7 @@
           "kabul": "5 şirketin E-1 DD'sinde 'Sektörel hukuk' alt bölümü ve ilgi ağırlığı görünüyor"
         },
         {
-          "v": "0.6.10",
+          "v": "0.6.11",
           "ad": "Rakip ve emsal araştırması (kurucu 4): kurumsal yönetim, regtech ve legaltech ürünleri — board portalı, entity management, CLM, DD platformları, uyum yazılımları; özellik karşılaştırması → eksikler yol haritasına adım (BENCHMARKS.md, çeyreklik yenilenir)",
           "durum": "planned",
           "alan": "Araştırma",

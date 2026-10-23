@@ -327,6 +327,38 @@ textarea.ps-in{min-height:44px;resize:vertical}
 .pcard .facts span{font-size:11.5px;color:var(--ink-2);background:var(--tint-04);border:1px solid var(--border);padding:2px 8px;border-radius:999px}
 .pcard .go{font-size:12px;color:var(--info);font-weight:600}
 .view{display:none}.view.active{display:block}
+/* v0.6.6 Hukuk modülü */
+.hk-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:22px 0 10px}
+.hk-h h3{margin:0;font-family:var(--font-display);font-weight:500;font-size:19px} .hk-h .sub{font-size:12.5px;color:var(--ink-3)}
+.hk-src{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:12px}
+.hk-src .col h4{margin:0 0 6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.hk-sr{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--divider);font-size:12.5px}
+.hk-sr a{font-weight:600;text-decoration:none} .hk-sr a:hover{text-decoration:underline} .hk-sr .k{color:var(--ink-3);grid-column:1} .hk-sr .r{grid-row:1/3;grid-column:2;align-self:center;display:flex;gap:6px;align-items:center}
+.hk-in,.hk-sel{height:30px;border:1px solid var(--border-strong);border-radius:var(--r-sm);background:var(--bg-elev);color:var(--ink);padding:0 8px;font:inherit;font-size:12.5px;max-width:100%}
+.hk-in.w{width:100%} textarea.hk-in{height:auto;padding:8px;min-height:70px;resize:vertical}
+.hk-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;align-items:end}
+.hk-form label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+.hk-chips{display:flex;gap:6px;flex-wrap:wrap} .hk-chips button{height:26px;padding:0 10px;border-radius:999px;border:1px solid var(--border-strong);font-size:12px;color:var(--ink-2)} .hk-chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hk-tag{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;background:var(--tint-08);color:var(--ink-2);margin:2px 3px 0 0;white-space:nowrap}
+.hk-x{border:0;background:none;color:var(--ink-3);cursor:pointer;font-size:12px;padding:2px 6px;border-radius:5px} .hk-x:hover{background:var(--tint-08);color:var(--ink)}
+.hk-heat{display:grid;grid-template-columns:22px repeat(5,1fr);gap:3px;font-size:11px;max-width:360px}
+.hk-heat .c{aspect-ratio:1.5;border-radius:5px;display:grid;place-items:center;font-weight:600;font-family:var(--font-mono)} .hk-heat .ax{color:var(--ink-3);display:grid;place-items:center}
+.hk-cell{min-width:94px;height:26px;border-radius:999px;border:1px dashed var(--border-strong);font-size:11.5px;color:var(--ink-3);cursor:pointer;padding:0 8px}
+.hk-cell.taslak{border-style:solid;background:var(--warn-bg);color:var(--warn)} .hk-cell.onayli{border-style:solid;background:var(--success-bg);color:var(--success)} .hk-cell.gozden{border-style:solid;background:var(--info-bg);color:var(--info)}
+.hk-isl{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bg-elev);padding:12px 14px;margin-top:10px}
+.hk-isl .t{display:flex;gap:8px;align-items:center;flex-wrap:wrap} .hk-isl .t b{font-size:13.5px} .hk-isl ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.hk-isl li label{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;cursor:pointer} .hk-isl li .d{color:var(--ink-3);font-size:11px;margin-left:4px}
+.hk-ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.hk-ag .card{display:flex;flex-direction:column;gap:8px} .hk-ag .card.planli{opacity:.72}
+.hk-ag .tools{display:grid;gap:4px;font-size:12px} .hk-ag .tools code{font-family:var(--font-mono);font-size:11.5px;color:var(--ink);background:var(--tint-08);padding:1px 6px;border-radius:4px}
+.hk-ag .tools span{color:var(--ink-3)}
+.hk-steps{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:12.5px}
+.hk-steps li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--bg-sunken)}
+.hk-steps li.err{border-color:var(--red)} .hk-steps .n{font-family:var(--font-mono);color:var(--ink-3)} .hk-steps code{font-family:var(--font-mono);font-size:11.5px;font-weight:600}
+.hk-steps .g{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);overflow-wrap:anywhere}
+.hk-out{font-size:13.5px;line-height:1.6} .hk-out h4{font-family:var(--font-display);font-weight:500;font-size:17px;margin:12px 0 6px} .hk-out table{border-collapse:collapse;font-size:12.5px;margin:6px 0} .hk-out td,.hk-out th{border:1px solid var(--divider);padding:5px 8px;text-align:left}
+.hk-busy{display:flex;gap:10px;align-items:center;color:var(--ink-3);font-size:13px;padding:10px 0}
+.spin{width:14px;height:14px;border:2px solid var(--border-strong);border-top-color:var(--red);border-radius:50%;animation:hkspin .8s linear infinite;flex:0 0 14px}@keyframes hkspin{to{transform:rotate(360deg)}}
 /* v0.6.5 Oturum çalışma alanı (Claude tarzı) */
 .main.sess-mode{padding:0;overflow:hidden;display:flex;flex-direction:column;background:var(--v-bg);color:var(--v-ink)}
 .main.sess-mode .topbar{padding:10px 16px;min-height:0;border-bottom:1px solid var(--v-line)}
@@ -608,6 +640,12 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
     <button class="ni" data-view="capital"><span class="k">06</span><span class="t">Bütçe, Nakit ve Sermaye</span></button>
     <button class="ni" data-view="value"><span class="k">07</span><span class="t">Değerleme ve Networth</span></button>
     <button class="ni" data-view="risk"><span class="k">08</span><span class="t">Risk Yönetimi</span></button>
+  </div>
+  <div class="navsec"><div class="h">Hukuk</div>
+    <button class="ni" data-view="mevzuat"><span class="k">H1</span><span class="t">Mevzuat Takip</span><span class="pct" id="navMvz"></span></button>
+    <button class="ni" data-view="hrisk"><span class="k">H2</span><span class="t">Hukuki Risk</span><span class="pct" id="navHr"></span></button>
+    <button class="ni" data-view="uyum"><span class="k">H3</span><span class="t">Uyum</span><span class="pct" id="navUy"></span></button>
+    <button class="ni" data-view="ajan"><span class="k">H4</span><span class="t">Hukuk Ajanları</span><span class="pct">3 aktif</span></button>
   </div>
   <div class="navsec"><div class="h">Dayanak</div>
     <button class="ni" data-view="dataroom"><span class="k">09</span><span class="t">Data Room</span></button>
@@ -956,6 +994,12 @@ pre.req .k{color:#E9A39F} pre.req .s{color:#9FD3B4}
     <div class="card pad"><div class="scroll"><table class="tbl risk" id="risks"></table></div></div>
     <div class="sec callout"><div><b>Yoğunlaşma uyarısı:</b> Kurucu zamanı tek kişide toplanıyor; "key person" riski portföyün tamamını etkiler. Yedekleme ve yetki devri (Gülşah / İcra Kurulu) planı ayrı başlık olarak izlenir.</div></div>
   </section>
+
+  <!-- H1–H4 HUKUK (v0.6.6) -->
+  <section class="view" id="v-mevzuat"><div id="hkMvz"></div></section>
+  <section class="view" id="v-hrisk"><div id="hkHr"></div></section>
+  <section class="view" id="v-uyum"><div id="hkUy"></div></section>
+  <section class="view" id="v-ajan"><div id="hkAj"></div></section>
 
   <!-- 09 DATA ROOM -->
   <section class="view" id="v-dataroom">
@@ -1681,7 +1725,7 @@ async function panelData(id){
 
 /* ======= VIBE MANAGEMENT ======= */
 const SCOPES=[["all","Tüm portföy","#E5574F"],["mtfg","MTFG","#F3F1EA"],["onscala","Onscala","#E0A25A"],["codemag","Codemag","#6FA0E0"],["zyrone","Zyrone","#5CBF8C"],["qervan","Qervan–WeTrade","#E0A25A"],["meown","Meown AI","#6FA0E0"],["juris","Juris","#5CBF8C"],["fevup","Fevup","#E5574F"],["marqby","Marqby","#6FA0E0"],["d2x","D2-X","#E0A25A"],["meridyen","Meridyen","#5CBF8C"]];
-const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["strateji","Gelir hedefleri · sorunlar · OKR"],["odak","Haftalık odak"],["docs","MTFG Data Room"],["egitim","Eğitim programı"],["onscala","Onscala paneli"],["codemag","Codemag paneli"],["zyrone","Zyrone paneli"],["qervan","Qervan–WeTrade paneli"],["meown","Meown AI paneli"],["juris","Juris paneli"],["fevup","Fevup paneli"],["marqby","Marqby paneli"],["d2x","D2-X paneli"],["meridyen","Meridyen paneli"]];
+const SOURCES=[["portfolio","Portföy kaydı"],["risks","Risk kaydı"],["strateji","Gelir hedefleri · sorunlar · OKR"],["odak","Haftalık odak"],["docs","MTFG Data Room"],["egitim","Eğitim programı"],["onscala","Onscala paneli"],["codemag","Codemag paneli"],["zyrone","Zyrone paneli"],["qervan","Qervan–WeTrade paneli"],["meown","Meown AI paneli"],["juris","Juris paneli"],["fevup","Fevup paneli"],["marqby","Marqby paneli"],["d2x","D2-X paneli"],["meridyen","Meridyen paneli"],["hukuk","Hukuk: mevzuat · risk · uyum"]];
 const ALANLAR=[
  ["genel","Genel","Konuya en uygun bakış açısını seç."],
  ["strateji","Strateji","Yatırım tezi (T1–T6), portföy konumlandırması ve odak kararları merceğinden bak; her öneriyi tez kriterine bağla."],
@@ -1693,7 +1737,7 @@ const ALANLAR=[
  ["finans","Finans","Bütçe, nakit akışı, borç yapısı, bilanço ve mizan merceğinden; rakamları yalnızca veriden al, kaynak belgeyi belirt."],
  ["iletisim","İletişim","Müvekkil ve paydaş iletişimi: e-posta, gündem, tutanak ve hatırlatma formatlarında, kısa ve kurumsal."],
 ];
-let scope="all", alan="genel"; const src={portfolio:true,risks:true,strateji:true,odak:true,docs:false,egitim:false,onscala:true,codemag:true,zyrone:true,qervan:true,meown:true,juris:true,fevup:true,marqby:true,d2x:true,meridyen:true};
+let scope="all", alan="genel"; const src={portfolio:true,risks:true,strateji:true,odak:true,docs:false,egitim:false,onscala:true,codemag:true,zyrone:true,qervan:true,meown:true,juris:true,fevup:true,marqby:true,d2x:true,meridyen:true,hukuk:false};
 /* Panel kaynakları: tek müvekkil kapsamında yalnız o panel; MTFG/portföy kapsamlarında tüm paneller (P) ya da hiçbiri (N) */
 let PANEL_IDS=Object.keys(PANELS);
 const panelSrc=on=>Object.fromEntries(PANEL_IDS.map(id=>[id,on?1:0]));
@@ -1919,6 +1963,7 @@ async function buildContext(){
   if(src.odak&&typeof odCurWeek==="function"){ const w=odCurWeek(); used.push("Haftalık odak "+w.w); parts.push("## Haftalık odak "+w.w+" ("+w.start+")\n"+JSON.stringify({ozet:odStats(w),kalemler:w.items.map(x=>({grup:x.grup,sirket:x.sirket,alan:x.alan,odak:x.baslik,sorumlu:x.sorumlu,durum:OD_T[x.durum],tutar:x.tutar,para:x.para,devir:x.devir}))})); }
   if(src.docs){ used.push("MTFG Data Room"); parts.push("## MTFG Data Room\n"+JSON.stringify(DOCS.map(d=>({klasor:d[0]+" "+d[1],belge:d[2],icerik:d[3],durum:d[4],panel:d[5]})))); }
   if(src.egitim&&typeof EGITIM!=="undefined"){ const p=egP(), sts=egStatus(p); used.push("Eğitim programı"); parts.push("## Eğitim programı · "+p.kurum+"\n"+JSON.stringify({program:p.ad,tema:p.tema,yer:p.yer,donem:p.donem,format:p.format,hedefKitle:p.hedefKitle,oturumlar:p.oturumlar.map((s,i)=>({no:s.no,tarih:s.tarih,durum:sts[i],modul:egMod(p,s.modul).t,duzey:s.duzey,misafir:s.misafir,dersler:s.dersler.map(d=>d[0]+" ("+egTeacher(d[1])+", "+d[2]+")"),dokuman:egDocs(p,s.no).map(d=>d.t+(d.url?" ["+d.url+"]":" [link yok]"))})),hizmetEslemesi:EGITIM.moduller.map(m=>({modul:m.no,hizmet:m.hizmet,fn:m.fn,panel:m.panel}))})); }
+  if(src.hukuk){ await hkLoad(); used.push("Hukuk kayıtları"); parts.push("## Hukuk · mevzuat takip kaydı\n"+JSON.stringify(HK.mevzuat.slice(0,60).map(r=>({tarih:r.tarih,kaynak:r.kaynak,baslik:r.baslik,url:r.url,etki:r.etki,sirketler:r.sirketler,durum:r.durum,ozet:r.ozet})))+"\n\n## Hukuk · hukuki risk kaydı\n"+JSON.stringify(HK.hrisk.slice(0,80).map(r=>({sirket:r.sirket,risk:r.risk,kategori:r.kategori,skor:r.o*r.e,kontrol:r.kontrol,durum:r.durum})))+"\n\n## Hukuk · uyum\n"+JSON.stringify({politikalar:HK.uyumpol.map(r=>({politika:r.pol,sirket:r.sirket,durum:r.durum})),islemler:HK.uyumislem.map(r=>({sirket:r.sirket,tur:r.tur,baslik:r.baslik,tamam:(r.ok||[]).length}))})); }
   for(const id of PANEL_IDS) if(src[id]){ const d=await panelData(id); used.push(PANELS[id].name+" ("+d.src+")"); parts.push(`## ${PANELS[id].name} Kurumsal Yönetim Paneli (${d.src})\n`+d.txt); }
   return {text:parts.join("\n\n"),used};
 }
@@ -2118,8 +2163,148 @@ function applyTheme(t){ const r=document.documentElement; if(t==="light"||t==="d
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-theme-set]"); if(b) applyTheme(b.dataset.themeSet); });
 (()=>{ let t="system"; try{ t=localStorage.getItem("mtfg-theme")||"system"; }catch(e){} applyTheme(t); })();
 
+/* ======= HUKUK (v0.6.6) — H1 Mevzuat Takip · H2 Hukuki Risk · H3 Uyum · H4 Hukuk Ajanları =======
+   Tanımlar sunucudan (/api/hukuk/tanimlar); kayıtlar paylaşımlı durumda (mevzuat · hrisk · uyumpol · uyumislem). Ajan yazıları "öneri" durumunda düşer. */
+let HKT=null; const HK={mevzuat:[],hrisk:[],uyumpol:[],uyumislem:[]}; let hkLoaded=0, hkScan=null, hkScanF="ilgili", hkScanK="", hkHrF={s:"",d:""}, hkAjRun=null, hkAjBusy=false, hkAjSel="mevzuat", hkAjO={s:"",t:"default",w:true};
+const HK_DUR={oneri:["info","Ajan önerisi"],yeni:["red","Yeni"],degerlendiriliyor:["warn","Değerlendiriliyor"],aksiyon:["warn","Aksiyonda"],kapandi:["ok","Kapandı"],ilgisiz:["neu","İlgisiz"]};
+const HR_DUR={oneri:["info","Ajan önerisi"],acik:["red","Açık"],izleniyor:["warn","İzleniyor"],kapandi:["ok","Kapandı"]};
+const UY_DUR=["yok","taslak","onayli","gozden"], UY_T={yok:"Yok",taslak:"Taslak",onayli:"Onaylı",gozden:"Gözden geçir"};
+const hkId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const hkCos=()=>["MTFG",...Object.values(PANELS).map(p=>p.name)];
+const hkPortCos=()=>["MTFG",...Object.values(PANELS).filter(p=>p.portfoy).map(p=>p.name)];
+const hkOpt=(arr,sel,first)=>(first!=null?'<option value="">'+esc(first)+'</option>':"")+arr.map(x=>{const [v,t]=Array.isArray(x)?x:[x,x];return '<option value="'+esc(v)+'"'+(String(v)===String(sel)?" selected":"")+'>'+esc(t)+'</option>';}).join("");
+async function hkTanim(){ if(!HKT){ const r=await fetch("/api/hukuk/tanimlar",{credentials:"same-origin"}); HKT=await r.json(); } return HKT; }
+async function hkLoad(force){ if(!force&&Date.now()-hkLoaded<4000) return; try{ const r=await fetch(VAPI,{credentials:"same-origin"}); if(r.ok){ const st=await r.json(); for(const k of Object.keys(HK)) HK[k]=(st[k]&&Array.isArray(st[k].value))?st[k].value:[]; hkLoaded=Date.now(); } }catch(e){} hkNav(); }
+async function hkSave(k){ hkNav(); try{ const r=await fetch(VAPI+"/"+k,{method:"PUT",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(HK[k])}); if(!r.ok) alert("Kaydedilemedi: "+await r.text()); else hkLoaded=Date.now(); }catch(e){ alert("Bağlantı hatası"); } }
+function hkNav(){ const a=HK.mevzuat.filter(r=>r.durum==="oneri"||r.durum==="yeni").length, b=HK.hrisk.filter(r=>r.durum!=="kapandi"&&r.o*r.e>=16).length, c=HK.uyumislem.filter(r=>{const t=HKT&&HKT.islemler[r.tur];return t&&(r.ok||[]).length<t.kontroller.length;}).length;
+  if($("#navMvz")) $("#navMvz").textContent=a?a+" yeni":""; if($("#navHr")) $("#navHr").textContent=b?b+" kritik":""; if($("#navUy")) $("#navUy").textContent=c?c+" açık":""; }
+async function hkShow(v){ const el={mevzuat:"#hkMvz",hrisk:"#hkHr",uyum:"#hkUy",ajan:"#hkAj"}[v]; if(!$(el).innerHTML) $(el).innerHTML='<div class="hk-busy">Yükleniyor…</div>';
+  try{ await hkTanim(); await hkLoad(); }catch(e){ $(el).innerHTML='<div class="sec callout"><div>Hukuk tanımları alınamadı: '+esc(e.message)+'</div></div>'; return; }
+  ({mevzuat:renderMevzuat,hrisk:renderHrisk,uyum:renderUyum,ajan:renderAjan})[v](); }
+const hkPage=(eb,t,p,right)=>'<div class="page-h"><div><div class="eyebrow">'+eb+'</div><h1>'+t+'</h1><p>'+p+'</p></div><div class="right">'+(right||"")+'</div></div>';
+const hkTile=(l,v,d,acc)=>'<div class="tile'+(acc?" accent":"")+'"><div class="l">'+l+'</div><div class="v num">'+v+'</div>'+(d?'<div class="d"'+(acc?' style="color:rgba(255,255,255,.65)"':'')+'>'+d+'</div>':"")+'</div>';
+function hkPortfoyBaglam(){ return ASSETS.map(a=>a.name+" · "+a.cls+" · "+a.cat+" · MTFG %"+(a.stake??"—")+(a.note?" · "+a.note:"")).concat(Object.values(PANELS).filter(p=>!p.portfoy).map(p=>p.name+" (Juris müvekkili) · "+p.entity+" · "+p.line)).join("\n"); }
+
+/* ---- H1 Mevzuat Takip ---- */
+function renderMevzuat(){ const T=HKT, M=HK.mevzuat; const kn=id=>(T.kaynaklar.find(k=>k.id===id)||{ad:id}).ad;
+  const src=tur=>'<div class="col"><h4>'+(tur==="yerel"?"Yerel · Türkiye":"Global")+'</h4>'+T.kaynaklar.filter(k=>k.tur===tur).map(k=>'<div class="hk-sr"><a href="'+esc(k.url)+'" target="_blank" rel="noopener">'+esc(k.ad)+' ↗</a><span class="k">'+esc(k.kapsam)+' · '+esc(k.siklik)+'</span><span class="r">'+(k.otomatik?'<span class="pill ok">Otomatik</span><button class="btn" data-hkscan="'+k.id+'">Tara</button>':'<span class="pill neu" title="Ajan web araması bu alan adını tarayabilir">Ajan / elle</span>')+'</span></div>').join("")+'</div>';
+  let scan="";
+  if(hkScan){ const list=hkScan.sonuclar.filter(x=>(hkScanF==="tum"||x.ilgi>=1)&&(!hkScanK||x.kaynak===hkScanK));
+    scan='<div class="hk-h"><h3>Tarama sonuçları</h3><span class="sub">'+hkScan.sonuclar.length+' kalem · '+new Date(hkScan.zaman).toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"})+(hkScan.hatalar.length?' · <span style="color:var(--red)">'+hkScan.hatalar.map(e=>esc(e.kaynak)+": "+esc(e.hata)).join(" · ")+'</span>':"")+'</span></div>'+
+      '<div class="hk-chips" style="margin-bottom:8px"><button data-hkf="ilgili" class="'+(hkScanF==="ilgili"?"on":"")+'">Portföyle ilgili ('+hkScan.sonuclar.filter(x=>x.ilgi>=1).length+')</button><button data-hkf="tum" class="'+(hkScanF==="tum"?"on":"")+'">Tümü</button><select class="hk-sel" id="hkScanK">'+hkOpt([...new Set(hkScan.sonuclar.map(x=>x.kaynak))].map(k=>[k,kn(k)]),hkScanK,"Tüm kaynaklar")+'</select></div>'+
+      '<div class="card"><div class="scroll"><table class="tbl"><tr><th>Tarih</th><th>Kaynak</th><th>Başlık</th><th>Konu</th><th class="r">İlgi</th><th></th></tr>'+
+      (list.length?list.slice(0,120).map((x,i)=>{ const kayitli=M.some(r=>r.url===x.url); return '<tr class="row"><td class="mono sm">'+esc(x.tarih)+'</td><td class="sm">'+esc(kn(x.kaynak))+(x.tur?'<div class="muted" style="font-size:11px">'+esc(x.tur)+'</div>':"")+'</td><td><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.baslik)+'</a></td><td>'+x.etiketler.map(t=>'<span class="hk-tag">'+esc(t)+'</span>').join("")+'</td><td class="r mono">'+x.ilgi+'</td><td>'+(kayitli?'<span class="pill ok">Kayıtta</span>':'<button class="btn" data-hkadd="'+hkScan.sonuclar.indexOf(x)+'">Kayda al</button>')+'</td></tr>'; }).join(""):'<tr><td colspan="6" class="sm muted">Bu süzgeçte kalem yok. "Tümü"ne bakın ya da başka bir gün tarayın.</td></tr>')+'</table></div></div>'; }
+  const rows=M.slice().sort((a,b)=>(a.durum==="oneri"?-1:0)-(b.durum==="oneri"?-1:0)||String(b.tarih||"").localeCompare(String(a.tarih||"")));
+  $("#hkMvz").innerHTML=hkPage("H1 · Hukuk","Mevzuat Takip","Yerel ve global resmi kaynaklar tek yerde. Otomatik kaynaklar (Resmî Gazete, EUR-Lex, legislation.gov.uk, Federal Register) bir tıkla taranır; portföyü etkileyenler kaynağına bağlı olarak kayda alınır, etki ve aksiyonla izlenir. Diğer kaynakları Mevzuat Takip Ajanı alan adı kısıtlı web aramasıyla kontrol eder.",
+      '<button class="btn primary" data-hkscan="hepsi">Otomatik kaynakları tara</button><button class="btn" data-hkajan="mevzuat">Ajanla tara</button>')+
+    '<div class="tiles">'+hkTile("Takipte",M.filter(r=>!["kapandi","ilgisiz"].includes(r.durum)).length,"açık mevzuat kalemi",true)+hkTile("Ajan önerisi",M.filter(r=>r.durum==="oneri").length,"onay bekliyor")+hkTile("Aksiyonda",M.filter(r=>r.durum==="aksiyon").length,"sorumlu atanmış")+hkTile("Yüksek etki",M.filter(r=>r.etki==="Yüksek"&&r.durum!=="kapandi").length,"açık")+hkTile("Kaynak",T.kaynaklar.length,T.kaynaklar.filter(k=>k.otomatik).length+" otomatik")+'</div>'+
+    '<div class="hk-h"><h3>Kaynaklar</h3><span class="sub">Her kayıt bir kaynağa bağlanır · bağlantılar resmi sitelere gider</span></div><div class="card pad"><div class="hk-src">'+src("yerel")+src("global")+'</div></div>'+
+    scan+
+    '<div class="hk-h"><h3>Takip kaydı</h3><span class="sub">'+M.length+' kalem · etkilenen şirket, etki, durum ve sorumlu</span></div>'+
+    '<div class="card"><div class="scroll"><table class="tbl"><tr><th>Tarih</th><th>Kaynak</th><th>Düzenleme</th><th>Etkilenen</th><th>Etki</th><th>Durum</th><th>Sorumlu</th><th></th></tr>'+
+    (rows.length?rows.map(r=>'<tr class="row"><td class="mono sm">'+esc(r.tarih||"—")+'</td><td class="sm">'+esc(kn(r.kaynak))+(r.ekleyen&&String(r.ekleyen).startsWith("ajan")?'<div><span class="pill info" style="font-size:10px">ajan</span></div>':"")+'</td><td><a href="'+esc(r.url)+'" target="_blank" rel="noopener"><b>'+esc(r.baslik)+'</b></a>'+(r.ozet?'<div class="sm muted" style="margin-top:3px">'+esc(r.ozet)+'</div>':"")+(r.aksiyon?'<div class="sm" style="margin-top:3px"><b>Aksiyon:</b> '+esc(r.aksiyon)+'</div>':"")+'</td><td class="sm">'+esc((r.sirketler||[]).join(", ")||"—")+'</td><td><select class="hk-sel" data-hkmf="'+r.id+'|etki">'+hkOpt(["Yüksek","Orta","Düşük"],r.etki||"","—")+'</select></td><td><select class="hk-sel" data-hkmf="'+r.id+'|durum">'+hkOpt(Object.entries(HK_DUR).map(([k,v])=>[k,v[1]]),r.durum)+'</select></td><td><input class="hk-in" style="width:110px" value="'+esc(r.sorumlu||"")+'" data-hkmf="'+r.id+'|sorumlu" placeholder="sorumlu"></td><td style="white-space:nowrap"><button class="hk-x" data-hketki="'+r.id+'" title="Vibe ile etki analizi (yeni oturum)">Etki analizi</button><button class="hk-x" data-hkmdel="'+r.id+'" title="Sil">✕</button></td></tr>').join(""):'<tr><td colspan="8" class="sm muted">Henüz kayıt yok. Kaynakları tarayıp "Kayda al" deyin ya da ajanla tarayın.</td></tr>')+'</table></div></div>'+
+    '<div class="card pad" style="margin-top:10px"><div class="hk-form"><label>Başlık<input class="hk-in w" id="hkMB" placeholder="Düzenlemenin adı"></label><label>Bağlantı (resmi kaynak)<input class="hk-in w" id="hkMU" placeholder="https://…"></label><label>Kaynak<select class="hk-sel" id="hkMK">'+hkOpt(T.kaynaklar.map(k=>[k.id,k.ad]),"resmi-gazete")+'</select></label><label>Tarih<input class="hk-in" type="date" id="hkMT"></label><label>Etkilenen şirketler<select class="hk-sel" id="hkMS" multiple size="1" title="Ctrl ile çoklu seçim">'+hkOpt(hkCos())+'</select></label><button class="btn" id="hkMAdd">＋ Kayda ekle</button></div></div>';
+}
+async function hkDoScan(k){ const el=$("#hkMvz"); const prev=el.querySelector('[data-hkscan="'+k+'"]'); if(prev){ prev.disabled=true; prev.textContent="Taranıyor…"; }
+  try{ const r=await fetch("/api/hukuk/tara",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({kaynak:k})}); const j=await r.json();
+    if(hkScan&&k!=="hepsi"){ hkScan.sonuclar=hkScan.sonuclar.filter(x=>x.kaynak!==k).concat(j.sonuclar||[]).sort((a,b)=>b.ilgi-a.ilgi); hkScan.hatalar=(j.hatalar||[]); hkScan.zaman=j.zaman||new Date().toISOString(); } else hkScan={sonuclar:j.sonuclar||[],hatalar:j.hatalar||[],zaman:j.zaman||new Date().toISOString()};
+  }catch(e){ alert("Tarama başarısız: "+e.message); } renderMevzuat(); }
+/* ---- H2 Hukuki Risk ---- */
+function hkKat(t){ const s=String(t).toLocaleLowerCase("tr"); return /kvkk|kişisel veri|verbis/.test(s)?"KVKK ve veri":/vergi|sgk prim/.test(s)?"Vergi":/sözleşme|sozlesme|nda/.test(s)?"Sözleşme":/iş sözleşme|işçi|çalışan|sgk|ik /.test(s)?"İş hukuku ve SGK":/dava|icra|uyuşmazlık|ihtar/.test(s)?"Uyuşmazlık ve icra":/marka|patent|fm |fikri/.test(s)?"Fikri mülkiyet":/borç|kredi|teminat|leasing|finans/.test(s)?"Finansman ve teminat":/ihracat|yaptırım|gümrük/.test(s)?"İhracat ve yaptırım":/lisans|ruhsat|izin|regülasyon/.test(s)?"Regülasyon ve lisans":"Şirketler ve yönetişim"; }
+function renderHrisk(){ const T=HKT, R=HK.hrisk; const f=R.filter(r=>(!hkHrF.s||r.sirket===hkHrF.s)&&(!hkHrF.d||r.durum===hkHrF.d)); const acik=R.filter(r=>r.durum!=="kapandi");
+  const heat=Array.from({length:5},(_,i)=>5-i).map(o=>'<span class="ax">'+o+'</span>'+[1,2,3,4,5].map(e=>{ const n=acik.filter(r=>+r.o===o&&+r.e===e).length, s=o*e; const bg=s>=16?"var(--accent-bg)":s>=10?"var(--warn-bg)":s>=6?"var(--info-bg)":"var(--success-bg)"; const fg=s>=16?"var(--red-ink)":s>=10?"var(--warn)":s>=6?"var(--info)":"var(--success)"; return '<span class="c" style="background:'+bg+';color:'+fg+';opacity:'+(n?1:.45)+'">'+(n||"")+'</span>'; }).join("")).join("")+'<span></span>'+[1,2,3,4,5].map(e=>'<span class="ax">'+e+'</span>').join("");
+  const kat={}; acik.forEach(r=>kat[r.kategori]=(kat[r.kategori]||0)+1);
+  $("#hkHr").innerHTML=hkPage("H2 · Hukuk","Hukuki Risk Yönetimi","Portföy ve müvekkil şirketlerin hukuki riskleri tek kayıtta: olasılık × etki (5×5), riski kapatan kontrol, sahip ve termin. Panellerdeki 'Bunları yapmazsak' riskleri bir tıkla toplanır; Hukuki Risk Ajanı mevzuat ve uyum boşluklarından yeni risk önerir.",
+      '<button class="btn" id="hkHrTopla">Panellerden topla</button><button class="btn" data-hkajan="risk">Ajanla öner</button>')+
+    '<div class="tiles">'+hkTile("Açık risk",acik.length,R.length+" kayıt",true)+hkTile("Kritik (≥16)",acik.filter(r=>r.o*r.e>=16).length,"öncelikli")+hkTile("Yüksek (10–15)",acik.filter(r=>{const s=r.o*r.e;return s>=10&&s<16;}).length,"")+hkTile("Ajan önerisi",R.filter(r=>r.durum==="oneri").length,"onay bekliyor")+hkTile("Şirket",new Set(acik.map(r=>r.sirket)).size,"riskli")+'</div>'+
+    '<div class="grid2" style="margin-top:12px"><div class="card pad"><div class="sm muted" style="margin-bottom:8px">Isı haritası · açık riskler (dikey olasılık, yatay etki)</div><div class="hk-heat">'+heat+'</div></div><div class="card pad"><div class="sm muted" style="margin-bottom:8px">Kategori dağılımı</div>'+(Object.keys(kat).length?Object.entries(kat).sort((a,b)=>b[1]-a[1]).map(([k,n])=>'<div style="display:grid;grid-template-columns:170px 1fr 28px;gap:8px;align-items:center;font-size:12.5px;margin:4px 0"><span>'+esc(k)+'</span><div class="bar"><i style="width:'+Math.round(n/Math.max(...Object.values(kat))*100)+'%;background:var(--chart-2)"></i></div><span class="mono">'+n+'</span></div>').join(""):'<div class="sm muted">Henüz risk yok.</div>')+'</div></div>'+
+    '<div class="hk-h"><h3>Risk kaydı</h3><span class="hk-chips"><select class="hk-sel" id="hkHrS">'+hkOpt(hkCos(),hkHrF.s,"Tüm şirketler")+'</select><select class="hk-sel" id="hkHrD">'+hkOpt(Object.entries(HR_DUR).map(([k,v])=>[k,v[1]]),hkHrF.d,"Tüm durumlar")+'</select></span></div>'+
+    '<div class="card"><div class="scroll"><table class="tbl"><tr><th>Şirket</th><th>Risk · bunu yapmazsak</th><th>Kategori</th><th class="r">O</th><th class="r">E</th><th class="r">Skor</th><th>Kapatan kontrol</th><th>Sahip · termin</th><th>Durum</th><th></th></tr>'+
+    (f.length?f.slice().sort((a,b)=>b.o*b.e-a.o*a.e).map(r=>{ const s=r.o*r.e; return '<tr class="row"><td class="sm"><b>'+esc(r.sirket)+'</b>'+(r.kaynak?'<div class="muted" style="font-size:11px">'+esc(r.kaynak)+'</div>':"")+'</td><td class="nm">'+esc(r.risk)+(r.dayanak?'<div class="sm muted">Dayanak: '+esc(r.dayanak)+'</div>':"")+'</td><td class="sm">'+esc(r.kategori)+'</td><td class="r"><select class="hk-sel" data-hkrf="'+r.id+'|o">'+hkOpt([1,2,3,4,5],r.o)+'</select></td><td class="r"><select class="hk-sel" data-hkrf="'+r.id+'|e">'+hkOpt([1,2,3,4,5],r.e)+'</select></td><td class="r"><span class="pill '+(s>=16?"red":s>=10?"warn":s>=6?"info":"ok")+'">'+s+'</span></td><td class="sm">'+esc(r.kontrol||"—")+'</td><td class="sm">'+esc(r.sahip||"—")+(r.termin?'<div class="mono muted" style="font-size:11px">'+esc(r.termin)+'</div>':"")+'</td><td><select class="hk-sel" data-hkrf="'+r.id+'|durum">'+hkOpt(Object.entries(HR_DUR).map(([k,v])=>[k,v[1]]),r.durum)+'</select></td><td><button class="hk-x" data-hkrdel="'+r.id+'">✕</button></td></tr>'; }).join(""):'<tr><td colspan="10" class="sm muted">Kayıt yok. "Panellerden topla" ile başlayın ya da aşağıdan ekleyin.</td></tr>')+'</table></div></div>'+
+    '<div class="card pad" style="margin-top:10px"><div class="hk-form"><label>Şirket<select class="hk-sel" id="hkRS">'+hkOpt(hkCos())+'</select></label><label style="grid-column:span 2">Risk (bunu yapmazsak ne olur)<input class="hk-in w" id="hkRR"></label><label>Kategori<select class="hk-sel" id="hkRK">'+hkOpt(T.riskKategori)+'</select></label><label>Olasılık<select class="hk-sel" id="hkRO">'+hkOpt([1,2,3,4,5],3)+'</select></label><label>Etki<select class="hk-sel" id="hkRE">'+hkOpt([1,2,3,4,5],3)+'</select></label><label style="grid-column:span 2">Kapatan kontrol / belge<input class="hk-in w" id="hkRC"></label><label>Sahip<input class="hk-in w" id="hkRH" placeholder="Juris · Şirket Yönetimi"></label><label>Termin<input class="hk-in" type="date" id="hkRT"></label><button class="btn" id="hkRAdd">＋ Risk ekle</button></div></div>';
+}
+async function hkTopla(){ const b=$("#hkHrTopla"); b.disabled=true; b.textContent="Paneller okunuyor…"; let n=0;
+  const has=new Set(HK.hrisk.map(r=>r.sirket+"|"+r.rid));
+  RISKS.filter(r=>["Hukuk","Yapı","Yönetişim"].includes(r[2])).forEach(r=>{ if(has.has("MTFG|"+r[0])) return; HK.hrisk.push({id:hkId(),rid:r[0],sirket:"MTFG",risk:r[1],kategori:hkKat(r[1]),o:r[3],e:r[4],kontrol:r[6],sahip:r[5],durum:"acik",kaynak:"MTFG risk kaydı",dayanak:r[7]}); n++; });
+  for(const id of PANEL_IDS){ try{ const f=await ensureFrame(id); const list=JSON.parse(f.contentWindow.eval('JSON.stringify((typeof RISKS!=="undefined"?RISKS:[]).map(r=>({id:r.id,t:r.t,p:r.p,i:r.i,ifnot:r.ifnot})))'));
+    const nm=PANELS[id].name; list.forEach(r=>{ if(has.has(nm+"|"+r.id)) return; HK.hrisk.push({id:hkId(),rid:r.id,sirket:nm,risk:r.t,kategori:hkKat(r.t+" "+(r.ifnot||"")),o:+r.p||3,e:+r.i||3,kontrol:r.ifnot||"",sahip:"Juris",durum:"acik",kaynak:nm+" paneli · "+r.id}); n++; }); }catch(e){} }
+  await hkSave("hrisk"); renderHrisk(); $("#vnote").textContent=n+" risk panellerden ve MTFG risk kaydından toplandı."; }
+/* ---- H3 Uyum ---- */
+function renderUyum(){ const T=HKT, cos=hkPortCos(); const st=(p,c)=>(HK.uyumpol.find(r=>r.pol===p&&r.sirket===c)||{durum:"yok"}).durum;
+  const pct=c=>Math.round(T.politikalar.filter(p=>st(p.id,c)==="onayli").length/T.politikalar.length*100);
+  const isl=HK.uyumislem.slice().sort((a,b)=>String(b.tarih||"").localeCompare(String(a.tarih||"")));
+  $("#hkUy").innerHTML=hkPage("H3 · Hukuk","Uyum","Şirket içi politikalar ve işlem bazlı kontroller. Politika matrisi her şirkette hangi politikanın yürürlükte olduğunu gösterir (hücreye tıklayın: Yok → Taslak → Onaylı → Gözden geçir). İşlem kontrolleri, her işlem türü için dayanağıyla standart listeyi uygular.",
+      '<button class="btn" data-hkajan="uyum">Ajanla kontrol</button>')+
+    '<div class="tiles">'+cos.map((c,i)=>hkTile(esc(c),pct(c)+"<small>%</small>","onaylı politika",i===0)).join("")+'</div>'+
+    '<div class="hk-h"><h3>Politika matrisi</h3><span class="sub">'+T.politikalar.length+' politika × '+cos.length+' şirket</span></div>'+
+    '<div class="card"><div class="scroll"><table class="tbl"><tr><th>Politika</th><th>Gözden geçirme</th>'+cos.map(c=>'<th>'+esc(c)+'</th>').join("")+'</tr>'+
+    T.politikalar.map(p=>'<tr class="row"><td><b style="font-size:13px">'+esc(p.ad)+'</b><div class="sm muted">'+esc(p.dayanak)+'</div></td><td class="sm mono">'+p.ay+' ay</td>'+cos.map(c=>{ const d=st(p.id,c); const r=HK.uyumpol.find(x=>x.pol===p.id&&x.sirket===c); return '<td><button class="hk-cell '+d+'" data-hkpol="'+p.id+'|'+esc(c)+'" title="'+(r&&r.tarih?"Son değişiklik "+esc(r.tarih):"Kayıt yok")+'">'+UY_T[d]+'</button></td>'; }).join("")+'</tr>').join("")+'</table></div></div>'+
+    '<div class="hk-h"><h3>İşlem bazlı kontroller</h3><span class="sub">'+isl.length+' işlem · '+isl.filter(r=>(r.ok||[]).length>=(T.islemler[r.tur]?.kontroller.length||0)).length+' uyumlu</span></div>'+
+    '<div class="card pad"><div class="hk-form"><label>Şirket<select class="hk-sel" id="hkIS">'+hkOpt(hkCos())+'</select></label><label>İşlem türü<select class="hk-sel" id="hkIT">'+hkOpt(Object.entries(T.islemler).map(([k,v])=>[k,v.ad]))+'</select></label><label style="grid-column:span 2">Başlık<input class="hk-in w" id="hkIB" placeholder="Örn. Mercan Kimya ile tedarik sözleşmesi"></label><label>Tarih<input class="hk-in" type="date" id="hkID"></label><label>Sorumlu<input class="hk-in w" id="hkIR"></label><button class="btn" id="hkIAdd">＋ İşlem aç</button></div></div>'+
+    (isl.length?isl.map(r=>{ const t=T.islemler[r.tur]||{ad:r.tur,kontroller:[]}; const ok=r.ok||[]; const tam=ok.length>=t.kontroller.length;
+      return '<div class="hk-isl"><div class="t"><span class="pill '+(tam?"ok":"warn")+'">'+(tam?"Uyumlu":"Eksik "+(t.kontroller.length-ok.length))+'</span><b>'+esc(r.baslik||t.ad)+'</b><span class="sm muted">'+esc(r.sirket)+' · '+esc(t.ad)+(r.tarih?' · '+esc(r.tarih):"")+(r.sorumlu?' · '+esc(r.sorumlu):"")+'</span><span style="flex:1"></span><span class="mono sm">'+ok.length+'/'+t.kontroller.length+'</span><button class="hk-x" data-hkidel="'+r.id+'">✕</button></div><ul>'+t.kontroller.map(k=>'<li><label><input type="checkbox" data-hkok="'+r.id+'|'+k.id+'"'+(ok.includes(k.id)?" checked":"")+'><span>'+esc(k.t)+(k.dayanak?'<span class="d">'+esc(k.dayanak)+'</span>':"")+'</span></label></li>').join("")+'</ul></div>'; }).join(""):'<div class="sm muted" style="margin-top:10px">Henüz işlem yok. Yeni bir sözleşme, pay devri veya yatırım için işlem açın; kontrol listesi otomatik gelir.</div>');
+}
+/* ---- H4 Hukuk Ajanları ---- */
+function renderAjan(){ const T=HKT; const act=T.ajanlar.filter(a=>a.durum==="aktif"); if(!act.find(a=>a.id===hkAjSel)) hkAjSel=act[0].id; const sel=T.ajanlar.find(a=>a.id===hkAjSel);
+  let out="";
+  if(hkAjBusy) out='<div class="hk-busy"><span class="spin"></span>Ajan çalışıyor: araçları çağırıyor ve kayıtları okuyor… (bir dakikayı bulabilir)</div>';
+  else if(hkAjRun){ const r=hkAjRun;
+    out=(r.hata?'<div class="sec callout"><div><b>Çalışmadı:</b> '+esc(r.hata)+'</div></div>':
+      '<div class="hk-h"><h3>Adımlar · function calling</h3><span class="sub">'+r.adimlar.length+' araç çağrısı · '+esc(r.model)+' · $'+(+r.usage.usd).toFixed(3)+' · bu ay $'+(+r.ayUsd).toFixed(2)+(r.tavanUsd?' / $'+r.tavanUsd:"")+'</span></div>'+
+      '<ol class="hk-steps">'+r.adimlar.map((a,i)=>'<li class="'+(a.hata?"err":"")+'"><span class="n">'+(i+1)+'</span><div><code>'+esc(a.arac)+'</code> → '+esc(a.sonuc)+'<div class="g">'+esc(JSON.stringify(a.girdi)).slice(0,300)+'</div></div></li>').join("")+'</ol>'+
+      (r.durdu?'<div class="sec callout" style="margin-top:10px"><div>'+esc(r.durdu)+'</div></div>':"")+
+      (r.yazilan.length?'<div class="sec callout info" style="margin-top:10px"><div><b>'+r.yazilan.length+' öneri kayda eklendi.</b> Onay için: '+[...new Set(r.yazilan.map(y=>y.key))].map(k=>'<button class="btn" data-view="'+(k==="mevzuat"?"mevzuat":"hrisk")+'">'+(k==="mevzuat"?"Mevzuat Takip":"Hukuki Risk")+' →</button>').join(" ")+'</div></div>':"")+
+      '<div class="hk-h"><h3>Ajanın raporu</h3><span><button class="btn" id="hkAjLib">Kütüphaneye kaydet</button> <button class="btn" id="hkAjDoc">Word</button></span></div><div class="card pad hk-out">'+(r.yanit?md(r.yanit):'<span class="muted">Metin yanıt yok.</span>')+'</div>'); }
+  $("#hkAj").innerHTML=hkPage("H4 · Hukuk","Hukuk Ajanları","Ajanlar Claude'un function calling (araç kullanma) yeteneğiyle çalışır: her ajan yalnız kendisine tanımlı araçları çağırabilir, girdiler sunucuda şemayla doğrulanır. Kayda yazdıkları her şey 'Ajan önerisi' olarak düşer; onay sizdedir. Maliyet Vibe bütçesine işlenir (Admin → Vibe Maliyet).","")+
+    '<div class="hk-ag">'+T.ajanlar.map(a=>'<div class="card pad '+(a.durum==="aktif"?"":"planli")+'"><div style="display:flex;gap:8px;align-items:center"><b style="font-size:14px">'+esc(a.ad)+'</b><span class="pill '+(a.durum==="aktif"?"ok":"neu")+'">'+(a.durum==="aktif"?"Aktif":"Planlı")+'</span></div><div class="sm" style="color:var(--ink-2)">'+esc(a.amac)+'</div><div class="tools">'+a.araclar.map(t=>'<div><code>'+esc(t.ad)+'()</code> <span>'+esc(String(t.aciklama).split(". ")[0])+'</span></div>').join("")+'</div>'+(a.durum==="aktif"?'<div><button class="btn" data-hkajsel="'+a.id+'">Bu ajanı seç</button></div>':"")+'</div>').join("")+'</div>'+
+    '<div class="hk-h"><h3>Ajanı çalıştır</h3><span class="sub">'+esc(sel.ad)+'</span></div>'+
+    '<div class="card pad"><div class="hk-form"><label>Ajan<select class="hk-sel" id="hkAjA">'+hkOpt(act.map(a=>[a.id,a.ad]),hkAjSel)+'</select></label><label>Şirket kapsamı<select class="hk-sel" id="hkAjS">'+hkOpt(hkCos(),hkAjO.s,"Tüm portföy")+'</select></label><label>Model<select class="hk-sel" id="hkAjT">'+hkOpt([["quick","Hızlı · Haiku"],["default","Dengeli · Opus"],["complex","Derin · Fable"]],hkAjO.t)+'</select></label>'+(sel.araclar.some(t=>t.ad==="web_search")?'<label style="flex-direction:row;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2)"><input type="checkbox" id="hkAjW"'+(hkAjO.w?" checked":"")+'>Web araması (kaynak alan adlarıyla sınırlı)</label>':"")+'</div>'+
+    '<textarea class="hk-in w" id="hkAjQ" style="margin-top:8px" placeholder="'+esc(sel.ornek)+'"></textarea><div style="display:flex;gap:8px;margin-top:8px"><button class="btn primary" id="hkAjGo"'+(hkAjBusy?" disabled":"")+'>Çalıştır</button><button class="btn" id="hkAjEx">Örnekle doldur</button></div></div>'+out;
+}
+async function hkAjCalistir(){ const q=$("#hkAjQ").value.trim()||HKT.ajanlar.find(a=>a.id===hkAjSel).ornek; if(!q) return;
+  hkAjO={s:$("#hkAjS").value,t:$("#hkAjT").value,w:$("#hkAjW")?$("#hkAjW").checked:hkAjO.w};
+  const body={ajan:hkAjSel,girdi:q,sirket:hkAjO.s||undefined,baglam:hkPortfoyBaglam(),modelTier:hkAjO.t,web:$("#hkAjW")?hkAjO.w:false};
+  hkAjBusy=true; hkAjRun=null; renderAjan(); $("#hkAjQ").value=q;
+  try{ const r=await fetch("/api/ajan/calistir",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify(body)}); const j=await r.json().catch(()=>({hata:"HTTP "+r.status}));
+    hkAjRun=r.ok?{...j,girdi:q}:{hata:j.hata||("HTTP "+r.status)}; if(r.ok&&window.__vibeUsage) window.__vibeUsage({ayUsd:j.ayUsd,tavanUsd:j.tavanUsd,uyari:j.tavanUsd&&j.ayUsd>=j.tavanUsd*.8}); }
+  catch(e){ hkAjRun={hata:e.message}; }
+  hkAjBusy=false; await hkLoad(true); renderAjan(); $("#hkAjQ").value=q; }
+/* ---- olaylar ---- */
+document.addEventListener("click",async e=>{
+  const t=e.target; if(!t.closest) return;
+  const sc=t.closest("[data-hkscan]"); if(sc){ hkDoScan(sc.dataset.hkscan); return; }
+  const ff=t.closest("[data-hkf]"); if(ff){ hkScanF=ff.dataset.hkf; renderMevzuat(); return; }
+  const ad=t.closest("[data-hkadd]"); if(ad){ const x=hkScan.sonuclar[+ad.dataset.hkadd]; if(!x) return; HK.mevzuat.unshift({id:hkId(),kaynak:x.kaynak,tarih:x.tarih,baslik:x.baslik,url:x.url,etiketler:x.etiketler,sirketler:[],etki:"",durum:"yeni",ekleyen:ME_NAME||"kullanıcı",eklendi:new Date().toISOString()}); await hkSave("mevzuat"); renderMevzuat(); return; }
+  const md_=t.closest("[data-hkmdel]"); if(md_){ if(!confirm("Bu mevzuat kaydı silinsin mi?")) return; HK.mevzuat=HK.mevzuat.filter(r=>r.id!==md_.dataset.hkmdel); await hkSave("mevzuat"); renderMevzuat(); return; }
+  const et=t.closest("[data-hketki]"); if(et){ const r=HK.mevzuat.find(x=>x.id===et.dataset.hketki); if(!r) return; go("vibe"); alan="hukuk"; setScope("all"); src.hukuk=true; renderScope(); renderSrcs();
+    $("#vq").value="Şu düzenlemenin MTFG portföyü ve Juris müvekkilleri üzerindeki etkisini analiz et: \""+r.baslik+"\" ("+r.url+"). Hangi şirketler etkilenir, ne değişir, yürürlük ve geçiş süresi, yapılması gerekenler (sorumlu, termin), gerekiyorsa uyum politikası ve risk kaydı önerisi. Metne erişemiyorsan bunu açıkça belirt ve başlıktan çıkarım yaptığını söyle."; run(); return; }
+  if(t.closest("#hkMAdd")){ const b=$("#hkMB").value.trim(), u=$("#hkMU").value.trim(); if(!b||!/^https?:\/\//.test(u)){ alert("Başlık ve resmi kaynak bağlantısı (https://…) gerekli."); return; }
+    HK.mevzuat.unshift({id:hkId(),kaynak:$("#hkMK").value,tarih:$("#hkMT").value||new Date().toISOString().slice(0,10),baslik:b,url:u,sirketler:[...$("#hkMS").selectedOptions].map(o=>o.value),etki:"",durum:"yeni",ekleyen:ME_NAME||"kullanıcı",eklendi:new Date().toISOString()}); await hkSave("mevzuat"); renderMevzuat(); return; }
+  if(t.closest("#hkHrTopla")){ hkTopla(); return; }
+  if(t.closest("#hkRAdd")){ const r=$("#hkRR").value.trim(); if(!r){ alert("Risk metni gerekli."); return; } HK.hrisk.unshift({id:hkId(),sirket:$("#hkRS").value,risk:r,kategori:$("#hkRK").value,o:+$("#hkRO").value,e:+$("#hkRE").value,kontrol:$("#hkRC").value.trim(),sahip:$("#hkRH").value.trim(),termin:$("#hkRT").value,durum:"acik",kaynak:"elle"}); await hkSave("hrisk"); renderHrisk(); return; }
+  const rd=t.closest("[data-hkrdel]"); if(rd){ if(!confirm("Risk silinsin mi?")) return; HK.hrisk=HK.hrisk.filter(r=>r.id!==rd.dataset.hkrdel); await hkSave("hrisk"); renderHrisk(); return; }
+  const pc=t.closest("[data-hkpol]"); if(pc){ const [p,c]=pc.dataset.hkpol.split("|"); let r=HK.uyumpol.find(x=>x.pol===p&&x.sirket===c); if(!r){ r={id:p+"|"+c,pol:p,sirket:c,durum:"yok"}; HK.uyumpol.push(r); } r.durum=UY_DUR[(UY_DUR.indexOf(r.durum)+1)%UY_DUR.length]; r.tarih=new Date().toISOString().slice(0,10); r.by=ME_NAME||""; await hkSave("uyumpol"); renderUyum(); return; }
+  if(t.closest("#hkIAdd")){ HK.uyumislem.unshift({id:hkId(),sirket:$("#hkIS").value,tur:$("#hkIT").value,baslik:$("#hkIB").value.trim(),tarih:$("#hkID").value||new Date().toISOString().slice(0,10),sorumlu:$("#hkIR").value.trim(),ok:[]}); await hkSave("uyumislem"); renderUyum(); return; }
+  const idl=t.closest("[data-hkidel]"); if(idl){ if(!confirm("İşlem silinsin mi?")) return; HK.uyumislem=HK.uyumislem.filter(r=>r.id!==idl.dataset.hkidel); await hkSave("uyumislem"); renderUyum(); return; }
+  const aj=t.closest("[data-hkajan]"); if(aj){ hkAjSel=aj.dataset.hkajan; go("ajan"); return; }
+  const as=t.closest("[data-hkajsel]"); if(as){ hkAjSel=as.dataset.hkajsel; hkAjRun=null; renderAjan(); $("#hkAjQ").focus(); return; }
+  if(t.closest("#hkAjGo")){ hkAjCalistir(); return; }
+  if(t.closest("#hkAjEx")){ $("#hkAjQ").value=HKT.ajanlar.find(a=>a.id===hkAjSel).ornek; return; }
+  if(t.closest("#hkAjLib")&&hkAjRun){ library.unshift({id:uid(),title:"Ajan · "+HKT.ajanlar.find(a=>a.id===hkAjRun.ajan).ad+" · "+new Date().toLocaleDateString("tr-TR"),scope:"all",alan:"hukuk",date:Date.now(),text:hkAjRun.yanit,sess:"Hukuk Ajanları"}); saveLib(); $("#vnote").textContent="Ajan raporu Çıktı Kütüphanesi'ne kaydedildi."; t.textContent="Kaydedildi"; return; }
+  if(t.closest("#hkAjDoc")&&hkAjRun){ jurisExport("docx",HKT.ajanlar.find(a=>a.id===hkAjRun.ajan).ad+" raporu",hkAjRun.yanit,{kapsam:"Hukuk",kaynak:"Hukuk Ajanları · "+hkAjRun.model}); return; }
+});
+document.addEventListener("change",async e=>{ const t=e.target;
+  const mf=t.closest&&t.closest("[data-hkmf]"); if(mf){ const [id,k]=mf.dataset.hkmf.split("|"); const r=HK.mevzuat.find(x=>x.id===id); if(r){ r[k]=t.value; await hkSave("mevzuat"); if(k!=="sorumlu") renderMevzuat(); } return; }
+  const rf=t.closest&&t.closest("[data-hkrf]"); if(rf){ const [id,k]=rf.dataset.hkrf.split("|"); const r=HK.hrisk.find(x=>x.id===id); if(r){ r[k]=k==="durum"?t.value:+t.value; await hkSave("hrisk"); renderHrisk(); } return; }
+  const ok=t.closest&&t.closest("[data-hkok]"); if(ok){ const [id,kid]=ok.dataset.hkok.split("|"); const r=HK.uyumislem.find(x=>x.id===id); if(r){ r.ok=r.ok||[]; r.ok=t.checked?[...new Set([...r.ok,kid])]:r.ok.filter(x=>x!==kid); await hkSave("uyumislem"); renderUyum(); } return; }
+  if(t.id==="hkScanK"){ hkScanK=t.value; renderMevzuat(); return; }
+  if(t.id==="hkHrS"){ hkHrF.s=t.value; renderHrisk(); return; } if(t.id==="hkHrD"){ hkHrF.d=t.value; renderHrisk(); return; }
+  if(t.id==="hkAjA"){ hkAjSel=t.value; hkAjRun=null; renderAjan(); return; }
+});
+hkTanim().then(()=>hkLoad()).catch(()=>{});
+
 /* ======= NAV ======= */
-const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi",egitim:"Eğitim Programları",odak:"Haftalık Odak","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI","p-juris":"Juris","p-fevup":"Fevup Brands","p-marqby":"Marqby","p-d2x":"D2-X","p-meridyen":"Meridyen",oturum:"Oturum"};
+const titles={vibe:"Vibe Management",home:"Genel Bakış",thesis:"Yatırım Tezi",portfolio:"Portföy",funnel:"İş Geliştirme Funnel'ı",vb:"Venture Building",os:"İşletim Sistemi",capital:"Bütçe, Nakit Akışı ve Sermaye",value:"Değerleme ve Networth",risk:"Risk Yönetimi",dataroom:"Dayanak Dokümanlar",cadence:"Yönetişim Takvimi",egitim:"Eğitim Programları",odak:"Haftalık Odak","p-onscala":"Onscala","p-codemag":"Codemag","p-zyrone":"Zyrone","p-qervan":"Qervan – WeTrade","p-meown":"Meown AI","p-juris":"Juris","p-fevup":"Fevup Brands","p-marqby":"Marqby","p-d2x":"D2-X","p-meridyen":"Meridyen",oturum:"Oturum",mevzuat:"Mevzuat Takip",hrisk:"Hukuki Risk",uyum:"Uyum",ajan:"Hukuk Ajanları"};
 let current="vibe";
 function go(v){
   if(!titles[v]) v="vibe"; current=v; const isPanel=v.startsWith("p-");
@@ -2129,6 +2314,7 @@ function go(v){
   $("#crumb").innerHTML=v==="vibe"?"<b>Vibe Management</b> · Claude Studio":isPanel?`MTFG · Kurumsal Yönetim Panelleri · <b>${titles[v]}</b>`:`MTFG · Portföy · <b>${titles[v]}</b>`;
   if(isPanel) showPanel(v.slice(2));
   sxOnGo(v);
+  if(["mevzuat","hrisk","uyum","ajan"].includes(v)){ $("#crumb").innerHTML=`MTFG · Hukuk · <b>${titles[v]}</b>`; hkShow(v); }
   closeNav(); if(!isPanel) $("#main").scrollTop=0;
   try{localStorage.setItem("mtfg-view",v)}catch(e){}
 }
